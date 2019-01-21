@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="mozhucy">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="mozhucy">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>ISCC 决赛 android 1000 · mozhucy&#39;s blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin="">
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin="">
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">mozhucy&#39;s blog.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">ISCC 决赛 android 1000</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">mozhucy's blog.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            ISCC 决赛 android 1000
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2.6k</span>阅读时长: <span class="post-count reading-time">14 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/08/22</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="iscc决赛android-1000"><a href="#iscc决赛android-1000" class="headerlink" title="iscc决赛android 1000"></a>iscc决赛android 1000</h1><h2 id="解题前序"><a href="#解题前序" class="headerlink" title="解题前序"></a>解题前序</h2><ul>
+<li>查了一下apk内部,可以拿到一个.dex,一个.jar和两个.so</li>
+<li>解.jar发现其实是一个加密的.dex,将dex转成jar以后发现checkflag的函数</li>
+</ul>
+<h2 id="分析checkflag函数"><a href="#分析checkflag函数" class="headerlink" title="分析checkflag函数"></a>分析checkflag函数</h2><ul>
+<li>发现其中先定义了一个二维数组,然后将其传入一个enc函数,这个函数是反编译不出来的,应该是加了壳</li>
+<li>后分析libcore.so函数,发现其中有一个函数名以及函数的操作很可疑,函数首先将一串加密过的字符串还原,然后经过几个类似于取解密后字符串中的括号括起来的部分,按照函数原有逻辑顺序解一下,发现了主要check函数的名字,后面还接了地址(0x159CBC)</li>
+<li>根据地址定位函数,IDA中那块字节码是乱掉的,不能被翻译成汇编,所以现将其变成jar汇编,然后来分析汇编</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line">CODE:00159BCC # Method 0 (0x0)</span><br><span class="line">CODE:00159BCC                 .short 0xC              # Number of registers : 0xc</span><br><span class="line">CODE:00159BCE                 .short 1                # Size of input args (in words) : 0x1</span><br><span class="line">CODE:00159BD0                 .short 2                # Size of output args (in words) : 0x2</span><br><span class="line">CODE:00159BD2                 .short 0                # Number of try_items : 0x0</span><br><span class="line">CODE:00159BD4                 .int byte_3028B7        # Debug info</span><br><span class="line">CODE:00159BD8                 .int 0xBB               # Size of bytecode (in 16-bit units): 0xbb</span><br><span class="line">CODE:00159BDC # ---------------------------------------------------------------------------</span><br><span class="line">CODE:00159BDC                 const/4                         v10, 2</span><br><span class="line">CODE:00159BDE                 const/4                         v9, 1</span><br><span class="line">CODE:00159BE0                 const/4                         v8, 0</span><br><span class="line">CODE:00159BE2                 .prologue_end</span><br><span class="line">CODE:00159BE2                 .line 15</span><br><span class="line">CODE:00159BE2                 const/4                         v2, 0</span><br><span class="line">CODE:00159BE4                 .line 16</span><br><span class="line">CODE:00159BE4                 new-instance                    v0, &lt;t: StringBuilder&gt;</span><br><span class="line">CODE:00159BE8                 invoke-direct                   &#123;v0&#125;, &lt;void StringBuilder.&lt;init&gt;() imp. @ _def_StringBuilder__init_@V&gt;</span><br><span class="line">CODE:00159BEE                 .line 17</span><br><span class="line">CODE:00159BEE                 const/4                         v1, 0</span><br><span class="line">CODE:00159BF0</span><br><span class="line">CODE:00159BF0 loc_159BF0:                             # CODE XREF: CODE:00159D44↓j</span><br><span class="line">CODE:00159BF0                 invoke-virtual                  &#123;v11&#125;, &lt;int String.length() imp. @ _def_String_length@I&gt;</span><br><span class="line">CODE:00159BF6                 move-result                     v5</span><br><span class="line">CODE:00159BF8                 if-ge                           v1, v5, loc_159D48</span><br><span class="line">CODE:00159BFC                 .line 18</span><br><span class="line">CODE:00159BFC                 sget-object                     v5, ProtectedClass_key</span><br><span class="line">CODE:00159C00                 aget-object                     v5, v5, v8</span><br><span class="line">CODE:00159C04                 aget                            v5, v5, v8</span><br><span class="line">CODE:00159C08                 invoke-virtual                  &#123;v11, v1&#125;, &lt;char String.charAt(int) imp. @ _def_String_charAt@CI&gt;</span><br><span class="line">CODE:00159C0E                 move-result                     v6</span><br><span class="line">CODE:00159C10                 add-int/lit8                    v6, v6, -0x41</span><br><span class="line">CODE:00159C14                 mul-int/2addr                   v5, v6</span><br><span class="line">CODE:00159C16                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159C1A                 aget-object                     v6, v6, v8</span><br><span class="line">CODE:00159C1E                 aget                            v6, v6, v9</span><br><span class="line">CODE:00159C22                 add-int/lit8                    v7, v1, 1</span><br><span class="line">CODE:00159C26                 .line 19</span><br><span class="line">CODE:00159C26                 invoke-virtual                  &#123;v11, v7&#125;, &lt;char String.charAt(int) imp. @ _def_String_charAt@CI&gt;</span><br><span class="line">CODE:00159C2C                 move-result                     v7</span><br><span class="line">CODE:00159C2E                 add-int/lit8                    v7, v7, -0x41</span><br><span class="line">CODE:00159C32                 mul-int/2addr                   v6, v7</span><br><span class="line">CODE:00159C34                 add-int/2addr                   v5, v6</span><br><span class="line">CODE:00159C36                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159C3A                 aget-object                     v6, v6, v8</span><br><span class="line">CODE:00159C3E                 aget                            v6, v6, v10</span><br><span class="line">CODE:00159C42                 add-int/lit8                    v7, v1, 2</span><br><span class="line">CODE:00159C46                 .line 20</span><br><span class="line">CODE:00159C46                 invoke-virtual                  &#123;v11, v7&#125;, &lt;char String.charAt(int) imp. @ _def_String_charAt@CI&gt;</span><br><span class="line">CODE:00159C4C                 move-result                     v7</span><br><span class="line">CODE:00159C4E                 add-int/lit8                    v7, v7, -0x41</span><br><span class="line">CODE:00159C52                 mul-int/2addr                   v6, v7</span><br><span class="line">CODE:00159C54                 add-int                         v2, v5, v6</span><br><span class="line">CODE:00159C58                 .line 21</span><br><span class="line">CODE:00159C58                 sget-object                     v5, ProtectedClass_key</span><br><span class="line">CODE:00159C5C                 aget-object                     v5, v5, v9</span><br><span class="line">CODE:00159C60                 aget                            v5, v5, v8</span><br><span class="line">CODE:00159C64                 invoke-virtual                  &#123;v11, v1&#125;, &lt;char String.charAt(int) imp. @ _def_String_charAt@CI&gt;</span><br><span class="line">CODE:00159C6A                 move-result                     v6</span><br><span class="line">CODE:00159C6C                 add-int/lit8                    v6, v6, -0x41</span><br><span class="line">CODE:00159C70                 mul-int/2addr                   v5, v6</span><br><span class="line">CODE:00159C72                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159C76                 aget-object                     v6, v6, v9</span><br><span class="line">CODE:00159C7A                 aget                            v6, v6, v9</span><br><span class="line">CODE:00159C7E                 add-int/lit8                    v7, v1, 1</span><br><span class="line">CODE:00159C82                 .line 22</span><br><span class="line">CODE:00159C82                 invoke-virtual                  &#123;v11, v7&#125;, &lt;char String.charAt(int) imp. @ _def_String_charAt@CI&gt;</span><br><span class="line">CODE:00159C88                 move-result                     v7</span><br><span class="line">CODE:00159C8A                 add-int/lit8                    v7, v7, -0x41</span><br><span class="line">CODE:00159C8E                 mul-int/2addr                   v6, v7</span><br><span class="line">CODE:00159C90                 add-int/2addr                   v5, v6</span><br><span class="line">CODE:00159C92                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159C96                 aget-object                     v6, v6, v9</span><br><span class="line">CODE:00159C9A                 aget                            v6, v6, v10</span><br><span class="line">CODE:00159C9E                 add-int/lit8                    v7, v1, 2</span><br><span class="line">CODE:00159CA2                 .line 23</span><br><span class="line">CODE:00159CA2                 invoke-virtual                  &#123;v11, v7&#125;, &lt;char String.charAt(int) imp. @ _def_String_charAt@CI&gt;</span><br><span class="line">CODE:00159CA8                 move-result                     v7</span><br><span class="line">CODE:00159CAA                 add-int/lit8                    v7, v7, -0x41</span><br><span class="line">CODE:00159CAE                 mul-int/2addr                   v6, v7</span><br><span class="line">CODE:00159CB0                 add-int                         v3, v5, v6</span><br><span class="line">CODE:00159CB4                 .line 24</span><br><span class="line">CODE:00159CB4                 sget-object                     v5, ProtectedClass_key</span><br><span class="line">CODE:00159CB8                 aget-object                     v5, v5, v10</span><br><span class="line">CODE:00159CBC                 aget                            v5, v5, v8</span><br><span class="line">CODE:00159CC0                 invoke-virtual                  &#123;v11, v1&#125;, &lt;char String.charAt(int) imp. @ _def_String_charAt@CI&gt;</span><br><span class="line">CODE:00159CC6                 move-result                     v6</span><br><span class="line">CODE:00159CC8                 add-int/lit8                    v6, v6, -0x41</span><br><span class="line">CODE:00159CCC                 mul-int/2addr                   v5, v6</span><br><span class="line">CODE:00159CCE                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159CD2                 aget-object                     v6, v6, v10</span><br><span class="line">CODE:00159CD6                 aget                            v6, v6, v9</span><br><span class="line">CODE:00159CDA                 add-int/lit8                    v7, v1, 1</span><br><span class="line">CODE:00159CDE                 .line 25</span><br><span class="line">CODE:00159CDE                 invoke-virtual                  &#123;v11, v7&#125;, &lt;char String.charAt(int) imp. @ _def_String_charAt@CI&gt;</span><br><span class="line">CODE:00159CE4                 move-result                     v7</span><br><span class="line">CODE:00159CE6                 add-int/lit8                    v7, v7, -0x41</span><br><span class="line">CODE:00159CEA                 mul-int/2addr                   v6, v7</span><br><span class="line">CODE:00159CEC                 add-int/2addr                   v5, v6</span><br><span class="line">CODE:00159CEE                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159CF2                 aget-object                     v6, v6, v10</span><br><span class="line">CODE:00159CF6                 aget                            v6, v6, v10</span><br><span class="line">CODE:00159CFA                 add-int/lit8                    v7, v1, 2</span><br><span class="line">CODE:00159CFE                 .line 26</span><br><span class="line">CODE:00159CFE                 invoke-virtual                  &#123;v11, v7&#125;, &lt;char String.charAt(int) imp. @ _def_String_charAt@CI&gt;</span><br><span class="line">CODE:00159D04                 move-result                     v7</span><br><span class="line">CODE:00159D06                 add-int/lit8                    v7, v7, -0x41</span><br><span class="line">CODE:00159D0A                 mul-int/2addr                   v6, v7</span><br><span class="line">CODE:00159D0C                 add-int                         v4, v5, v6</span><br><span class="line">CODE:00159D10                 .line 27</span><br><span class="line">CODE:00159D10                 rem-int/lit8                    v5, v2, 0x1A</span><br><span class="line">CODE:00159D14                 add-int/lit8                    v5, v5, 0x41</span><br><span class="line">CODE:00159D18                 int-to-char                     v5, v5</span><br><span class="line">CODE:00159D1A                 invoke-virtual                  &#123;v0, v5&#125;, &lt;ref StringBuilder.append(char) imp. @ _def_StringBuilder_append@LC&gt;</span><br><span class="line">CODE:00159D20                 .line 28</span><br><span class="line">CODE:00159D20                 rem-int/lit8                    v5, v3, 0x1A</span><br><span class="line">CODE:00159D24                 add-int/lit8                    v5, v5, 0x41</span><br><span class="line">CODE:00159D28                 int-to-char                     v5, v5</span><br><span class="line">CODE:00159D2A                 invoke-virtual                  &#123;v0, v5&#125;, &lt;ref StringBuilder.append(char) imp. @ _def_StringBuilder_append@LC&gt;</span><br><span class="line">CODE:00159D30                 .line 29</span><br><span class="line">CODE:00159D30                 rem-int/lit8                    v5, v4, 0x1A</span><br><span class="line">CODE:00159D34                 add-int/lit8                    v5, v5, 0x41</span><br><span class="line">CODE:00159D38                 int-to-char                     v5, v5</span><br><span class="line">CODE:00159D3A                 invoke-virtual                  &#123;v0, v5&#125;, &lt;ref StringBuilder.append(char) imp. @ _def_StringBuilder_append@LC&gt;</span><br><span class="line">CODE:00159D40                 .line 17</span><br><span class="line">CODE:00159D40                 add-int/lit8                    v1, v1, 3</span><br><span class="line">CODE:00159D44                 goto/16                         loc_159BF0</span><br><span class="line">CODE:00159D48 # ---------------------------------------------------------------------------</span><br><span class="line">CODE:00159D48 .end local &apos;temp2&apos;</span><br><span class="line">CODE:00159D48 .end local &apos;temp3&apos;</span><br><span class="line">CODE:00159D48</span><br><span class="line">CODE:00159D48 loc_159D48:                             # CODE XREF: CODE:00159BF8↑j</span><br><span class="line">CODE:00159D48                 .line 32</span><br><span class="line">CODE:00159D48                 invoke-virtual                  &#123;v0&#125;, &lt;ref StringBuilder.toString() imp. @ _def_StringBuilder_toString@L&gt;</span><br><span class="line">CODE:00159D4E                 move-result-object              v5</span><br><span class="line">CODE:00159D50                 return-object                   v5</span><br><span class="line">CODE:00159D50 # ---------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+<ul>
+<li>分析一下函数主要逻辑</li>
+<li>函数首先给v8 v9 v10函数分别赋值0 1 2</li>
+<li>然后程序分配了一块内存来作为输出</li>
+<li>然后函数进入了一轮循环,大体上来看,函数是以字符串长度和循环下标来作为判断,循环尾部会给i每次递增三</li>
+<li>细分析循环内部逻辑,这一段大概有9段类似的结构,选取其中的第一块来分析</li>
+<li>首先获取二维数组key的地址,然后以此加上两个常量,这个常量就是之前提到过的v8 v9 v10,这里猜测为key[x][y]中的x,y</li>
+<li>扫了一眼后面的指令,取常量的顺序依次是00,01,02,10,11,12,20,21,22可以确定,这个操作就是在取key对应的xy的值</li>
+<li>随后函数又从input里面取值,{input,i}这样的取值方式取值后,将所取值减去65,值得注意的是寄存器v7,后续取值操作不再是{input,i},而是{input,v7}(其中v7 = i + 1或2),这就可以解释为什么i += 3了</li>
+<li>依次进行这些操作以后,函数会将每一组(共三组)算得的值%26 + 65,append进入刚开始申请的的空间,最后输出函数,下面是我部分化简过一部分的汇编指令</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line">CODE:00159BE4                 new-instance                    output, &lt;t: StringBuilder&gt;</span><br><span class="line">CODE:00159BE8                 invoke-direct                   &#123;output&#125;, &lt;void StringBuilder.&lt;init&gt;() imp. @ _def_StringBuilder__init_@V&gt;</span><br><span class="line">CODE:00159BEE                 .line 17</span><br><span class="line">CODE:00159BEE                 const/4                         i, 0</span><br><span class="line">CODE:00159BF0</span><br><span class="line">CODE:00159BF0 loc_159BF0:                             # CODE XREF: CODE:00159D44↓j</span><br><span class="line">CODE:00159BF0                 invoke-virtual                  &#123;i1&#125;, &lt;int String.length() imp. @ _def_String_length@I&gt;</span><br><span class="line">CODE:00159BF6                 move-result                     v5</span><br><span class="line">CODE:00159BF8                 if-ge                           i, v5, loc_159D48</span><br><span class="line">CODE:00159BFC                 .line 18</span><br><span class="line">CODE:00159BFC                 sget-object                     v5, ProtectedClass_key</span><br><span class="line">CODE:00159C00                 aget-object                     v5, v5, 0</span><br><span class="line">CODE:00159C04                 aget                            v5, v5, 0</span><br><span class="line">CODE:00159C08                 invoke-virtual                  input[i]</span><br><span class="line">CODE:00159C0E                 move-result                     v6 = input[i]</span><br><span class="line">CODE:00159C10                 add-int/lit8                    v6 = input[i] - 0x41</span><br><span class="line">CODE:00159C14                 mul-int/2addr                   v5 = (input[i] - 0x41)*key[0][0]</span><br><span class="line">CODE:00159C16                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159C1A                 aget-object                     v6, v6, 0</span><br><span class="line">CODE:00159C1E                 aget                            v6, v6, 1</span><br><span class="line">CODE:00159C22                 add-int/lit8                    v7 = i + 1</span><br><span class="line">CODE:00159C26                 .line 19</span><br><span class="line">CODE:00159C26                 invoke-virtual                  input[i + 1]</span><br><span class="line">CODE:00159C2C                 move-result                     v7 = input[i + 1]</span><br><span class="line">CODE:00159C2E                 add-int/lit8                    v7 = input[i + 1] - 0x41</span><br><span class="line">CODE:00159C32                 mul-int/2addr                   v6 = (input[i + 1] - 0x41)*key[0][1]</span><br><span class="line">CODE:00159C34                 add-int/2addr                   v5, += v6</span><br><span class="line">CODE:00159C36                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159C3A                 aget-object                     v6, v6, 0</span><br><span class="line">CODE:00159C3E                 aget                            v6, v6, 2</span><br><span class="line">CODE:00159C42                 add-int/lit8                    v7 = i + 2</span><br><span class="line">CODE:00159C46                 .line 20</span><br><span class="line">CODE:00159C46                 invoke-virtual                  input[i + 2]</span><br><span class="line">CODE:00159C4C                 move-result                     v7 = input[i + 2]</span><br><span class="line">CODE:00159C4E                 add-int/lit8                    v7 = input[i + 2] - 0x41</span><br><span class="line">CODE:00159C52                 mul-int/2addr                   v6 = (input[i + 2] - 0x41)*key[0][2]</span><br><span class="line">CODE:00159C54                 add-int                         a1 = (input[i] - 0x41)*key[0][0] + (input[i + 1] - 0x41)*key[0][1] + (input[i + 2] - 0x41)*key[0][2]</span><br><span class="line">CODE:00159C58                 .line 21</span><br><span class="line">CODE:00159C58                 sget-object                     v5, ProtectedClass_key</span><br><span class="line">CODE:00159C5C                 aget-object                     v5, v5, 1</span><br><span class="line">CODE:00159C60                 aget                            v5, v5, 0</span><br><span class="line">CODE:00159C64                 invoke-virtual                  input[i]</span><br><span class="line">CODE:00159C6A                 move-result                     v6</span><br><span class="line">CODE:00159C6C                 add-int/lit8                    v6, v6, - 0x41</span><br><span class="line">CODE:00159C70                 mul-int/2addr                   v5, v6</span><br><span class="line">CODE:00159C72                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159C76                 aget-object                     v6, v6, 1</span><br><span class="line">CODE:00159C7A                 aget                            v6, v6, 1</span><br><span class="line">CODE:00159C7E                 add-int/lit8                    v7, i, 1</span><br><span class="line">CODE:00159C82                 .line 22</span><br><span class="line">CODE:00159C82                 invoke-virtual                  input[v7]</span><br><span class="line">CODE:00159C88                 move-result                     v7</span><br><span class="line">CODE:00159C8A                 add-int/lit8                    v7 = v7 - 0x41</span><br><span class="line">CODE:00159C8E                 mul-int/2addr                   v6, v7</span><br><span class="line">CODE:00159C90                 add-int/2addr                   v5, v6</span><br><span class="line">CODE:00159C92                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159C96                 aget-object                     v6, v6, 1</span><br><span class="line">CODE:00159C9A                 aget                            v6, v6, 2</span><br><span class="line">CODE:00159C9E                 add-int/lit8                    v7, i, 2</span><br><span class="line">CODE:00159CA2                 .line 23</span><br><span class="line">CODE:00159CA2                 invoke-virtual                  input[v7]</span><br><span class="line">CODE:00159CA8                 move-result                     v7</span><br><span class="line">CODE:00159CAA                 add-int/lit8                    v7 = v7 - 0x41</span><br><span class="line">CODE:00159CAE                 mul-int/2addr                   v6, v7</span><br><span class="line">CODE:00159CB0                 add-int                         a2, v5, v6</span><br><span class="line">CODE:00159CB4                 .line 24</span><br><span class="line">CODE:00159CB4                 sget-object                     v5, ProtectedClass_key</span><br><span class="line">CODE:00159CB8                 aget-object                     v5, v5, 2</span><br><span class="line">CODE:00159CBC                 aget                            v5, v5, 0</span><br><span class="line">CODE:00159CC0                 invoke-virtual                  input[i]</span><br><span class="line">CODE:00159CC6                 move-result                     v6</span><br><span class="line">CODE:00159CC8                 add-int/lit8                    v6, v6, - 0x41</span><br><span class="line">CODE:00159CCC                 mul-int/2addr                   v5, v6</span><br><span class="line">CODE:00159CCE                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159CD2                 aget-object                     v6, v6, 2</span><br><span class="line">CODE:00159CD6                 aget                            v6, v6, 1</span><br><span class="line">CODE:00159CDA                 add-int/lit8                    v7, i, 1</span><br><span class="line">CODE:00159CDE                 .line 25</span><br><span class="line">CODE:00159CDE                 invoke-virtual                  input[v7]</span><br><span class="line">CODE:00159CE4                 move-result                     v7</span><br><span class="line">CODE:00159CE6                 add-int/lit8                    v7 = v7 - 0x41</span><br><span class="line">CODE:00159CEA                 mul-int/2addr                   v6, v7</span><br><span class="line">CODE:00159CEC                 add-int/2addr                   v5, v6</span><br><span class="line">CODE:00159CEE                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159CF2                 aget-object                     v6, v6, 2</span><br><span class="line">CODE:00159CF6                 aget                            v6, v6, 2</span><br><span class="line">CODE:00159CFA                 add-int/lit8                    v7, i, 2</span><br><span class="line">CODE:00159CFE                 .line 26</span><br><span class="line">CODE:00159CFE                 invoke-virtual                  input[v7]</span><br><span class="line">CODE:00159D04                 move-result                     v7</span><br><span class="line">CODE:00159D06                 add-int/lit8                    v7 = v7 - 0x41</span><br><span class="line">CODE:00159D0A                 mul-int/2addr                   v6, v7</span><br><span class="line">CODE:00159D0C                 add-int                         a3, v5, v6</span><br><span class="line">CODE:00159D10                 .line 27</span><br><span class="line">CODE:00159D10                 rem-int/lit8                    v5 = a1 % 26</span><br><span class="line">CODE:00159D14                 add-int/lit8                    v5 = v5 + 0x41</span><br><span class="line">CODE:00159D18                 int-to-char                     v5 = chr(v5)</span><br><span class="line">CODE:00159D1A                 invoke-virtual                  output.append[v5]</span><br><span class="line">CODE:00159D20                 .line 28</span><br><span class="line">CODE:00159D20                 rem-int/lit8                    v5, a2, 26</span><br><span class="line">CODE:00159D24                 add-int/lit8                    v5, v5, 65</span><br><span class="line">CODE:00159D28                 int-to-char                     v5, v5</span><br><span class="line">CODE:00159D2A                 invoke-virtual                  output.append[v5]</span><br><span class="line">CODE:00159D30                 .line 29</span><br><span class="line">CODE:00159D30                 rem-int/lit8                    v5, a3, 26</span><br><span class="line">CODE:00159D34                 add-int/lit8                    v5, v5, 0x41</span><br><span class="line">CODE:00159D38                 int-to-char                     v5, v5</span><br><span class="line">CODE:00159D3A                 invoke-virtual                  output.append[v5]</span><br><span class="line">CODE:00159D40                 .line 17</span><br><span class="line">CODE:00159D40                 add-int/lit8                    i += 3</span><br><span class="line">CODE:00159D44                 goto/16</span><br></pre></td></tr></table></figure>
+<ul>
+<li>感觉挺像希尔加密的,但是现场不好去外网找工具,直接爆破好了</li>
+<li>爆破后发现有多解…maye,可能是取模的原因,但是希尔密码应该不是这样的啊…先不管这些,从爆出来的一些字符串,可以拼出flag的值 key{We1c0me_T0_1SCC2IO8}</li>
+<li><p>好的爆破脚本在这里</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> m[<span class="number">9</span>] = &#123;<span class="number">17</span>,<span class="number">12</span>,<span class="number">3</span>,<span class="number">21</span>,<span class="number">12</span>,<span class="number">9</span>,<span class="number">17</span>,<span class="number">14</span>,<span class="number">6</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> flag_enc[<span class="number">25</span>]=&#123;<span class="number">79</span>, <span class="number">89</span>, <span class="number">85</span>, <span class="number">71</span>, <span class="number">77</span>, <span class="number">67</span>, <span class="number">72</span>, <span class="number">62</span>, <span class="number">89</span>, <span class="number">87</span>, <span class="number">79</span>, <span class="number">67</span>, <span class="number">66</span>, <span class="number">88</span>, <span class="number">70</span>, <span class="number">41</span>, <span class="number">41</span>, <span class="number">57</span>, <span class="number">47</span>, <span class="number">51</span>, <span class="number">41</span>, <span class="number">89</span>, <span class="number">89</span>, <span class="number">69</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> ra,c1,c2,c3;</span><br><span class="line">    <span class="keyword">for</span>(ra = <span class="number">0</span>;ra &lt;<span class="number">8</span>;ra++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(c1 = <span class="number">48</span>;c1 &lt; <span class="number">127</span>; c1++)</span><br><span class="line">            <span class="keyword">for</span>(c2 = <span class="number">48</span>;c2 &lt; <span class="number">127</span>; c2++)</span><br><span class="line">                <span class="keyword">for</span>(c3 = <span class="number">48</span>;c3 &lt; <span class="number">127</span>; c3++)&#123;</span><br><span class="line">                        <span class="keyword">int</span> a1 = (c1<span class="number">-65</span>)*m[<span class="number">0</span>] + (c2<span class="number">-65</span>)*m[<span class="number">1</span>] + (c3<span class="number">-65</span>)*m[<span class="number">2</span>];</span><br><span class="line">                        <span class="keyword">int</span> a2 = (c1<span class="number">-65</span>)*m[<span class="number">3</span>] + (c2<span class="number">-65</span>)*m[<span class="number">4</span>] + (c3<span class="number">-65</span>)*m[<span class="number">5</span>];</span><br><span class="line">                        <span class="keyword">int</span> a3 = (c1<span class="number">-65</span>)*m[<span class="number">6</span>] + (c2<span class="number">-65</span>)*m[<span class="number">7</span>] + (c3<span class="number">-65</span>)*m[<span class="number">8</span>];</span><br><span class="line">                        <span class="keyword">if</span>(<span class="number">65</span> + a1%<span class="number">26</span> == flag_enc[ra*<span class="number">3</span> + <span class="number">0</span>]&amp;&amp;</span><br><span class="line">                        <span class="number">65</span> + a2%<span class="number">26</span> == flag_enc[ra*<span class="number">3</span> + <span class="number">1</span>]&amp;&amp;</span><br><span class="line">                        <span class="number">65</span> + a3%<span class="number">26</span> == flag_enc[ra*<span class="number">3</span> + <span class="number">2</span>])&#123;</span><br><span class="line">                            <span class="built_in">printf</span>(<span class="string">"%c%c%c "</span>,c1,c2,c3);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n===================================================================\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>之后py了出题的师傅,师傅说这是一个自己做的壳,一开始还想加反调试和混淆(还要感谢出题师傅手下留情 ,不过正确的思路据说是修复一下直接上jd-gui,我太菜了所以绕了远路只好硬怼汇编= =</p>
+</li>
+<li>还要说一下不同语言的取余操作内部好像是不一样的,比如c语言对负数取余就能出负数,而python只能是正数,一开始被这个鸟东西坑了好久..</li>
+<li>还是要感谢北理的师傅们的,也学到了很多东西,希望明年还能来打(逃</li>
+</ul>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://yoursite.com">mozhucy</a>
+            </p><p>原文链接：<a href="http://yoursite.com/2018/08/22/iscc安卓逆向/">http://yoursite.com/2018/08/22/iscc安卓逆向/</a>
+            </p><p>发表日期：<a href="http://yoursite.com/2018/08/22/iscc安卓逆向/">August 22nd 2018, 11:11:28 am</a>
+            </p><p>更新日期：<a href="http://yoursite.com/2018/08/22/iscc安卓逆向/">August 22nd 2018, 11:11:28 am</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2018/08/29/frida/" title="Hook学习">
+                    <div class="nextTitle">Hook学习</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2018/08/21/Reversing.kr--position&hateintel/" title="Position&hateintel&Wrong byte!">
+                    <div class="prevTitle">Position&hateintel&Wrong byte!</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:930109649@qq.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/mozhucy" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iscc决赛android-1000"><span class="toc-number">1.</span> <span class="toc-text">iscc决赛android 1000</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#解题前序"><span class="toc-number">1.1.</span> <span class="toc-text">解题前序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分析checkflag函数"><span class="toc-number">1.2.</span> <span class="toc-text">分析checkflag函数</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 52
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/02</span><a class="archive-post-title" href="/2018/12/02/byb/">百越杯逆向全解wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/29</span><a class="archive-post-title" href="/2018/11/29/wcyvm/">WcyVM</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/python_pyc/">Python的一些底层原理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/深入浅出密码学读书笔记/">深入浅出密码学读书笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/xnuca/">X-NUCA逆向部分题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href="/2018/11/15/tls/">hctf2018-部分逆向wp(Spiral是真的做不来)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/08</span><a class="archive-post-title" href="/2018/11/08/e1000/">e1000</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/21</span><a class="archive-post-title" href="/2018/09/21/babyheap/">babyheap</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/21</span><a class="archive-post-title" href="/2018/09/21/easycoin/">easycoin</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/20</span><a class="archive-post-title" href="/2018/09/20/wdctfpwn0/">网鼎杯半决赛pwn1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/20</span><a class="archive-post-title" href="/2018/09/20/wdctfpwn2/">网鼎杯半决赛pwn3</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href="/2018/09/19/level6/">0ctf - freenote</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/10</span><a class="archive-post-title" href="/2018/09/10/HomuraVM/">CTF二进制学习0X04</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/09</span><a class="archive-post-title" href="/2018/09/09/sus/">东南大学练习平台二进制全题解(持续更新中)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/29</span><a class="archive-post-title" href="/2018/08/29/frida/">Hook学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/22</span><a class="archive-post-title" href="/2018/08/22/iscc安卓逆向/">ISCC 决赛 android 1000</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/radare2/">CTF二进制总结0x02</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/Reversing.kr--position&hateintel/">Position&hateintel&Wrong byte!</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/WHCTF2017 逆向签到题/">CTF二进制总结0x01</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/汇编入门/">CTF二进制总结0X03</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/19</span><a class="archive-post-title" href="/2018/08/19/qctf-asong/">qctf-asong</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/z3/">z3求解器的一些简单使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/14</span><a class="archive-post-title" href="/2018/08/14/homuranote/">Homuranote</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/14</span><a class="archive-post-title" href="/2018/08/14/sxqvm/">SxqVM v0.0.1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/13</span><a class="archive-post-title" href="/2018/08/13/suctf-enigma/">SUCTF-enigma</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href="/2018/08/08/angr/">符号执行</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/07</span><a class="archive-post-title" href="/2018/08/07/windows逆向/">windows逆向</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/16</span><a class="archive-post-title" href="/2018/07/16/RE/">2018国赛逆向</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/15</span><a class="archive-post-title" href="/2018/07/15/qctf-mips/">qctf-mips</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span><a class="archive-post-title" href="/2018/07/14/iscc/">ISCC逆向wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/sudu/">2017国赛re200 填数游戏</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/RingZer0 Authenticator/">RingZer0 Authenticator</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/suyuan/">2017国赛-re200-溯源</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/DLL注入0x1/">初试windows消息钩取</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/redhat/">redhat-re1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/PE文件头/">PE文件格式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/juckcode/">上海市ctf-re200-juckcode</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/maze/">cis2016-re300-maze</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/Reversing.kr--replace/">初试程序自修改</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/20</span><a class="archive-post-title" href="/2018/05/20/x64pwn/">安恒月赛pwn100</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span><a class="archive-post-title" href="/2018/04/16/PE文件头的利用/">ichunqiu-NoExec-200pt</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span><a class="archive-post-title" href="/2018/04/13/MYSQL/">网站开发入门-MYSQL数据库的基础使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href="/2018/03/18/NUST/">南理校赛二进制wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href="/2018/03/08/javascript0x1/">javascript 0x00</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href="/2018/03/07/逆向工程核心原理笔记/">Reversing-engineering</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/02</span><a class="archive-post-title" href="/2018/03/02/函数调用约定/">Calling Convention</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL1/">二进制手的Web路（sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL2/">二进制手的Web路 （sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL0/">二进制手的Web路（sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/07</span><a class="archive-post-title" href="/2018/02/07/二进制选手的Web路(WhaleCTF web部分writepu/">二进制手的WEB路（WhaleCTF web部分writeup</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/06</span><a class="archive-post-title" href="/2018/02/06/CTF二进制入门之路/">CTF二进制学习0x00</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="二进制"><span class="iconfont-archer">&#xe60a;</span>二进制</span>
+    
+        <span class="sidebar-category-name" data-categories="RE"><span class="iconfont-archer">&#xe60a;</span>RE</span>
+    
+        <span class="sidebar-category-name" data-categories="WEB"><span class="iconfont-archer">&#xe60a;</span>WEB</span>
+    
+        <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
+    
+        <span class="sidebar-category-name" data-categories="FE"><span class="iconfont-archer">&#xe60a;</span>FE</span>
+    
+        <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "mozhucy"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
