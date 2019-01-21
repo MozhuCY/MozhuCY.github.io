@@ -486,39 +486,6 @@ _security_init_cookie函数其实就是windows中的一个与栈保护机制相�
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2018/11/08/e1000/">
-            
-                <span>e1000</span>
-        </a>
-        <div class="abstract-content">
-            esxi e1000网卡逆向记录
-从选择从init_module函数开始逆向,首先是一个printk函数,printk函数是在内核态的printf,这里记录一下用户态和内核态
-
-
-用户态:非特权状态,在此状态下,代码会被硬件所限定,不能进行某些越权操作(如操作内核)内核态:特权状态,再次状态下,可以无限制地对系统存储、外部设备进行访问
-
-
-..11月终于解决了hexo的一些问题,wordpress还是用不习惯,希望这次hexo不要挂掉
-esxi网卡逆向还会继续更新
-
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href="/2018/09/10/HomuraVM/">
             
                 <span>CTF二进制学习0X04</span>
@@ -548,7 +515,7 @@ G: reg2 -= 1MC: reg2 = reg1 ^ input[i]T: reg2 += 1a: reg1 -= 1h: input...
     <article class="index-post">
         <a class="abstract-title" href="/2018/09/09/sus/">
             
-                <span>东南大学练习平台二进制全题解(持续更新中)</span>
+                <span>东南大学练习平台二进制全题解</span>
         </a>
         <div class="abstract-content">
             
@@ -622,6 +589,37 @@ frida是一款基于python和JavaScript的框架,...
             <!-- date  -->
             <div class="abstract-date">
                 <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/22</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2018/08/21/Reversing.kr--position&hateintel/">
+            
+                <span>Position&amp;hateintel&amp;Wrong byte!</span>
+        </a>
+        <div class="abstract-content">
+            爆破了一天题目.
+Position
+
+分析算法,直接爆破.
+1四个循环,一个校验.
+
+hateintel
+
+分析算法,直接爆破.12345678910111213141516171819l=[0x44, 0xF6, 0xF5, 0x57, 0xF5, 0xC6, 0x96, 0xB6, 0x56, 0xF5,0x14, 0x25, 0xD4, 0xF5, 0x96, 0xE6, 0x37, 0x47, 0x27, 0x57,0x36, 0x47, 0x96, 0x03, 0xE6, 0xF3, 0xA3, 0x92]def f(a):    a*=2    if(a&amp;0x100)...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/21</span>
             </div>
             <!-- tags  -->
             
@@ -1469,28 +1467,9 @@ frida是一款基于python和JavaScript的框架,...
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 52
+        Total : 51
         </div>
         <!-- search  -->
         
@@ -1516,6 +1495,11 @@ frida是一款基于python和JavaScript的框架,...
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/python_pyc/">Python的一些底层原理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/深入浅出密码学读书笔记/">深入浅出密码学读书笔记</a>
         </li>
     
@@ -1526,17 +1510,7 @@ frida是一款基于python和JavaScript的框架,...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/python_pyc/">Python的一些底层原理</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">11/15</span><a class="archive-post-title" href="/2018/11/15/tls/">hctf2018-部分逆向wp(Spiral是真的做不来)</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">11/08</span><a class="archive-post-title" href="/2018/11/08/e1000/">e1000</a>
         </li>
     
     
@@ -1571,7 +1545,7 @@ frida是一款基于python和JavaScript的框架,...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/09</span><a class="archive-post-title" href="/2018/09/09/sus/">东南大学练习平台二进制全题解(持续更新中)</a>
+            <span class="archive-post-date">09/09</span><a class="archive-post-title" href="/2018/09/09/sus/">东南大学练习平台二进制全题解</a>
         </li>
     
     
@@ -1586,16 +1560,6 @@ frida是一款基于python和JavaScript的框架,...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/WHCTF2017 逆向签到题/">CTF二进制总结0x01</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/radare2/">CTF二进制总结0x02</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/Reversing.kr--position&hateintel/">Position&hateintel&Wrong byte!</a>
         </li>
     
@@ -1606,17 +1570,27 @@ frida是一款基于python和JavaScript的框架,...
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/WHCTF2017 逆向签到题/">CTF二进制总结0x01</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/radare2/">CTF二进制总结0x02</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">08/19</span><a class="archive-post-title" href="/2018/08/19/qctf-asong/">qctf-asong</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/z3/">z3求解器的一些简单使用</a>
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/z3/">z3求解器的一些简单使用</a>
         </li>
     
     

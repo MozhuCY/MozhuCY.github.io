@@ -346,37 +346,6 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2018/08/21/Reversing.kr--position&hateintel/">
-            
-                <span>Position&amp;hateintel&amp;Wrong byte!</span>
-        </a>
-        <div class="abstract-content">
-            爆破了一天题目.
-Position
-
-分析算法,直接爆破.
-1四个循环,一个校验.
-
-hateintel
-
-分析算法,直接爆破.12345678910111213141516171819l=[0x44, 0xF6, 0xF5, 0x57, 0xF5, 0xC6, 0x96, 0xB6, 0x56, 0xF5,0x14, 0x25, 0xD4, 0xF5, 0x96, 0xE6, 0x37, 0x47, 0x27, 0x57,0x36, 0x47, 0x96, 0x03, 0xE6, 0xF3, 0xA3, 0x92]def f(a):    a*=2    if(a&amp;0x100)...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/21</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href="/2018/08/21/WHCTF2017 逆向签到题/">
             
                 <span>CTF二进制总结0x01</span>
@@ -635,6 +604,33 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
 接下来的函数如下
 
 12345678910111213141516int __userpurge Sudu::set_data@&lt;eax&gt;(int a1@&lt;ecx&gt;, Sudu *this, int (*a3)[9...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/06/07</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2018/06/07/RingZer0 Authenticator/">
+            
+                <span>RingZer0 Authenticator</span>
+        </a>
+        <div class="abstract-content">
+            
+OD跟了一波,只发现username必为RingZer0,随后IDA分析主函数,发现关键函数sub_4014A0,此时程序将username和password传入.
+函数得到返回值为1即可,函数里先判定username,随后判定password是否为纯数字.
+在函数尾,username和password分别传入两个函数,返回两个数组,然后对比其值
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354int __cdecl sub_4014A0...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1487,28 +1483,9 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 52
+        Total : 51
         </div>
         <!-- search  -->
         
@@ -1534,6 +1511,11 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/python_pyc/">Python的一些底层原理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/深入浅出密码学读书笔记/">深入浅出密码学读书笔记</a>
         </li>
     
@@ -1544,17 +1526,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/python_pyc/">Python的一些底层原理</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">11/15</span><a class="archive-post-title" href="/2018/11/15/tls/">hctf2018-部分逆向wp(Spiral是真的做不来)</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">11/08</span><a class="archive-post-title" href="/2018/11/08/e1000/">e1000</a>
         </li>
     
     
@@ -1589,7 +1561,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/09</span><a class="archive-post-title" href="/2018/09/09/sus/">东南大学练习平台二进制全题解(持续更新中)</a>
+            <span class="archive-post-date">09/09</span><a class="archive-post-title" href="/2018/09/09/sus/">东南大学练习平台二进制全题解</a>
         </li>
     
     
@@ -1604,16 +1576,6 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/WHCTF2017 逆向签到题/">CTF二进制总结0x01</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/radare2/">CTF二进制总结0x02</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/Reversing.kr--position&hateintel/">Position&hateintel&Wrong byte!</a>
         </li>
     
@@ -1624,17 +1586,27 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/WHCTF2017 逆向签到题/">CTF二进制总结0x01</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/radare2/">CTF二进制总结0x02</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">08/19</span><a class="archive-post-title" href="/2018/08/19/qctf-asong/">qctf-asong</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/z3/">z3求解器的一些简单使用</a>
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/z3/">z3求解器的一些简单使用</a>
         </li>
     
     

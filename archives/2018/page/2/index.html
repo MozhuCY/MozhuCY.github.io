@@ -346,33 +346,6 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2018/09/20/wdctfpwn2/">
-            
-                <span>网鼎杯半决赛pwn3</span>
-        </a>
-        <div class="abstract-content">
-            主menu的chara结构体1234500000000 chara           struc ; (sizeof=0x18, align=0x8, mappedto_7)00000000 inuse           dq ?00000008 name_ptr        dq ?00000010 type            dq ?00000018 chara           ends
-
-其中inuse限制了不能edit和double free,程序中没有溢出点
-虽然inuse可以不能直接读取内存,但是可以利用堆块包含来进行堆块内容的读取
-可控堆块size的堆,只有n...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/20</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href="/2018/09/19/level6/">
             
                 <span>0ctf - freenote</span>
@@ -430,7 +403,7 @@ G: reg2 -= 1MC: reg2 = reg1 ^ input[i]T: reg2 += 1a: reg1 -= 1h: input...
     <article class="index-post">
         <a class="abstract-title" href="/2018/09/09/sus/">
             
-                <span>东南大学练习平台二进制全题解(持续更新中)</span>
+                <span>东南大学练习平台二进制全题解</span>
         </a>
         <div class="abstract-content">
             
@@ -616,6 +589,40 @@ r2 ./hello[0x00000530]&gt;
             <!-- date  -->
             <div class="abstract-date">
                 <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/21</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2018/08/19/qctf-asong/">
+            
+                <span>qctf-asong</span>
+        </a>
+        <div class="abstract-content">
+            比较基础的一个逆向
+题目给了三个文件,一个内容是flagenc,一个是一份歌词,一个是elf文件
+第一个函数是对输入的flag取{}之间的值
+第二个函数是对于歌词的一个词频分析
+第三个函数是将flag和歌词词频分析后的flag进行加密
+
+加密过程:
+首先利用词频分析出的表进行一个单表置换
+随后再次进行一次置换
+然后一个简单的位运算,写入文件
+
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566f...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/19</span>
             </div>
             <!-- tags  -->
             
@@ -1463,28 +1470,9 @@ r2 ./hello[0x00000530]&gt;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 52
+        Total : 51
         </div>
         <!-- search  -->
         
@@ -1510,6 +1498,11 @@ r2 ./hello[0x00000530]&gt;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/python_pyc/">Python的一些底层原理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/深入浅出密码学读书笔记/">深入浅出密码学读书笔记</a>
         </li>
     
@@ -1520,17 +1513,7 @@ r2 ./hello[0x00000530]&gt;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/python_pyc/">Python的一些底层原理</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">11/15</span><a class="archive-post-title" href="/2018/11/15/tls/">hctf2018-部分逆向wp(Spiral是真的做不来)</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">11/08</span><a class="archive-post-title" href="/2018/11/08/e1000/">e1000</a>
         </li>
     
     
@@ -1565,7 +1548,7 @@ r2 ./hello[0x00000530]&gt;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/09</span><a class="archive-post-title" href="/2018/09/09/sus/">东南大学练习平台二进制全题解(持续更新中)</a>
+            <span class="archive-post-date">09/09</span><a class="archive-post-title" href="/2018/09/09/sus/">东南大学练习平台二进制全题解</a>
         </li>
     
     
@@ -1580,16 +1563,6 @@ r2 ./hello[0x00000530]&gt;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/WHCTF2017 逆向签到题/">CTF二进制总结0x01</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/radare2/">CTF二进制总结0x02</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/Reversing.kr--position&hateintel/">Position&hateintel&Wrong byte!</a>
         </li>
     
@@ -1600,17 +1573,27 @@ r2 ./hello[0x00000530]&gt;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/WHCTF2017 逆向签到题/">CTF二进制总结0x01</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/radare2/">CTF二进制总结0x02</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">08/19</span><a class="archive-post-title" href="/2018/08/19/qctf-asong/">qctf-asong</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/z3/">z3求解器的一些简单使用</a>
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/z3/">z3求解器的一些简单使用</a>
         </li>
     
     

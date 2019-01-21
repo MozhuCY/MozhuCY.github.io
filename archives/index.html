@@ -513,39 +513,6 @@ _security_init_cookie函数其实就是windows中的一个与栈保护机制相�
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2018/11/08/e1000/">
-            
-                <span>e1000</span>
-        </a>
-        <div class="abstract-content">
-            esxi e1000网卡逆向记录
-从选择从init_module函数开始逆向,首先是一个printk函数,printk函数是在内核态的printf,这里记录一下用户态和内核态
-
-
-用户态:非特权状态,在此状态下,代码会被硬件所限定,不能进行某些越权操作(如操作内核)内核态:特权状态,再次状态下,可以无限制地对系统存储、外部设备进行访问
-
-
-..11月终于解决了hexo的一些问题,wordpress还是用不习惯,希望这次hexo不要挂掉
-esxi网卡逆向还会继续更新
-
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href="/2018/09/21/babyheap/">
             
                 <span>babyheap</span>
@@ -617,6 +584,33 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
 定义了两个结构体,分别如下,一个是用户信息的结构体,一个是信息结构体
 
 1234567891011121314151617180000000000000000 message         struc ; (sizeof=0x18, align=0x8, mappedto_6)00000000 title           dq ?                    ; offset00000008 content         dq ?00000010 next            dq ?00000018 message         ends000000...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/20</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2018/09/20/wdctfpwn2/">
+            
+                <span>网鼎杯半决赛pwn3</span>
+        </a>
+        <div class="abstract-content">
+            主menu的chara结构体1234500000000 chara           struc ; (sizeof=0x18, align=0x8, mappedto_7)00000000 inuse           dq ?00000008 name_ptr        dq ?00000010 type            dq ?00000018 chara           ends
+
+其中inuse限制了不能edit和double free,程序中没有溢出点
+虽然inuse可以不能直接读取内存,但是可以利用堆块包含来进行堆块内容的读取
+可控堆块size的堆,只有n...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1469,28 +1463,9 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 52
+        Total : 51
         </div>
         <!-- search  -->
         
@@ -1516,6 +1491,11 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/python_pyc/">Python的一些底层原理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/深入浅出密码学读书笔记/">深入浅出密码学读书笔记</a>
         </li>
     
@@ -1526,17 +1506,7 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/python_pyc/">Python的一些底层原理</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">11/15</span><a class="archive-post-title" href="/2018/11/15/tls/">hctf2018-部分逆向wp(Spiral是真的做不来)</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">11/08</span><a class="archive-post-title" href="/2018/11/08/e1000/">e1000</a>
         </li>
     
     
@@ -1571,7 +1541,7 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/09</span><a class="archive-post-title" href="/2018/09/09/sus/">东南大学练习平台二进制全题解(持续更新中)</a>
+            <span class="archive-post-date">09/09</span><a class="archive-post-title" href="/2018/09/09/sus/">东南大学练习平台二进制全题解</a>
         </li>
     
     
@@ -1586,16 +1556,6 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/WHCTF2017 逆向签到题/">CTF二进制总结0x01</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/radare2/">CTF二进制总结0x02</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/Reversing.kr--position&hateintel/">Position&hateintel&Wrong byte!</a>
         </li>
     
@@ -1606,17 +1566,27 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/WHCTF2017 逆向签到题/">CTF二进制总结0x01</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/radare2/">CTF二进制总结0x02</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">08/19</span><a class="archive-post-title" href="/2018/08/19/qctf-asong/">qctf-asong</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/z3/">z3求解器的一些简单使用</a>
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/z3/">z3求解器的一些简单使用</a>
         </li>
     
     

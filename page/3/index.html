@@ -359,40 +359,6 @@ height:50vh;
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2018/08/19/qctf-asong/">
-            
-                <span>qctf-asong</span>
-        </a>
-        <div class="abstract-content">
-            比较基础的一个逆向
-题目给了三个文件,一个内容是flagenc,一个是一份歌词,一个是elf文件
-第一个函数是对输入的flag取{}之间的值
-第二个函数是对于歌词的一个词频分析
-第三个函数是将flag和歌词词频分析后的flag进行加密
-
-加密过程:
-首先利用词频分析出的表进行一个单表置换
-随后再次进行一次置换
-然后一个简单的位运算,写入文件
-
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566f...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/19</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href="/2018/08/16/z3/">
             
                 <span>z3求解器的一些简单使用</span>
@@ -663,6 +629,32 @@ sm就是之前载入文件,设定入口点,建立模拟对象,现在就可以exp
             <!-- date  -->
             <div class="abstract-date">
                 <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/07/15</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2018/07/14/iscc/">
+            
+                <span>ISCC逆向wp</span>
+        </a>
+        <div class="abstract-content">
+            re150
+upx壳,重定位,选择带壳调试,OD载入,在入口点单步,然后在数据窗口ESP处下硬件断点
+运行程序,程序断在popad下一行,此时定位目标字符串,在校验函数处下第二断点
+运行程序,从寄存器中跟随,找到扰乱后的测试字符串,跑脚本1234567n = "edfgcbhia0jk98lm76no54pq32rs1"enc = "s_imsaplw_e_siishtnt&#123;g_ialt&#125;F"table = "1234567890abcdefghijklmnopqrs"flag = ""for i in table:    flag += enc[n.index(i)...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/07/14</span>
             </div>
             <!-- tags  -->
             
@@ -1596,28 +1588,9 @@ sm就是之前载入文件,设定入口点,建立模拟对象,现在就可以exp
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 52
+        Total : 51
         </div>
         <!-- search  -->
         
@@ -1643,6 +1616,11 @@ sm就是之前载入文件,设定入口点,建立模拟对象,现在就可以exp
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/python_pyc/">Python的一些底层原理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/深入浅出密码学读书笔记/">深入浅出密码学读书笔记</a>
         </li>
     
@@ -1653,17 +1631,7 @@ sm就是之前载入文件,设定入口点,建立模拟对象,现在就可以exp
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/python_pyc/">Python的一些底层原理</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">11/15</span><a class="archive-post-title" href="/2018/11/15/tls/">hctf2018-部分逆向wp(Spiral是真的做不来)</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">11/08</span><a class="archive-post-title" href="/2018/11/08/e1000/">e1000</a>
         </li>
     
     
@@ -1698,7 +1666,7 @@ sm就是之前载入文件,设定入口点,建立模拟对象,现在就可以exp
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/09</span><a class="archive-post-title" href="/2018/09/09/sus/">东南大学练习平台二进制全题解(持续更新中)</a>
+            <span class="archive-post-date">09/09</span><a class="archive-post-title" href="/2018/09/09/sus/">东南大学练习平台二进制全题解</a>
         </li>
     
     
@@ -1713,16 +1681,6 @@ sm就是之前载入文件,设定入口点,建立模拟对象,现在就可以exp
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/WHCTF2017 逆向签到题/">CTF二进制总结0x01</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/radare2/">CTF二进制总结0x02</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/Reversing.kr--position&hateintel/">Position&hateintel&Wrong byte!</a>
         </li>
     
@@ -1733,17 +1691,27 @@ sm就是之前载入文件,设定入口点,建立模拟对象,现在就可以exp
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/WHCTF2017 逆向签到题/">CTF二进制总结0x01</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/radare2/">CTF二进制总结0x02</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">08/19</span><a class="archive-post-title" href="/2018/08/19/qctf-asong/">qctf-asong</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/z3/">z3求解器的一些简单使用</a>
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/z3/">z3求解器的一些简单使用</a>
         </li>
     
     
