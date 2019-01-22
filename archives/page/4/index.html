@@ -346,6 +346,32 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2018/07/14/iscc/">
+            
+                <span>ISCC逆向wp</span>
+        </a>
+        <div class="abstract-content">
+            re150
+upx壳,重定位,选择带壳调试,OD载入,在入口点单步,然后在数据窗口ESP处下硬件断点
+运行程序,程序断在popad下一行,此时定位目标字符串,在校验函数处下第二断点
+运行程序,从寄存器中跟随,找到扰乱后的测试字符串,跑脚本1234567n = "edfgcbhia0jk98lm76no54pq32rs1"enc = "s_imsaplw_e_siishtnt&#123;g_ialt&#125;F"table = "1234567890abcdefghijklmnopqrs"flag = ""for i in table:    flag += enc[n.index(i)...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/07/14</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2018/06/07/suyuan/">
             
                 <span>2017国赛-re200-溯源</span>
@@ -589,37 +615,6 @@ SetWindowsHookEx()123456HHOOK SetWindowsHookEx(    int idHook,         //hook ty
             <!-- date  -->
             <div class="abstract-date">
                 <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/06/07</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2018/05/20/x64pwn/">
-            
-                <span>安恒月赛pwn100</span>
-        </a>
-        <div class="abstract-content">
-            baby stack
-一个简单的栈题,没有开启PIE,开启NX和Canary
-程序里没有system函数,所以只能泄漏某函数真实地址然后算出偏移
-由于puts函数的特性,可以打印出canary的值,泄漏内存
-最后一发栈溢出,打印puts_got的值,注意程序是x64的,函数传参方式是寄存器传参
-最后要知道,canary只需要泄漏一次就好
-接收数据时.要利用好r.recv() r.recvuntil()
-
-exp123456789101112131415161718192021222324252627282930313233343536373839404142434445from pwn ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/05/20</span>
             </div>
             <!-- tags  -->
             
@@ -1467,9 +1462,76 @@ exp12345678910111213141516171819202122232425262728293031323334353637383940414243
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 51
+        Total : 52
         </div>
         <!-- search  -->
         
@@ -1479,6 +1541,20 @@ exp12345678910111213141516171819202122232425262728293031323334353637383940414243
     
     
     
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span><a class="archive-post-title" href="/2019/01/22/xnuca-final/">X-NUCA 2018个人赛/决赛PWN</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
@@ -1495,7 +1571,7 @@ exp12345678910111213141516171819202122232425262728293031323334353637383940414243
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/python_pyc/">Python的一些底层原理</a>
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/xnuca/">X-NUCA逆向部分题解</a>
         </li>
     
     
@@ -1505,7 +1581,7 @@ exp12345678910111213141516171819202122232425262728293031323334353637383940414243
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/xnuca/">X-NUCA逆向部分题解</a>
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/python_pyc/">Python的一些底层原理</a>
         </li>
     
     
@@ -1560,11 +1636,6 @@ exp12345678910111213141516171819202122232425262728293031323334353637383940414243
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/Reversing.kr--position&hateintel/">Position&hateintel&Wrong byte!</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/汇编入门/">CTF二进制总结0X03</a>
         </li>
     
@@ -1580,17 +1651,22 @@ exp12345678910111213141516171819202122232425262728293031323334353637383940414243
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/Reversing.kr--position&hateintel/">Position&hateintel&Wrong byte!</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">08/19</span><a class="archive-post-title" href="/2018/08/19/qctf-asong/">qctf-asong</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/z3/">z3求解器的一些简单使用</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/z3/">z3求解器的一些简单使用</a>
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
         </li>
     
     
@@ -1635,37 +1711,7 @@ exp12345678910111213141516171819202122232425262728293031323334353637383940414243
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/sudu/">2017国赛re200 填数游戏</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/RingZer0 Authenticator/">RingZer0 Authenticator</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/suyuan/">2017国赛-re200-溯源</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/DLL注入0x1/">初试windows消息钩取</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/redhat/">redhat-re1</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/PE文件头/">PE文件格式</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/juckcode/">上海市ctf-re200-juckcode</a>
         </li>
     
     
@@ -1676,6 +1722,36 @@ exp12345678910111213141516171819202122232425262728293031323334353637383940414243
     
         <li class="archive-post-item">
             <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/Reversing.kr--replace/">初试程序自修改</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/juckcode/">上海市ctf-re200-juckcode</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/redhat/">redhat-re1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/sudu/">2017国赛re200 填数游戏</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/suyuan/">2017国赛-re200-溯源</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/RingZer0 Authenticator/">RingZer0 Authenticator</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/DLL注入0x1/">初试windows消息钩取</a>
         </li>
     
     
@@ -1715,17 +1791,17 @@ exp12345678910111213141516171819202122232425262728293031323334353637383940414243
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL0/">二进制手的Web路（sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL1/">二进制手的Web路（sql注入篇</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL2/">二进制手的Web路 （sql注入篇</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL0/">二进制手的Web路（sql注入篇</a>
         </li>
     
     
@@ -1780,11 +1856,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="RE"><span class="iconfont-archer">&#xe60a;</span>RE</span>
     
-        <span class="sidebar-category-name" data-categories="WEB"><span class="iconfont-archer">&#xe60a;</span>WEB</span>
-    
         <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
     
         <span class="sidebar-category-name" data-categories="FE"><span class="iconfont-archer">&#xe60a;</span>FE</span>
+    
+        <span class="sidebar-category-name" data-categories="WEB"><span class="iconfont-archer">&#xe60a;</span>WEB</span>
     
         <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
     

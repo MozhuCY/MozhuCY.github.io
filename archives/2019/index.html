@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>CTF二进制总结0x02 · mozhucy&#39;s blog</title>
+    <title>mozhucy&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,23 +203,12 @@
 </head>
 
     
-        <body class="post-body">
-    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
-    
-    <div class="banner">
-            <div class="blog-title">
-                <a href="/">mozhucy&#39;s blog.</a>
-            </div>
-            <div class="post-title">
-                <a href="#" class="post-name">CTF二进制总结0x02</a>
-            </div>
-    </div>
     
     <a class="home-link" href="/">mozhucy's blog.</a>
 </header>
@@ -231,68 +220,24 @@
 
 
 
-
-height:50vh;
 ">
     
     <!-- 主页  -->
-    
-    
-    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
-            
-            CTF二进制总结0x02
-            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
-            
-            <!-- 404 -->
-            
         </p>
         <!-- 文章页meta -->
-        
-            <div class="post-intros">
-                <!-- 文章页标签  -->
-                
-                
-                    <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">573</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
-                    </div>
-                
-                <div class="post-intro-meta">
-                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/08/21</span>
-                    
-                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
-                        <span class="iconfont-archer">&#xe602;</span>
-                        <span id="busuanzi_value_page_pv"></span>
-                    </span>
-                    
-                    <span class="shareWrapper">
-                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
-                        <span class="shareText">Share</span>
-                        <ul class="shareList">
-                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
-                                <div class="share-qrcode"></div>
-                            </li>
-                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
-                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
-                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
-                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
-                        </ul>
-                    </span>
-                </div>
-            </div>
         
     </div>
 </div>
@@ -393,67 +338,38 @@ height:50vh;
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main post-page">
-    <article class="article-entry">
-        <p>ELF文件的动态调试，IDA远程动态调试GG，kali自带OD GG，edb-debug鸡肋的功能，来一发radare2好了。上午刚被gdb搞得头大，现在来挑战一下更难的r2。<br><br>首先，radare是一款类似于IDA的工具，他也有可视化图形界面，但是却是基于命令行之上的。先来一发Hello World调试一下。<br><br>gcc hello.c -o hello后，打开终端<br></p>
-<blockquote>
-<p>r2 ./hello<br><br>[0x00000530]&gt;</p>
-</blockquote>
-<p>变成了这个样子，这时输入ie，你会得到</p>
-<blockquote>
-<p>[Entrypoints]<br>vaddr=0x00000530 paddr=0x00000530 baddr=0x00000000 laddr=0x00000000 haddr=0x00000018 type=program<br><br><br>1 entrypoints</p>
-</blockquote>
-<p>这里的ie，即info entrypoints，在r2中，i?指令是很常用的，具体如下：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">[0x00000000]&gt; i?</span><br><span class="line">|Usage: i Get info from opened file (see rabin2&apos;s manpage)</span><br><span class="line">| Output mode:       </span><br><span class="line">| &apos;*&apos;                Output in radare commands</span><br><span class="line">| &apos;j&apos;                Output in json</span><br><span class="line">| &apos;q&apos;                Simple quiet output</span><br><span class="line">| Actions:           </span><br><span class="line">| i|ij               Show info of current file (in JSON)</span><br><span class="line">| iA                 List archs</span><br><span class="line">| ia                 Show all info (imports, exports, sections..)</span><br><span class="line">| ib                 Reload the current buffer for setting of the bin (use once only)</span><br><span class="line">| ic                 List classes, methods and fields</span><br><span class="line">| iC                 Show signature info (entitlements, ...)</span><br><span class="line">| id[?]              Debug information (source lines)</span><br><span class="line">| iD lang sym        demangle symbolname for given language</span><br><span class="line">| ie                 Entrypoint</span><br><span class="line">| iE                 Exports (global symbols)</span><br><span class="line">| ih                 Headers (alias for iH)</span><br><span class="line">| iHH                Verbose Headers in raw text</span><br><span class="line">| ii                 Imports</span><br><span class="line">| iI                 Binary info</span><br><span class="line">| ik [query]         Key-value database from RBinObject</span><br><span class="line">| il                 Libraries</span><br><span class="line">| iL [plugin]        List all RBin plugins loaded or plugin details</span><br><span class="line">| im                 Show info about predefined memory allocation</span><br><span class="line">| iM                 Show main address</span><br><span class="line">| io [file]          Load info from file (or last opened) use bin.baddr</span><br><span class="line">| ir                 Relocs</span><br><span class="line">| iR                 Resources</span><br><span class="line">| is                 Symbols</span><br><span class="line">| iS [entropy,sha1]  Sections (choose which hash algorithm to use)</span><br><span class="line">| iV                 Display file version info</span><br><span class="line">| iz|izj             Strings in data sections (in JSON/Base64)</span><br><span class="line">| izz                Search for Strings in the whole binary</span><br><span class="line">| iZ                 Guess size of binary program</span><br></pre></td></tr></table></figure></p>
-<p>r2不会自动分析文件，刚开始用r2时…疯狂输入pdf，但是并没有什么效果啊，百度了一下才发现，需要analyse。这时可以输入aa或者aaa，其中aaa适合分析比较小的文件。这里选择了aaa。</p>
-<blockquote>
-<p>[0x00000530]&gt; aaa<br>[x] Analyze all flags starting with sym. and entry0 (aa)<br>[x] Analyze len bytes of instructions for references (aar)<br>[x] Analyze function calls (aac)<br>[ ] [*] Use -AA or aaaa to perform additional experimental analysis.<br>[x] Constructing a function name for fcn.* and sym.func.* functions (aan))</p>
-</blockquote>
-<p>在分析中，还可以用到s 0x00xxxxxx 用来跳到目标地址，还可以用px wx来进行修改汇编指令，还有汇编语言$ rasm2 -a x86 -b 64 “jmp 0x00xxx”转机器码。eval cfg.write=true 或 r2 -w hello来使文件可写，px 20 wx等操作来写入修改后的字节码。有时间做一道题目试试看吧。</p>
-
-    </article>
-    <!-- license  -->
+            <main class="main index-page">
     
-        <div class="license-wrapper">
-            <p>原文作者：<a href="http://yoursite.com">mozhucy</a>
-            </p><p>原文链接：<a href="http://yoursite.com/2018/08/21/radare2/">http://yoursite.com/2018/08/21/radare2/</a>
-            </p><p>发表日期：<a href="http://yoursite.com/2018/08/21/radare2/">August 21st 2018, 10:15:53 pm</a>
-            </p><p>更新日期：<a href="http://yoursite.com/2018/08/21/radare2/">August 21st 2018, 10:15:53 pm</a>
-            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/01/22/xnuca-final/">
+            
+                <span>X-NUCA 2018个人赛/决赛PWN</span>
+        </a>
+        <div class="abstract-content">
+            终于熬过考试周了…重装电脑加上配虚拟机博客环境前后花了快两天.寒假整理一下以前的题目吧,先是12月初的XNUCA总决赛和铁三总决赛.
+个人赛PWN0(18solve)
+个人赛签到题,一个gets栈溢出,有canary,只有一次输入机会,显然不是ROP的打法,flag在内存中,先让我们输入小于flag长度的任意字符,输入回车结束
+这里利用stack smash,当canary存在时,如果发生栈溢出,程序会执行如下代码:
+
+12__libc_message (2, "*** %s ***: %s terminated\n",                    msg, __libc_ar...
         </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/22</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
     
     <!-- paginator  -->
-    <ul class="post-paginator">
-        <li class="next">
-            
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2018/08/21/WHCTF2017 逆向签到题/" title="CTF二进制总结0x01">
-                    <div class="nextTitle">CTF二进制总结0x01</div>
-                </a>
-            
-        </li>
-        <li class="previous">
-            
-                <div class="prevSlogan">Previous Post</div>
-                <a href="/2018/08/19/qctf-asong/" title="qctf-asong">
-                    <div class="prevTitle">qctf-asong</div>
-                </a>
-            
-        </li>
-    </ul>
-    <!-- 评论插件 -->
-    <!-- 来必力City版安装代码 -->
-
-<!-- City版安装代码已完成 -->
     
-    
-    <!-- partial('_partial/comment/changyan') -->
-    <!--PC版-->
-
-
-    
-    
-
-    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -531,24 +447,6 @@ height:50vh;
 </footer>
     </div>
     <!-- toc -->
-    
-    <div class="toc-wrapper" style=
-    
-
-
-
-
-
-
-
-top:50vh;
-
-    >
-        <div class="toc-catalog">
-            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
-        </div>
-        
-    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1741,8 +1639,6 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
-    
-        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>

