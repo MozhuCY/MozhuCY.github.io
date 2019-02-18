@@ -368,7 +368,7 @@ height:50vh;
 一些个人对特性的总结理解__libc_malloc
 malloc执行的开始
 
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657void *__libc_malloc (size_t bytes) //size_t由系统决定一般情况下64位对应的是long unsigned int,32位为unsigned int,所以传入负数的时候会mallo...
+12345678910void *__libc_malloc (size_t bytes) &#123;  mstate ar_ptr;  void *victim;  void *(*hook) (size_t, const void *)     = atomic_forced_read (__malloc_hook);  if (__builtin_expect (hook != NULL, 0))    return ...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
