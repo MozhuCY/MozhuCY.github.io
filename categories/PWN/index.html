@@ -346,6 +346,33 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/02/18/malloc源码精读总结/">
+            
+                <span>malloc源码精读总结</span>
+        </a>
+        <div class="abstract-content">
+            之前草草读过一次源码以及华庭的源码分析,最近又有一些生疏了,决定用几周的时间精读一下
+一些个人对特性的总结理解__libc_malloc
+malloc执行的开始
+
+12345678910void *__libc_malloc (size_t bytes) &#123;  mstate ar_ptr;  void *victim;  void *(*hook) (size_t, const void *)     = atomic_forced_read (__malloc_hook);  if (__builtin_expect (hook != NULL, 0))    return ...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/18</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2019/01/22/xnuca-final/">
             
                 <span>X-NUCA 2018个人赛/决赛PWN</span>
@@ -1477,9 +1504,24 @@ exp12345678910111213141516171819202122232425262728293031323334353637383940414243
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 53
+        Total : 54
         </div>
         <!-- search  -->
         
@@ -1492,6 +1534,11 @@ exp12345678910111213141516171819202122232425262728293031323334353637383940414243
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href="/2019/02/18/malloc源码精读总结/">malloc源码精读总结</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1524,17 +1571,17 @@ exp12345678910111213141516171819202122232425262728293031323334353637383940414243
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/xnuca/">X-NUCA逆向部分题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/python_pyc/">Python的一些底层原理</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/深入浅出密码学读书笔记/">深入浅出密码学读书笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/xnuca/">X-NUCA逆向部分题解</a>
         </li>
     
     
@@ -1589,7 +1636,7 @@ exp12345678910111213141516171819202122232425262728293031323334353637383940414243
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/WHCTF2017 逆向签到题/">CTF二进制总结0x01</a>
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/Reversing.kr--position&hateintel/">Position&hateintel&Wrong byte!</a>
         </li>
     
     
@@ -1599,7 +1646,7 @@ exp12345678910111213141516171819202122232425262728293031323334353637383940414243
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/Reversing.kr--position&hateintel/">Position&hateintel&Wrong byte!</a>
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/WHCTF2017 逆向签到题/">CTF二进制总结0x01</a>
         </li>
     
     
@@ -1674,12 +1721,12 @@ exp12345678910111213141516171819202122232425262728293031323334353637383940414243
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/RingZer0 Authenticator/">RingZer0 Authenticator</a>
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/Reversing.kr--replace/">初试程序自修改</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/PE文件头/">PE文件格式</a>
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/juckcode/">上海市ctf-re200-juckcode</a>
         </li>
     
     
@@ -1689,7 +1736,7 @@ exp12345678910111213141516171819202122232425262728293031323334353637383940414243
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/juckcode/">上海市ctf-re200-juckcode</a>
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/PE文件头/">PE文件格式</a>
         </li>
     
     
@@ -1704,7 +1751,7 @@ exp12345678910111213141516171819202122232425262728293031323334353637383940414243
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/Reversing.kr--replace/">初试程序自修改</a>
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/RingZer0 Authenticator/">RingZer0 Authenticator</a>
         </li>
     
     
@@ -1744,12 +1791,12 @@ exp12345678910111213141516171819202122232425262728293031323334353637383940414243
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL1/">二进制手的Web路（sql注入篇</a>
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL2/">二进制手的Web路 （sql注入篇</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL2/">二进制手的Web路 （sql注入篇</a>
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL1/">二进制手的Web路（sql注入篇</a>
         </li>
     
     

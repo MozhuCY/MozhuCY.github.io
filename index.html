@@ -359,6 +359,33 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/02/18/malloc源码精读总结/">
+            
+                <span>malloc源码精读总结</span>
+        </a>
+        <div class="abstract-content">
+            之前草草读过一次源码以及华庭的源码分析,最近又有一些生疏了,决定用几周的时间精读一下
+一些个人对特性的总结理解__libc_malloc
+malloc执行的开始
+
+12345678910void *__libc_malloc (size_t bytes) &#123;  mstate ar_ptr;  void *victim;  void *(*hook) (size_t, const void *)     = atomic_forced_read (__malloc_hook);  if (__builtin_expect (hook != NULL, 0))    return ...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/18</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2019/02/03/cff2016/">
             
                 <span>jarvisoj-文件数据恢复</span>
@@ -595,36 +622,6 @@ edit可以修改free后堆块的bk,fd
 12345Arch:     amd64-64-littleRELRO:    Full RELROStack:    Canary foundNX:       NX enabledPIE:      No PIE (0x400000)
 
 Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来劫持程序的流...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/21</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2018/09/21/easycoin/">
-            
-                <span>easycoin</span>
-        </a>
-        <div class="abstract-content">
-            网鼎杯第一场大menu
-有点类似于网鼎半决赛的pwn3,是一个比较大的程序,同样,程序实现了两个大的menu
-首先需要注册一个账号,用户名和密码最大长度为32,再注册的过程中,程序会3次malloc(0x20)的堆块
-第一次malloc生成的是name对应的堆块,第二次malloc生成的是password对应的堆块,第三次malloc的是一个结构体,内部含有三根指针和一个QWORD的money
-当两次输入的密码不一样时,结束register函数,并且依次free掉name,password,struct,最后将结构体指针数组置空
-登录函数并没有对于内存的直接操作,这里不作分析
-
-12...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1623,9 +1620,24 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 53
+        Total : 54
         </div>
         <!-- search  -->
         
@@ -1638,6 +1650,11 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href="/2019/02/18/malloc源码精读总结/">malloc源码精读总结</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1670,17 +1687,17 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/xnuca/">X-NUCA逆向部分题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/python_pyc/">Python的一些底层原理</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/深入浅出密码学读书笔记/">深入浅出密码学读书笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/xnuca/">X-NUCA逆向部分题解</a>
         </li>
     
     
@@ -1735,7 +1752,7 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/WHCTF2017 逆向签到题/">CTF二进制总结0x01</a>
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/Reversing.kr--position&hateintel/">Position&hateintel&Wrong byte!</a>
         </li>
     
     
@@ -1745,7 +1762,7 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/Reversing.kr--position&hateintel/">Position&hateintel&Wrong byte!</a>
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/WHCTF2017 逆向签到题/">CTF二进制总结0x01</a>
         </li>
     
     
@@ -1820,12 +1837,12 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/RingZer0 Authenticator/">RingZer0 Authenticator</a>
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/Reversing.kr--replace/">初试程序自修改</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/PE文件头/">PE文件格式</a>
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/juckcode/">上海市ctf-re200-juckcode</a>
         </li>
     
     
@@ -1835,7 +1852,7 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/juckcode/">上海市ctf-re200-juckcode</a>
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/PE文件头/">PE文件格式</a>
         </li>
     
     
@@ -1850,7 +1867,7 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/Reversing.kr--replace/">初试程序自修改</a>
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/RingZer0 Authenticator/">RingZer0 Authenticator</a>
         </li>
     
     
@@ -1890,12 +1907,12 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL1/">二进制手的Web路（sql注入篇</a>
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL2/">二进制手的Web路 （sql注入篇</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL2/">二进制手的Web路 （sql注入篇</a>
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL1/">二进制手的Web路（sql注入篇</a>
         </li>
     
     
