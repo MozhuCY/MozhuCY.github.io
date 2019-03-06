@@ -359,6 +359,38 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2018/09/21/babyheap/">
+            
+                <span>babyheap</span>
+        </a>
+        <div class="abstract-content">
+            网鼎杯第一场
+程序功能:新建,编辑,打印,free
+free处没有置空指针,导致可以uaf
+malloc每次都是0x20的fastbin,编辑功能可以使用3次
+自写了readn函数,没有溢出点
+edit可以修改free后堆块的bk,fd
+
+12345Arch:     amd64-64-littleRELRO:    Full RELROStack:    Canary foundNX:       NX enabledPIE:      No PIE (0x400000)
+
+Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来劫持程序的流...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/21</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2018/09/21/easycoin/">
             
                 <span>easycoin</span>
@@ -599,31 +631,6 @@ Position
 hateintel
 
 分析算法,直接爆破.12345678910111213141516171819l=[0x44, 0xF6, 0xF5, 0x57, 0xF5, 0xC6, 0x96, 0xB6, 0x56, 0xF5,0x14, 0x25, 0xD4, 0xF5, 0x96, 0xE6, 0x37, 0x47, 0x27, 0x57,0x36, 0x47, 0x96, 0x03, 0xE6, 0xF3, 0xA3, 0x92]def f(a):    a*=2    if(a&amp;0x100)...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/21</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2018/08/21/汇编入门/">
-            
-                <span>CTF二进制总结0X03</span>
-        </a>
-        <div class="abstract-content">
-            123456789#include&lt;stdio.h&gt;int a = 0;                  //.dataint b;                      //.bssconst double PI=3.14159f;   //.rodataint main()&#123;    int c;                  //stack    char *d = malloc(16)    //heap    return 0;&#125;
-for循环一般都是jmp到最底端，然后再跳回来，switch case语句一般都是连续好几个的cmp jmp。
-
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1649,9 +1656,28 @@ for循环一般都是jmp到最底端，然后再跳回来，switch case语句一
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 54
+        Total : 55
         </div>
         <!-- search  -->
         
@@ -1664,6 +1690,11 @@ for循环一般都是jmp到最底端，然后再跳回来，switch case语句一
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/03</span><a class="archive-post-title" href="/2019/03/03/cve-2015-7504/">CVE-2015-7504 QEMU虚拟机逃逸漏洞分析</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1701,17 +1732,17 @@ for循环一般都是jmp到最底端，然后再跳回来，switch case语句一
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/深入浅出密码学读书笔记/">深入浅出密码学读书笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/xnuca/">X-NUCA逆向部分题解</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/python_pyc/">Python的一些底层原理</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/2018/11/26/深入浅出密码学读书笔记/">深入浅出密码学读书笔记</a>
         </li>
     
     
@@ -1766,7 +1797,7 @@ for循环一般都是jmp到最底端，然后再跳回来，switch case语句一
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/Reversing.kr--position&hateintel/">Position&hateintel&Wrong byte!</a>
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/radare2/">CTF二进制总结0x02</a>
         </li>
     
     
@@ -1776,12 +1807,12 @@ for循环一般都是jmp到最底端，然后再跳回来，switch case语句一
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/radare2/">CTF二进制总结0x02</a>
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/汇编入门/">CTF二进制总结0X03</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/汇编入门/">CTF二进制总结0X03</a>
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href="/2018/08/21/Reversing.kr--position&hateintel/">Position&hateintel&Wrong byte!</a>
         </li>
     
     
@@ -1846,6 +1877,11 @@ for循环一般都是jmp到最底端，然后再跳回来，switch case语句一
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/redhat/">redhat-re1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/DLL注入0x1/">初试windows消息钩取</a>
         </li>
     
@@ -1867,11 +1903,6 @@ for循环一般都是jmp到最底端，然后再跳回来，switch case语句一
     
         <li class="archive-post-item">
             <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/PE文件头/">PE文件格式</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/07</span><a class="archive-post-title" href="/2018/06/07/redhat/">redhat-re1</a>
         </li>
     
     
@@ -1921,12 +1952,12 @@ for循环一般都是jmp到最底端，然后再跳回来，switch case语句一
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL2/">二进制手的Web路 （sql注入篇</a>
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL1/">二进制手的Web路（sql注入篇</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL1/">二进制手的Web路（sql注入篇</a>
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href="/2018/02/08/二进制手的Web路SQL2/">二进制手的Web路 （sql注入篇</a>
         </li>
     
     
@@ -1993,6 +2024,8 @@ jsonContent:
         <span class="sidebar-category-name" data-categories="FE"><span class="iconfont-archer">&#xe60a;</span>FE</span>
     
         <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
+    
+        <span class="sidebar-category-name" data-categories="CVE"><span class="iconfont-archer">&#xe60a;</span>CVE</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
