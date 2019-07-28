@@ -1,3 +1,10 @@
+title: hexo配置
+categories: 
+- balabala
+---
+
+一直没在新电脑上配blog,今天把旧电脑搞炸了,所以在这里弄一个新的
+
 # hexo踩坑
 
 ## 环境准备
@@ -23,3 +30,9 @@ git branch检查分支是否为新建的分支
 
 在新建的blog下配置deploy的参数,type branch等.
 hexo d即可使用
+
+注意提交的时候需要:
+git add .
+git commit -m "xxx"
+git push
+hexo d -g
