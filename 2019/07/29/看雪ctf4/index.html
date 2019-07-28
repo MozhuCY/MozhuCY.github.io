@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>2018看雪ctf第四题-密界寻踪 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="密界寻踪恢复函数 ida打开后随便定位了一个字符串,随后定位到一个函数,但是不知道是做什么的,乖乖找main函数 找到_main和_main_0函数,点进去发现_main_0跳到了程序的另一个地方,也就是_main_0_0函数,这里有巨多的花指令,jnz/jz/jno/jo/e8/什么的全用上了QAQ 去花后发现这一段函数其实只有几步,push ebp/mov ebp,esp/sub esp,7C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2018看雪ctf第四题-密界寻踪">
+<meta property="og:url" content="http://yoursite.com/2019/07/29/看雪ctf4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="密界寻踪恢复函数 ida打开后随便定位了一个字符串,随后定位到一个函数,但是不知道是做什么的,乖乖找main函数 找到_main和_main_0函数,点进去发现_main_0跳到了程序的另一个地方,也就是_main_0_0函数,这里有巨多的花指令,jnz/jz/jno/jo/e8/什么的全用上了QAQ 去花后发现这一段函数其实只有几步,push ebp/mov ebp,esp/sub esp,7C">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-28T15:51:13.815Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2018看雪ctf第四题-密界寻踪">
+<meta name="twitter:description" content="密界寻踪恢复函数 ida打开后随便定位了一个字符串,随后定位到一个函数,但是不知道是做什么的,乖乖找main函数 找到_main和_main_0函数,点进去发现_main_0跳到了程序的另一个地方,也就是_main_0_0函数,这里有巨多的花指令,jnz/jz/jno/jo/e8/什么的全用上了QAQ 去花后发现这一段函数其实只有几步,push ebp/mov ebp,esp/sub esp,7C">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-看雪ctf4" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/29/看雪ctf4/" class="article-date">
+  <time datetime="2019-07-28T17:11:01.893Z" itemprop="datePublished">2019-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/RE/">RE</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      2018看雪ctf第四题-密界寻踪
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="密界寻踪"><a href="#密界寻踪" class="headerlink" title="密界寻踪"></a>密界寻踪</h1><h2 id="恢复函数"><a href="#恢复函数" class="headerlink" title="恢复函数"></a>恢复函数</h2><ul>
+<li>ida打开后随便定位了一个字符串,随后定位到一个函数,但是不知道是做什么的,乖乖找main函数</li>
+<li>找到_main和_main_0函数,点进去发现_main_0跳到了程序的另一个地方,也就是_main_0_0函数,这里有巨多的花指令,jnz/jz/jno/jo/e8/什么的全用上了QAQ</li>
+<li>去花后发现这一段函数其实只有几步,push ebp/mov ebp,esp/sub esp,7Ch,然后一个大跳跳到函数主体,注意这个sub esp,7ch….被这个坑了好久</li>
+<li>跟着跳转过去后,刚准备f5,堆栈不平衡了.到函数尾后,发现函数自从add esp,7Ch后就非常不正常,当时想了好久甚至nop了这个指令但是总改不回来,扫了一眼函数体,并没有打乱函数帧栈平衡的函数,因此我又从头到后分析了一下函数,才想起来,原来在跳到这函数之前,有一个sub esp,7Ch的开辟空间的过程,这不正好对应上了吗= =,直接改了这个函数头三个push的帧栈,成功f5..代码如下</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> __usercall sub_403136@&lt;eax&gt;(<span class="keyword">int</span> a1@&lt;ebp&gt;)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> __int64 v1; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">int</span> v2; <span class="comment">// ST08_4</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int64 v3; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">int</span> v4; <span class="comment">// eax</span></span><br><span class="line">  <span class="keyword">int</span> result; <span class="comment">// eax</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">memset</span>((a1 - <span class="number">124</span>), <span class="number">0xCC</span>u, <span class="number">0x7C</span>u);</span><br><span class="line">  *(a1 - <span class="number">4</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">8</span>) = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">  &#123;</span><br><span class="line">    v1 = __rdtsc();</span><br><span class="line">    v2 = v1;</span><br><span class="line">    v3 = __rdtsc();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> ( (v3 - v2) &gt; <span class="number">0xFFF</span> );</span><br><span class="line">  *(a1 - 20) = 'g`wr';</span><br><span class="line">  *(a1 - 16) = 'tu`';</span><br><span class="line">  *(a1 - <span class="number">12</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - 32) = 'kqpd';</span><br><span class="line">  *(a1 - <span class="number">28</span>) = <span class="string">'w'</span>;</span><br><span class="line">  *(a1 - <span class="number">26</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">56</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">55</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">51</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">47</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">43</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">39</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">35</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">33</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">60</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">59</span>) = <span class="number">0</span>;</span><br><span class="line">  sub_4011E0();                                 <span class="comment">// 打印看雪 ctf2018</span></span><br><span class="line">  sub_40100A();                                 <span class="comment">// 反调试</span></span><br><span class="line">  sub_401078((a1 - <span class="number">20</span>));                        <span class="comment">// success</span></span><br><span class="line">  sub_401078((a1 - <span class="number">32</span>));                        <span class="comment">// error</span></span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">"%s"</span>, a1 - <span class="number">56</span>, <span class="number">24</span>);</span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in">strlen</span>((a1 - <span class="number">56</span>)) &gt; <span class="number">23</span> )                 <span class="comment">// 输入长度小于等于23</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">printf</span>((a1 - <span class="number">32</span>));</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  v4 = <span class="built_in">strlen</span>((a1 - <span class="number">53</span>));</span><br><span class="line">  sub_401172(a1 - <span class="number">53</span>, &amp;input, v4);              <span class="comment">// input[3:]输入转16进制</span></span><br><span class="line">  *(a1 - <span class="number">4</span>) = sub_40125D();</span><br><span class="line">  <span class="built_in">memcpy</span>((a1 - <span class="number">60</span>), (a1 - <span class="number">56</span>), <span class="number">3u</span>);</span><br><span class="line">  <span class="keyword">if</span> ( sub_40108C(a1 - <span class="number">60</span>) )                    <span class="comment">//判断input[0:3]是否为数字</span></span><br><span class="line">  &#123;</span><br><span class="line">    *(a1 - <span class="number">8</span>) = sub_40128F(a1 - <span class="number">60</span>);</span><br><span class="line">    <span class="keyword">if</span> ( *(a1 - <span class="number">8</span>) + *(a1 - <span class="number">4</span>) == <span class="number">2</span> )</span><br><span class="line">      <span class="built_in">printf</span>((a1 - <span class="number">20</span>));                        <span class="comment">// success</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      <span class="built_in">printf</span>((a1 - <span class="number">32</span>));                        <span class="comment">// error</span></span><br><span class="line">    system(<span class="string">"pause"</span>);</span><br><span class="line">    result = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">printf</span>((a1 - <span class="number">32</span>));</span><br><span class="line">    result = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>有一堆字符串是简单异或下标+1过的,大概是为了不让函数被定位,sub_401078()函数就是这个作用</li>
+<li>随后判断输入长度balabala什么的,然后就是重头戏check函数分析了</li>
+<li>字符串被分为2部分进行校验,前三位和余下位数,前三位首先简单校验是否为纯数字,很容易分析</li>
+<li>其次就是真的check函数了,比较长的字符串首先转成16进制的字符串转储在全局变量中,这里我把全局变量命名为input</li>
+<li>查找交叉引用定位到check这段的函数(其实就是<em>(a1 - 4)后面的那个),因为两个返回值都为真的时候才会输出success,同理定位</em>(a1 - 8)后面的那个函数</li>
+</ul>
+<h2 id="check1"><a href="#check1" class="headerlink" title="check1"></a>check1</h2><ul>
+<li>里面有成吨的函数…先恢复初始化的数据看看是什么,</li>
+</ul>
+<blockquote>
+<p>208CBB7CD6ECC64516D07D978F5F0681F534EAD235D5C49ADD72D2DB840D5304<br>7da39de66016477b1afc3dc8e309dc429b5de855f0d616d225b570b68b88a585</p>
+</blockquote>
+<ul>
+<li>恢复出来这两串东西= =,第一组数值是作比较用的也就是strcmp的一个确定参数,还有一个3e9,转了一下发现是10进制的1001,怀疑是rsa</li>
+<li>解密出的第二串数字可以被分解为两个大素数pq,第一串应该就是密文了</li>
+</ul>
+<h2 id="check2"><a href="#check2" class="headerlink" title="check2"></a>check2</h2><ul>
+<li>标志性的置换盒,aes没跑,爆破秘钥搞定</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/29/看雪ctf4/" data-id="cjyn80f8z002xxkthcdoz3pek" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/29/逆向工程核心原理笔记/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Reversing-engineering
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/29/汇编入门/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">CTF二进制总结0X03</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CVE/">CVE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Crypto/">Crypto</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/FE/">FE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWN/">PWN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/RE/">RE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/二进制/">二进制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/29/深入浅出密码学读书笔记/">深入浅出密码学读书笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/逆向工程核心原理笔记/">Reversing-engineering</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/汇编入门/">CTF二进制总结0X03</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/函数调用约定/">Calling Convention</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

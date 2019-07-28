@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>深入浅出密码学读书笔记 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="替换密码 (11.16) 这个在古典密码中比较常见,属于对称加密,那么攻击替换密码时有两种方式,一种是穷举,这个在秘钥可能性比较少的时候可以使用.还有一种攻击方式就是词频分析,替换密码映射的规律导致了明文的统计规律能被很好的保存在密文中,如果我们有足够多的密文,那么就可以利用词频统计来进行替换密码的攻击,词频分析时,还可以遵循一些常见的特性.如E是出现频率最高的字母,英语中U总是跟在Q后面,或者一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入浅出密码学读书笔记">
+<meta property="og:url" content="http://yoursite.com/2019/07/29/深入浅出密码学读书笔记/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="替换密码 (11.16) 这个在古典密码中比较常见,属于对称加密,那么攻击替换密码时有两种方式,一种是穷举,这个在秘钥可能性比较少的时候可以使用.还有一种攻击方式就是词频分析,替换密码映射的规律导致了明文的统计规律能被很好的保存在密文中,如果我们有足够多的密文,那么就可以利用词频统计来进行替换密码的攻击,词频分析时,还可以遵循一些常见的特性.如E是出现频率最高的字母,英语中U总是跟在Q后面,或者一">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-28T15:51:13.814Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入浅出密码学读书笔记">
+<meta name="twitter:description" content="替换密码 (11.16) 这个在古典密码中比较常见,属于对称加密,那么攻击替换密码时有两种方式,一种是穷举,这个在秘钥可能性比较少的时候可以使用.还有一种攻击方式就是词频分析,替换密码映射的规律导致了明文的统计规律能被很好的保存在密文中,如果我们有足够多的密文,那么就可以利用词频统计来进行替换密码的攻击,词频分析时,还可以遵循一些常见的特性.如E是出现频率最高的字母,英语中U总是跟在Q后面,或者一">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-深入浅出密码学读书笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/29/深入浅出密码学读书笔记/" class="article-date">
+  <time datetime="2019-07-28T17:11:01.903Z" itemprop="datePublished">2019-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Crypto/">Crypto</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      深入浅出密码学读书笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="替换密码-11-16"><a href="#替换密码-11-16" class="headerlink" title="替换密码 (11.16)"></a>替换密码 (11.16)</h1><ul>
+<li>这个在古典密码中比较常见,属于对称加密,那么攻击替换密码时有两种方式,一种是穷举,这个在秘钥可能性比较少的时候可以使用.还有一种攻击方式就是词频分析,替换密码映射的规律导致了明文的统计规律能被很好的保存在密文中,如果我们有足够多的密文,那么就可以利用词频统计来进行替换密码的攻击,词频分析时,还可以遵循一些常见的特性.如E是出现频率最高的字母,英语中U总是跟在Q后面,或者一些高频符号” “以及高频短单词THE AND等.</li>
+</ul>
+<h1 id="现代密码重要的一项运算-模运算"><a href="#现代密码重要的一项运算-模运算" class="headerlink" title="现代密码重要的一项运算-模运算"></a>现代密码重要的一项运算-模运算</h1><ul>
+<li>模运算: a,r,m属于Z,且m &gt; 0.如果m 除 a-r可以记做a === r mod m,m称作模数,r为余数</li>
+<li>对于给定的模数m和整数a,可能存在无限多个有效的余数.例如a = 12,m = 9时,我们可以得到 12 === 3 mod 9,12 === 21 mod 9…..因为9|(12 - 3),这里引出等价类的概念,x|y即x除y的操作背后是一个系统.整数级{….,-24,-15,-6,3,12,21,30,….}构成了一个等价类,同理模数9还有8个等价类</li>
+<li>等价类中的成员行为等价,利用这个性质可以简化模运算,例如计算3^17mod5,可以拆成(3 <em>* 3)</em>(3 <em>* 3)</em>(3 <em>* 3)</em>(3 <em>* 3)</em>(3 <em>* 3)</em>(3 ** 2),进而化简为128mod5,化简为8mod5,得到3</li>
+<li>一般余数r的选择范围是 0 &lt;= r &lt;= m - 1.这里引入环的概念,环由两部分组成,集合Zm = {0,1,2,3,…,m - 1},两种操作”+”,”x”使得对所有a,b属于Zm都有 a+b === c mod m,a*b === d mod m,其中c,d属于Zm</li>
+<li>如果两个数相加/乘的结果都在环内,则程该环为封闭环,</li>
+</ul>
+<h1 id="序列密码和分组密码"><a href="#序列密码和分组密码" class="headerlink" title="序列密码和分组密码"></a>序列密码和分组密码</h1><ul>
+<li>序列密码单独加密每个位,序列密码还可以分为同步序列密码和异步序列密码,同步密码的密码顺序仅仅取决于秘钥,异步密码的密码顺序取决于秘钥和密文</li>
+<li>异步密码其实就是一个流加密</li>
+</ul>
+<h1 id="OTP"><a href="#OTP" class="headerlink" title="OTP"></a>OTP</h1><ul>
+<li>当密钥被同时异或加密了多个密文时,会发生c1 = m1 xor key,c2 = m2 xor key,这个时候我们将c1,c2互相异或,就会得到两串英文互相异或的结果m1 xor m2,当样本足够多的时候,便能根据其中的规律统计出m1 - mn,进而反求出key,最后利用key解密密文,是唯密文攻击的一种</li>
+<li>那么一般根据什么规律呢</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for i in range(65,89):</span><br><span class="line">    for j in range(65,89):</span><br><span class="line">        print i^j</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可以看到由于异或运算的特性,ascii码过于接近的互相异或以后都是很小的值,而且这些值大多数都处在不可见字符区域,而两串密文异或以后,就是两个字符串的异或,由于空格等标点的存在,所以异或以后会存在一些可见字符范围内的,数据量足够的情况下,便可以利用统计出的下标对应,如果大于一个比较接近全体样本数据的数字,那么加入到可疑空格的位置</li>
+<li>将样本中的空格统计结束以后,便可以进行密钥位的反求,最后进行解密</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">strxor</span><span class="params">(a, b)</span>:</span>     <span class="comment"># xor two strings (trims the longer input)</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">""</span>.join([chr(ord(x) ^ ord(y)) <span class="keyword">for</span> (x, y) <span class="keyword">in</span> zip(a, b)])</span><br><span class="line"></span><br><span class="line">ciphers = [<span class="string">'daaa4b4e8c996dc786889cd63bc4df4d1e7dc6f3f0b7a0b61ad48811f6f7c9bfabd7083c53ba54'</span>,</span><br><span class="line">	<span class="string">'c5a342468c8c7a88999a9dd623c0cc4b0f7c829acaf8f3ac13c78300b3b1c7a3ef8e193840bb'</span>,</span><br><span class="line">	<span class="string">'dda342458c897a8285df879e3285ce511e7c8d9afff9b7ff15de8a16b394c7bdab920e7946a05e9941d8308e'</span>,</span><br><span class="line">	<span class="string">'d9b05b4cd5ce7c8f938bd39e24d0df191d7694dfeaf8bfbb56e28900e1b8dff1bb985c2d5aa154'</span>,</span><br><span class="line">	<span class="string">'d9aa4b00c88b7fc79d99d38223c08d54146b88d3f0f0f38c03df8d52f0bfc1bda3d7133712a55e9948c32c8a'</span>,</span><br><span class="line">	<span class="string">'c4b60e46c9827cc79e9698936bd1c55c5b6e87c8f0febdb856fe8052e4bfc9a5efbe5c3f57ad4b9944de34'</span>,</span><br><span class="line">	<span class="string">'d9aa5700da817f94d29e81936bc4c1555b7b94d5f5f2bdff37df8252ffbecfb9bbd7152a12bc4fc00ad7229090'</span>,</span><br><span class="line">	<span class="string">'c4e24645cd9c28939a86d3982ac8c819086989d1fbf9f39e18d5c601fbb6dab4ef9e12795bbc549959d9229090'</span>,</span><br><span class="line">	<span class="string">'d9aa4b598c80698a97df879e2ec08d5b1e7f89c8fbb7beba56f0c619fdb2c4bdef8313795fa149dc0ad4228f'</span>,</span><br><span class="line">	<span class="string">'cce25d48d98a6c8280df909926c0de19143983c8befab6ff21d99f52e4b2daa5ef83143647e854d60ad5269c87'</span>,</span><br><span class="line">	<span class="string">'d9aa4b598c85668885df9d993f85e419107783cdbee3bbba1391b11afcf7c3bfaa805c2d5aad42995ede2cdd82977244'</span>,</span><br><span class="line">	<span class="string">'e1ad40478c82678995df809e2ac9c119323994cffbb7a7b713d4c626fcb888b5aa920c354be853d60ac5269199'</span>,</span><br><span class="line">	<span class="string">'c4ac0e53c98d7a8286df84936bc8c84d5b50889aedfebfba18d28352daf7cfa3a6920a3c'</span>,</span><br><span class="line">	<span class="string">'d9aa4f548c9a609ed297969739d18d5a146c8adebef1bcad11d49252c7bfd1f1bc87152b5bbc07dd4fd226948397'</span>,</span><br><span class="line">	<span class="string">'c4a40e698c9d6088879397d626c0c84d5b6d8edffbb792b902d49452ffbec6b6ef8e193840'</span>,</span><br><span class="line">	<span class="string">'c5ad5900df8667929e9bd3bf6bc2df5c1e6dc6cef6f2b6ff21d8921ab3a4c1bdaa991f3c12a949dd0ac5269c'</span>]</span><br><span class="line"></span><br><span class="line">target_cipher = <span class="string">"c2967e7fc59d57899d8bac852ac3c866127fb9d7f1e5b68002d9871cccb8c6b2aa"</span>.decode(<span class="string">"hex"</span>)</span><br><span class="line"></span><br><span class="line">key = [<span class="number">0</span>]*<span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(ciphers)):</span><br><span class="line">	flag = [<span class="number">0</span>] * len(ciphers[i].decode(<span class="string">"hex"</span>))</span><br><span class="line">	<span class="keyword">for</span> j <span class="keyword">in</span> range(len(ciphers)):</span><br><span class="line">		<span class="keyword">if</span> i != j:</span><br><span class="line">			<span class="comment"># print strxor(ciphers[i].decode("hex"),ciphers[j].decode("hex"))</span></span><br><span class="line">			<span class="keyword">for</span> index,c <span class="keyword">in</span> enumerate(strxor(ciphers[i].decode(<span class="string">"hex"</span>),ciphers[j].decode(<span class="string">"hex"</span>))):</span><br><span class="line">				<span class="keyword">if</span> c.isalpha():</span><br><span class="line">					flag[index] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">	space = []</span><br><span class="line">	<span class="keyword">for</span> k <span class="keyword">in</span> range(len(flag)):</span><br><span class="line">		<span class="keyword">if</span> flag[k] &gt; <span class="number">8</span>:</span><br><span class="line">			space.append(k)</span><br><span class="line">	<span class="keyword">print</span> space</span><br><span class="line">	spacexor = strxor(ciphers[i].decode(<span class="string">"hex"</span>),<span class="string">" "</span>*len(ciphers[i].decode(<span class="string">"hex"</span>)))</span><br><span class="line">	<span class="keyword">for</span> k <span class="keyword">in</span> space:</span><br><span class="line">		key[k] = ord(spacexor[k])</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> key</span><br><span class="line">flag = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(target_cipher)):</span><br><span class="line">	<span class="keyword">if</span>(key[i] != <span class="number">0</span>):</span><br><span class="line">		flag += chr(key[i] ^ ord(target_cipher[i]))</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		flag += <span class="string">"?"</span></span><br><span class="line"><span class="keyword">print</span> flag</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/29/深入浅出密码学读书笔记/" data-id="cjyn80f8o002oxkth9veqsnst" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/29/逆向工程核心原理笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Reversing-engineering</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CVE/">CVE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Crypto/">Crypto</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/FE/">FE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWN/">PWN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/RE/">RE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/二进制/">二进制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/29/深入浅出密码学读书笔记/">深入浅出密码学读书笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/逆向工程核心原理笔记/">Reversing-engineering</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/汇编入门/">CTF二进制总结0X03</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/函数调用约定/">Calling Convention</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

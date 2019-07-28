@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>ichunqiu-NoExec-200pt | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="初探NoExec 看到了题目名,感觉会有一点弯子,010查了一波..随便扫了一眼感觉没啥问题,IDA启动! GG了,IDA不能识别程序,跑一下模板好了 模板跑完后发现好像只有程序前半段被识别出来,查一波文件结构顺便复习下 对照后发现,DOS头的e_lfanew被改动过了,观察NT头的位置可以复现,e_lfanew应该是10010000(小端序) NT头仿佛也出现了问题,e_magic居然被改成了P">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ichunqiu-NoExec-200pt">
+<meta property="og:url" content="http://yoursite.com/2019/07/29/PE文件头的利用/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="初探NoExec 看到了题目名,感觉会有一点弯子,010查了一波..随便扫了一眼感觉没啥问题,IDA启动! GG了,IDA不能识别程序,跑一下模板好了 模板跑完后发现好像只有程序前半段被识别出来,查一波文件结构顺便复习下 对照后发现,DOS头的e_lfanew被改动过了,观察NT头的位置可以复现,e_lfanew应该是10010000(小端序) NT头仿佛也出现了问题,e_magic居然被改成了P">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-28T15:51:13.772Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ichunqiu-NoExec-200pt">
+<meta name="twitter:description" content="初探NoExec 看到了题目名,感觉会有一点弯子,010查了一波..随便扫了一眼感觉没啥问题,IDA启动! GG了,IDA不能识别程序,跑一下模板好了 模板跑完后发现好像只有程序前半段被识别出来,查一波文件结构顺便复习下 对照后发现,DOS头的e_lfanew被改动过了,观察NT头的位置可以复现,e_lfanew应该是10010000(小端序) NT头仿佛也出现了问题,e_magic居然被改成了P">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-PE文件头的利用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/29/PE文件头的利用/" class="article-date">
+  <time datetime="2019-07-28T17:11:01.737Z" itemprop="datePublished">2019-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/二进制/">二进制</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ichunqiu-NoExec-200pt
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="初探NoExec"><a href="#初探NoExec" class="headerlink" title="初探NoExec"></a>初探NoExec</h1><ul>
+<li>看到了题目名,感觉会有一点弯子,010查了一波..随便扫了一眼感觉没啥问题,IDA启动!</li>
+<li>GG了,IDA不能识别程序,跑一下模板好了</li>
+<li>模板跑完后发现好像只有程序前半段被识别出来,查一波文件结构顺便复习下</li>
+<li>对照后发现,DOS头的e_lfanew被改动过了,观察NT头的位置可以复现,e_lfanew应该是10010000(小端序)</li>
+<li>NT头仿佛也出现了问题,e_magic居然被改成了PEHA,改回来,Machine改成0x014c的小端形式(I386)</li>
+<li>此时文件已经被电脑识别出来,原来是个MFC</li>
+<li>双击运行….GG,没跑起来,IDA启动,继续分析,不过这个时候,IDA可以成功的分析出程序的所有结构了.</li>
+<li>修改下代码段可执行就就好了啊,现在可以跑了</li>
+<li>分析文件,发现貌似是DES,先去学一波密码学,几个月后再回来补.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/29/PE文件头的利用/" data-id="cjyn80f7f0008xkthszxdw351" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/29/python_pyc/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Python的一些底层原理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/29/PE文件头/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">PE文件格式</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CVE/">CVE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Crypto/">Crypto</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/FE/">FE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWN/">PWN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/RE/">RE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/二进制/">二进制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/29/深入浅出密码学读书笔记/">深入浅出密码学读书笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/逆向工程核心原理笔记/">Reversing-engineering</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/汇编入门/">CTF二进制总结0X03</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/函数调用约定/">Calling Convention</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

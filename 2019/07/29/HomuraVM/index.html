@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>CTF二进制学习0X04 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="HomuraVM 主要是对一个类似BF的解释器逆向,里面到处充满了反调试,在解析字节码后,两种循环各自可以实现一个input[i]和变量a,b之间的赋值操作,还有的字节码可以实现输入下标的移动,具体的字节码对应的操作在解释器中非常清晰,h为i++,所以以他为每一组语句头,在对900多字节的字节码分组后,正好分为了34组,验证函数中,flag长度也正好是34,在逆最后解析出的算法时,可以采取两种操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF二进制学习0X04">
+<meta property="og:url" content="http://yoursite.com/2019/07/29/HomuraVM/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="HomuraVM 主要是对一个类似BF的解释器逆向,里面到处充满了反调试,在解析字节码后,两种循环各自可以实现一个input[i]和变量a,b之间的赋值操作,还有的字节码可以实现输入下标的移动,具体的字节码对应的操作在解释器中非常清晰,h为i++,所以以他为每一组语句头,在对900多字节的字节码分组后,正好分为了34组,验证函数中,flag长度也正好是34,在逆最后解析出的算法时,可以采取两种操作">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-28T15:51:13.768Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CTF二进制学习0X04">
+<meta name="twitter:description" content="HomuraVM 主要是对一个类似BF的解释器逆向,里面到处充满了反调试,在解析字节码后,两种循环各自可以实现一个input[i]和变量a,b之间的赋值操作,还有的字节码可以实现输入下标的移动,具体的字节码对应的操作在解释器中非常清晰,h为i++,所以以他为每一组语句头,在对900多字节的字节码分组后,正好分为了34组,验证函数中,flag长度也正好是34,在逆最后解析出的算法时,可以采取两种操作">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-HomuraVM" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/29/HomuraVM/" class="article-date">
+  <time datetime="2019-07-28T17:11:01.671Z" itemprop="datePublished">2019-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/RE/">RE</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CTF二进制学习0X04
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="HomuraVM"><a href="#HomuraVM" class="headerlink" title="HomuraVM"></a>HomuraVM</h1><ul>
+<li>主要是对一个类似BF的解释器逆向,里面到处充满了反调试,在解析字节码后,两种循环各自可以实现一个input[i]和变量a,b之间的赋值操作,还有的字节码可以实现输入下标的移动,具体的字节码对应的操作在解释器中非常清晰,h为i++,所以以他为每一组语句头,在对900多字节的字节码分组后,正好分为了34组,验证函数中,flag长度也正好是34,在逆最后解析出的算法时,可以采取两种操作,一种是动态调试,找到规律,另一种可以爆破求值.</li>
+</ul>
+<blockquote>
+<p>G: reg2 -= 1<br>MC: reg2 = reg1 ^ input[i]<br>T: reg2 += 1<br>a: reg1 -= 1<br>h: input[i++]<br>o: input[i–]<br>m: input[i] += 1<br>r: reg1 += 1<br>u: input[i] -= 1<br>v: reg2 = reg1<br>[ur]: reg1 += input[i] input[i] = 0<br>{mG}: input[i] += reg2 reg2=0<br>{aG}: reg1 -= reg2 reg2=0</p>
+</blockquote>
+<p>input[i] ^= (input[i+1]+x)</p>
+<blockquote>
+<p>h[ur]ovMCh{mG}<br>h[ur]ovaaaMCh{mG}<br>h[ur]ovrrMCh{mG}<br>h[ur]ovMCh{mG}<br>h[ur]ovrrrMCh{mG}<br>h[ur]ovaaMCh{mG}<br>h[ur]ovrMCh{mG}<br>h[ur]ovrrrrrMCh{mG}<br>h[ur]ovrMCh{mG}<br>h[ur]ovaMCh{mG}<br>h[ur]ovrrrrMCh{mG}<br>h[ur]ovaMCh{mG}<br>h[ur]ovMCh{mG}<br>h[ur]ovrrMCh{mG}<br>h[ur]ovrrMCh{mG}<br>h[ur]ovrrrrrMCh{mG}<br>h[ur]ovrrMCh{mG}<br>h[ur]ovaaMCh{mG}<br>h[ur]ovrrMCh{mG}<br>h[ur]ovrMCh{mG}<br>h[ur]ovrMCh{mG}<br>h[ur]ovrrMCh{mG}<br>h[ur]ovMCh{mG}<br>h[ur]ovrrMCh{mG}<br>h[ur]ovrrMCh{mG}<br>h[ur]ovrrMCh{mG}<br>h[ur]ovrrrrrrMCh{mG}<br>h[ur]ovaaaMCh{mG}<br>h[ur]ovaMCh{mG}<br>h[ur]ovaMCh{mG}<br>h[ur]ovrrMCh{mG}<br>h[ur]ovaaMCh{mG}<br>h[ur]ovaMCh{mG}<br>h[ur]ovMCh{mG}</p>
+</blockquote>
+<pre><code class="python">offset=[]
+flag = <span class="string">""</span>
+flagenc = [<span class="number">27</span>,<span class="number">114</span>,<span class="number">17</span>,<span class="number">118</span>,<span class="number">8</span>,<span class="number">74</span>,<span class="number">126</span>,<span class="number">5</span>,<span class="number">55</span>,<span class="number">124</span>,<span class="number">31</span>,<span class="number">88</span>,<span class="number">104</span>,<span class="number">7</span>,<span class="number">112</span>,<span class="number">7</span>,<span class="number">49</span>,<span class="number">108</span>,<span class="number">4</span>,<span class="number">47</span>,<span class="number">4</span>,<span class="number">105</span>,<span class="number">54</span>,<span class="number">77</span>,<span class="number">127</span>,<span class="number">8</span>,<span class="number">80</span>,<span class="number">12</span>,<span class="number">109</span>,<span class="number">28</span>,<span class="number">127</span>,<span class="number">80</span>,<span class="number">29</span>,<span class="number">96</span>]
+<span class="keyword">print</span> len(flagenc)
+<span class="keyword">for</span> i <span class="keyword">in</span> range(len(a)):
+    offset.append(a[i].count(<span class="string">"r"</span>)<span class="number">-1</span>-a[i].count(<span class="string">"a"</span>))
+<span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">33</span>,<span class="number">-1</span>,<span class="number">-1</span>):
+    flag += chr((flagenc[i]^flagenc[i<span class="number">-1</span>])-offset[i])
+<span class="keyword">print</span> flag[::<span class="number">-1</span>]</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/29/HomuraVM/" data-id="cjyn80f7a0003xkth3nqjn2sv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/29/iscc/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          ISCC逆向wp
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/29/homuranote/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Homuranote</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CVE/">CVE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Crypto/">Crypto</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/FE/">FE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWN/">PWN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/RE/">RE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/二进制/">二进制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/29/深入浅出密码学读书笔记/">深入浅出密码学读书笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/逆向工程核心原理笔记/">Reversing-engineering</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/汇编入门/">CTF二进制总结0X03</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/函数调用约定/">Calling Convention</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

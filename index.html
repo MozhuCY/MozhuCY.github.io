@@ -62,12 +62,16 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-深入浅出密码学读书笔记" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/07/29/hello-world/" class="article-date">
-  <time datetime="2019-07-28T16:44:13.550Z" itemprop="datePublished">2019-07-29</time>
+    <a href="/2019/07/29/深入浅出密码学读书笔记/" class="article-date">
+  <time datetime="2019-07-28T17:11:01.903Z" itemprop="datePublished">2019-07-29</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Crypto/">Crypto</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -76,7 +80,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/hello-world/">Hello World</a>
+      <a class="article-title" href="/2019/07/29/深入浅出密码学读书笔记/">深入浅出密码学读书笔记</a>
     </h1>
   
 
@@ -84,24 +88,569 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        <h1 id="替换密码-11-16"><a href="#替换密码-11-16" class="headerlink" title="替换密码 (11.16)"></a>替换密码 (11.16)</h1><ul>
+<li>这个在古典密码中比较常见,属于对称加密,那么攻击替换密码时有两种方式,一种是穷举,这个在秘钥可能性比较少的时候可以使用.还有一种攻击方式就是词频分析,替换密码映射的规律导致了明文的统计规律能被很好的保存在密文中,如果我们有足够多的密文,那么就可以利用词频统计来进行替换密码的攻击,词频分析时,还可以遵循一些常见的特性.如E是出现频率最高的字母,英语中U总是跟在Q后面,或者一些高频符号” “以及高频短单词THE AND等.</li>
+</ul>
+<h1 id="现代密码重要的一项运算-模运算"><a href="#现代密码重要的一项运算-模运算" class="headerlink" title="现代密码重要的一项运算-模运算"></a>现代密码重要的一项运算-模运算</h1><ul>
+<li>模运算: a,r,m属于Z,且m &gt; 0.如果m 除 a-r可以记做a === r mod m,m称作模数,r为余数</li>
+<li>对于给定的模数m和整数a,可能存在无限多个有效的余数.例如a = 12,m = 9时,我们可以得到 12 === 3 mod 9,12 === 21 mod 9…..因为9|(12 - 3),这里引出等价类的概念,x|y即x除y的操作背后是一个系统.整数级{….,-24,-15,-6,3,12,21,30,….}构成了一个等价类,同理模数9还有8个等价类</li>
+<li>等价类中的成员行为等价,利用这个性质可以简化模运算,例如计算3^17mod5,可以拆成(3 <em>* 3)</em>(3 <em>* 3)</em>(3 <em>* 3)</em>(3 <em>* 3)</em>(3 <em>* 3)</em>(3 ** 2),进而化简为128mod5,化简为8mod5,得到3</li>
+<li>一般余数r的选择范围是 0 &lt;= r &lt;= m - 1.这里引入环的概念,环由两部分组成,集合Zm = {0,1,2,3,…,m - 1},两种操作”+”,”x”使得对所有a,b属于Zm都有 a+b === c mod m,a*b === d mod m,其中c,d属于Zm</li>
+<li>如果两个数相加/乘的结果都在环内,则程该环为封闭环,</li>
+</ul>
+<h1 id="序列密码和分组密码"><a href="#序列密码和分组密码" class="headerlink" title="序列密码和分组密码"></a>序列密码和分组密码</h1><ul>
+<li>序列密码单独加密每个位,序列密码还可以分为同步序列密码和异步序列密码,同步密码的密码顺序仅仅取决于秘钥,异步密码的密码顺序取决于秘钥和密文</li>
+<li>异步密码其实就是一个流加密</li>
+</ul>
+<h1 id="OTP"><a href="#OTP" class="headerlink" title="OTP"></a>OTP</h1><ul>
+<li>当密钥被同时异或加密了多个密文时,会发生c1 = m1 xor key,c2 = m2 xor key,这个时候我们将c1,c2互相异或,就会得到两串英文互相异或的结果m1 xor m2,当样本足够多的时候,便能根据其中的规律统计出m1 - mn,进而反求出key,最后利用key解密密文,是唯密文攻击的一种</li>
+<li>那么一般根据什么规律呢</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for i in range(65,89):</span><br><span class="line">    for j in range(65,89):</span><br><span class="line">        print i^j</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<ul>
+<li>可以看到由于异或运算的特性,ascii码过于接近的互相异或以后都是很小的值,而且这些值大多数都处在不可见字符区域,而两串密文异或以后,就是两个字符串的异或,由于空格等标点的存在,所以异或以后会存在一些可见字符范围内的,数据量足够的情况下,便可以利用统计出的下标对应,如果大于一个比较接近全体样本数据的数字,那么加入到可疑空格的位置</li>
+<li>将样本中的空格统计结束以后,便可以进行密钥位的反求,最后进行解密</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">strxor</span><span class="params">(a, b)</span>:</span>     <span class="comment"># xor two strings (trims the longer input)</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">""</span>.join([chr(ord(x) ^ ord(y)) <span class="keyword">for</span> (x, y) <span class="keyword">in</span> zip(a, b)])</span><br><span class="line"></span><br><span class="line">ciphers = [<span class="string">'daaa4b4e8c996dc786889cd63bc4df4d1e7dc6f3f0b7a0b61ad48811f6f7c9bfabd7083c53ba54'</span>,</span><br><span class="line">	<span class="string">'c5a342468c8c7a88999a9dd623c0cc4b0f7c829acaf8f3ac13c78300b3b1c7a3ef8e193840bb'</span>,</span><br><span class="line">	<span class="string">'dda342458c897a8285df879e3285ce511e7c8d9afff9b7ff15de8a16b394c7bdab920e7946a05e9941d8308e'</span>,</span><br><span class="line">	<span class="string">'d9b05b4cd5ce7c8f938bd39e24d0df191d7694dfeaf8bfbb56e28900e1b8dff1bb985c2d5aa154'</span>,</span><br><span class="line">	<span class="string">'d9aa4b00c88b7fc79d99d38223c08d54146b88d3f0f0f38c03df8d52f0bfc1bda3d7133712a55e9948c32c8a'</span>,</span><br><span class="line">	<span class="string">'c4b60e46c9827cc79e9698936bd1c55c5b6e87c8f0febdb856fe8052e4bfc9a5efbe5c3f57ad4b9944de34'</span>,</span><br><span class="line">	<span class="string">'d9aa5700da817f94d29e81936bc4c1555b7b94d5f5f2bdff37df8252ffbecfb9bbd7152a12bc4fc00ad7229090'</span>,</span><br><span class="line">	<span class="string">'c4e24645cd9c28939a86d3982ac8c819086989d1fbf9f39e18d5c601fbb6dab4ef9e12795bbc549959d9229090'</span>,</span><br><span class="line">	<span class="string">'d9aa4b598c80698a97df879e2ec08d5b1e7f89c8fbb7beba56f0c619fdb2c4bdef8313795fa149dc0ad4228f'</span>,</span><br><span class="line">	<span class="string">'cce25d48d98a6c8280df909926c0de19143983c8befab6ff21d99f52e4b2daa5ef83143647e854d60ad5269c87'</span>,</span><br><span class="line">	<span class="string">'d9aa4b598c85668885df9d993f85e419107783cdbee3bbba1391b11afcf7c3bfaa805c2d5aad42995ede2cdd82977244'</span>,</span><br><span class="line">	<span class="string">'e1ad40478c82678995df809e2ac9c119323994cffbb7a7b713d4c626fcb888b5aa920c354be853d60ac5269199'</span>,</span><br><span class="line">	<span class="string">'c4ac0e53c98d7a8286df84936bc8c84d5b50889aedfebfba18d28352daf7cfa3a6920a3c'</span>,</span><br><span class="line">	<span class="string">'d9aa4f548c9a609ed297969739d18d5a146c8adebef1bcad11d49252c7bfd1f1bc87152b5bbc07dd4fd226948397'</span>,</span><br><span class="line">	<span class="string">'c4a40e698c9d6088879397d626c0c84d5b6d8edffbb792b902d49452ffbec6b6ef8e193840'</span>,</span><br><span class="line">	<span class="string">'c5ad5900df8667929e9bd3bf6bc2df5c1e6dc6cef6f2b6ff21d8921ab3a4c1bdaa991f3c12a949dd0ac5269c'</span>]</span><br><span class="line"></span><br><span class="line">target_cipher = <span class="string">"c2967e7fc59d57899d8bac852ac3c866127fb9d7f1e5b68002d9871cccb8c6b2aa"</span>.decode(<span class="string">"hex"</span>)</span><br><span class="line"></span><br><span class="line">key = [<span class="number">0</span>]*<span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(ciphers)):</span><br><span class="line">	flag = [<span class="number">0</span>] * len(ciphers[i].decode(<span class="string">"hex"</span>))</span><br><span class="line">	<span class="keyword">for</span> j <span class="keyword">in</span> range(len(ciphers)):</span><br><span class="line">		<span class="keyword">if</span> i != j:</span><br><span class="line">			<span class="comment"># print strxor(ciphers[i].decode("hex"),ciphers[j].decode("hex"))</span></span><br><span class="line">			<span class="keyword">for</span> index,c <span class="keyword">in</span> enumerate(strxor(ciphers[i].decode(<span class="string">"hex"</span>),ciphers[j].decode(<span class="string">"hex"</span>))):</span><br><span class="line">				<span class="keyword">if</span> c.isalpha():</span><br><span class="line">					flag[index] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">	space = []</span><br><span class="line">	<span class="keyword">for</span> k <span class="keyword">in</span> range(len(flag)):</span><br><span class="line">		<span class="keyword">if</span> flag[k] &gt; <span class="number">8</span>:</span><br><span class="line">			space.append(k)</span><br><span class="line">	<span class="keyword">print</span> space</span><br><span class="line">	spacexor = strxor(ciphers[i].decode(<span class="string">"hex"</span>),<span class="string">" "</span>*len(ciphers[i].decode(<span class="string">"hex"</span>)))</span><br><span class="line">	<span class="keyword">for</span> k <span class="keyword">in</span> space:</span><br><span class="line">		key[k] = ord(spacexor[k])</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> key</span><br><span class="line">flag = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(target_cipher)):</span><br><span class="line">	<span class="keyword">if</span>(key[i] != <span class="number">0</span>):</span><br><span class="line">		flag += chr(key[i] ^ ord(target_cipher[i]))</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		flag += <span class="string">"?"</span></span><br><span class="line"><span class="keyword">print</span> flag</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/29/深入浅出密码学读书笔记/" data-id="cjyn80f8o002oxkth9veqsnst" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+  
+    <article id="post-逆向工程核心原理笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/29/逆向工程核心原理笔记/" class="article-date">
+  <time datetime="2019-07-28T17:11:01.898Z" itemprop="datePublished">2019-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/二进制/">二进制</a>
+  </div>
 
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/29/逆向工程核心原理笔记/">Reversing-engineering</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>The frequently-used Shortcut key of Ollydbg</p>
+<table>
+        <tr>
+            <th>Shortcut</th>
+            <th>effect</th>
+        </tr>
+        <tr>
+            <th>Ctrl + F2</th>
+            <th>restart debugging</th>
+        </tr>
+        <tr>
+            <th>F7</th>
+            <th>execute next code,If meet the CALL instruction,step in the function</th>
+        </tr>
+        <tr>
+            <th>F8</th>
+            <th>execute next code,If meet the CALL instruction,Only Call the function without step in(step over)</th>
+        </tr>
+        <tr>
+            <th>F4</th>
+            <th>execute until cursor</th>
+        </tr>
+        <tr>
+            <th>F2</th>
+            <th>set BreakPoint</th>
+        </tr>
+        <tr>
+            <th>F9</th>
+            <th>run to BreakPoint,if without BP ,run until end</th>
+        </tr>
+        <tr>
+            <th>\*</th>
+            <th>show the position of EIP</th>
+        </tr>
+        <tr>
+            <th>-</th>
+            <th>show the previous position of cursor</th>
+        </tr>
+        <tr>
+            <th>Alt + M</th>
+            <th>show the be loaded *.dll</th>
+        </tr>
+        <tr>
+            <th>space</th>
+            <th>edit data</th>
+        </tr>
+</table>
+
+
+<p>the method of find function:</p>
+<ul>
+<li>Search String</li>
+<li>set API BP<ul>
+<li>in the *.dll</li>
+<li>in the main function</li>
+</ul>
+</li>
+</ul>
+<p>if you want to change the string ,you can write something in the Extra memory space(Null padding),and patch the string point where push the address of the first byte.</p>
+<blockquote>
+<p>when the Executable file be loaded in memory ,it can be distribution 1000byte memory space,although the file only use 100byte ,but when the file be loaded in memory,it can be distribution 1000byte memory space, so the other free space,be fill with NULL.</p>
+</blockquote>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/hello-world/" data-id="cjyn7ctoi000020thd8tx3ubu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/29/逆向工程核心原理笔记/" data-id="cjyn80f90002yxkthopjshk83" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-看雪ctf4" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/29/看雪ctf4/" class="article-date">
+  <time datetime="2019-07-28T17:11:01.893Z" itemprop="datePublished">2019-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/RE/">RE</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/29/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="密界寻踪"><a href="#密界寻踪" class="headerlink" title="密界寻踪"></a>密界寻踪</h1><h2 id="恢复函数"><a href="#恢复函数" class="headerlink" title="恢复函数"></a>恢复函数</h2><ul>
+<li>ida打开后随便定位了一个字符串,随后定位到一个函数,但是不知道是做什么的,乖乖找main函数</li>
+<li>找到_main和_main_0函数,点进去发现_main_0跳到了程序的另一个地方,也就是_main_0_0函数,这里有巨多的花指令,jnz/jz/jno/jo/e8/什么的全用上了QAQ</li>
+<li>去花后发现这一段函数其实只有几步,push ebp/mov ebp,esp/sub esp,7Ch,然后一个大跳跳到函数主体,注意这个sub esp,7ch….被这个坑了好久</li>
+<li>跟着跳转过去后,刚准备f5,堆栈不平衡了.到函数尾后,发现函数自从add esp,7Ch后就非常不正常,当时想了好久甚至nop了这个指令但是总改不回来,扫了一眼函数体,并没有打乱函数帧栈平衡的函数,因此我又从头到后分析了一下函数,才想起来,原来在跳到这函数之前,有一个sub esp,7Ch的开辟空间的过程,这不正好对应上了吗= =,直接改了这个函数头三个push的帧栈,成功f5..代码如下</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> __usercall sub_403136@&lt;eax&gt;(<span class="keyword">int</span> a1@&lt;ebp&gt;)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> __int64 v1; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">int</span> v2; <span class="comment">// ST08_4</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int64 v3; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">int</span> v4; <span class="comment">// eax</span></span><br><span class="line">  <span class="keyword">int</span> result; <span class="comment">// eax</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">memset</span>((a1 - <span class="number">124</span>), <span class="number">0xCC</span>u, <span class="number">0x7C</span>u);</span><br><span class="line">  *(a1 - <span class="number">4</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">8</span>) = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">  &#123;</span><br><span class="line">    v1 = __rdtsc();</span><br><span class="line">    v2 = v1;</span><br><span class="line">    v3 = __rdtsc();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> ( (v3 - v2) &gt; <span class="number">0xFFF</span> );</span><br><span class="line">  *(a1 - 20) = 'g`wr';</span><br><span class="line">  *(a1 - 16) = 'tu`';</span><br><span class="line">  *(a1 - <span class="number">12</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - 32) = 'kqpd';</span><br><span class="line">  *(a1 - <span class="number">28</span>) = <span class="string">'w'</span>;</span><br><span class="line">  *(a1 - <span class="number">26</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">56</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">55</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">51</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">47</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">43</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">39</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">35</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">33</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">60</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">59</span>) = <span class="number">0</span>;</span><br><span class="line">  sub_4011E0();                                 <span class="comment">// 打印看雪 ctf2018</span></span><br><span class="line">  sub_40100A();                                 <span class="comment">// 反调试</span></span><br><span class="line">  sub_401078((a1 - <span class="number">20</span>));                        <span class="comment">// success</span></span><br><span class="line">  sub_401078((a1 - <span class="number">32</span>));                        <span class="comment">// error</span></span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">"%s"</span>, a1 - <span class="number">56</span>, <span class="number">24</span>);</span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in">strlen</span>((a1 - <span class="number">56</span>)) &gt; <span class="number">23</span> )                 <span class="comment">// 输入长度小于等于23</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">printf</span>((a1 - <span class="number">32</span>));</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  v4 = <span class="built_in">strlen</span>((a1 - <span class="number">53</span>));</span><br><span class="line">  sub_401172(a1 - <span class="number">53</span>, &amp;input, v4);              <span class="comment">// input[3:]输入转16进制</span></span><br><span class="line">  *(a1 - <span class="number">4</span>) = sub_40125D();</span><br><span class="line">  <span class="built_in">memcpy</span>((a1 - <span class="number">60</span>), (a1 - <span class="number">56</span>), <span class="number">3u</span>);</span><br><span class="line">  <span class="keyword">if</span> ( sub_40108C(a1 - <span class="number">60</span>) )                    <span class="comment">//判断input[0:3]是否为数字</span></span><br><span class="line">  &#123;</span><br><span class="line">    *(a1 - <span class="number">8</span>) = sub_40128F(a1 - <span class="number">60</span>);</span><br><span class="line">    <span class="keyword">if</span> ( *(a1 - <span class="number">8</span>) + *(a1 - <span class="number">4</span>) == <span class="number">2</span> )</span><br><span class="line">      <span class="built_in">printf</span>((a1 - <span class="number">20</span>));                        <span class="comment">// success</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      <span class="built_in">printf</span>((a1 - <span class="number">32</span>));                        <span class="comment">// error</span></span><br><span class="line">    system(<span class="string">"pause"</span>);</span><br><span class="line">    result = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">printf</span>((a1 - <span class="number">32</span>));</span><br><span class="line">    result = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>有一堆字符串是简单异或下标+1过的,大概是为了不让函数被定位,sub_401078()函数就是这个作用</li>
+<li>随后判断输入长度balabala什么的,然后就是重头戏check函数分析了</li>
+<li>字符串被分为2部分进行校验,前三位和余下位数,前三位首先简单校验是否为纯数字,很容易分析</li>
+<li>其次就是真的check函数了,比较长的字符串首先转成16进制的字符串转储在全局变量中,这里我把全局变量命名为input</li>
+<li>查找交叉引用定位到check这段的函数(其实就是<em>(a1 - 4)后面的那个),因为两个返回值都为真的时候才会输出success,同理定位</em>(a1 - 8)后面的那个函数</li>
+</ul>
+<h2 id="check1"><a href="#check1" class="headerlink" title="check1"></a>check1</h2><ul>
+<li>里面有成吨的函数…先恢复初始化的数据看看是什么,</li>
+</ul>
+<blockquote>
+<p>208CBB7CD6ECC64516D07D978F5F0681F534EAD235D5C49ADD72D2DB840D5304<br>7da39de66016477b1afc3dc8e309dc429b5de855f0d616d225b570b68b88a585</p>
+</blockquote>
+<ul>
+<li>恢复出来这两串东西= =,第一组数值是作比较用的也就是strcmp的一个确定参数,还有一个3e9,转了一下发现是10进制的1001,怀疑是rsa</li>
+<li>解密出的第二串数字可以被分解为两个大素数pq,第一串应该就是密文了</li>
+</ul>
+<h2 id="check2"><a href="#check2" class="headerlink" title="check2"></a>check2</h2><ul>
+<li>标志性的置换盒,aes没跑,爆破秘钥搞定</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/29/看雪ctf4/" data-id="cjyn80f8z002xxkthcdoz3pek" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-汇编入门" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/29/汇编入门/" class="article-date">
+  <time datetime="2019-07-28T17:11:01.888Z" itemprop="datePublished">2019-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/二进制/">二进制</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/29/汇编入门/">CTF二进制总结0X03</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> a = <span class="number">0</span>;                  <span class="comment">//.data</span></span><br><span class="line"><span class="keyword">int</span> b;                      <span class="comment">//.bss</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> PI=<span class="number">3.14159f</span>;   <span class="comment">//.rodata</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> c;                  <span class="comment">//stack</span></span><br><span class="line">    <span class="keyword">char</span> *d = <span class="built_in">malloc</span>(<span class="number">16</span>)    <span class="comment">//heap</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>for循环一般都是jmp到最底端，然后再跳回来，switch case语句一般都是连续好几个的cmp jmp。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/29/汇编入门/" data-id="cjyn80f8n002mxkth028kxj0m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-函数调用约定" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/29/函数调用约定/" class="article-date">
+  <time datetime="2019-07-28T17:11:01.884Z" itemprop="datePublished">2019-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/二进制/">二进制</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/29/函数调用约定/">Calling Convention</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="函数调用约定-对函数调用时如何传递参数的一种约定"><a href="#函数调用约定-对函数调用时如何传递参数的一种约定" class="headerlink" title="函数调用约定:对函数调用时如何传递参数的一种约定."></a>函数调用约定:对函数调用时如何传递参数的一种约定.</h2><p>调用函数前会先将函数参数压栈,在传递给函数,栈的大小被存储在PE头中.</p>
+<ul>
+<li>cdexl<br>主要在C语言中使用的方式,调用者负责处理堆栈.</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (a + b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> * argv[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> add(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PUSH</span> <span class="built_in">EBP</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">EAX</span>,<span class="built_in">ESP</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">EAX</span>,<span class="built_in">DWORD</span> <span class="built_in">PTR</span> <span class="built_in">SS</span>:[<span class="built_in">EBP</span> + <span class="number">8</span>]</span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">EAX</span>,<span class="built_in">DWORD</span> <span class="built_in">PTR</span> <span class="built_in">SS</span>:[<span class="built_in">EBP</span> + C]</span><br><span class="line"><span class="keyword">POP</span> <span class="built_in">EBP</span></span><br><span class="line"><span class="keyword">RETN</span></span><br><span class="line"><span class="keyword">INT3</span></span><br><span class="line"><span class="keyword">INT3</span></span><br><span class="line"><span class="keyword">INT3</span></span><br><span class="line"><span class="keyword">INT3</span></span><br><span class="line"><span class="keyword">INT3</span></span><br><span class="line"><span class="keyword">INT3</span></span><br><span class="line"><span class="keyword">PUSH</span> <span class="built_in">EBP</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">EBP</span>,<span class="built_in">ESP</span></span><br><span class="line"><span class="keyword">PUSH</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">PUSH</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">CALL</span> <span class="number">0X00401000</span></span><br><span class="line"><span class="keyword">ADD</span> <span class="built_in">ESP</span>,<span class="number">8</span></span><br><span class="line"><span class="keyword">POP</span> <span class="built_in">EBP</span></span><br><span class="line"><span class="keyword">RET</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>stdcall</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (a + b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> * argv[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> add(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PUSH</span> <span class="built_in">EBP</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">EAX</span>,<span class="built_in">ESP</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">EAX</span>,<span class="built_in">DWORD</span> <span class="built_in">PTR</span> <span class="built_in">SS</span>:[<span class="built_in">EBP</span> + <span class="number">8</span>]</span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">EAX</span>,<span class="built_in">DWORD</span> <span class="built_in">PTR</span> <span class="built_in">SS</span>:[<span class="built_in">EBP</span> + C]</span><br><span class="line"><span class="keyword">POP</span> <span class="built_in">EBP</span></span><br><span class="line"><span class="keyword">RETN</span> <span class="number">8</span>    --&gt; <span class="keyword">RETN</span></span><br><span class="line"><span class="keyword">INT3</span></span><br><span class="line"><span class="keyword">INT3</span></span><br><span class="line"><span class="keyword">INT3</span></span><br><span class="line"><span class="keyword">PUSH</span> <span class="built_in">EBP</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">EBP</span>,<span class="built_in">ESP</span></span><br><span class="line"><span class="keyword">PUSH</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">PUSH</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">CALL</span> <span class="number">0X00401000</span></span><br><span class="line"> <span class="keyword">NOP</span>      --&gt; <span class="keyword">ADD</span> <span class="built_in">ESP</span>,<span class="number">8</span></span><br><span class="line"><span class="keyword">POP</span> <span class="built_in">EBP</span></span><br><span class="line"><span class="keyword">RET</span></span><br></pre></td></tr></table></figure>
+
+<p>常用于WIN32 API,清理栈时,代码尺寸要小.</p>
+<ul>
+<li>fastcall</li>
+</ul>
+<p>常使用寄存器来传递参数,例如,4个参数,则前两个参数分别使用ECX EDX来传递.当函数调用复杂时,exc和edx先前的数据需要先备份,如果在函数调用时运用到ecx edx 则现将参数备份.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/29/函数调用约定/" data-id="cjyn80f8m002kxkthr0ufyzai" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-二进制选手的Web路(WhaleCTF web部分writepu" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/29/二进制选手的Web路(WhaleCTF web部分writepu/" class="article-date">
+  <time datetime="2019-07-28T17:11:01.879Z" itemprop="datePublished">2019-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/WEB/">WEB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/29/二进制选手的Web路(WhaleCTF web部分writepu/">二进制手的WEB路（WhaleCTF web部分writeup</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>WhaleCTF</strong> <strong>Web部分writeup</strong><br>二进制小白兼web盲来记录下今天做的几道题。。。<br>0x00</p>
+<blockquote>
+<p>签到题直接f12查看源码即可</p>
+</blockquote>
+<p>0x01 http呀</p>
+<blockquote>
+<p><strong>这里提供两种思路</strong><br>做web肯定少不了burpsuit啦，网页中给了提示，Do you know what happend just now?！ ( •̀∀•́ )突然想起南邮CTF平台上的两道题，考虑是不是flag在中间页面里，在点击时来了一次非常快的跳转呢？<br>抓了一次包发现啥都没有…后来尝试了几次发现，打开index.php的页面时，会跳到index.html。这就好办了，抓包拿flag，同时，同为二进制手的Cossack9989因为burpsuit过期了，想到了用wireshark来抓取流量，也是很顺利的拿到了flag<br>(偷偷宣传一波<a href="http://120.79.211.91/w8cloud" target="_blank" rel="noopener">W8Cloud战队</a>和<a href="http://blog.csdn.net/cossack9989" target="_blank" rel="noopener">Cossack9989</a>的博客</p>
+</blockquote>
+<p>0x02 本地登录</p>
+<blockquote>
+<p>本地登录，听名字大概就是伪造ip地址然后post过去吧，抓包加X-Forwarded-For: 127.0.0.1  成功拿到flag</p>
+</blockquote>
+<p>0x03密码泄露</p>
+<blockquote>
+<p>web的最后一题了，果然坑不少，是一个登陆样子的界面，查看源码发现有一个小提示“password.txt”，好的直接找到了密码表，来一发爆破吧，发现“Nsf0cuS”对应的返回包略大一点，查看Respone，有一个newpage，把对应的字符串base64解码居然到了一个新的网页w(ﾟДﾟ)w<br>来继续分析吧<br><img src="http://img.blog.csdn.net/20180204000148176?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvTW96aHVDWQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>去网上查了一波关于留言板的wp，莫非是xss，那么高深的东西也做不了啊。。后来和学长交流了一下，发现居然做法还是抓包。。。我来随便留一段文字，改了一下userlevel=root，发现居然还不对，原来是忘记改了lsLogin,0改1，拿到flag<br><img src="http://img.blog.csdn.net/20180204000958409?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvTW96aHVDWQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+</blockquote>
+<p>sql注入对我这个web盲还是太高深了（；´д｀）ゞ学习一下再来补sql的wp吧….</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/29/二进制选手的Web路(WhaleCTF web部分writepu/" data-id="cjyn80f8l002ixkth16yffsge" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-二进制手的Web路SQL2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/29/二进制手的Web路SQL2/" class="article-date">
+  <time datetime="2019-07-28T17:11:01.874Z" itemprop="datePublished">2019-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/WEB/">WEB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/29/二进制手的Web路SQL2/">二进制手的Web路 （sql注入篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>sql注入0x02:<br><br>接着昨天的宽字符注入：<br><br>&ensp;&ensp;今天再又尝试了一下宽字节注入，题目为BUGKU的一道题，题目要求查询key表，id=1的string值。拿到题目，查看源代码，看到了gbk的字样，尝试一波宽字节注入hhhhh，id=1没发生任何事情，随后我把id改成了id=1’，还是没法生啥，好的，这次直接id=1%df’,报错了 (美滋滋 。确定为宽字节注入，暴库查询一气呵成，拿到flag。虽然了解了原理，但是发现自己对sql语句掌握的非常不熟练，结合着手注学一波sql语句吧。<br></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/29/二进制手的Web路SQL2/" data-id="cjyn80f8k002gxkth8asg55q0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-二进制手的Web路SQL1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/29/二进制手的Web路SQL1/" class="article-date">
+  <time datetime="2019-07-28T17:11:01.870Z" itemprop="datePublished">2019-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/WEB/">WEB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/29/二进制手的Web路SQL1/">二进制手的Web路（sql注入篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>sql注入0x01：宽字节注入</strong><br>&ensp;&ensp;从宽字节注入开始记录吧，在网站的搭建时，为了安全起见，在PHP代码中常常会设置过滤，也正是因为PHP 的addslashes() 函数，防止了一部分sql注入，此函数会将用户输入的 “  ‘ ”，转义为“ \‘ ”,从而防止了单引号闭合所导致的sql注入漏洞的发生。<br><br><br>&ensp;&ensp;但是，随其出现的问题，便是接下来要说的了。因为GBK编码的原因，假如用户输入的命令为” %df’ “那么很不幸的是，%df会和\结合起来形成一个汉字（其实只要汉字编码结尾为%5c（即为“\”）的都可以）。从而使得服务器端的assslashes()函数失效，达到单引号闭合的目的。<br></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">mysql_connect(<span class="string">"localhost"</span>,<span class="string">"root"</span>,<span class="string">""</span>);</span><br><span class="line">mysql_select_db(<span class="string">'sae'</span>);</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'id'</span>]))&#123;</span><br><span class="line">		$id  = addslashes($_GET[<span class="string">'id'</span>]);</span><br><span class="line">		$sql = <span class="string">"select id,title from news where id = '"</span>.$id.<span class="string">"'"</span> ;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">"your sql:"</span>.$sql.<span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">        $query = mysql_query($sql);</span><br><span class="line">        $array = mysql_fetch_array($query);</span><br><span class="line">        <span class="keyword">if</span>($query)&#123;</span><br><span class="line">            <span class="keyword">echo</span> $array[<span class="string">'title'</span>] ;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"I need id"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&ensp;&ensp;同样在CGCTF的习题中存在以上代码。这题还要和union查询一同才可以起作用，先说一下关于GBK sql注入的吧。在我构造以下下sql语句时，返回页面如下<br></p>
+<blockquote>
+<p>id=2%27or%20id=2#<br><br>your sql:select id,title from news where id = ‘2&#39;or id=2’<br>gbk_sql_injection</p>
+</blockquote>
+<p>&ensp;&ensp;但是当构造了如下sql注入语句时，居然产生了如下所示的报错</p>
+<blockquote>
+<p>id=%df%27or%20id=2# <br>your sql:select id,title from news where id = ‘ß&#39;or id=2’<br><br></p>
+<blockquote>
+<p>Warning: mysql_fetch_array() expects parameter 1 to be resource, boolean given in SQL-GBK/index.php on line 10</p>
+</blockquote>
+</blockquote>
+<p>&ensp;&ensp;这就说明，注入点存在，这时就可以进行下一步操作了（union联合查找//貌似是这样叫…）不过还不是很明白，为什么打印到屏幕上的$id不是吃掉/的汉字呢，难道是网页编码问题  _(:3」∠)_ 下次再探究吧，去学一波union联合查找先。</p>
+<p>&ensp;&ensp;30分钟后:我又回来了，果然是网页编码的问题，我的chrome浏览器网页编码不是GBK。但是换成了360浏览器就可以清楚的看到 \ 被吃了,谜题解开了，继续学习union联合查询。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/29/二进制手的Web路SQL1/" data-id="cjyn80f8j002exkthwu1tmkgx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-二进制手的Web路SQL0" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/29/二进制手的Web路SQL0/" class="article-date">
+  <time datetime="2019-07-28T17:11:01.862Z" itemprop="datePublished">2019-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/WEB/">WEB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/29/二进制手的Web路SQL0/">二进制手的Web路（sql注入篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="想入门一下Web，非常的那种。"><a href="#想入门一下Web，非常的那种。" class="headerlink" title="想入门一下Web，非常的那种。"></a><strong>想入门一下Web，非常的那种。</strong></h2><p><strong>那这几天系统的学一下SQL注入吧</strong></p>
+<p>&ensp;&ensp;那么什么是SQL注入呢。SQL是数据库的一种，一般的SQL查询语句大概就是SELECT * FROM * WHERE * ,类似这种语句一般都会在PHP代码中构造好，预留出一个空，在取得客户端的用户输入的数值，将其填入，这时，如果不进行过滤的防护措施，不法用户所输入的恶意代码也可能被执行，进而达到控制数据库的效果，先举一个例子吧。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php"><span class="keyword">if</span>($_POST[user] &amp;&amp; $_POST[pass]) &#123;</span></span><br><span class="line"><span class="php">    mysql_connect(SAE_MYSQL_HOST_M . <span class="string">':'</span> . SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);</span></span><br><span class="line"><span class="php">  mysql_select_db(SAE_MYSQL_DB);</span></span><br><span class="line"><span class="php">  $user = trim($_POST[user]);</span></span><br><span class="line"><span class="php">  $pass = md5(trim($_POST[pass]));</span></span><br><span class="line"><span class="php">  $sql=<span class="string">"select user from ctf where (user='"</span>.$user.<span class="string">"') and (pw='"</span>.$pass.<span class="string">"')"</span>;</span></span><br><span class="line"><span class="php">    <span class="keyword">echo</span> <span class="string">'&lt;/br&gt;'</span>.$sql;</span></span><br><span class="line"><span class="php">  $query = mysql_fetch_array(mysql_query($sql));</span></span><br><span class="line"><span class="php">  <span class="keyword">if</span>($query[user]==<span class="string">"admin"</span>) &#123;</span></span><br><span class="line"><span class="php">      <span class="keyword">echo</span> <span class="string">"&lt;p&gt;Logged in! flag:******************** &lt;/p&gt;"</span>;</span></span><br><span class="line"><span class="php">  &#125;</span></span><br><span class="line"><span class="php">  <span class="keyword">if</span>($query[user] != <span class="string">"admin"</span>) &#123;</span></span><br><span class="line"><span class="php">    <span class="keyword">echo</span>(<span class="string">"&lt;p&gt;You are not admin!&lt;/p&gt;"</span>);</span></span><br><span class="line"><span class="php">  &#125;</span></span><br><span class="line"><span class="php">&#125;</span></span><br><span class="line"><span class="php"><span class="keyword">echo</span> $query[user];</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>&ensp;&ensp;这是CGCTF上的一道题，只要以管理员身份登陆，就可以拿到flag。但是我们并不知道管理员账号admin的密码，这时我们就可以构造sql注入语句绕过对密码的判断。</p>
+<p><em>select user from ctf where (user=’”.$user.”‘) and (pw=’”.$pass.”‘)</em></p>
+<p>这句话便是关键了,构造sql语句为”admin’)#”</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select user from ctf where (user=<span class="string">'admin'</span>)<span class="comment">#') and (pw='".$pass."')</span></span><br></pre></td></tr></table></figure>
+
+<p>&ensp;&ensp;从而达到我们的目的。（代码效果如上单引号闭合，直接“#”直接注释掉多余内容。<br><br>&ensp;&ensp;大概了解了SQL注入的原理了，下面来细数一下SQL注入的几个类型</p>
+<ul>
+<li>Boolean-based blind SQL injection（布尔型注入）</li>
+<li>Error-based SQL injection（报错型注入）</li>
+<li>UNION query SQL injection（可联合查询注入）</li>
+<li>Stacked queries SQL injection（可多语句查询注入）</li>
+<li>Time-based blind SQL injection（基于时间延迟注入）<br></li>
+</ul>
+<p>接下来的几篇博文，会分别整理出这5种SQL注入的方式，欢迎关注。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/29/二进制手的Web路SQL0/" data-id="cjyn80f8i002cxkthyoxgi1q8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-z3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/29/z3/" class="article-date">
+  <time datetime="2019-07-28T17:11:01.855Z" itemprop="datePublished">2019-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/RE/">RE</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/29/z3/">z3求解器的一些简单使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="pip-install-z3-solver"><a href="#pip-install-z3-solver" class="headerlink" title="pip install z3-solver"></a>pip install z3-solver</h1><ul>
+<li>安装这东西,一行就够了,记住不要直接pip install z3就好</li>
+<li>from z3 import *</li>
+<li>然后创建一个通用求解器,s = Solver()</li>
+<li>一些函数:s.add()添加条件,s.model()列出求解结果,s.check()查看约束条件是否合格</li>
+<li>一般循环设立值是这样的:X=[Int(“x%d”%i) for i in range(5)]</li>
+<li>add的条件可以用逗号隔开,然后从s.model()中提取数据s.model()[x].as_long()</li>
+<li>之后有用到的例题在下面总结下</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/29/z3/" data-id="cjyn80f8i002axkth2xdw7kes" class="article-share-link">Share</a>
       
       
     </footer>
@@ -113,11 +662,23 @@
   
 
 
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
+
 </section>
         
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CVE/">CVE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Crypto/">Crypto</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/FE/">FE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWN/">PWN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/RE/">RE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/二进制/">二进制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
+    </div>
+  </div>
+
 
   
     
@@ -129,7 +690,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
     </div>
   </div>
 
@@ -142,7 +703,23 @@
       <ul>
         
           <li>
-            <a href="/2019/07/29/hello-world/">Hello World</a>
+            <a href="/2019/07/29/深入浅出密码学读书笔记/">深入浅出密码学读书笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/逆向工程核心原理笔记/">Reversing-engineering</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/汇编入门/">CTF二进制总结0X03</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/函数调用约定/">Calling Convention</a>
           </li>
         
       </ul>

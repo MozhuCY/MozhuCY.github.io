@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>qctf-asong | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="比较基础的一个逆向 题目给了三个文件,一个内容是flagenc,一个是一份歌词,一个是elf文件 第一个函数是对输入的flag取{}之间的值 第二个函数是对于歌词的一个词频分析 第三个函数是将flag和歌词词频分析后的flag进行加密  加密过程: 首先利用词频分析出的表进行一个单表置换 随后再次进行一次置换 然后一个简单的位运算,写入文件  123456789101112131415161718">
+<meta property="og:type" content="article">
+<meta property="og:title" content="qctf-asong">
+<meta property="og:url" content="http://yoursite.com/2018/08/19/qctf-asong/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="比较基础的一个逆向 题目给了三个文件,一个内容是flagenc,一个是一份歌词,一个是elf文件 第一个函数是对输入的flag取{}之间的值 第二个函数是对于歌词的一个词频分析 第三个函数是将flag和歌词词频分析后的flag进行加密  加密过程: 首先利用词频分析出的表进行一个单表置换 随后再次进行一次置换 然后一个简单的位运算,写入文件  123456789101112131415161718">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-28T15:51:13.792Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="qctf-asong">
+<meta name="twitter:description" content="比较基础的一个逆向 题目给了三个文件,一个内容是flagenc,一个是一份歌词,一个是elf文件 第一个函数是对输入的flag取{}之间的值 第二个函数是对于歌词的一个词频分析 第三个函数是将flag和歌词词频分析后的flag进行加密  加密过程: 首先利用词频分析出的表进行一个单表置换 随后再次进行一次置换 然后一个简单的位运算,写入文件  123456789101112131415161718">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-qctf-asong" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/19/qctf-asong/" class="article-date">
+  <time datetime="2018-08-18T16:00:00.000Z" itemprop="datePublished">2018-08-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/二进制/">二进制</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      qctf-asong
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="比较基础的一个逆向"><a href="#比较基础的一个逆向" class="headerlink" title="比较基础的一个逆向"></a>比较基础的一个逆向</h1><ul>
+<li>题目给了三个文件,一个内容是flagenc,一个是一份歌词,一个是elf文件</li>
+<li>第一个函数是对输入的flag取{}之间的值</li>
+<li>第二个函数是对于歌词的一个词频分析</li>
+<li>第三个函数是将flag和歌词词频分析后的flag进行加密</li>
+</ul>
+<h2 id="加密过程"><a href="#加密过程" class="headerlink" title="加密过程:"></a>加密过程:</h2><ul>
+<li>首先利用词频分析出的表进行一个单表置换</li>
+<li>随后再次进行一次置换</li>
+<li>然后一个简单的位运算,写入文件</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">f=open(<span class="string">"that_girl.txt"</span>,<span class="string">"r"</span>)</span><br><span class="line">line = f.readline()</span><br><span class="line">a=[<span class="number">0</span>]*<span class="number">47</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(a)</span>:</span></span><br><span class="line">    ret = <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> a == <span class="number">10</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">45</span></span><br><span class="line">    <span class="keyword">if</span>  <span class="number">32</span>&lt;= a &lt;=<span class="number">34</span>:</span><br><span class="line">        <span class="keyword">return</span> a + <span class="number">10</span></span><br><span class="line">    <span class="keyword">if</span> a == <span class="number">39</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">41</span></span><br><span class="line">    <span class="keyword">if</span> a == <span class="number">44</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">40</span></span><br><span class="line">    <span class="keyword">if</span> a == <span class="number">46</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">39</span></span><br><span class="line">    <span class="keyword">if</span> a == <span class="number">58</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">37</span></span><br><span class="line">    <span class="keyword">if</span> a == <span class="number">59</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">38</span></span><br><span class="line">    <span class="keyword">if</span> a == <span class="number">63</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">36</span></span><br><span class="line">    <span class="keyword">if</span> a == <span class="number">95</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">46</span></span><br><span class="line">    <span class="keyword">if</span> <span class="number">47</span> &lt;= a &lt; <span class="number">57</span>:</span><br><span class="line">        <span class="keyword">return</span> a<span class="number">-48</span></span><br><span class="line">    <span class="keyword">if</span> <span class="number">64</span> &lt;= a &lt; <span class="number">90</span>:</span><br><span class="line">        <span class="keyword">return</span> a - <span class="number">55</span></span><br><span class="line">    <span class="keyword">if</span> <span class="number">96</span> &lt; a &lt;= <span class="number">122</span>:</span><br><span class="line">        <span class="keyword">return</span> a - <span class="number">87</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> line:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(line)):</span><br><span class="line">        a[fun(ord(line[i]))] += <span class="number">1</span></span><br><span class="line">    line = f.readline()</span><br><span class="line"><span class="comment">#print a</span></span><br><span class="line">f.close()</span><br><span class="line">f = open(<span class="string">"out"</span>,<span class="string">"rb"</span>).read()</span><br><span class="line">s = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(f)):</span><br><span class="line">    t = ord(f[i])</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">8</span>):</span><br><span class="line">        s += str( (t&amp;(<span class="number">0x80</span>&gt;&gt;i))&gt;&gt;(<span class="number">7</span>-i) )</span><br><span class="line"></span><br><span class="line">s = s[<span class="number">-3</span>:] + s[<span class="number">0</span>:len(s)<span class="number">-3</span>]</span><br><span class="line">p = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,len(s),<span class="number">8</span>):</span><br><span class="line">    p.append(int(s[i:i+<span class="number">8</span>],<span class="number">2</span>))</span><br><span class="line"><span class="comment">#print p</span></span><br><span class="line">table =[<span class="number">22</span>, <span class="number">0</span>, <span class="number">6</span>, <span class="number">2</span>, <span class="number">30</span>, <span class="number">24</span>, <span class="number">9</span>, <span class="number">1</span>, <span class="number">21</span>, <span class="number">7</span>, <span class="number">18</span>, <span class="number">10</span>, <span class="number">8</span>, <span class="number">12</span>, <span class="number">17</span>, <span class="number">23</span>, <span class="number">13</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">14</span>, <span class="number">19</span>, <span class="number">11</span>, <span class="number">20</span>, <span class="number">16</span>, <span class="number">15</span>, <span class="number">5</span>, <span class="number">25</span>, <span class="number">36</span>, <span class="number">27</span>, <span class="number">28</span>, <span class="number">29</span>, <span class="number">37</span>, <span class="number">31</span>, <span class="number">32</span>, <span class="number">33</span>, <span class="number">26</span>, <span class="number">34</span>, <span class="number">35</span>]</span><br><span class="line">p1 = [<span class="number">0</span>]*len(p)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(p)):</span><br><span class="line">    p1[table[i]]=p[i]</span><br><span class="line">flag = <span class="string">""</span></span><br><span class="line">ta=<span class="string">"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\n_`! _;:\\"</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(p1)):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> ta:</span><br><span class="line">        <span class="keyword">if</span> p1[i] == a[fun(ord(j))]:</span><br><span class="line">            flag += j</span><br><span class="line">            <span class="keyword">print</span> <span class="string">"r["</span> + str(i)+<span class="string">"]: "</span>+flag</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"============================="</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"flag:"</span> + <span class="string">"qctf&#123;"</span> + flag + <span class="string">"&#125;"</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"============================="</span>%</span><br></pre></td></tr></table></figure>
+
+<p>flag:qctf{that_girl_saying_no_for_your_vindicate}</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/08/19/qctf-asong/" data-id="cjyn80f82001bxkthxxvwhcht" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/09/sus/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          东南大学练习平台二进制全题解
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/13/suctf-enigma/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SUCTF-enigma</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CVE/">CVE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Crypto/">Crypto</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/FE/">FE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWN/">PWN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/RE/">RE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/二进制/">二进制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/29/深入浅出密码学读书笔记/">深入浅出密码学读书笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/逆向工程核心原理笔记/">Reversing-engineering</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/汇编入门/">CTF二进制总结0X03</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/函数调用约定/">Calling Convention</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
