@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>anti-ollvm | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="anti-ollvm控制流平坦化 为了防止静态分析，将代码块变成另外的一种结构，这样可以很好地打乱程序的上下文逻辑，从而对分析代码产生影响  代码结构 被混淆后，程序的流程图会显得非常的整齐，可以分为开头的序言部分，也就是保存上一个函数状态的部分，一些内存初始化的指令 后续就是很多的分发器，分别对应着不同的basic blocks，后面就是程序必须存在的运算指令区，所以最后我们需要留下来的就是指令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="anti-ollvm">
+<meta property="og:url" content="http://yoursite.com/2019/07/29/ollvm/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="anti-ollvm控制流平坦化 为了防止静态分析，将代码块变成另外的一种结构，这样可以很好地打乱程序的上下文逻辑，从而对分析代码产生影响  代码结构 被混淆后，程序的流程图会显得非常的整齐，可以分为开头的序言部分，也就是保存上一个函数状态的部分，一些内存初始化的指令 后续就是很多的分发器，分别对应着不同的basic blocks，后面就是程序必须存在的运算指令区，所以最后我们需要留下来的就是指令">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-28T17:24:39.261Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="anti-ollvm">
+<meta name="twitter:description" content="anti-ollvm控制流平坦化 为了防止静态分析，将代码块变成另外的一种结构，这样可以很好地打乱程序的上下文逻辑，从而对分析代码产生影响  代码结构 被混淆后，程序的流程图会显得非常的整齐，可以分为开头的序言部分，也就是保存上一个函数状态的部分，一些内存初始化的指令 后续就是很多的分发器，分别对应着不同的basic blocks，后面就是程序必须存在的运算指令区，所以最后我们需要留下来的就是指令">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ollvm" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/29/ollvm/" class="article-date">
+  <time datetime="2019-07-28T17:21:30.918Z" itemprop="datePublished">2019-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/RE/">RE</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      anti-ollvm
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="anti-ollvm"><a href="#anti-ollvm" class="headerlink" title="anti-ollvm"></a>anti-ollvm</h1><h1 id="控制流平坦化"><a href="#控制流平坦化" class="headerlink" title="控制流平坦化"></a>控制流平坦化</h1><ul>
+<li>为了防止静态分析，将代码块变成另外的一种结构，这样可以很好地打乱程序的上下文逻辑，从而对分析代码产生影响</li>
+</ul>
+<h2 id="代码结构"><a href="#代码结构" class="headerlink" title="代码结构"></a>代码结构</h2><ul>
+<li>被混淆后，程序的流程图会显得非常的整齐，可以分为开头的序言部分，也就是保存上一个函数状态的部分，一些内存初始化的指令</li>
+<li>后续就是很多的分发器，分别对应着不同的basic blocks，后面就是程序必须存在的运算指令区，所以最后我们需要留下来的就是指令区和序言部分</li>
+<li>根据程序的上下逻辑可以确定出一些流程。</li>
+</ul>
+<h1 id="符号执行"><a href="#符号执行" class="headerlink" title="符号执行"></a>符号执行</h1><ul>
+<li>将内存和寄存器的值，表示为符号和常量的形式，主要分为静态符号执行和动态符号执行两种方式，这里我选择我比较熟悉的angr符号执行框架</li>
+<li>去除控制流平台化的一般方式就是通过动态调试来梳理程序逻辑，但是一般来说，对于一个被混淆的大函数，工作量会非常的大，所以采用动态符号执行的方式进行去混淆</li>
+</ul>
+<h2 id="angr学习"><a href="#angr学习" class="headerlink" title="angr学习"></a>angr学习</h2><h3 id="Project"><a href="#Project" class="headerlink" title="Project"></a>Project</h3><ul>
+<li><code>load_shellcode(shellcode,arch,start_offset=0,load_address=0)</code>加载一个基于shellcode的工程</li>
+<li><code>Project()</code>，angr最主要的类，在参数中可以设置一些关于符号执行的参数，第一个参数是可执行文件的路径，剩下的参数如下</li>
+</ul>
+<blockquote>
+<p>ignore_functions – A list of function names that, when imported from shared libraries, should never be stepped into in analysis (calls will return an unconstrained value).</p>
+</blockquote>
+<ul>
+<li>用于限定执行函数的范围，对于一些库函数直接跳过，并且返回一个不受约束的值</li>
+</ul>
+<blockquote>
+<p>arch – The target architecture (auto-detected otherwise).</p>
+</blockquote>
+<ul>
+<li>架构</li>
+</ul>
+<blockquote>
+<p>support_selfmodifying_code (bool) – Whether we aggressively support self-modifying code. When enabled, emulation will try to read code from the current state instead of the original memory, regardless of the current memory protections.</p>
+</blockquote>
+<ul>
+<li>开启后可以实时读取目标位置代码而不是从原始内存中读取。</li>
+</ul>
+<blockquote>
+<p>store_function – A function that defines how the Project should be stored. Default to pickling.</p>
+</blockquote>
+<blockquote>
+<p>load_function – A function that defines how the Project should be loaded. Default to unpickling.</p>
+</blockquote>
+<ul>
+<li><code>hook(addr, hook=None, length=0, kwargs=None, replace=False)</code>将一个地址hook到一个自定义函数,将固定地址对应的指令变成state相关操作的函数，一般用于控制寄存器，读写内存，设置执行符号等</li>
+<li>定义hook函数的时候，有一个默认参数state，这个参数中存有运行到此处的寄存器、内存中的值，和一些状态，下面是一个hook的例子</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> angr</span><br><span class="line"></span><br><span class="line">addr1 = <span class="number">0xa73</span></span><br><span class="line">addr2 = <span class="number">0xf75</span></span><br><span class="line">num = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">oin</span><span class="params">(state)</span>:</span></span><br><span class="line">        <span class="keyword">global</span> num</span><br><span class="line">        state.regs.eax = num</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">out</span><span class="params">(state)</span>:</span></span><br><span class="line">        <span class="keyword">global</span> num</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"%d -&gt; %x"</span>%(num,state.regs.eax.args[<span class="number">0</span>])</span><br><span class="line">        num += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">p = angr.Project(<span class="string">"./i_can"</span>,auto_load_libs=<span class="literal">False</span>,ignore_functions = [<span class="string">'rand'</span>,<span class="string">'srand'</span>,<span class="string">'get_compliment'</span>,<span class="string">'incr_flag`:'</span>])</span><br><span class="line"></span><br><span class="line">s = p.factory.entry_state(addr = <span class="number">0x400000</span>+addr1)</span><br><span class="line">p.hook(<span class="number">0x400000</span> + addr1,oin,length = <span class="number">3</span>)</span><br><span class="line">p.hook(<span class="number">0x400000</span> + addr2,out,length = <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">p.execute(s)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>这是对于前几天的pctf的一个逆向题目的解法，实际上就是一个单表替换，而加密过程稍微复杂，所以采用hook的方式直接拿出来，经过逆向可以知道在addr1的地方，输入通过eax传入，到了addr2的地方，输出通过eax传出比较，所以hook这两个地址的指令，分别将eax读写，最后拿到表进行逆向。</p>
+</li>
+<li><p>相关api还有<code>is_hooked(addr)</code>,<code>hooked_by(addr)</code>,<code>unlook(addr)</code>,<code>hook_symbol(symbol_name, simproc, kwargs=None, replace=None)</code>一般用于有符号表的情况,<code>is_symbol_hooked(symbol_name)</code>,<code>unhook_symbol(symbol_name)</code>,<code>rehook_symbol(new_address, symbol_name)</code></p>
+</li>
+<li><p><code>execute()</code>,符号执行的一种，不写参数的话默认为oep的位置启动执行，加上state参数，可以从指定位置启动开始符号执行</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/29/ollvm/" data-id="cjyn8ptc90000egthu3ds3y8o" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/29/pe-elf/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          pe-elf文件结构解析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/29/io_file/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">io_file学习</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CVE/">CVE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Crypto/">Crypto</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/FE/">FE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWN/">PWN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/RE/">RE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/balabala/">balabala</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/二进制/">二进制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/9012/07/">July 9012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/9012/07/29/杂谈/">写在前面</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/pe-elf/">pe-elf文件结构解析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/ollvm/">anti-ollvm</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/io_file/">io_file学习</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/windows/">windows反调试总结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

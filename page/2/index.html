@@ -62,6 +62,267 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-二进制选手的Web路(WhaleCTF web部分writepu" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/29/二进制选手的Web路(WhaleCTF web部分writepu/" class="article-date">
+  <time datetime="2019-07-28T17:11:01.879Z" itemprop="datePublished">2019-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/WEB/">WEB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/29/二进制选手的Web路(WhaleCTF web部分writepu/">二进制手的WEB路（WhaleCTF web部分writeup</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>WhaleCTF</strong> <strong>Web部分writeup</strong><br>二进制小白兼web盲来记录下今天做的几道题。。。<br>0x00</p>
+<blockquote>
+<p>签到题直接f12查看源码即可</p>
+</blockquote>
+<p>0x01 http呀</p>
+<blockquote>
+<p><strong>这里提供两种思路</strong><br>做web肯定少不了burpsuit啦，网页中给了提示，Do you know what happend just now?！ ( •̀∀•́ )突然想起南邮CTF平台上的两道题，考虑是不是flag在中间页面里，在点击时来了一次非常快的跳转呢？<br>抓了一次包发现啥都没有…后来尝试了几次发现，打开index.php的页面时，会跳到index.html。这就好办了，抓包拿flag，同时，同为二进制手的Cossack9989因为burpsuit过期了，想到了用wireshark来抓取流量，也是很顺利的拿到了flag<br>(偷偷宣传一波<a href="http://120.79.211.91/w8cloud" target="_blank" rel="noopener">W8Cloud战队</a>和<a href="http://blog.csdn.net/cossack9989" target="_blank" rel="noopener">Cossack9989</a>的博客</p>
+</blockquote>
+<p>0x02 本地登录</p>
+<blockquote>
+<p>本地登录，听名字大概就是伪造ip地址然后post过去吧，抓包加X-Forwarded-For: 127.0.0.1  成功拿到flag</p>
+</blockquote>
+<p>0x03密码泄露</p>
+<blockquote>
+<p>web的最后一题了，果然坑不少，是一个登陆样子的界面，查看源码发现有一个小提示“password.txt”，好的直接找到了密码表，来一发爆破吧，发现“Nsf0cuS”对应的返回包略大一点，查看Respone，有一个newpage，把对应的字符串base64解码居然到了一个新的网页w(ﾟДﾟ)w<br>来继续分析吧<br><img src="http://img.blog.csdn.net/20180204000148176?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvTW96aHVDWQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>去网上查了一波关于留言板的wp，莫非是xss，那么高深的东西也做不了啊。。后来和学长交流了一下，发现居然做法还是抓包。。。我来随便留一段文字，改了一下userlevel=root，发现居然还不对，原来是忘记改了lsLogin,0改1，拿到flag<br><img src="http://img.blog.csdn.net/20180204000958409?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvTW96aHVDWQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+</blockquote>
+<p>sql注入对我这个web盲还是太高深了（；´д｀）ゞ学习一下再来补sql的wp吧….</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/29/二进制选手的Web路(WhaleCTF web部分writepu/" data-id="cjyn83qf7002licthj298qjro" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-二进制手的Web路SQL2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/29/二进制手的Web路SQL2/" class="article-date">
+  <time datetime="2019-07-28T17:11:01.874Z" itemprop="datePublished">2019-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/WEB/">WEB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/29/二进制手的Web路SQL2/">二进制手的Web路 （sql注入篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>sql注入0x02:<br><br>接着昨天的宽字符注入：<br><br>&ensp;&ensp;今天再又尝试了一下宽字节注入，题目为BUGKU的一道题，题目要求查询key表，id=1的string值。拿到题目，查看源代码，看到了gbk的字样，尝试一波宽字节注入hhhhh，id=1没发生任何事情，随后我把id改成了id=1’，还是没法生啥，好的，这次直接id=1%df’,报错了 (美滋滋 。确定为宽字节注入，暴库查询一气呵成，拿到flag。虽然了解了原理，但是发现自己对sql语句掌握的非常不熟练，结合着手注学一波sql语句吧。<br></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/29/二进制手的Web路SQL2/" data-id="cjyn83qf6002jicthg0h12xcp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-二进制手的Web路SQL1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/29/二进制手的Web路SQL1/" class="article-date">
+  <time datetime="2019-07-28T17:11:01.870Z" itemprop="datePublished">2019-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/WEB/">WEB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/29/二进制手的Web路SQL1/">二进制手的Web路（sql注入篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>sql注入0x01：宽字节注入</strong><br>&ensp;&ensp;从宽字节注入开始记录吧，在网站的搭建时，为了安全起见，在PHP代码中常常会设置过滤，也正是因为PHP 的addslashes() 函数，防止了一部分sql注入，此函数会将用户输入的 “  ‘ ”，转义为“ \‘ ”,从而防止了单引号闭合所导致的sql注入漏洞的发生。<br><br><br>&ensp;&ensp;但是，随其出现的问题，便是接下来要说的了。因为GBK编码的原因，假如用户输入的命令为” %df’ “那么很不幸的是，%df会和\结合起来形成一个汉字（其实只要汉字编码结尾为%5c（即为“\”）的都可以）。从而使得服务器端的assslashes()函数失效，达到单引号闭合的目的。<br></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">mysql_connect(<span class="string">"localhost"</span>,<span class="string">"root"</span>,<span class="string">""</span>);</span><br><span class="line">mysql_select_db(<span class="string">'sae'</span>);</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'id'</span>]))&#123;</span><br><span class="line">		$id  = addslashes($_GET[<span class="string">'id'</span>]);</span><br><span class="line">		$sql = <span class="string">"select id,title from news where id = '"</span>.$id.<span class="string">"'"</span> ;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">"your sql:"</span>.$sql.<span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">        $query = mysql_query($sql);</span><br><span class="line">        $array = mysql_fetch_array($query);</span><br><span class="line">        <span class="keyword">if</span>($query)&#123;</span><br><span class="line">            <span class="keyword">echo</span> $array[<span class="string">'title'</span>] ;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"I need id"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&ensp;&ensp;同样在CGCTF的习题中存在以上代码。这题还要和union查询一同才可以起作用，先说一下关于GBK sql注入的吧。在我构造以下下sql语句时，返回页面如下<br></p>
+<blockquote>
+<p>id=2%27or%20id=2#<br><br>your sql:select id,title from news where id = ‘2&#39;or id=2’<br>gbk_sql_injection</p>
+</blockquote>
+<p>&ensp;&ensp;但是当构造了如下sql注入语句时，居然产生了如下所示的报错</p>
+<blockquote>
+<p>id=%df%27or%20id=2# <br>your sql:select id,title from news where id = ‘ß&#39;or id=2’<br><br></p>
+<blockquote>
+<p>Warning: mysql_fetch_array() expects parameter 1 to be resource, boolean given in SQL-GBK/index.php on line 10</p>
+</blockquote>
+</blockquote>
+<p>&ensp;&ensp;这就说明，注入点存在，这时就可以进行下一步操作了（union联合查找//貌似是这样叫…）不过还不是很明白，为什么打印到屏幕上的$id不是吃掉/的汉字呢，难道是网页编码问题  _(:3」∠)_ 下次再探究吧，去学一波union联合查找先。</p>
+<p>&ensp;&ensp;30分钟后:我又回来了，果然是网页编码的问题，我的chrome浏览器网页编码不是GBK。但是换成了360浏览器就可以清楚的看到 \ 被吃了,谜题解开了，继续学习union联合查询。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/29/二进制手的Web路SQL1/" data-id="cjyn83qf5002hicthdek7865n" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-二进制手的Web路SQL0" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/29/二进制手的Web路SQL0/" class="article-date">
+  <time datetime="2019-07-28T17:11:01.862Z" itemprop="datePublished">2019-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/WEB/">WEB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/29/二进制手的Web路SQL0/">二进制手的Web路（sql注入篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="想入门一下Web，非常的那种。"><a href="#想入门一下Web，非常的那种。" class="headerlink" title="想入门一下Web，非常的那种。"></a><strong>想入门一下Web，非常的那种。</strong></h2><p><strong>那这几天系统的学一下SQL注入吧</strong></p>
+<p>&ensp;&ensp;那么什么是SQL注入呢。SQL是数据库的一种，一般的SQL查询语句大概就是SELECT * FROM * WHERE * ,类似这种语句一般都会在PHP代码中构造好，预留出一个空，在取得客户端的用户输入的数值，将其填入，这时，如果不进行过滤的防护措施，不法用户所输入的恶意代码也可能被执行，进而达到控制数据库的效果，先举一个例子吧。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if($_POST[user] &amp;&amp; $_POST[pass]) &#123;</span><br><span class="line">    mysql_connect(SAE_MYSQL_HOST_M . &apos;:&apos; . SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);</span><br><span class="line">  mysql_select_db(SAE_MYSQL_DB);</span><br><span class="line">  $user = trim($_POST[user]);</span><br><span class="line">  $pass = md5(trim($_POST[pass]));</span><br><span class="line">  $sql=&quot;select user from ctf where (user=&apos;&quot;.$user.&quot;&apos;) and (pw=&apos;&quot;.$pass.&quot;&apos;)&quot;;</span><br><span class="line">    echo &apos;&lt;/br&gt;&apos;.$sql;</span><br><span class="line">  $query = mysql_fetch_array(mysql_query($sql));</span><br><span class="line">  if($query[user]==&quot;admin&quot;) &#123;</span><br><span class="line">      echo &quot;&lt;p&gt;Logged in! flag:******************** &lt;/p&gt;&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">  if($query[user] != &quot;admin&quot;) &#123;</span><br><span class="line">    echo(&quot;&lt;p&gt;You are not admin!&lt;/p&gt;&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">echo $query[user];</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>&ensp;&ensp;这是CGCTF上的一道题，只要以管理员身份登陆，就可以拿到flag。但是我们并不知道管理员账号admin的密码，这时我们就可以构造sql注入语句绕过对密码的判断。</p>
+<p><em>select user from ctf where (user=’”.$user.”‘) and (pw=’”.$pass.”‘)</em></p>
+<p>这句话便是关键了,构造sql语句为”admin’)#”</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select user from ctf where (user=<span class="string">'admin'</span>)<span class="comment">#') and (pw='".$pass."')</span></span><br></pre></td></tr></table></figure>
+
+<p>&ensp;&ensp;从而达到我们的目的。（代码效果如上单引号闭合，直接“#”直接注释掉多余内容。<br><br>&ensp;&ensp;大概了解了SQL注入的原理了，下面来细数一下SQL注入的几个类型</p>
+<ul>
+<li>Boolean-based blind SQL injection（布尔型注入）</li>
+<li>Error-based SQL injection（报错型注入）</li>
+<li>UNION query SQL injection（可联合查询注入）</li>
+<li>Stacked queries SQL injection（可多语句查询注入）</li>
+<li>Time-based blind SQL injection（基于时间延迟注入）<br></li>
+</ul>
+<p>接下来的几篇博文，会分别整理出这5种SQL注入的方式，欢迎关注。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/29/二进制手的Web路SQL0/" data-id="cjyn83qf4002ficthalwxjtms" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-z3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/29/z3/" class="article-date">
+  <time datetime="2019-07-28T17:11:01.855Z" itemprop="datePublished">2019-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/RE/">RE</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/29/z3/">z3求解器的一些简单使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="pip-install-z3-solver"><a href="#pip-install-z3-solver" class="headerlink" title="pip install z3-solver"></a>pip install z3-solver</h1><ul>
+<li>安装这东西,一行就够了,记住不要直接pip install z3就好</li>
+<li>from z3 import *</li>
+<li>然后创建一个通用求解器,s = Solver()</li>
+<li>一些函数:s.add()添加条件,s.model()列出求解结果,s.check()查看约束条件是否合格</li>
+<li>一般循环设立值是这样的:X=[Int(“x%d”%i) for i in range(5)]</li>
+<li>add的条件可以用逗号隔开,然后从s.model()中提取数据s.model()[x].as_long()</li>
+<li>之后有用到的例题在下面总结下</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/29/z3/" data-id="cjyn83qf2002bicthg9vvqyre" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-xnuca-final" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/29/xnuca-final/" class="article-date">
@@ -426,338 +687,11 @@
 
 
   
-    <article id="post-tls" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/tls/" class="article-date">
-  <time datetime="2019-07-28T17:11:01.813Z" itemprop="datePublished">2019-07-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/RE/">RE</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/tls/">hctf2018-部分逆向wp(Spiral是真的做不来)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>感谢杭电师傅们举办的hctf.题目质量还是依旧的高,也学到了很多东西,特别是windows逆向部分,感觉自己需要学的太多了,给师傅们跪了Orz</li>
-<li>比赛那几天真的是没什么心思做题,赛后来凑个热闹吧..</li>
-</ul>
-<h1 id="seven"><a href="#seven" class="headerlink" title="seven"></a>seven</h1><ul>
-<li>这个题比较简单,是一个驱动逆向,具体的实现算法就是一个maze一样的7,程序利用键盘扫描码WASD来进行在地图中移动</li>
-<li>顺带学一下驱动逆向,DriverEntry就是驱动的一个入口,一般的作用是初始化驱动程序,定位/申请资源,创建内核对象</li>
-<li>_security_init_cookie函数其实就是windows中的一个与栈保护机制相关的函数,类似与canary,在函数帧栈中,该cookie在ebp的上面</li>
-<li>然后程序分配了一块内存并且分配了三个函数指针,进行初始化等操作,其中有个函数存放了check函数的函数指针最后到达函数sub_140001000</li>
-</ul>
-<h1 id="LuckyStar"><a href="#LuckyStar" class="headerlink" title="LuckyStar"></a>LuckyStar</h1><ul>
-<li>Ch1p师傅的题,我觉得这个题的出题思路和实现姿势比我上次出的那个自修改强了许多,借这道题好好学习一波=v=</li>
-<li>首先要提的是题目中的tls回调函数,一般在程序中,新建线程(包括主线程)和结束进程时都会调用执行的函数.在这个tls回调函数里,实现了反调试以及GetProcAddress</li>
-<li>随后是一个lstrcmpW的字符串数组比较的反调试,过滤了od,ida等绝大多数调试器,如果检测到调试器的挂载,那么程序退出,否则利用srand(0x61616161)定义随机数种子,smc解密一个函数401780</li>
-<li>这个函数首先是在播放一个很奇怪很奇怪的歌曲,播放结束后,程序继续进行下去,这里又是一个smc解密另一个函数4015e0,这时我想通过0x61616161的后续rand值来进行异或修改,但是没能成功,一直在想是不是tls函数被调用了许多次,rand在后面,经过一连串的后续爆破等操作,还是没能解出4015e0函数的内容,但是程序运行是的确可以运行的,输入的字符串经过加密函数以后,和内存中的一个数组进行字符串比较</li>
-<li>所以现在需要拿到那个函数的smc解密后的东西,这里使用attach来附加进程,当歌曲播放结束以后,利用ida attach到进程,利用快捷键g跳到4015e0函数,cp创建函数之后f5</li>
-<li>算法很清晰了,一个table被改过的base64函数,一个随机数异或,整理出来的伪代码是这个样子</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">srand(xxxxxx);</span><br><span class="line">base64encode(input);</span><br><span class="line"><span class="keyword">for</span>(i = <span class="number">0</span>;i &lt; <span class="number">32</span>; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(j = <span class="number">0</span>;j &lt; <span class="number">4</span>; j++)&#123;</span><br><span class="line">        input[i] ^= rand()%<span class="number">4</span> &lt;&lt; <span class="number">2</span>*(<span class="number">3</span> - j);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>可以使用黑盒测试打出异或的数组,只要attach到程序上以后,在enc函数中下好断点后继续运行程序,就能断在函数里面,当统计好异或的轮数后(或者后续手动更改0x1d),运行程序,从栈内就可以拿到异或数组了</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">b = [<span class="number">73</span>, <span class="number">230</span>, <span class="number">87</span>, <span class="number">189</span>, <span class="number">58</span>, <span class="number">71</span>, <span class="number">17</span>, <span class="number">76</span>, <span class="number">149</span>, <span class="number">188</span>, <span class="number">238</span>, <span class="number">50</span>, <span class="number">114</span>, <span class="number">160</span>, <span class="number">240</span>, <span class="number">222</span>, <span class="number">172</span>, <span class="number">242</span>, <span class="number">131</span>, <span class="number">86</span>, <span class="number">131</span>, <span class="number">73</span>, <span class="number">110</span>, <span class="number">169</span>, <span class="number">166</span>, <span class="number">197</span>, <span class="number">103</span>, <span class="number">60</span>, <span class="number">202</span>, <span class="number">200</span>, <span class="number">204</span>, <span class="number">5</span>]</span><br><span class="line">a = [<span class="number">8</span>, <span class="number">129</span>, <span class="number">57</span>, <span class="number">141</span>, <span class="number">64</span>, <span class="number">9</span>, <span class="number">66</span>, <span class="number">20</span>, <span class="number">208</span>, <span class="number">242</span>, <span class="number">152</span>, <span class="number">102</span>, <span class="number">51</span>, <span class="number">214</span>, <span class="number">201</span>, <span class="number">178</span>, <span class="number">193</span>, <span class="number">149</span>, <span class="number">182</span>, <span class="number">30</span>, <span class="number">199</span>, <span class="number">45</span>, <span class="number">28</span>, <span class="number">239</span>, <span class="number">210</span>, <span class="number">178</span>, <span class="number">95</span>, <span class="number">102</span>, <span class="number">140</span>, <span class="number">185</span>, <span class="number">241</span>, <span class="number">56</span>, <span class="number">20</span>, <span class="number">8</span>, <span class="number">143</span>, <span class="number">206</span>, <span class="number">233</span>, <span class="number">127</span>, <span class="number">13</span>, <span class="number">5</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(b)):</span><br><span class="line">    b[i] ^= a[i]</span><br><span class="line">flag = <span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">aa</span><span class="params">(i)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="number">95</span> &lt;= i &lt;= <span class="number">122</span>:</span><br><span class="line">        i -= <span class="number">32</span></span><br><span class="line">    <span class="keyword">elif</span> <span class="number">65</span> &lt;= i &lt;= <span class="number">90</span>:</span><br><span class="line">        i += <span class="number">32</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">return</span> chr(i) </span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(b)):</span><br><span class="line">    flag += aa(b[i])</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> flag.decode(<span class="string">"base64"</span>)</span><br></pre></td></tr></table></figure>
-
-<h1 id="PolishDuck"><a href="#PolishDuck" class="headerlink" title="PolishDuck"></a>PolishDuck</h1><ul>
-<li>去百度了一下题目中的字符串Arduino Leonardo,发现是BadUSB的开发板.</li>
-<li>大概了解了一下BadUSB,BadUSB插入电脑后,会模拟键盘鼠标等设备对攻击电脑进行操作,从而达成对目标电脑进行的一系列攻击</li>
-<li>开发BadUSB时,需要一个leonardo Arduino开发板和一个Arduino IDE,那么这个文件很容易就能看出来实际上就是从BadUSB中dump出来的一个二进制文件</li>
-<li></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/tls/" data-id="cjyn83qew001xictho4witmfk" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-sxqvm" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/sxqvm/" class="article-date">
-  <time datetime="2019-07-28T17:11:01.808Z" itemprop="datePublished">2019-07-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/RE/">RE</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/sxqvm/">SxqVM v0.0.1</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="去年校赛的题目"><a href="#去年校赛的题目" class="headerlink" title="去年校赛的题目"></a>去年校赛的题目</h1><ul>
-<li>当时没做出来….后来也没做出来,今天平台更新,抱着试试看的心理答了这道题</li>
-<li>难度还可以接受,因为是在实现一个很正常的汇编,所以可以看懂</li>
-</ul>
-<h1 id="逻辑分析"><a href="#逻辑分析" class="headerlink" title="逻辑分析"></a>逻辑分析</h1><ul>
-<li>主函数逻辑很简单,输入flag后验证长度是否能被3整除,随后传入函数中,进行加密的操作,然后一个逐字符比较</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> __<span class="function">cdecl <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> status; <span class="comment">// [esp+8h] [ebp-10h]</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v2; <span class="comment">// [esp+Ch] [ebp-Ch]</span></span><br><span class="line"></span><br><span class="line">  sub_8048526();</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"[SxqVM v0.0.1]"</span>);</span><br><span class="line">  <span class="keyword">if</span> ( sub_80484FB() != <span class="number">0</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"GG!"</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0x7FFFFFFF</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"Input flag:"</span>);</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">"%s"</span>, input);</span><br><span class="line">  v2 = <span class="built_in">strlen</span>(input);</span><br><span class="line">  <span class="keyword">if</span> ( v2 % <span class="number">3</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"Wrong flag!"</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  sub_8048633((<span class="keyword">int</span>)input, v2);</span><br><span class="line">  sub_80488C7((<span class="keyword">int</span>)input, (<span class="keyword">int</span>)&amp;unk_804B100, v2);</span><br><span class="line">  <span class="keyword">for</span> ( status = <span class="number">0</span>; status &lt;= <span class="number">53</span>; ++status )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( *(_BYTE *)(status + <span class="number">0x804B100</span>) != *(_BYTE *)(status + <span class="number">0x804B060</span>) )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">puts</span>(<span class="string">"Wrong flag!"</span>);</span><br><span class="line">      <span class="built_in">exit</span>(status);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"Congratulations!"</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="加密函数1"><a href="#加密函数1" class="headerlink" title="加密函数1"></a>加密函数1</h2><ul>
-<li>进入第一个函数,按照顺序翻译,我们发现,函数前后有两个函数,大概如下</li>
-<li>变量我都是重命名过的,实际上可以看出来这个函数的作用就是在实现push和pop,对应的我们可以将里面用到的全局变量改下名字.</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> __<span class="function">cdecl <span class="title">sub_8048567</span><span class="params">(<span class="keyword">int</span> a1)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> result; <span class="comment">// eax</span></span><br><span class="line"></span><br><span class="line">  esp -= <span class="number">4</span>;</span><br><span class="line">  result = esp;</span><br><span class="line">  *(_DWORD *)esp = a1;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> __<span class="function">cdecl <span class="title">sub_8048584</span><span class="params">(_DWORD *a1)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> result; <span class="comment">// eax</span></span><br><span class="line"></span><br><span class="line">  *a1 = *(_DWORD *)esp;</span><br><span class="line">  result = esp + <span class="number">4</span>;</span><br><span class="line">  esp += <span class="number">4</span>;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>然后我们其实可以看出来,这个加密函数的头部就是在做push ebp \ mov ebp,esp的操作</li>
-<li>随后esp-=48,开了48字节的空间,然后将字符串mov到虚拟栈内,注意小端序,字符串是”feeddeadbeefcafe”</li>
-<li>随后就是愉快的循环加密了,ebp-12位置就是循环的下标i,循环次数为字符串的长度</li>
-<li>其他的运算就可以直接翻译了,还要注意的是一个函数</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> __<span class="function">cdecl <span class="title">sub_80485AB</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> a1)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> result; <span class="comment">// eax</span></span><br><span class="line"></span><br><span class="line">  i = reg_i % a1;</span><br><span class="line">  result = reg_i / a1;</span><br><span class="line">  reg_i /= a1;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>传入的变量a1是刚才栈内的key的长度,reg_i可以从循环内看出其实是循环的下标,然后配合上(ebp - 29),其实就是在取key[i%len]</li>
-<li>下面是整理过的运算</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> __<span class="function">cdecl <span class="title">sub_8048633</span><span class="params">(<span class="keyword">int</span> input, <span class="keyword">unsigned</span> <span class="keyword">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v2; <span class="comment">// eax</span></span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// eax</span></span><br><span class="line"></span><br><span class="line">  push(ebp);</span><br><span class="line">  ebp = esp;</span><br><span class="line">  push(reg_0);</span><br><span class="line">  push(reg_1);</span><br><span class="line">  esp -= <span class="number">48</span>;</span><br><span class="line">  *(_DWORD *)(ebp - 29) = 'deef';</span><br><span class="line">  *(_DWORD *)(ebp - 25) = 'daed';</span><br><span class="line">  *(_DWORD *)(ebp - 21) = 'feeb';</span><br><span class="line">  *(_DWORD *)(ebp - 17) = 'efac';</span><br><span class="line">  *(_BYTE *)(ebp - <span class="number">13</span>) = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> ( *(_DWORD *)(ebp - <span class="number">12</span>) = <span class="number">0</span>; ; ++*(_DWORD *)(ebp - <span class="number">12</span>) )</span><br><span class="line">  &#123;</span><br><span class="line">    reg_i = *(_DWORD *)(ebp - <span class="number">12</span>);</span><br><span class="line">    <span class="keyword">if</span> ( reg_i &gt;= len )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    i = *(_DWORD *)(ebp - <span class="number">12</span>);</span><br><span class="line">    reg_i = input;</span><br><span class="line">    reg_0 = i + input;                          <span class="comment">// reg0 = &amp;input[i]</span></span><br><span class="line">    i = *(_DWORD *)(ebp - <span class="number">12</span>);</span><br><span class="line">    reg_i = i + input;                          <span class="comment">// reg1 = input[i]</span></span><br><span class="line">    reg_i = *(<span class="keyword">unsigned</span> __int8 *)(i + input);</span><br><span class="line">    reg2 = reg_i;</span><br><span class="line">    *(_BYTE *)(ebp - <span class="number">41</span>) = reg_i;               <span class="comment">// mov [ebp - 41],input[i]</span></span><br><span class="line">    reg_1 = *(_DWORD *)(ebp - <span class="number">12</span>);              <span class="comment">// mov reg1,i</span></span><br><span class="line">    esp -= <span class="number">12</span>;                                  <span class="comment">// 开空间</span></span><br><span class="line">    reg_i = ebp - <span class="number">29</span>;                           <span class="comment">// 拿出栈内字符串的一个指针</span></span><br><span class="line">    push(ebp - <span class="number">29</span>);                             <span class="comment">// push进去</span></span><br><span class="line">    v2 = <span class="built_in">strlen</span>(*(<span class="keyword">const</span> <span class="keyword">char</span> **)esp);           <span class="comment">// 获取字符串的长度</span></span><br><span class="line">    esp += <span class="number">16</span>;</span><br><span class="line">    dword_804B148 = v2;</span><br><span class="line">    reg_i = reg_1;</span><br><span class="line">    i = <span class="number">0</span>;</span><br><span class="line">    sub_80485AB(v2);</span><br><span class="line">    reg_i = i;</span><br><span class="line">    reg_i = *(<span class="keyword">unsigned</span> __int8 *)(i - <span class="number">29</span> + ebp);</span><br><span class="line">    reg2 = reg_i;</span><br><span class="line">    reg2 = *(_BYTE *)(ebp - <span class="number">41</span>) ^ reg_i;</span><br><span class="line">    *(_BYTE *)reg_0 = reg2;</span><br><span class="line">    v3 = reg_i;</span><br><span class="line">    LOBYTE(v3) = <span class="number">0</span>;</span><br><span class="line">    reg_i = v3 + (<span class="keyword">unsigned</span> __int8)reg2;</span><br><span class="line">  &#125;</span><br><span class="line">  nop();</span><br><span class="line">  esp = ebp - <span class="number">8</span>;</span><br><span class="line">  pop(&amp;reg_1);</span><br><span class="line">  pop(&amp;reg_0);</span><br><span class="line">  <span class="keyword">return</span> pop(&amp;ebp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>可以分析得程序在进行flag[i]^key[i%len(key)]的操作</li>
-</ul>
-<h2 id="加密函数2"><a href="#加密函数2" class="headerlink" title="加密函数2"></a>加密函数2</h2><ul>
-<li>除去此函数的头尾部分的push/pop操作,直接分析关键函数体</li>
-<li>两个for循环,第一层循环是3轮,第二层循环次数不能直接看出来</li>
-<li>但是我们可以发现,循环内部在ida一贯反编译for循环的形式上,比较range的if-break结构的前面居然还有一些东西</li>
-<li>分析这段代码后我们得知,这个值其实是一个定值orz,这是在实现一个(0x55555556*i)&gt;&gt;32等价于i/3的一个操作</li>
-<li>flag长度为54,从check循环可以看出来.</li>
-<li>现在得知内层循环一共是18次,(ebp-4)是i,(ebp-8)是j,随后继续分析函数</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> __<span class="function">cdecl <span class="title">sub_80488C7</span><span class="params">(<span class="keyword">int</span> input, <span class="keyword">int</span> out, <span class="keyword">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//一些寄存器的名字我就不改了,因为是全局所以直接顺着下来了,实际上这些寄存器就是eax-edx这些.</span></span><br><span class="line">  push(ebp);</span><br><span class="line">  ebp = esp;</span><br><span class="line">  esp -= <span class="number">16</span>;</span><br><span class="line">  <span class="keyword">for</span> ( *(_DWORD *)(ebp - <span class="number">4</span>) = <span class="number">0</span>; *(_DWORD *)(ebp - <span class="number">4</span>) &lt;= <span class="number">2u</span>; ++*(_DWORD *)(ebp - <span class="number">4</span>) )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">for</span> ( *(_DWORD *)(ebp - <span class="number">8</span>) = <span class="number">0</span>; ; ++*(_DWORD *)(ebp - <span class="number">8</span>) )</span><br><span class="line">    &#123;</span><br><span class="line">      dword_804B148 = len;</span><br><span class="line">      i = <span class="number">0x55555556</span>;</span><br><span class="line">      reg_i = len;</span><br><span class="line">      sub_80485DB(<span class="number">0x55555556</span>);</span><br><span class="line">      i -= (<span class="keyword">unsigned</span> <span class="keyword">int</span>)dword_804B148 &gt;&gt; <span class="number">31</span>;</span><br><span class="line">      reg_i = i;</span><br><span class="line">      <span class="keyword">if</span> ( *(_DWORD *)(ebp - <span class="number">8</span>) &gt;= (<span class="keyword">unsigned</span> <span class="keyword">int</span>)i )<span class="comment">// for j in range(18)</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      dword_804B148 = len;</span><br><span class="line">      i = 'UUUV';</span><br><span class="line">      reg_i = len;</span><br><span class="line">      sub_80485DB('UUUV');</span><br><span class="line">      i -= (<span class="keyword">unsigned</span> <span class="keyword">int</span>)dword_804B148 &gt;&gt; <span class="number">31</span>;</span><br><span class="line">      reg_i = i;</span><br><span class="line">      reg_i = i * *(_DWORD *)(ebp - <span class="number">4</span>);         <span class="comment">// 18*i</span></span><br><span class="line">      i = reg_i;                                <span class="comment">// array[3][18]</span></span><br><span class="line">                                                <span class="comment">// 这里取a[i][]</span></span><br><span class="line">      reg_i = *(_DWORD *)(ebp - <span class="number">8</span>);</span><br><span class="line">      reg_i += i;                               <span class="comment">// arr[i][j]</span></span><br><span class="line">      i = reg_i;</span><br><span class="line">      reg_i = out;                              <span class="comment">// out[i][j]==</span></span><br><span class="line">      dword_804B148 = i + out;</span><br><span class="line">      i = *(_DWORD *)(ebp - <span class="number">8</span>);                 <span class="comment">// j</span></span><br><span class="line">      reg_i = <span class="number">2</span> * i;                            <span class="comment">// j * 2</span></span><br><span class="line">      i *= <span class="number">3</span>;                                   <span class="comment">// j * 3</span></span><br><span class="line">      reg_i = *(_DWORD *)(ebp - <span class="number">4</span>);             <span class="comment">// i</span></span><br><span class="line">      reg_i += i;                               <span class="comment">// i + j*3</span></span><br><span class="line">      i = reg_i;</span><br><span class="line">      reg_i += input;</span><br><span class="line">      reg_i = *(<span class="keyword">unsigned</span> __int8 *)(input + i);  <span class="comment">// input[i + j*3]</span></span><br><span class="line">      reg2 = reg_i;</span><br><span class="line">      *(_BYTE *)dword_804B148 = reg_i;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  nop();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>原来这是一个打乱flag的操作</li>
-<li>那么整理好加密顺序,首先异或加密,然后打乱flag,直接对应恢复就好了</li>
-</ul>
-<p>放上脚本</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">flagenc1 = [<span class="number">0</span>,   <span class="number">3</span>,   <span class="number">9</span>,  <span class="number">58</span>,   <span class="number">5</span>,  <span class="number">14</span>,   <span class="number">2</span>,  <span class="number">22</span>,  <span class="number">15</span>,  <span class="number">31</span>, </span><br><span class="line">   <span class="number">18</span>,  <span class="number">86</span>,  <span class="number">59</span>,  <span class="number">11</span>,  <span class="number">81</span>,  <span class="number">80</span>,  <span class="number">57</span>,   <span class="number">0</span>,   <span class="number">9</span>,  <span class="number">31</span>, </span><br><span class="line">   <span class="number">80</span>,   <span class="number">4</span>,  <span class="number">20</span>,  <span class="number">87</span>,  <span class="number">59</span>,  <span class="number">18</span>,   <span class="number">7</span>,  <span class="number">60</span>,  <span class="number">28</span>,  <span class="number">58</span>, </span><br><span class="line">   <span class="number">21</span>,   <span class="number">5</span>,  <span class="number">11</span>,   <span class="number">8</span>,   <span class="number">6</span>,   <span class="number">1</span>,   <span class="number">4</span>,  <span class="number">18</span>,  <span class="number">22</span>,  <span class="number">57</span>, </span><br><span class="line">    <span class="number">5</span>,  <span class="number">11</span>,  <span class="number">80</span>,  <span class="number">87</span>,   <span class="number">9</span>,  <span class="number">18</span>,  <span class="number">10</span>,  <span class="number">39</span>,  <span class="number">19</span>,  <span class="number">23</span>, </span><br><span class="line">   <span class="number">14</span>,   <span class="number">2</span>,  <span class="number">85</span>,  <span class="number">24</span>]</span><br><span class="line">flagenc0 =  [<span class="number">0</span>]*<span class="number">54</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">18</span>):</span><br><span class="line">        flagenc0[i + j*<span class="number">3</span>] = flagenc1[i*<span class="number">18</span> + j]</span><br><span class="line">flag = <span class="string">""</span></span><br><span class="line">key = <span class="string">"feeddeadbeefcafe"</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">54</span>):</span><br><span class="line">    flag += chr( ord(key[i%len(key)]) ^ flagenc0[i])</span><br><span class="line"><span class="keyword">print</span> flag</span><br><span class="line"><span class="comment">#flag&#123;wh4t_a_fuck1ng_4ss3mbly_styl3_C_progr4mm1ng_c0de&#125;</span></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/sxqvm/" data-id="cjyn83qev001victhjfoso3h7" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-suyuan" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/suyuan/" class="article-date">
-  <time datetime="2019-07-28T17:11:01.804Z" itemprop="datePublished">2019-07-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/RE/">RE</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/suyuan/">2017国赛-re200-溯源</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="初探溯源"><a href="#初探溯源" class="headerlink" title="初探溯源"></a>初探溯源</h1><ul>
-<li>查壳, 未发现壳, 拖入IDA分析, 定位主函数, 查看大体逻辑, do-while循环套了一个小的do-while循环.</li>
-<li>然后是验证函数, 函数要求一个数组内从0-100递增,而对于此数组赋值过程在do-while循环中.</li>
-<li>然后是打印success/fail的函数,但是此处IDA分析错误,差看汇编可知,其实是在验证函数中,不符合条件直接jnz到fail的赋值,随后调回打印函数</li>
-</ul>
-<h1 id="赋值函数分析"><a href="#赋值函数分析" class="headerlink" title="赋值函数分析"></a>赋值函数分析</h1><ul>
-<li>首先是输入函数,读取字符串,随后将字符串和另一个指针传入一个函数.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/suyuan/" data-id="cjyn83qeu001ticth95h7z4cn" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-sudu" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/sudu/" class="article-date">
-  <time datetime="2019-07-28T17:11:01.795Z" itemprop="datePublished">2019-07-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/RE/">RE</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/sudu/">2017国赛re200 填数游戏</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="一个数独游戏"><a href="#一个数独游戏" class="headerlink" title="一个数独游戏"></a>一个数独游戏</h1><ul>
-<li>这题去年我们的新生赛的re300,简直是一样了,不过这是用C++写的,对于我这个没怎么学过的C++的还是有些难受的…</li>
-<li>sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申请324字节长度的空间,当时还在想…数独还有18*18的吗… 后来分析一下得知woc,原来是4*9*9,因为int型在32位是4个字节的原因.</li>
-<li>接下来的函数如下</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> __userpurge Sudu::set_data@&lt;eax&gt;(<span class="keyword">int</span> a1@&lt;ecx&gt;, Sudu *<span class="keyword">this</span>, <span class="keyword">int</span> (*a3)[<span class="number">9</span>])</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">int</span> result; <span class="comment">// eax@3</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> j; <span class="comment">// [sp+Ch] [bp-Ch]@2</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> i; <span class="comment">// [sp+10h] [bp-8h]@1</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">8</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">for</span> ( j = <span class="number">0</span>; j &lt;= <span class="number">8</span>; ++j )</span><br><span class="line">    &#123;</span><br><span class="line">      result = j + <span class="number">9</span> * i;</span><br><span class="line">      *(a1 + <span class="number">4</span> * result) = *(<span class="keyword">this</span> + <span class="number">9</span> * i + j);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>this指针是data段里面的整形数据,这其实是一个类似于二维数组memcpy的操作</li>
-<li>然后就是输入字符串,将输入的值赋给二维数组,即填充数组的操作.</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">signed</span> <span class="keyword">int</span> __<span class="function">cdecl <span class="title">set_sudu</span><span class="params">(Sudu *nullpadding, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> *input)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// [sp+Ch] [bp-2Ch]@0</span></span><br><span class="line">  <span class="keyword">int</span> v4; <span class="comment">// [sp+1Ch] [bp-1Ch]@1</span></span><br><span class="line">  <span class="keyword">int</span> v5; <span class="comment">// [sp+20h] [bp-18h]@1</span></span><br><span class="line">  <span class="keyword">char</span> v6; <span class="comment">// [sp+27h] [bp-11h]@2</span></span><br><span class="line">  <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> *v7; <span class="comment">// [sp+28h] [bp-10h]@1</span></span><br><span class="line">  <span class="keyword">int</span> v8; <span class="comment">// [sp+2Ch] [bp-Ch]@1</span></span><br><span class="line"></span><br><span class="line">  v8 = <span class="number">0</span>;</span><br><span class="line">  v7 = input;</span><br><span class="line">  v5 = <span class="built_in">std</span>::<span class="built_in">string</span>::begin(input);</span><br><span class="line">  v4 = <span class="built_in">std</span>::<span class="built_in">string</span>::end(input);</span><br><span class="line">  <span class="keyword">while</span> ( __gnu_cxx::<span class="keyword">operator</span>!=&lt;<span class="keyword">char</span> <span class="keyword">const</span>*,<span class="built_in">std</span>::<span class="built_in">string</span>&gt;(&amp;v5, &amp;v4) )</span><br><span class="line">  &#123;</span><br><span class="line">    v6 = *__gnu_cxx::__normal_iterator&lt;<span class="keyword">char</span> <span class="keyword">const</span>*,<span class="built_in">std</span>::<span class="built_in">string</span>&gt;::<span class="keyword">operator</span>*(&amp;v5);</span><br><span class="line">    <span class="keyword">if</span> ( Sudu::set_number(nullpadding, (v8 / <span class="number">9</span>), v8 % <span class="number">9</span>, v6 - <span class="string">'0'</span>, v3) ^ <span class="number">1</span> )</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    ++v8;</span><br><span class="line">    __gnu_cxx::__normal_iterator&lt;<span class="keyword">char</span> <span class="keyword">const</span>*,<span class="built_in">std</span>::<span class="built_in">string</span>&gt;::<span class="keyword">operator</span>++(&amp;v5);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>而set_number函数里面是这样的</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">signed</span> <span class="keyword">int</span> __userpurge Sudu::set_number@&lt;eax&gt;(<span class="keyword">int</span> a1@&lt;ecx&gt;, Sudu *Y, <span class="keyword">int</span> X, <span class="keyword">int</span> NUM, <span class="keyword">int</span> a5)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> result; <span class="comment">// eax@2</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( NUM )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( Y &lt; <span class="number">0</span> || Y &gt; <span class="number">8</span> || X &lt; <span class="number">0</span> || X &gt; <span class="number">8</span> || *(a1 + <span class="number">4</span> * (X + <span class="number">9</span> * Y)) || NUM &lt;= <span class="number">0</span> || NUM &gt; <span class="number">9</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      result = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      *(a1 + <span class="number">4</span> * (<span class="number">9</span> * Y + X)) = NUM;</span><br><span class="line">      result = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    result = <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>X,Y是我按照第一个函数传参形式改变的,即(v8 / 9), v8 % 9这一部分,分析set_number函数可知,输入为0时,return 1,输入非0时,如果对应位为0即赋值,如果相应位置原本有数字,GG.</p>
-</li>
-<li><p>在过了这层验证后,即可进入下一个三个连续的验证函数,也就是查数独是否填错</p>
-</li>
-<li><p>dump题目:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">0  0  7  5  0  0  0  6  0  </span><br><span class="line">0  2  0  0  1  0  0  0  7  </span><br><span class="line">9  0  0  0  3  0  4  0  0  </span><br><span class="line">2  0  1  0  0  0  0  0  0  </span><br><span class="line">0  3  0  1  0  0  0  0  5  </span><br><span class="line">0  0  0  0  0  0  7  1  0  </span><br><span class="line">4  0  0  0  0  8  2  0  0  </span><br><span class="line">0  0  5  9  0  0  0  8  0  </span><br><span class="line">0  8  0  0  0  1  0  0  3</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>手解或者在线工具都是可以的.运行结果如下:<br><img src="/image/sudu.png" alt></p>
-<h2 id="re200get"><a href="#re200get" class="headerlink" title="re200get!"></a>re200get!</h2>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/sudu/" data-id="cjyn83qet001ricthjzpbxjjh" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-suanfa" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/suanfa/" class="article-date">
-  <time datetime="2019-07-28T17:11:01.784Z" itemprop="datePublished">2019-07-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/算法/">算法</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/suanfa/">算法设计</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="算法的概念"><a href="#算法的概念" class="headerlink" title="算法的概念"></a>算法的概念</h1><p>算法是求解一类问题的任意一种特殊方法.较严格的说法是对特定问题的求解步骤的一种描述.他是指令的有限序列,此外算法还有以下5个特征</p>
-<ul>
-<li>输入:算法有0&gt;=个输入量</li>
-<li>输出:算法有1&gt;=个输出量</li>
-<li>确定性:算法的每一条指令都有确切的定义,无二义性</li>
-<li>能行性:算法的每一条指令都可以通过已经实现了的基本运算执行有限次来进行实现</li>
-<li>有穷性:算法必须总能在有限的步骤以后停止</li>
-</ul>
-<p>而描述算法的几种方法包括了自然语言,流程图,伪代码,程序设计语言</p>
-<h1 id="算法分析基础"><a href="#算法分析基础" class="headerlink" title="算法分析基础"></a>算法分析基础</h1><p>算法的复杂度就是运行一个算法所需要的时间于空间,一般比较好的算法都具有以下几个特征,正确性,简明,效率,优解.<br>大O符号,设非负函数f(n)和g(n),如存在c&gt;0和n0,使得当n0&lt;=n时,有f(n) &lt;= cg(n),则记为f(n) = O(g(n))<br>Omega符号,设非负函数f(n)和g(n),如存在c&gt;0和n0,使得当n0&lt;=n时,有f(n) &gt;= cg(n),则记为f(n) = Omega(g(n))</p>
-<p>时间复杂度分为O(1) &lt; O(logn) &lt; O(n) &lt; O(nlogn) &lt; O(n^2) &lt; O(n^3)<br>指数时间算法O(2^n) &lt; O(n!) &lt; O(n^n)</p>
-<h1 id="分治法"><a href="#分治法" class="headerlink" title="分治法"></a>分治法</h1><p>将一个大问题分解为若干个小问题,然后求解子问题,若子问题规模还是很大无法求解,还可细分,直到问题足够小,能够求解,最后将子问题组合成原始问题的解.一般通过递归实现,</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/suanfa/" data-id="cjyn83qeq001kictht3mwtzm9" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -783,7 +717,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/9012/07/">July 9012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
     </div>
   </div>
 
@@ -796,23 +730,23 @@
       <ul>
         
           <li>
-            <a href="/2019/07/29/深入浅出密码学读书笔记/">深入浅出密码学读书笔记</a>
+            <a href="/9012/07/29/杂谈/">写在前面</a>
           </li>
         
           <li>
-            <a href="/2019/07/29/逆向工程核心原理笔记/">Reversing-engineering</a>
+            <a href="/2019/07/29/pe-elf/">pe-elf文件结构解析</a>
           </li>
         
           <li>
-            <a href="/2019/07/29/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
+            <a href="/2019/07/29/ollvm/">anti-ollvm</a>
           </li>
         
           <li>
-            <a href="/2019/07/29/汇编入门/">CTF二进制总结0X03</a>
+            <a href="/2019/07/29/io_file/">io_file学习</a>
           </li>
         
           <li>
-            <a href="/2019/07/29/函数调用约定/">Calling Convention</a>
+            <a href="/2019/07/29/windows/">windows反调试总结</a>
           </li>
         
       </ul>
