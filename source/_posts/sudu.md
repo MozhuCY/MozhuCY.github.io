@@ -100,7 +100,4 @@ signed int __userpurge Sudu::set_number@<eax>(int a1@<ecx>, Sudu *Y, int X, int 
 0  8  0  0  0  1  0  0  3
 ```
 
-手解或者在线工具都是可以的.运行结果如下:
-![](/image/sudu.png)
-
-## re200get!
+手解或者在线工具都是可以的

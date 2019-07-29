@@ -87,8 +87,8 @@ onLeave: function(a) {
 });
 ```
 
-# android 环境首先安装Python 3.7.3
-
+# android 环境配置
+环境首先安装Python 3.7.3
 Pycharm 
 Android studio
 JEB3
@@ -130,7 +130,7 @@ classxx.Methodname.implementation = function() {
 
 关于Java原生的一些函数,假如需要hook一个构造函数,那么我们应该这样:
 
-classxx.$initimplementation = function() {
+classxx.\$initimplementation = function() {
 	this.$init.apply(this,arguments);
 }
 
@@ -143,3 +143,7 @@ classxx.$initimplementation = function() {
 常用js的forEach来遍历数组
 
 console.log打印[Object Object]说明是JSON对象,可以用js自带的JSON.stringify()读出来,一般的话v.value即可获得值
+
+# 原理
+
+将hook的方法改写为native,并且在运行时提前修改方法,其中根据android的版本号不同导致了不同的改写方式

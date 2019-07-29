@@ -1,4 +1,4 @@
-title: PWN is what?
+title: PWN?
 date: 2019-7-29
 categories: 
 - PWN

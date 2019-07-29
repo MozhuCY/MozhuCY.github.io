@@ -60,4 +60,4 @@ r2不会自动分析文件，刚开始用r2时...疯狂输入pdf，但是并没�
 [ ] [\*] Use -AA or aaaa to perform additional experimental analysis.
 [x] Constructing a function name for fcn.\* and sym.func.\* functions (aan))
 
-在分析中，还可以用到s 0x00xxxxxx 用来跳到目标地址，还可以用px wx来进行修改汇编指令，还有汇编语言$ rasm2 -a x86 -b 64 "jmp 0x00xxx"转机器码。eval cfg.write=true 或 r2 -w hello来使文件可写，px 20 wx等操作来写入修改后的字节码。有时间做一道题目试试看吧。
+在分析中，还可以用到s 0x00xxxxxx 用来跳到目标地址，还可以用px wx来进行修改汇编指令，还有汇编语言$ rasm2 -a x86 -b 64 "jmp 0x00xxx"转机器码。eval cfg.write=true 或 r2 -w hello来使文件可写，px 20 wx等操作来写入修改后的字节码。有时间做一道题目试试看
