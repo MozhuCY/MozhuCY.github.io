@@ -371,27 +371,17 @@ for循环一般都是jmp到最底端，然后再跳回来，switch case语句一
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/逆向工程核心原理笔记/" >
+        <a class="abstract-title" href = "/1970/01/01/qctf-mips/" >
             
-                <span>Reversing-engineering</span>
+                <span>qctf-mips</span>
         </a>
         <div class="abstract-content">
-            The frequently-used Shortcut key of Ollydbg
-
-        
-            Shortcut
-            effect
-        
-        
-            Ctrl + F2
-            restart debugging
-        
-        
-            F7
-            execute next code,If meet the CALL instruction,step in the function
-        
-        
-  ...
+            题目分析
+分析代码,首先是第一个函数(简单异或,操作以后和一个长度为5的字符串作比较
+比较通过后,进入下一个函数,再次处理后27字符,后发现函数根据i&amp;1的返回值分开了执行顺序,即奇偶分开加密
+两端代码极其相似(一开始我弄没做出来,看了好久才发现= =)
+实际上这两个操作是一个可逆的高低位互换(高二低六)
+放出123456789101112131415161718192021222324#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;#include &lt;string.h&gt;#include "ida.h"int mai...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2642,27 +2632,9 @@ for循环一般都是jmp到最底端，然后再跳回来，switch case语句一
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/radare2/" >CTF二进制总结0x02</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 1970 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">
@@ -2750,27 +2722,9 @@ for循环一般都是jmp到最底端，然后再跳回来，switch case语句一
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/qctf-mips/" >qctf-mips</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 1970 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">

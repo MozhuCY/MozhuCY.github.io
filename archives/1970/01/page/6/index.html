@@ -346,6 +346,57 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/1970/01/01/windows/" >
+            
+                <span>windows反调试总结</span>
+        </a>
+        <div class="abstract-content">
+            windows反调试总结在逆向分析的过程中，我们首先要去除程序的保护，因为程序中自带的保护对我们的逆向分析的影响是非常的大的，在下面的文章中，我将总结一下windows平台下的一些反调试机制
+静态反调试首先说的就是静态反调试机制，静态反调试机制的作用时间是程序开始时，程序可以通过一些系统自带的api或者PEB，TEB相关位置的数值来判断程序是否处在调试过程中，一般这种反调试的强度比较小，也比较容易去除，例如常见的IsDebuggerPresent，就是利用了PEB + 0x2的位置（BeingDebugged）的值来确定的程序的调试状态除此以外，还有处在调试状态下的程序，堆区会被默认填充...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/1970/01/01/Reversing.kr--replace/" >
+            
+                <span>初试程序自修改</span>
+        </a>
+        <div class="abstract-content">
+            
+第一次遇到程序自修改的题目.
+程序主页面是一个窗口,输入后点确定,程序会崩溃,拖入OD查看逻辑,首先是一个跳转,到达程序下部,查看汇编后,发现程序有好多次类似于mov [eax],0x??????的操作.
+调试后发现,eax对应的值就是程序的代码段,eax的值,是由输入和imagebase决定,程序的eax被放入的初值为0x601605CB,所以当输入较小时,程序在运行过程中,会将0x90,也就是nop修改自身代码,这时,程序会因为非法修改内存而报错.
+这时考虑溢出eax来修改目的代码,在下跳语句的后一句,有一句跳转,绕过了”correct!”,而且机器码长度为2字节,观察下部代码,发...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/1970/01/01/io_file/" >
             
                 <span>io_file学习</span>
@@ -2635,27 +2686,9 @@ _security_init_cookie函数其实就是windows中的一个与栈保护机制相�
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/radare2/" >CTF二进制总结0x02</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 1970 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">
@@ -2743,27 +2776,9 @@ _security_init_cookie函数其实就是windows中的一个与栈保护机制相�
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/qctf-mips/" >qctf-mips</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 1970 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">

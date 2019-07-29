@@ -383,63 +383,6 @@ anti ollvm
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2019/07/29/radare2/" >
-            
-                <span>CTF二进制总结0x02</span>
-        </a>
-        <div class="abstract-content">
-            ELF文件的动态调试，IDA远程动态调试GG，kali自带OD GG，edb-debug鸡肋的功能，来一发radare2好了。上午刚被gdb搞得头大，现在来挑战一下更难的r2。首先，radare是一款类似于IDA的工具，他也有可视化图形界面，但是却是基于命令行之上的。先来一发Hello World调试一下。gcc hello.c -o hello后，打开终端
-
-r2 ./hello[0x00000530]&gt;
-
-变成了这个样子，这时输入ie，你会得到
-
-[Entrypoints]vaddr=0x00000530 paddr=0x00000530 baddr=0x00000000 la...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/07/29/qctf-mips/" >
-            
-                <span>qctf-mips</span>
-        </a>
-        <div class="abstract-content">
-            题目分析
-分析代码,首先是第一个函数(简单异或,操作以后和一个长度为5的字符串作比较
-比较通过后,进入下一个函数,再次处理后27字符,后发现函数根据i&amp;1的返回值分开了执行顺序,即奇偶分开加密
-两端代码极其相似(一开始我弄没做出来,看了好久才发现= =)
-实际上这两个操作是一个可逆的高低位互换(高二低六)
-放出123456789101112131415161718192021222324#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;#include &lt;string.h&gt;#include "ida.h"int mai...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href = "/2019/07/29/pwn/" >
             
                 <span>PWN is what?</span>
@@ -656,6 +599,68 @@ key = [0x31 ,0x62 ,0x93 ,0xC4 ,0x21 ,0x42 ,0x63 ,0x84 ,0x3D ...
             <!-- date  -->
             <div class="abstract-date">
                 <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/07</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/05/20/x64pwn/" >
+            
+                <span>安恒月赛pwn100</span>
+        </a>
+        <div class="abstract-content">
+            baby stack
+一个简单的栈题,没有开启PIE,开启NX和Canary
+程序里没有system函数,所以只能泄漏某函数真实地址然后算出偏移
+由于puts函数的特性,可以打印出canary的值,泄漏内存
+最后一发栈溢出,打印puts_got的值,注意程序是x64的,函数传参方式是寄存器传参
+最后要知道,canary只需要泄漏一次就好
+接收数据时.要利用好r.recv() r.recvuntil()
+
+exp123456789101112131415161718192021222324252627282930313233343536373839404142434445from pwn ...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/05/20</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/02/06/CTF二进制入门之路/" >
+            
+                <span>CTF二进制学习0x00</span>
+        </a>
+        <div class="abstract-content">
+            在大黄狗的建议之下，开通了自己的博客๑乛◡乛๑，我会在这里记录自己在CTF里的点点滴滴。欢迎大家来捧场啊( •̀ .̫ •́ )✧(偶的CSDN:http://blog.csdn.net/mozhucy2.7日总结：
+
+程序中遇到花指令时，可能会造成IDA无法正常显示伪代码，这时候就要考虑用IDC脚本或者Python来去除花指令 (坑人的IDA 7.0。
+PE相对固定的文件结构在某些意想不到的时候会有妙用。
+是时候看一波~了。
+
+2.9日总结：
+
+在调用rand()函数时，假如没有事先声明srand()的值，那么rand()函数会产生随机数列，但是此随机数列每次生成时都是一样的。注意,随...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/02/06</span>
             </div>
             <!-- tags  -->
             
@@ -2901,27 +2906,9 @@ key = [0x31 ,0x62 ,0x93 ,0xC4 ,0x21 ,0x42 ,0x63 ,0x84 ,0x3D ...
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/radare2/" >CTF二进制总结0x02</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 1970 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">
@@ -3009,27 +2996,9 @@ key = [0x31 ,0x62 ,0x93 ,0xC4 ,0x21 ,0x42 ,0x63 ,0x84 ,0x3D ...
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/qctf-mips/" >qctf-mips</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 1970 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">

@@ -346,6 +346,65 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/1970/01/01/MYSQL/" >
+            
+                <span>网站开发入门-MYSQL数据库的基础使用</span>
+        </a>
+        <div class="abstract-content">
+            MYSQL直接进入主题MYSQL数据库的结构大概就是 库–&gt;表单–&gt;行列等等,那么管理使用数据库,就需要一门结构化查询语言(Structured Query Language)简称SQL.从0开始,若想使用数据库,首先要建立一个库,于是有了
+
+CREATE DATABASE test DROP DATABASE test
+
+然后是新建表单.表(Table)由行集合构成,一行是列的序列(集合)，每列与行对应一个数据项.
+
+CREATE TABLE 表名称(    列名称1 数据类型,    列名称2 数据类型,    列名称3 数据类型,    ….)
+
+sql里的数据类型,和...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/1970/01/01/WHCTF2017 逆向签到题/" >
+            
+                <span>CTF二进制总结0x01</span>
+        </a>
+        <div class="abstract-content">
+            发现了一道大赛的签到题，来试一试下水大赛签到题次，ELF文件，扔进IDA，主函数逻辑很清晰，主要就是两个判断，一个是输入值的长度为14，二是将input传入一个judge函数，做判断。需要满足两个条件，由IDA反编译的结果来看，judge函数分析失败。这就很难受了，用gdb调试一波试试，顺便复习一下gdb操作。
+
+file BabyREset disassembly-flavor intelb *0x400660rdisassem /m
+
+得到如下结果
+12345678910111213141516171819202122232425262728293031323334353637383...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/1970/01/01/angr/" >
             
                 <span>符号执行</span>
@@ -567,56 +626,6 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
 
 具体攻击原理fastbin atacck
 一般利用doub...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/iscc/" >
-            
-                <span>ISCC逆向wp</span>
-        </a>
-        <div class="abstract-content">
-            re150
-upx壳,重定位,选择带壳调试,OD载入,在入口点单步,然后在数据窗口ESP处下硬件断点
-运行程序,程序断在popad下一行,此时定位目标字符串,在校验函数处下第二断点
-运行程序,从寄存器中跟随,找到扰乱后的测试字符串,跑脚本1234567n = "edfgcbhia0jk98lm76no54pq32rs1"enc = "s_imsaplw_e_siishtnt&#123;g_ialt&#125;F"table = "1234567890abcdefghijklmnopqrs"flag = ""for i in table:    flag += enc[n.index(i)...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/javascript0x1/" >
-            
-                <span>javascript 0x00</span>
-        </a>
-        <div class="abstract-content">
-            实例代码:
-12345678910111213141516171819202122&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;body&gt;&lt;h1&gt;JavaScript练习&lt;/h1&gt;&lt;p id="d"&gt;JavaScript&lt;/p&gt;&lt;script&gt;function myn()&#123;x=document.getElementById("d");  // 找到元素x.innerHTML="Hello JavaScript!";    // 改变内容&#125;&lt;/script&gt;&lt;...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2867,27 +2876,9 @@ upx壳,重定位,选择带壳调试,OD载入,在入口点单步,然后在数据�
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/radare2/" >CTF二进制总结0x02</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 1970 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">
@@ -2975,27 +2966,9 @@ upx壳,重定位,选择带壳调试,OD载入,在入口点单步,然后在数据�
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/qctf-mips/" >qctf-mips</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 1970 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">

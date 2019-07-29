@@ -346,6 +346,67 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/1970/01/01/suyuan/" >
+            
+                <span>2017国赛-re200-溯源</span>
+        </a>
+        <div class="abstract-content">
+            初探溯源
+查壳, 未发现壳, 拖入IDA分析, 定位主函数, 查看大体逻辑, do-while循环套了一个小的do-while循环.
+然后是验证函数, 函数要求一个数组内从0-100递增,而对于此数组赋值过程在do-while循环中.
+然后是打印success/fail的函数,但是此处IDA分析错误,差看汇编可知,其实是在验证函数中,不符合条件直接jnz到fail的赋值,随后调回打印函数
+
+赋值函数分析
+首先是输入函数,读取字符串,随后将字符串和另一个指针传入一个函数.
+
+
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/1970/01/01/sxqvm/" >
+            
+                <span>SxqVM v0.0.1</span>
+        </a>
+        <div class="abstract-content">
+            去年校赛的题目
+当时没做出来….后来也没做出来,今天平台更新,抱着试试看的心理答了这道题
+难度还可以接受,因为是在实现一个很正常的汇编,所以可以看懂
+
+逻辑分析
+主函数逻辑很简单,输入flag后验证长度是否能被3整除,随后传入函数中,进行加密的操作,然后一个逐字符比较
+
+123456789101112131415161718192021222324252627282930313233int __cdecl main()&#123;  signed int status; // [esp+8h] [ebp-10h]  signed int v2; // [esp+Ch] [ebp-C...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/1970/01/01/HomuraVM/" >
             
                 <span>HomuraVM</span>
@@ -402,19 +463,21 @@ G: reg2 -= 1MC: reg2 = reg1 ^ input[i]T: reg2 += 1a: reg1 -= 1h: input...
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/PE文件头的利用/" >
+        <a class="abstract-title" href = "/1970/01/01/PE文件头/" >
             
-                <span>ichunqiu-NoExec-200pt</span>
+                <span>PE文件格式</span>
         </a>
         <div class="abstract-content">
-            初探NoExec
-看到了题目名,感觉会有一点弯子,010查了一波..随便扫了一眼感觉没啥问题,IDA启动!
-GG了,IDA不能识别程序,跑一下模板好了
-模板跑完后发现好像只有程序前半段被识别出来,查一波文件结构顺便复习下
-对照后发现,DOS头的e_lfanew被改动过了,观察NT头的位置可以复现,e_lfanew应该是10010000(小端序)
-NT头仿佛也出现了问题,e_magic居然被改成了PEHA,改回来,Machine改成0x014c的小端形式(I386)
-此时文件已经被电脑识别出来,原来是个MFC
-双击运行….GG,没跑起来,IDA启动,继续分析,不过这个时候,IDA可以成功的...
+            PE文件格式PE文件格式其实就是PE头中的结构体.用010Editor可以很好地解析文件头.具体分为DOS头,DOS存根,NT头,字区头 .text .data .rsrc,然后是NULL padding
+RVA to RAWPE文件从磁盘到内存映射的内容.PE文件加载到内存时,每个节区都要完成内存地址于文件偏移之间的映射
+
+查找RVA所在节区
+使用简单的公式计算文件偏移RAW
+
+IAT(import address table,导入地址表)DLL:(Dynamic Link Libray,动态链接库)为了提高内存运用效率,引入了DLL的概念.
+
+多进程共享
+更新库时只需更新各自的DLL...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -458,18 +521,27 @@ NT头仿佛也出现了问题,e_magic居然被改成了PEHA,改回来,Machine改
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/RingZer0 Authenticator/" >
+        <a class="abstract-title" href = "/1970/01/01/RE/" >
             
-                <span>RingZer0 Authenticator</span>
+                <span>2018国赛逆向</span>
         </a>
         <div class="abstract-content">
-            
-OD跟了一波,只发现username必为RingZer0,随后IDA分析主函数,发现关键函数sub_4014A0,此时程序将username和password传入.
+            分析主要逻辑
+读入字符串,校验前六位是否为CISCN{
+以”_”为分界,分割字符串.
+经历三个验证函数,分别验证各个分割出的字符串
 
-函数得到返回值为1即可,函数里先判定username,随后判定password是否为纯数字.
+验证函数
+首先给v11赋值,然后异或,经正向验证发现,这些为MD5的四个初始常量.
+经分析,这几个函数都是以MD5起手的函数
+可知每一次的md5生成时,非数字部分会被加密一下
+可以很容易的逆回,第二个函数还多了一个异或加密的操作,还原后异或即可
+前两个函数反求的MD5可以查出来
+最后一个函数还原出的MD5查不出来,爆破很久无果
 
-在函数尾,username和password分别传入两个函数,返回两个数组,然后对比其值
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354int __cdecl sub_4014...
+写文件函数
+发现写出文件时,只用到了md5中的两位,而且也只是简单的异或运算
+强制绕过验证后,怀疑文件是.jpg文件,考虑用FF...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -487,16 +559,19 @@ OD跟了一波,只发现username必为RingZer0,随后IDA分析主函数,发现�
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/Reversing.kr--replace/" >
+        <a class="abstract-title" href = "/1970/01/01/PE文件头的利用/" >
             
-                <span>初试程序自修改</span>
+                <span>ichunqiu-NoExec-200pt</span>
         </a>
         <div class="abstract-content">
-            
-第一次遇到程序自修改的题目.
-程序主页面是一个窗口,输入后点确定,程序会崩溃,拖入OD查看逻辑,首先是一个跳转,到达程序下部,查看汇编后,发现程序有好多次类似于mov [eax],0x??????的操作.
-调试后发现,eax对应的值就是程序的代码段,eax的值,是由输入和imagebase决定,程序的eax被放入的初值为0x601605CB,所以当输入较小时,程序在运行过程中,会将0x90,也就是nop修改自身代码,这时,程序会因为非法修改内存而报错.
-这时考虑溢出eax来修改目的代码,在下跳语句的后一句,有一句跳转,绕过了”correct!”,而且机器码长度为2字节,观察下部代码,发...
+            初探NoExec
+看到了题目名,感觉会有一点弯子,010查了一波..随便扫了一眼感觉没啥问题,IDA启动!
+GG了,IDA不能识别程序,跑一下模板好了
+模板跑完后发现好像只有程序前半段被识别出来,查一波文件结构顺便复习下
+对照后发现,DOS头的e_lfanew被改动过了,观察NT头的位置可以复现,e_lfanew应该是10010000(小端序)
+NT头仿佛也出现了问题,e_magic居然被改成了PEHA,改回来,Machine改成0x014c的小端形式(I386)
+此时文件已经被电脑识别出来,原来是个MFC
+双击运行….GG,没跑起来,IDA启动,继续分析,不过这个时候,IDA可以成功的...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -557,57 +632,6 @@ add的条件可以用逗号隔开,然后从s.model()中提取数据s.model()[x].
 之后有用到的例题在下面总结下
 
 
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/xnuca/" >
-            
-                <span>X-NUCA逆向部分题解</span>
-        </a>
-        <div class="abstract-content">
-            Code_Interpreter
-一个vm逆向,输入三个int型数据,进入一个vm进行运算,字节码在外面的code文件里,这里整理指令集,打log
-
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172code = [ord(i) for i in "090404090000080100080201080302060104050115070001040003016bcc7e...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/二进制手的Web路SQL0/" >
-            
-                <span>二进制手的Web路（sql注入篇</span>
-        </a>
-        <div class="abstract-content">
-            想入门一下Web，非常的那种。那这几天系统的学一下SQL注入吧
-&ensp;&ensp;那么什么是SQL注入呢。SQL是数据库的一种，一般的SQL查询语句大概就是SELECT * FROM * WHERE * ,类似这种语句一般都会在PHP代码中构造好，预留出一个空，在取得客户端的用户输入的数值，将其填入，这时，如果不进行过滤的防护措施，不法用户所输入的恶意代码也可能被执行，进而达到控制数据库的效果，先举一个例子吧。
-123456789101112131415161718&lt;?phpif($_POST[user] &amp;&amp; $_POST[pass]) &#123;    ...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2858,27 +2882,9 @@ add的条件可以用逗号隔开,然后从s.model()中提取数据s.model()[x].
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/radare2/" >CTF二进制总结0x02</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 1970 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">
@@ -2966,27 +2972,9 @@ add的条件可以用逗号隔开,然后从s.model()中提取数据s.model()[x].
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/qctf-mips/" >qctf-mips</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 1970 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">

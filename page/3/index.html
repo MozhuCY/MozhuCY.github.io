@@ -466,22 +466,17 @@ pwn200get...
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/Reversing.kr--position&hateintel/" >
+        <a class="abstract-title" href = "/1970/01/01/qctf-mips/" >
             
-                <span>Position&amp;hateintel&amp;Wrong byte!</span>
+                <span>qctf-mips</span>
         </a>
         <div class="abstract-content">
-            爆破了一天题目.
-Position
-
-分析算法,直接爆破.
-1四个循环,一个校验.
-
-
-hateintel
-
-分析算法,直接爆破.
-12345678910111213141516171819l=[0x44, 0xF6, 0xF5, 0x57, 0xF5, 0xC6, 0x96, 0xB6, 0x56, 0xF5,0x14, 0x25, 0xD4, 0xF5, 0x96, 0xE6, 0x37, 0x47, 0x27, 0x57,0x36, 0x47, 0x96, 0x03, 0xE6, 0xF3, 0xA3, 0x92]def f(a):    a*=2    if(a&amp;0x10...
+            题目分析
+分析代码,首先是第一个函数(简单异或,操作以后和一个长度为5的字符串作比较
+比较通过后,进入下一个函数,再次处理后27字符,后发现函数根据i&amp;1的返回值分开了执行顺序,即奇偶分开加密
+两端代码极其相似(一开始我弄没做出来,看了好久才发现= =)
+实际上这两个操作是一个可逆的高低位互换(高二低六)
+放出123456789101112131415161718192021222324#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;#include &lt;string.h&gt;#include "ida.h"int mai...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -499,21 +494,18 @@ hateintel
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/PE文件头/" >
+        <a class="abstract-title" href = "/1970/01/01/radare2/" >
             
-                <span>PE文件格式</span>
+                <span>CTF二进制总结0x02</span>
         </a>
         <div class="abstract-content">
-            PE文件格式PE文件格式其实就是PE头中的结构体.用010Editor可以很好地解析文件头.具体分为DOS头,DOS存根,NT头,字区头 .text .data .rsrc,然后是NULL padding
-RVA to RAWPE文件从磁盘到内存映射的内容.PE文件加载到内存时,每个节区都要完成内存地址于文件偏移之间的映射
+            ELF文件的动态调试，IDA远程动态调试GG，kali自带OD GG，edb-debug鸡肋的功能，来一发radare2好了。上午刚被gdb搞得头大，现在来挑战一下更难的r2。首先，radare是一款类似于IDA的工具，他也有可视化图形界面，但是却是基于命令行之上的。先来一发Hello World调试一下。gcc hello.c -o hello后，打开终端
 
-查找RVA所在节区
-使用简单的公式计算文件偏移RAW
+r2 ./hello[0x00000530]&gt;
 
-IAT(import address table,导入地址表)DLL:(Dynamic Link Libray,动态链接库)为了提高内存运用效率,引入了DLL的概念.
+变成了这个样子，这时输入ie，你会得到
 
-多进程共享
-更新库时只需更新各自的DLL...
+[Entrypoints]vaddr=0x00000530 paddr=0x00000530 baddr=0x00000000 la...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -597,27 +589,22 @@ base16decode后,再次异或加密第二层encode函数
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/RE/" >
+        <a class="abstract-title" href = "/1970/01/01/Reversing.kr--position&hateintel/" >
             
-                <span>2018国赛逆向</span>
+                <span>Position&amp;hateintel&amp;Wrong byte!</span>
         </a>
         <div class="abstract-content">
-            分析主要逻辑
-读入字符串,校验前六位是否为CISCN{
-以”_”为分界,分割字符串.
-经历三个验证函数,分别验证各个分割出的字符串
+            爆破了一天题目.
+Position
 
-验证函数
-首先给v11赋值,然后异或,经正向验证发现,这些为MD5的四个初始常量.
-经分析,这几个函数都是以MD5起手的函数
-可知每一次的md5生成时,非数字部分会被加密一下
-可以很容易的逆回,第二个函数还多了一个异或加密的操作,还原后异或即可
-前两个函数反求的MD5可以查出来
-最后一个函数还原出的MD5查不出来,爆破很久无果
+分析算法,直接爆破.
+1四个循环,一个校验.
 
-写文件函数
-发现写出文件时,只用到了md5中的两位,而且也只是简单的异或运算
-强制绕过验证后,怀疑文件是.jpg文件,考虑用FF...
+
+hateintel
+
+分析算法,直接爆破.
+12345678910111213141516171819l=[0x44, 0xF6, 0xF5, 0x57, 0xF5, 0xC6, 0x96, 0xB6, 0x56, 0xF5,0x14, 0x25, 0xD4, 0xF5, 0x96, 0xE6, 0x37, 0x47, 0x27, 0x57,0x36, 0x47, 0x96, 0x03, 0xE6, 0xF3, 0xA3, 0x92]def f(a):    a*=2    if(a&amp;0x10...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2993,27 +2980,9 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/radare2/" >CTF二进制总结0x02</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 1970 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">
@@ -3101,27 +3070,9 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/qctf-mips/" >qctf-mips</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 1970 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">

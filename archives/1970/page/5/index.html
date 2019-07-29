@@ -346,6 +346,56 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/1970/01/01/byb/" >
+            
+                <span>百越杯逆向全解wp</span>
+        </a>
+        <div class="abstract-content">
+            crazy
+一个c++逆向,主函数比较混乱,但是可以看到关键的验证函数getSerial.可以看到里面是将this+16和this+80的两个字符串指针的第i位提取出进行的逐位比较
+可以返回主函数跟踪此函数调用的对象,可以看到在前面的构造函数中初始化了这两个字符串指针,并且赋值flagenc字符串&quot;327a6c4304ad5938eaf0efb6cc3e53dc&quot;
+在构造函数的下面调用了三个func函数,一直在对输入进行着操作,但是并不是对验证函数的this+16处字符串指针进行操作,可以直接忽略
+关键的运算步骤在calculate函数,分析函数易得加密算法是flag...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/1970/01/01/juckcode/" >
+            
+                <span>上海市ctf-re200-juckcode</span>
+        </a>
+        <div class="abstract-content">
+            正向解析juckcode 一个二进制文件和一份加密后的flag,显然逆算法,扔进IDA,各种分析不出函数…怎么回事呢用OD打开查看下,有好多段可疑的汇编指令大概是pushad jmp 大量无用代码 popad 花指令get,写脚本全部nop掉,用IDA打开处理好的文件,发现,居然还是不能F5,又发现了一段异常代码,两个jmp一个E8,nop掉E8居然就可以了,OD启动,提取目标的一段字节码. 123456789101112131415 b = '\x60\xE9\x31\x00\x00\x00\x8B\xEC\x6A\xFF\x68\x33\x22\x11\x00\x68\x11\x22...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/1970/01/01/level6/" >
             
                 <span>0ctf - freenote</span>
@@ -460,20 +510,18 @@ python常常被当做是一门解释型语言,但是实际上,Python的底层和
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/MYSQL/" >
+        <a class="abstract-title" href = "/1970/01/01/RingZer0 Authenticator/" >
             
-                <span>网站开发入门-MYSQL数据库的基础使用</span>
+                <span>RingZer0 Authenticator</span>
         </a>
         <div class="abstract-content">
-            MYSQL直接进入主题MYSQL数据库的结构大概就是 库–&gt;表单–&gt;行列等等,那么管理使用数据库,就需要一门结构化查询语言(Structured Query Language)简称SQL.从0开始,若想使用数据库,首先要建立一个库,于是有了
+            
+OD跟了一波,只发现username必为RingZer0,随后IDA分析主函数,发现关键函数sub_4014A0,此时程序将username和password传入.
 
-CREATE DATABASE test DROP DATABASE test
+函数得到返回值为1即可,函数里先判定username,随后判定password是否为纯数字.
 
-然后是新建表单.表(Table)由行集合构成,一行是列的序列(集合)，每列与行对应一个数据项.
-
-CREATE TABLE 表名称(    列名称1 数据类型,    列名称2 数据类型,    列名称3 数据类型,    ….)
-
-sql里的数据类型,和...
+在函数尾,username和password分别传入两个函数,返回两个数组,然后对比其值
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354int __cdecl sub_4014...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -589,58 +637,6 @@ Elf32_Word
 
 
 E...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/windows/" >
-            
-                <span>windows反调试总结</span>
-        </a>
-        <div class="abstract-content">
-            windows反调试总结在逆向分析的过程中，我们首先要去除程序的保护，因为程序中自带的保护对我们的逆向分析的影响是非常的大的，在下面的文章中，我将总结一下windows平台下的一些反调试机制
-静态反调试首先说的就是静态反调试机制，静态反调试机制的作用时间是程序开始时，程序可以通过一些系统自带的api或者PEB，TEB相关位置的数值来判断程序是否处在调试过程中，一般这种反调试的强度比较小，也比较容易去除，例如常见的IsDebuggerPresent，就是利用了PEB + 0x2的位置（BeingDebugged）的值来确定的程序的调试状态除此以外，还有处在调试状态下的程序，堆区会被默认填充...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/WHCTF2017 逆向签到题/" >
-            
-                <span>CTF二进制总结0x01</span>
-        </a>
-        <div class="abstract-content">
-            发现了一道大赛的签到题，来试一试下水大赛签到题次，ELF文件，扔进IDA，主函数逻辑很清晰，主要就是两个判断，一个是输入值的长度为14，二是将input传入一个judge函数，做判断。需要满足两个条件，由IDA反编译的结果来看，judge函数分析失败。这就很难受了，用gdb调试一波试试，顺便复习一下gdb操作。
-
-file BabyREset disassembly-flavor intelb *0x400660rdisassem /m
-
-得到如下结果
-12345678910111213141516171819202122232425262728293031323334353637383...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2891,27 +2887,9 @@ file BabyREset disassembly-flavor intelb *0x400660rdisassem /m
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/radare2/" >CTF二进制总结0x02</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 1970 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">
@@ -2999,27 +2977,9 @@ file BabyREset disassembly-flavor intelb *0x400660rdisassem /m
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/qctf-mips/" >qctf-mips</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 1970 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">

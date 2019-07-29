@@ -346,6 +346,57 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/1970/01/01/xnuca/" >
+            
+                <span>X-NUCA逆向部分题解</span>
+        </a>
+        <div class="abstract-content">
+            Code_Interpreter
+一个vm逆向,输入三个int型数据,进入一个vm进行运算,字节码在外面的code文件里,这里整理指令集,打log
+
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172code = [ord(i) for i in "090404090000080100080201080302060104050115070001040003016bcc7e...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/1970/01/01/二进制手的Web路SQL0/" >
+            
+                <span>二进制手的Web路（sql注入篇</span>
+        </a>
+        <div class="abstract-content">
+            想入门一下Web，非常的那种。那这几天系统的学一下SQL注入吧
+&ensp;&ensp;那么什么是SQL注入呢。SQL是数据库的一种，一般的SQL查询语句大概就是SELECT * FROM * WHERE * ,类似这种语句一般都会在PHP代码中构造好，预留出一个空，在取得客户端的用户输入的数值，将其填入，这时，如果不进行过滤的防护措施，不法用户所输入的恶意代码也可能被执行，进而达到控制数据库的效果，先举一个例子吧。
+123456789101112131415161718&lt;?phpif($_POST[user] &amp;&amp; $_POST[pass]) &#123;    ...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/1970/01/01/二进制手的Web路SQL1/" >
             
                 <span>二进制手的Web路（sql注入篇</span>
@@ -551,56 +602,6 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
         
         
   ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/byb/" >
-            
-                <span>百越杯逆向全解wp</span>
-        </a>
-        <div class="abstract-content">
-            crazy
-一个c++逆向,主函数比较混乱,但是可以看到关键的验证函数getSerial.可以看到里面是将this+16和this+80的两个字符串指针的第i位提取出进行的逐位比较
-可以返回主函数跟踪此函数调用的对象,可以看到在前面的构造函数中初始化了这两个字符串指针,并且赋值flagenc字符串&quot;327a6c4304ad5938eaf0efb6cc3e53dc&quot;
-在构造函数的下面调用了三个func函数,一直在对输入进行着操作,但是并不是对验证函数的this+16处字符串指针进行操作,可以直接忽略
-关键的运算步骤在calculate函数,分析函数易得加密算法是flag...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/juckcode/" >
-            
-                <span>上海市ctf-re200-juckcode</span>
-        </a>
-        <div class="abstract-content">
-            正向解析juckcode 一个二进制文件和一份加密后的flag,显然逆算法,扔进IDA,各种分析不出函数…怎么回事呢用OD打开查看下,有好多段可疑的汇编指令大概是pushad jmp 大量无用代码 popad 花指令get,写脚本全部nop掉,用IDA打开处理好的文件,发现,居然还是不能F5,又发现了一段异常代码,两个jmp一个E8,nop掉E8居然就可以了,OD启动,提取目标的一段字节码. 123456789101112131415 b = '\x60\xE9\x31\x00\x00\x00\x8B\xEC\x6A\xFF\x68\x33\x22\x11\x00\x68\x11\x22...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2851,27 +2852,9 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/radare2/" >CTF二进制总结0x02</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 1970 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">
@@ -2959,27 +2942,9 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/qctf-mips/" >qctf-mips</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 1970 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">

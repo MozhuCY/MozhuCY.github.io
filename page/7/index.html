@@ -383,17 +383,16 @@ height:50vh;
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/WHCTF2017 逆向签到题/" >
+        <a class="abstract-title" href = "/1970/01/01/Reversing.kr--replace/" >
             
-                <span>CTF二进制总结0x01</span>
+                <span>初试程序自修改</span>
         </a>
         <div class="abstract-content">
-            发现了一道大赛的签到题，来试一试下水大赛签到题次，ELF文件，扔进IDA，主函数逻辑很清晰，主要就是两个判断，一个是输入值的长度为14，二是将input传入一个judge函数，做判断。需要满足两个条件，由IDA反编译的结果来看，judge函数分析失败。这就很难受了，用gdb调试一波试试，顺便复习一下gdb操作。
-
-file BabyREset disassembly-flavor intelb *0x400660rdisassem /m
-
-得到如下结果
-12345678910111213141516171819202122232425262728293031323334353637383...
+            
+第一次遇到程序自修改的题目.
+程序主页面是一个窗口,输入后点确定,程序会崩溃,拖入OD查看逻辑,首先是一个跳转,到达程序下部,查看汇编后,发现程序有好多次类似于mov [eax],0x??????的操作.
+调试后发现,eax对应的值就是程序的代码段,eax的值,是由输入和imagebase决定,程序的eax被放入的初值为0x601605CB,所以当输入较小时,程序在运行过程中,会将0x90,也就是nop修改自身代码,这时,程序会因为非法修改内存而报错.
+这时考虑溢出eax来修改目的代码,在下跳语句的后一句,有一句跳转,绕过了”correct!”,而且机器码长度为2字节,观察下部代码,发...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2797,27 +2796,9 @@ _security_init_cookie函数其实就是windows中的一个与栈保护机制相�
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/radare2/" >CTF二进制总结0x02</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 1970 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">
@@ -2905,27 +2886,9 @@ _security_init_cookie函数其实就是windows中的一个与栈保护机制相�
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/qctf-mips/" >qctf-mips</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 1970 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">
