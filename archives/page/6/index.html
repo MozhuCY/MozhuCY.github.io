@@ -346,33 +346,7 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2019/07/29/cff2016/" >
-            
-                <span>jarvisoj-文件数据恢复</span>
-        </a>
-        <div class="abstract-content">
-            新年第一篇hhhhhh
-mfc好像已经是过气了的东西了…不过这个题可以看出来是一个类似于文件解析的算法,可以拿来做做看
-resourcehacker确定对话框的id,配合xspy定位函数位置,找到函数sub_402570,CWnd::GetDlgItemTextW(v1, 1002, &amp;FileName, 256)获取的是第一个对话框的路径,然后进行对此文件路径下文件的读取
-下面CWnd::GetDlgItemTextW(v1, 1003, &amp;pwd, 256);是对于pwd的读取,在这两行读取文件的代码之间,存在许多读取4字节并且进行验证的操作,怀疑是ctf文件头的验证...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/07/29/byb/" >
+        <a class="abstract-title" href = "/1970/01/01/byb/" >
             
                 <span>百越杯逆向全解wp</span>
         </a>
@@ -386,7 +360,7 @@ resourcehacker确定对话框的id,配合xspy定位函数位置,找到函数sub_
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
             </div>
             <!-- tags  -->
             
@@ -399,27 +373,17 @@ resourcehacker确定对话框的id,配合xspy定位函数位置,找到函数sub_
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2019/07/29/babyheap/" >
+        <a class="abstract-title" href = "/1970/01/01/juckcode/" >
             
-                <span>babyheap</span>
+                <span>上海市ctf-re200-juckcode</span>
         </a>
         <div class="abstract-content">
-            网鼎杯第一场
-程序功能:新建,编辑,打印,free
-free处没有置空指针,导致可以uaf
-malloc每次都是0x20的fastbin,编辑功能可以使用3次
-自写了readn函数,没有溢出点
-edit可以修改free后堆块的bk,fd
-
-12345Arch:     amd64-64-littleRELRO:    Full RELROStack:    Canary foundNX:       NX enabledPIE:      No PIE (0x400000)
-
-
-Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来劫持程序的...
+            正向解析juckcode 一个二进制文件和一份加密后的flag,显然逆算法,扔进IDA,各种分析不出函数…怎么回事呢用OD打开查看下,有好多段可疑的汇编指令大概是pushad jmp 大量无用代码 popad 花指令get,写脚本全部nop掉,用IDA打开处理好的文件,发现,居然还是不能F5,又发现了一段异常代码,两个jmp一个E8,nop掉E8居然就可以了,OD启动,提取目标的一段字节码. 123456789101112131415 b = '\x60\xE9\x31\x00\x00\x00\x8B\xEC\x6A\xFF\x68\x33\x22\x11\x00\x68\x11\x22...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
             </div>
             <!-- tags  -->
             
@@ -432,22 +396,22 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者free_hook_来
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2019/07/29/angr/" >
+        <a class="abstract-title" href = "/1970/01/01/level6/" >
             
-                <span>符号执行</span>
+                <span>0ctf - freenote</span>
         </a>
         <div class="abstract-content">
-            angr
-首先导入from angr import *
-将程序加载进来p = Process(“filename”,auto_load_libs=False)
-可以理解将程序变成一个特殊的状态,这样默认函数默认入口点,如果在()内加入addr=0xxxxxx,会指定另一个入口点s = p.factory.entry_state()
-就有一些类似我们的打log时复现代码那一环,设定一个模拟器 smt = sm=p.factory.simulation_manager(s)
-sm就是之前载入文件,设定入口点,建立模拟对象,现在就可以explore来开始符号执行,后面是约束条件r = sm.e...
+            整理结构体
+程序首先初始化了了chunklist,此题的chunklist是在堆里面分配的
+一个指针指向了malloc(0x1810)的头,此段空间的前16字节分别是最大堆块的值和当前堆块数量
+大概结构体如下图
+
+12345670000000000000000 headptr         struc ; (sizeof=0x1810, align=0x8, mappedto_6)00000000 max             dq ?00000008 count           dq ?00000010 nodelist        note 256 dup(?)000018...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
             </div>
             <!-- tags  -->
             
@@ -460,22 +424,22 @@ sm就是之前载入文件,设定入口点,建立模拟对象,现在就可以exp
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2019/07/28/hexo/" >
+        <a class="abstract-title" href = "/1970/01/01/maze/" >
             
-                <span>hexo配置</span>
+                <span>cis2016-re300-maze</span>
         </a>
         <div class="abstract-content">
-            一直没在新电脑上配blog,今天把旧电脑搞炸了,所以在这里弄一个新的
-hexo踩坑环境准备准备git node hexogit和node从官网上下载安装就行了hexo:npm install -g hexo-cli
-环境搭建检查git node hexo是否成功安装,cd到blog目录下,hexo initgit生成pub,增加密钥对
-github配置新建blog,增加分支npm install hexo-deployer-git –save,安装插件
-多用户增加分支,将默认分支改为你这个分支,然后git clone下来git branch检查分支是否为新建的分支
-在新建的blog下配置...
+            初探maze
+又遇到了maze,难度比bugku的take the maze简单一点,但是比nctf和nust的maze要复杂好多.
+运行发现,传参形式为命令行.错误会报错play again!
+IDA打开,查看主函数,很简短
+
+12345678910111213141516int __cdecl main(int argc, const char **input, const char **envp)&#123;  if ( argc != 2 )  &#123;    memset(byte_13C0AA8, -1, 484u);    sub_13B10B0();    sub_1...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/28</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
             </div>
             <!-- tags  -->
             
@@ -488,24 +452,24 @@ github配置新建blog,增加分支npm install hexo-deployer-git –save,安装�
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/09/21/easycoin/" >
+        <a class="abstract-title" href = "/1970/01/01/iscc安卓逆向/" >
             
-                <span>easycoin</span>
+                <span>ISCC 决赛 android 1000</span>
         </a>
         <div class="abstract-content">
-            网鼎杯第一场大menu
-有点类似于网鼎半决赛的pwn3,是一个比较大的程序,同样,程序实现了两个大的menu
-首先需要注册一个账号,用户名和密码最大长度为32,再注册的过程中,程序会3次malloc(0x20)的堆块
-第一次malloc生成的是name对应的堆块,第二次malloc生成的是password对应的堆块,第三次malloc的是一个结构体,内部含有三根指针和一个QWORD的money
-当两次输入的密码不一样时,结束register函数,并且依次free掉name,password,struct,最后将结构体指针数组置空
-登录函数并没有对于内存的直接操作,这里不作分析
+            iscc决赛android 1000解题前序
+查了一下apk内部,可以拿到一个.dex,一个.jar和两个.so
+解.jar发现其实是一个加密的.dex,将dex转成jar以后发现checkflag的函数
 
-12...
+分析checkflag函数
+发现其中先定义了一个二维数组,然后将其传入一个enc函数,这个函数是反编译不出来的,应该是加了壳
+后分析libcore.so函数,发现其中有一个函数名以及函数的操作很可疑,函数首先将一串加密过的字符串还原,然后经过几个类似于取解密后字符串中的括号括起来的部分,按照函数原有逻辑顺序解一下,发现了主要check函数的名字,后面还接了地址(0x159CBC)
+根...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/21</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
             </div>
             <!-- tags  -->
             
@@ -518,22 +482,22 @@ github配置新建blog,增加分支npm install hexo-deployer-git –save,安装�
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/09/20/wdctfpwn2/" >
+        <a class="abstract-title" href = "/1970/01/01/python_pyc/" >
             
-                <span>网鼎杯半决赛pwn3</span>
+                <span>Python的一些底层原理</span>
         </a>
         <div class="abstract-content">
-            主menu的chara结构体1234500000000 chara           struc ; (sizeof=0x18, align=0x8, mappedto_7)00000000 inuse           dq ?00000008 name_ptr        dq ?00000010 type            dq ?00000018 chara           ends
+            
+踩了太多次坑了,从前几个月的suctf开始,pyc文件逆向越来越多的出现在各种比赛中,正好借这个机会好好熟悉一下Python的底层
+Python的一些底层实现
+python常常被当做是一门解释型语言,但是实际上,Python的底层和java等语言非常相近,都是一门基于虚拟机的语言,当用户在命令行输入python test.py时,实际上进行的是一个编译的过程
 
-
-其中inuse限制了不能edit和double free,程序中没有溢出点
-虽然inuse可以不能直接读取内存,但是可以利用堆块包含来进行堆块内容的读取
-可控堆块size的堆,只有...
+.pyc也就是Python编译好的文件,在一般情况下,编译出的字节码是存在于内存中的,当Python运行结束后,就会释放掉内存,或者写入.pyc文件,被我们看到,如果这个时候再次运行.py文件,python解释器会先在目录下中查...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/20</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
             </div>
             <!-- tags  -->
             
@@ -546,24 +510,25 @@ github配置新建blog,增加分支npm install hexo-deployer-git –save,安装�
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/09/09/sus/" >
+        <a class="abstract-title" href = "/1970/01/01/MYSQL/" >
             
-                <span>东南大学练习平台二进制全题解</span>
+                <span>网站开发入门-MYSQL数据库的基础使用</span>
         </a>
         <div class="abstract-content">
-            
-东南的平台又放了新题,这次决定都做一下试试,在这里记录解题过程,因为是平时练习,我会尽可能多的把思路和解法写全,鉴于东南平台的wp不是很多,也方便下一届萌新的自主练习.平台地址:http://sus.njnet6.edu.cn
+            MYSQL直接进入主题MYSQL数据库的结构大概就是 库–&gt;表单–&gt;行列等等,那么管理使用数据库,就需要一门结构化查询语言(Structured Query Language)简称SQL.从0开始,若想使用数据库,首先要建立一个库,于是有了
 
-helloworld
-逆向签到题,直接f5看到内部if条件即可
-抛开f5,分析一下汇编,首先是函数头部连续mov到栈中的数据,也就是flagenc
+CREATE DATABASE test DROP DATABASE test
 
-1234567mov     dword ptr [ebp+flag], 0C881E8F1hmov     dword ptr [ebp+flag+4], 0CECF81D2hmov     dword ptr...
+然后是新建表单.表(Table)由行集合构成,一行是列的序列(集合)，每列与行对应一个数据项.
+
+CREATE TABLE 表名称(    列名称1 数据类型,    列名称2 数据类型,    列名称3 数据类型,    ….)
+
+sql里的数据类型,和...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/09</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
             </div>
             <!-- tags  -->
             
@@ -576,28 +541,21 @@ helloworld
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/08/19/qctf-asong/" >
+        <a class="abstract-title" href = "/1970/01/01/malloc源码精读总结/" >
             
-                <span>qctf-asong</span>
+                <span>malloc源码精读总结</span>
         </a>
         <div class="abstract-content">
-            比较基础的一个逆向
-题目给了三个文件,一个内容是flagenc,一个是一份歌词,一个是elf文件
-第一个函数是对输入的flag取{}之间的值
-第二个函数是对于歌词的一个词频分析
-第三个函数是将flag和歌词词频分析后的flag进行加密
+            之前草草读过一次源码以及华庭的源码分析,最近又有一些生疏了,决定用几周的时间精读一下
+一些个人对特性的总结理解__libc_malloc
+malloc执行的开始
 
-加密过程:
-首先利用词频分析出的表进行一个单表置换
-随后再次进行一次置换
-然后一个简单的位运算,写入文件
-
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566f...
+12345678910void *__libc_malloc (size_t bytes) &#123;  mstate ar_ptr;  void *victim;  void *(*hook) (size_t, const void *)     = atomic_forced_read (__malloc_hook);  if (__builtin_expect (hook != NULL, 0))    return ...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/19</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
             </div>
             <!-- tags  -->
             
@@ -610,28 +568,82 @@ helloworld
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/08/13/suctf-enigma/" >
+        <a class="abstract-title" href = "/1970/01/01/ollvm/" >
             
-                <span>SUCTF-enigma</span>
+                <span>anti-ollvm</span>
         </a>
         <div class="abstract-content">
-            头铁解法
-今天开始,准备研究一些原来做起来很难受的题目
+            anti-ollvm控制流平坦化
+为了防止静态分析，将代码块变成另外的一种结构，这样可以很好地打乱程序的上下文逻辑，从而对分析代码产生影响
 
-首先是字符画”SUCTF”,略过程序大概逻辑
-c++编写,主要函数逻辑采用c语言形式,首先接收输入到一个全局变量,然后判断输入长度是否为36,如不是传入GG函数
-经过三个加密函数,memcmp比较加密后的flag和一个全局变量的36位
+代码结构
+被混淆后，程序的流程图会显得非常的整齐，可以分为开头的序言部分，也就是保存上一个函数状态的部分，一些内存初始化的指令
+后续就是很多的分发器，分别对应着不同的basic blocks，后面就是程序必须存在的运算指令区，所以最后我们需要留下来的就是指令区和序言部分
+根据程序的上下逻辑可以确定出一些流程。
 
-第一个加密函数分析
-变量:首先是一个char型数组,长度为12,如下,三个int型的轮子,从程序后部可以看出来4次为一轮,方便理解可以想象成一个类似于始终的逻辑
-
-
-key = [0x31 ,0x62 ,0x93 ,0xC4 ,0x21 ,0x42 ,0x63 ,0x84 ,0x3D ...
+符号执行
+将内存和寄存器的值，表示为符号和常量的形式，主要分为静态符号执行和动态符号执行两种方式，这里我选择我比较熟悉的angr符号执行框...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/13</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/1970/01/01/pe-elf/" >
+            
+                <span>pe-elf文件结构解析</span>
+        </a>
+        <div class="abstract-content">
+            pe-elf文件结构解析ELF介绍
+ELF即Executable and Linking Format，是linux上的一种常见的用于可执行文件，共享库的标准文件格式
+
+用到的数据类型ELF有四种不同的文件类型1.可执行重定位文件，即编译器生成的.o文件，需要连接器的进一步链接才可以运行2.可执行文件3.共享库文件，即.so文件4.核心转储文件，这里不做介绍
+ELF的六种数据类型
+
+
+变量类型
+变量大小
+用处
+
+
+
+Elf32_Addr
+4
+无符号地址
+
+
+Elf32_Off
+4
+无符号的偏移值
+
+
+Elf32_Half
+2
+半个int
+
+
+Elf32_Word
+4
+无符号int
+
+
+E...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
             </div>
             <!-- tags  -->
             
@@ -2688,9 +2700,14 @@ key = [0x31 ,0x62 ,0x93 ,0xC4 ,0x21 ,0x42 ,0x63 ,0x84 ,0x3D ...
     
     
     
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 63
+        Total : 64
         </div>
         <!-- search  -->
         
@@ -2700,62 +2717,6 @@ key = [0x31 ,0x62 ,0x93 ,0xC4 ,0x21 ,0x42 ,0x63 ,0x84 ,0x3D ...
     
     
     
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/sxqvm/" >SxqVM v0.0.1</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/io_file/" >io_file学习</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/DLL注入0x1/" >初试windows消息钩取</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
     
     <div class="archive-year"> 9102 </div>
     <ul class="year-list">
@@ -2776,7 +2737,7 @@ key = [0x31 ,0x62 ,0x93 ,0xC4 ,0x21 ,0x42 ,0x63 ,0x84 ,0x3D ...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/28</span><a class="archive-post-title" href= "/2019/07/28/hexo/" >hexo配置</a>
+            <span class="archive-post-date">07/29</span><a class="archive-post-title" href= "/2019/07/29/pwn/" >PWN is what?</a>
         </li>
     
     
@@ -2824,29 +2785,6 @@ key = [0x31 ,0x62 ,0x93 ,0xC4 ,0x21 ,0x42 ,0x63 ,0x84 ,0x3D ...
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/wcyvm/" >WcyVM</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 2018 </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
             <span class="archive-post-date">02/06</span><a class="archive-post-title" href= "/2018/02/06/CTF二进制入门之路/" >CTF二进制学习0x00</a>
         </li>
@@ -2857,180 +2795,97 @@ key = [0x31 ,0x62 ,0x93 ,0xC4 ,0x21 ,0x42 ,0x63 ,0x84 ,0x3D ...
     
         </ul>
     
-    <div class="archive-year"> Invalid date </div>
+    <div class="archive-year"> 1970 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/z3/" >z3求解器的一些简单使用</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/xnuca/" >X-NUCA逆向部分题解</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/babyheap/" >babyheap</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/二进制手的Web路SQL0/" >二进制手的Web路（sql注入篇</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/cff2016/" >jarvisoj-文件数据恢复</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/z3/" >z3求解器的一些简单使用</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cff2016/" >jarvisoj-文件数据恢复</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/homuranote/" >Homuranote</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/二进制手的Web路SQL2/" >二进制手的Web路 （sql注入篇</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/MYSQL/" >网站开发入门-MYSQL数据库的基础使用</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/javascript0x1/" >javascript 0x00</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL0/" >二进制手的Web路（sql注入篇</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/hexo/" >hexo配置</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/angr/" >符号执行</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/homuranote/" >Homuranote</a>
+        </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/函数调用约定/" >Calling Convention</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL2/" >二进制手的Web路 （sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/函数调用约定/" >Calling Convention</a>
         </li>
     
     
@@ -3053,236 +2908,92 @@ key = [0x31 ,0x62 ,0x93 ,0xC4 ,0x21 ,0x42 ,0x63 ,0x84 ,0x3D ...
     
         </ul>
     
-    <div class="archive-year"> Invalid date </div>
+    <div class="archive-year"> 1970 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/汇编入门/" >CTF二进制总结0X03</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/汇编入门/" >CTF二进制总结0X03</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/redhat/" >redhat-re1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/redhat/" >redhat-re1</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/sudu/" >2017国赛re200 填数游戏</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sudu/" >2017国赛re200 填数游戏</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/深入浅出密码学读书笔记/" >深入浅出密码学读书笔记</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/深入浅出密码学读书笔记/" >深入浅出密码学读书笔记</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/HomuraVM/" >CTF二进制学习0X04</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/逆向工程核心原理笔记/" >Reversing-engineering</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/逆向工程核心原理笔记/" >Reversing-engineering</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/PE文件头/" >PE文件格式</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/byb/" >百越杯逆向全解wp</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/byb/" >百越杯逆向全解wp</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/juckcode/" >上海市ctf-re200-juckcode</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/juckcode/" >上海市ctf-re200-juckcode</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/level6/" >0ctf - freenote</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/level6/" >0ctf - freenote</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/cve-2015-7504/" >CVE-2015-7504 QEMU虚拟机逃逸漏洞分析</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cve-2015-7504/" >CVE-2015-7504 QEMU虚拟机逃逸漏洞分析</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/maze/" >cis2016-re300-maze</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/maze/" >cis2016-re300-maze</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/iscc/" >ISCC逆向wp</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/iscc安卓逆向/" >ISCC 决赛 android 1000</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc安卓逆向/" >ISCC 决赛 android 1000</a>
         </li>
     
     
@@ -3305,222 +3016,92 @@ key = [0x31 ,0x62 ,0x93 ,0xC4 ,0x21 ,0x42 ,0x63 ,0x84 ,0x3D ...
     
         </ul>
     
-    <div class="archive-year"> Invalid date </div>
+    <div class="archive-year"> 1970 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/python_pyc/" >Python的一些底层原理</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/python_pyc/" >Python的一些底层原理</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/PE文件头的利用/" >ichunqiu-NoExec-200pt</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/NUST/" >南理校赛二进制wp</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/malloc源码精读总结/" >malloc源码精读总结</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/malloc源码精读总结/" >malloc源码精读总结</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/Reversing.kr--replace/" >初试程序自修改</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/frida/" >Hook学习</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/ollvm/" >anti-ollvm</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/RE/" >2018国赛逆向</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/frida/" >Hook学习</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/windows/" >windows反调试总结</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suanfa/" >算法设计</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/pe-elf/" >pe-elf文件结构解析</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/io_file/" >io_file学习</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/ollvm/" >anti-ollvm</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/pe-elf/" >pe-elf文件结构解析</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/MYSQL/" >网站开发入门-MYSQL数据库的基础使用</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/suyuan/" >2017国赛-re200-溯源</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
+        </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/suanfa/" >算法设计</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头的利用/" >ichunqiu-NoExec-200pt</a>
         </li>
     
     </div>

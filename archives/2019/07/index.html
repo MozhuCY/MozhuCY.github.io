@@ -346,45 +346,18 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2019/07/29/pe-elf/" >
+        <a class="abstract-title" href = "/2019/07/29/radare2/" >
             
-                <span>pe-elf文件结构解析</span>
+                <span>CTF二进制总结0x02</span>
         </a>
         <div class="abstract-content">
-            pe-elf文件结构解析ELF介绍
-ELF即Executable and Linking Format，是linux上的一种常见的用于可执行文件，共享库的标准文件格式
+            ELF文件的动态调试，IDA远程动态调试GG，kali自带OD GG，edb-debug鸡肋的功能，来一发radare2好了。上午刚被gdb搞得头大，现在来挑战一下更难的r2。首先，radare是一款类似于IDA的工具，他也有可视化图形界面，但是却是基于命令行之上的。先来一发Hello World调试一下。gcc hello.c -o hello后，打开终端
 
-用到的数据类型ELF有四种不同的文件类型1.可执行重定位文件，即编译器生成的.o文件，需要连接器的进一步链接才可以运行2.可执行文件3.共享库文件，即.so文件4.核心转储文件，这里不做介绍
-ELF的六种数据类型
+r2 ./hello[0x00000530]&gt;
 
+变成了这个样子，这时输入ie，你会得到
 
-变量类型
-变量大小
-用处
-
-
-
-Elf32_Addr
-4
-无符号地址
-
-
-Elf32_Off
-4
-无符号的偏移值
-
-
-Elf32_Half
-2
-半个int
-
-
-Elf32_Word
-4
-无符号int
-
-
-E...
+[Entrypoints]vaddr=0x00000530 paddr=0x00000530 baddr=0x00000000 la...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -402,21 +375,17 @@ E...
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2019/07/29/ollvm/" >
+        <a class="abstract-title" href = "/2019/07/29/qctf-mips/" >
             
-                <span>anti-ollvm</span>
+                <span>qctf-mips</span>
         </a>
         <div class="abstract-content">
-            anti-ollvm控制流平坦化
-为了防止静态分析，将代码块变成另外的一种结构，这样可以很好地打乱程序的上下文逻辑，从而对分析代码产生影响
-
-代码结构
-被混淆后，程序的流程图会显得非常的整齐，可以分为开头的序言部分，也就是保存上一个函数状态的部分，一些内存初始化的指令
-后续就是很多的分发器，分别对应着不同的basic blocks，后面就是程序必须存在的运算指令区，所以最后我们需要留下来的就是指令区和序言部分
-根据程序的上下逻辑可以确定出一些流程。
-
-符号执行
-将内存和寄存器的值，表示为符号和常量的形式，主要分为静态符号执行和动态符号执行两种方式，这里我选择我比较熟悉的angr符号执行框...
+            题目分析
+分析代码,首先是第一个函数(简单异或,操作以后和一个长度为5的字符串作比较
+比较通过后,进入下一个函数,再次处理后27字符,后发现函数根据i&amp;1的返回值分开了执行顺序,即奇偶分开加密
+两端代码极其相似(一开始我弄没做出来,看了好久才发现= =)
+实际上这两个操作是一个可逆的高低位互换(高二低六)
+放出123456789101112131415161718192021222324#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;#include &lt;string.h&gt;#include "ida.h"int mai...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -434,214 +403,34 @@ E...
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2019/07/29/io_file/" >
+        <a class="abstract-title" href = "/2019/07/29/pwn/" >
             
-                <span>io_file学习</span>
+                <span>PWN is what?</span>
         </a>
         <div class="abstract-content">
-            io_file学习一些总结house of orange
-首先从house of orange说起，这一般是接触io_file最早的时候，一般hoo的题目中都是没有free的，所以只能一头malloc下去
-这个时候只需要一个堆溢出就够了，覆盖topchunk的size，简单都是只留第24bit位，剩余高位变成0，当然这样也直接绕过了关于top_chunk的一些检测，如内存页对齐，即加起来必须是0x1000的整数倍，size大于MINSIZE，prev_inuse必须为1
-绕过这些检测以后，因为topchunk的size小于所申请的size，就可以触发sysmalloc中的_init_fr...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/07/29/windows/" >
-            
-                <span>windows反调试总结</span>
-        </a>
-        <div class="abstract-content">
-            windows反调试总结在逆向分析的过程中，我们首先要去除程序的保护，因为程序中自带的保护对我们的逆向分析的影响是非常的大的，在下面的文章中，我将总结一下windows平台下的一些反调试机制
-静态反调试首先说的就是静态反调试机制，静态反调试机制的作用时间是程序开始时，程序可以通过一些系统自带的api或者PEB，TEB相关位置的数值来判断程序是否处在调试过程中，一般这种反调试的强度比较小，也比较容易去除，例如常见的IsDebuggerPresent，就是利用了PEB + 0x2的位置（BeingDebugged）的值来确定的程序的调试状态除此以外，还有处在调试状态下的程序，堆区会被默认填充...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/07/29/深入浅出密码学读书笔记/" >
-            
-                <span>深入浅出密码学读书笔记</span>
-        </a>
-        <div class="abstract-content">
-            替换密码 (11.16)
-这个在古典密码中比较常见,属于对称加密,那么攻击替换密码时有两种方式,一种是穷举,这个在秘钥可能性比较少的时候可以使用.还有一种攻击方式就是词频分析,替换密码映射的规律导致了明文的统计规律能被很好的保存在密文中,如果我们有足够多的密文,那么就可以利用词频统计来进行替换密码的攻击,词频分析时,还可以遵循一些常见的特性.如E是出现频率最高的字母,英语中U总是跟在Q后面,或者一些高频符号” “以及高频短单词THE AND等.
+            stack
+ret2libc
+ret2text
+ret2shellcode
+ret2syscall
+ret2reg
+ret2dl
+ROP,canary bypass,alsr bypass
+Stack smash
 
-现代密码重要的一项运算-模运算
-模运算: a,r,m属于Z,且m &gt; 0.如果m 除 a-r可以记做a === r mod m,m称作模...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/07/29/逆向工程核心原理笔记/" >
-            
-                <span>Reversing-engineering</span>
-        </a>
-        <div class="abstract-content">
-            The frequently-used Shortcut key of Ollydbg
-
-        
-            Shortcut
-            effect
-        
-        
-            Ctrl + F2
-            restart debugging
-        
-        
-            F7
-            execute next code,If meet the CALL instruction,step in the function
-        
-        
-  ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/07/29/看雪ctf4/" >
-            
-                <span>2018看雪ctf第四题-密界寻踪</span>
-        </a>
-        <div class="abstract-content">
-            密界寻踪恢复函数
-ida打开后随便定位了一个字符串,随后定位到一个函数,但是不知道是做什么的,乖乖找main函数
-找到_main和_main_0函数,点进去发现_main_0跳到了程序的另一个地方,也就是_main_0_0函数,这里有巨多的花指令,jnz/jz/jno/jo/e8/什么的全用上了QAQ
-去花后发现这一段函数其实只有几步,push ebp/mov ebp,esp/sub esp,7Ch,然后一个大跳跳到函数主体,注意这个sub esp,7ch….被这个坑了好久
-跟着跳转过去后,刚准备f5,堆栈不平衡了.到函数尾后,发现函数自从add esp,7Ch后就非常不正常,当时想了好...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/07/29/汇编入门/" >
-            
-                <span>CTF二进制总结0X03</span>
-        </a>
-        <div class="abstract-content">
-            123456789#include&lt;stdio.h&gt;int a = 0;                  //.dataint b;                      //.bssconst double PI=3.14159f;   //.rodataint main()&#123;    int c;                  //stack    char *d = malloc(16)    //heap    return 0;&#125;
-
-for循环一般都是jmp到最底端，然后再跳回来，switch case语句一般都是连续好几个的cmp jm...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/07/29/函数调用约定/" >
-            
-                <span>Calling Convention</span>
-        </a>
-        <div class="abstract-content">
-            函数调用约定:对函数调用时如何传递参数的一种约定.调用函数前会先将函数参数压栈,在传递给函数,栈的大小被存储在PE头中.
-
-cdexl主要在C语言中使用的方式,调用者负责处理堆栈.
-
-1234567#include&lt;stdio.h&gt;int add(int a,int b)&#123;    return (a + b);&#125;int main(int argc,char * argv[])&#123;    return add(1,2);&#125;
-
-1234567891011121314151617181920PUSH EBPMOV EAX,ESPMOV EAX,...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/07/29/二进制选手的Web路(WhaleCTF web部分writepu/" >
-            
-                <span>二进制手的WEB路（WhaleCTF web部分writeup</span>
-        </a>
-        <div class="abstract-content">
-            WhaleCTF Web部分writeup二进制小白兼web盲来记录下今天做的几道题。。。0x00
-
-签到题直接f12查看源码即可
-
-0x01 http呀
-
-这里提供两种思路做web肯定少不了burpsuit啦，网页中给了提示，Do you know what happend just now?！ ( •̀∀•́ )突然想起南邮CTF平台上的两道题，考虑是不是flag在中间页面里，在点击时来了一次非常快的跳转呢？抓了一次包发现啥都没有…后来尝试了几次发现，打开index.php的页面时，会跳到index.html。这就好办了，抓包拿flag，同时，同为二进制手的Cossack9989因为...
+heap
+FSOP
+house of homura
+house of orange (2.23/2.24+)
+Heap overflow
+Off-By-One
+Chunk Extend / Overlapping
+Unlink
+Use After Free
+Fastbin Attack
+Unsorted Bin Attack
+House Of Einherjar
+House ...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -654,10 +443,6 @@ cdexl主要在C语言中使用的方式,调用者负责处理堆栈.
     </article>
     
     <!-- paginator  -->
-    
-    <nav class="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/archives/2019/07/page/2/">2</a><a class="page-number" href="/archives/2019/07/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2019/07/page/6/">6</a><a class="extend next" rel="next" href="/archives/2019/07/page/2/">NEXT &#62;</a>
-    </nav>
     
 </main>
             <!-- profile -->
@@ -2703,9 +2488,14 @@ cdexl主要在C语言中使用的方式,调用者负责处理堆栈.
     
     
     
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 63
+        Total : 64
         </div>
         <!-- search  -->
         
@@ -2715,62 +2505,6 @@ cdexl主要在C语言中使用的方式,调用者负责处理堆栈.
     
     
     
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/sxqvm/" >SxqVM v0.0.1</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/io_file/" >io_file学习</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/DLL注入0x1/" >初试windows消息钩取</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
     
     <div class="archive-year"> 9102 </div>
     <ul class="year-list">
@@ -2791,7 +2525,7 @@ cdexl主要在C语言中使用的方式,调用者负责处理堆栈.
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/28</span><a class="archive-post-title" href= "/2019/07/28/hexo/" >hexo配置</a>
+            <span class="archive-post-date">07/29</span><a class="archive-post-title" href= "/2019/07/29/pwn/" >PWN is what?</a>
         </li>
     
     
@@ -2839,29 +2573,6 @@ cdexl主要在C语言中使用的方式,调用者负责处理堆栈.
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/wcyvm/" >WcyVM</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 2018 </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
             <span class="archive-post-date">02/06</span><a class="archive-post-title" href= "/2018/02/06/CTF二进制入门之路/" >CTF二进制学习0x00</a>
         </li>
@@ -2872,180 +2583,97 @@ cdexl主要在C语言中使用的方式,调用者负责处理堆栈.
     
         </ul>
     
-    <div class="archive-year"> Invalid date </div>
+    <div class="archive-year"> 1970 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/z3/" >z3求解器的一些简单使用</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/xnuca/" >X-NUCA逆向部分题解</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/babyheap/" >babyheap</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/二进制手的Web路SQL0/" >二进制手的Web路（sql注入篇</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/cff2016/" >jarvisoj-文件数据恢复</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/z3/" >z3求解器的一些简单使用</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cff2016/" >jarvisoj-文件数据恢复</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/homuranote/" >Homuranote</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/二进制手的Web路SQL2/" >二进制手的Web路 （sql注入篇</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/MYSQL/" >网站开发入门-MYSQL数据库的基础使用</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/javascript0x1/" >javascript 0x00</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL0/" >二进制手的Web路（sql注入篇</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/hexo/" >hexo配置</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/angr/" >符号执行</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/homuranote/" >Homuranote</a>
+        </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/函数调用约定/" >Calling Convention</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL2/" >二进制手的Web路 （sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/函数调用约定/" >Calling Convention</a>
         </li>
     
     
@@ -3068,236 +2696,92 @@ cdexl主要在C语言中使用的方式,调用者负责处理堆栈.
     
         </ul>
     
-    <div class="archive-year"> Invalid date </div>
+    <div class="archive-year"> 1970 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/汇编入门/" >CTF二进制总结0X03</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/汇编入门/" >CTF二进制总结0X03</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/redhat/" >redhat-re1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/redhat/" >redhat-re1</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/sudu/" >2017国赛re200 填数游戏</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sudu/" >2017国赛re200 填数游戏</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/深入浅出密码学读书笔记/" >深入浅出密码学读书笔记</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/深入浅出密码学读书笔记/" >深入浅出密码学读书笔记</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/HomuraVM/" >CTF二进制学习0X04</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/逆向工程核心原理笔记/" >Reversing-engineering</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/逆向工程核心原理笔记/" >Reversing-engineering</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/PE文件头/" >PE文件格式</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/byb/" >百越杯逆向全解wp</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/byb/" >百越杯逆向全解wp</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/juckcode/" >上海市ctf-re200-juckcode</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/juckcode/" >上海市ctf-re200-juckcode</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/level6/" >0ctf - freenote</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/level6/" >0ctf - freenote</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/cve-2015-7504/" >CVE-2015-7504 QEMU虚拟机逃逸漏洞分析</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cve-2015-7504/" >CVE-2015-7504 QEMU虚拟机逃逸漏洞分析</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/maze/" >cis2016-re300-maze</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/maze/" >cis2016-re300-maze</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/iscc/" >ISCC逆向wp</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/iscc安卓逆向/" >ISCC 决赛 android 1000</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc安卓逆向/" >ISCC 决赛 android 1000</a>
         </li>
     
     
@@ -3320,222 +2804,92 @@ cdexl主要在C语言中使用的方式,调用者负责处理堆栈.
     
         </ul>
     
-    <div class="archive-year"> Invalid date </div>
+    <div class="archive-year"> 1970 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/python_pyc/" >Python的一些底层原理</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/python_pyc/" >Python的一些底层原理</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/PE文件头的利用/" >ichunqiu-NoExec-200pt</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/NUST/" >南理校赛二进制wp</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/malloc源码精读总结/" >malloc源码精读总结</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/malloc源码精读总结/" >malloc源码精读总结</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/Reversing.kr--replace/" >初试程序自修改</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/frida/" >Hook学习</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/ollvm/" >anti-ollvm</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/RE/" >2018国赛逆向</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/frida/" >Hook学习</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/windows/" >windows反调试总结</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suanfa/" >算法设计</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/pe-elf/" >pe-elf文件结构解析</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/io_file/" >io_file学习</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/ollvm/" >anti-ollvm</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/pe-elf/" >pe-elf文件结构解析</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/MYSQL/" >网站开发入门-MYSQL数据库的基础使用</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/suyuan/" >2017国赛-re200-溯源</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
+        </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/07/29/suanfa/" >算法设计</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头的利用/" >ichunqiu-NoExec-200pt</a>
         </li>
     
     </div>
