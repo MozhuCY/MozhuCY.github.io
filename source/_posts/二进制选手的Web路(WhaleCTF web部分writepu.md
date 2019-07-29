@@ -1,4 +1,5 @@
 title: 二进制手的WEB路（WhaleCTF web部分writeup
+date: 1970-1-1
 categories:
 - WEB
 ---

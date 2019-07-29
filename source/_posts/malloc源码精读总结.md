@@ -1,4 +1,5 @@
 title: malloc源码精读总结
+date: 1970-1-1
 categories: 
 - PWN
 ---

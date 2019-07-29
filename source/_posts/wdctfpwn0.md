@@ -1,4 +1,5 @@
 title: 网鼎杯半决赛pwn1
+date: 1970-1-1
 categories:
 - PWN
 ---

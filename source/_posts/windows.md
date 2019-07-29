@@ -1,4 +1,5 @@
 title: windows反调试总结
+date: 1970-1-1
 categories: 
 - RE
 ---

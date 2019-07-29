@@ -1,4 +1,5 @@
 title: javascript 0x00
+date: 1970-1-1
 categories:
 - FE
 ---

@@ -1,4 +1,5 @@
 title: hctf2018-部分逆向wp(Spiral是真的做不来)
+date: 1970-1-1
 categories:
 - RE
 ---

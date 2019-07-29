@@ -1,4 +1,5 @@
 title: ISCC逆向wp
+date: 1970-1-1
 categories:
 - 二进制
 ---

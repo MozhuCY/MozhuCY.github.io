@@ -1,4 +1,5 @@
 title: 0ctf - freenote
+date: 1970-1-1
 categories:
 - PWN
 ---

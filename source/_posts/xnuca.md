@@ -1,4 +1,5 @@
 title: X-NUCA逆向部分题解
+date: 1970-1-1
 categories:
 - RE
 ---

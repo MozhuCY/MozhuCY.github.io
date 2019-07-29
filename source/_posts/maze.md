@@ -1,4 +1,5 @@
 title: cis2016-re300-maze
+date: 1970-1-1
 categories:
 - RE
 ---

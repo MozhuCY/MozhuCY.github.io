@@ -1,4 +1,5 @@
 title: 初试程序自修改
+date: 1970-1-1
 categories:
 - RE
 ---

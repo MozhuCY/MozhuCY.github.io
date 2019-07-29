@@ -1,4 +1,5 @@
 title: 南理校赛二进制wp
+date: 1970-1-1
 categories:
 - 二进制
 ---

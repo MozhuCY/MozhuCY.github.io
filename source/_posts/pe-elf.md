@@ -1,4 +1,5 @@
 title: pe-elf文件结构解析
+date: 1970-1-1
 categories: 
 - RE
 ---
@@ -80,9 +81,11 @@ typedef struct
 } Elf32_Phdr;
 ```
 
+-在运行层面使用,其实就是segment
+
 #### section header
 
-- 存储段的信息
+- 存储节区的信息
 
 ```c
 typedef struct
@@ -99,9 +102,7 @@ typedef struct
   elf32_word    sh_entsize;     /* Entry size if section holds table */
 } elf32_shdr;
 ```
-#### Section
-
-- 这里就是各种段所存在的地方了
+- section是在链接时,将多个文件连接到一起所用到的,也就是说多个section对应着一个segment,在编译后的程序中,section的存在与否是不重要的
 
 ## PE
 

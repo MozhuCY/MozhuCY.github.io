@@ -1,4 +1,5 @@
 title: WcyVM
+date: 1970-1-1
 categories:
 - RE
 ---

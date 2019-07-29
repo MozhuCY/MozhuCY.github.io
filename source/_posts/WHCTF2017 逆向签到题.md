@@ -1,4 +1,5 @@
 title: CTF二进制总结0x01
+date: 1970-1-1
 categories:
 - RE
 ---

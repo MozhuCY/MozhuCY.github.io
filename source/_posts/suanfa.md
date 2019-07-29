@@ -1,4 +1,5 @@
 title: 算法设计
+date: 1970-1-1
 categories:
 - 算法
 ---
