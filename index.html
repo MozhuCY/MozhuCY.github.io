@@ -401,9 +401,10 @@ anti ollvm
                 <span>RSA</span>
         </a>
         <div class="abstract-content">
-            前置数论知识欧拉函数: phi(x) ,即小于x的正整数中与x互质的整数的个数对于 phi(N) ,若 N = m * n 且 m n 互质,则有 phi(N) = phi(m)phi(n) ,对于质数容易得到 phi(x) = x - 1故 phi(N) = (m - 1)(n - 1)
-欧拉定理: a^phi(N) = 1 (mod N),当且仅当a与N互质的时候成立
-模逆元:若有 a = k*N + b,则称 b 为 a 的模逆元,一般记为 a^-1 = b (mod N)或 a*b = 1 (mod N)整数 a 对模数 n 之模逆元存在的充分必要条件是 a 和 n 互素，若此模...
+            前置数论知识欧拉函数通式$\phi(x) = x\prod_{i=1}^n(1-\frac{1}{p_{i}})$,其中$p_{i}$为x所有的质因数既有对于一个x可以被分解出p1,p2,p3则$\phi(x) = (p1-1)(p2-1)(p3-1)$
+同样若$x = p1 * p1 * p2$,则$\phi(x) = (p1-1)p1^{2-1}*(p2-1)$
+性质及证明欧拉函数: $\phi(x)$ ,即小于x的正整数中与x互质的整数的个数
+欧拉函数是一个积性函数对于 $\phi(N)$ ,若 $N = m * n$ 且 $m$ $n$ 互质,则有 $\phi(N) = \phi...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
