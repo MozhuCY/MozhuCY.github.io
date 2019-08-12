@@ -11,7 +11,7 @@ categories:
 
 ### 通式
 
-$\phi(x) = x \prod_{i=1}^n \ (1-\frac{1}{p_{i}})$
+$\phi(x)=x\prod_{i=1}^n(1-\frac{1}{p_{i}})$
 
 其中 $p_{i}$ 为x所有的质因数
 
