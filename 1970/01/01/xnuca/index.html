@@ -399,17 +399,14 @@ height:50vh;
 <li>一个vm逆向,输入三个int型数据,进入一个vm进行运算,字节码在外面的code文件里,这里整理指令集,打log</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">code = [ord(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="string">"090404090000080100080201080302060104050115070001040003016bcc7e1d080103040001020a0400090000080100080201080302060308050303070003030002017c797960080103040001020a040009000008010008020108030206010807000103000201bdbdbc5f080103040001020a040000"</span>.decode(<span class="string">"hex"</span>)]</span><br><span class="line">flag = <span class="number">1</span></span><br><span class="line">i = <span class="number">0</span></span><br><span class="line">ipi = <span class="number">2</span></span><br><span class="line">what = <span class="number">0</span></span><br><span class="line">ipt = [<span class="number">0</span>]*<span class="number">4</span></span><br><span class="line">stack = [<span class="number">0</span>] * <span class="number">100</span></span><br><span class="line"><span class="keyword">while</span> flag:</span><br><span class="line">    <span class="keyword">if</span> code[i] == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"ret"</span></span><br><span class="line">        exit(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">elif</span> code[i] == <span class="number">1</span>:</span><br><span class="line">        ipi += <span class="number">1</span></span><br><span class="line">        ipt[ipi] = code[i + <span class="number">1</span>] | code[i + <span class="number">2</span>] &lt;&lt; <span class="number">8</span> | code[i + <span class="number">3</span>] &lt;&lt; <span class="number">16</span> | code[i + <span class="number">4</span>] &lt;&lt;<span class="number">24</span></span><br><span class="line">        i += <span class="number">5</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"input[%d] = 0x%x"</span> % (ipi,ipt[ipi])</span><br><span class="line">    <span class="keyword">elif</span> code[i] == <span class="number">2</span>:</span><br><span class="line">        ipi -= <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"ipi -= 1"</span></span><br><span class="line">    <span class="keyword">elif</span> code[i] == <span class="number">3</span>:</span><br><span class="line">        t1 = code[i + <span class="number">1</span>]</span><br><span class="line">        t2 = code[i + <span class="number">2</span>]</span><br><span class="line">        stack[t1] += stack[t2]</span><br><span class="line">        i += <span class="number">3</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"stack[%d] += stack[%d]"</span>%(t1,t2)</span><br><span class="line">    <span class="keyword">elif</span> code[i] == <span class="number">4</span>:</span><br><span class="line">        t1 = code[i + <span class="number">1</span>]</span><br><span class="line">        t2 = code[i + <span class="number">2</span>]</span><br><span class="line">        stack[t1] -= stack[t2]</span><br><span class="line">        i += <span class="number">3</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"stack[%d] -= stack[%d]"</span>%(t1,t2)</span><br><span class="line">    <span class="keyword">elif</span> code[i] == <span class="number">5</span>:</span><br><span class="line">        t1 = code[i + <span class="number">1</span>]</span><br><span class="line">        t2 = code[i + <span class="number">2</span>]</span><br><span class="line">        stack[t1] *= code[t2]</span><br><span class="line">        i += <span class="number">3</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"stack[%d] *= %d"</span>%(t1,t2)</span><br><span class="line">    <span class="keyword">elif</span> code[i] == <span class="number">6</span>:</span><br><span class="line">        t1 = code[i + <span class="number">1</span>]</span><br><span class="line">        t2 = code[i + <span class="number">2</span>]</span><br><span class="line">        stack[t1] &gt;&gt;= stack[t2]</span><br><span class="line">        i += <span class="number">3</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"stack[%d] &gt;&gt;= %d"</span>%(t1,t2)</span><br><span class="line">    <span class="keyword">elif</span> code[i] == <span class="number">7</span>:</span><br><span class="line">        t1 = code[i + <span class="number">1</span>]</span><br><span class="line">        t2 = code[i + <span class="number">2</span>]</span><br><span class="line">        stack[t1] = stack[t2]</span><br><span class="line">        i += <span class="number">3</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"stack[%d] = stack[%d]"</span>%(t1,t2)</span><br><span class="line">    <span class="keyword">elif</span> code[i] == <span class="number">8</span>:</span><br><span class="line">        t1 = code[i + <span class="number">1</span>]</span><br><span class="line">        t2 = code[i + <span class="number">2</span>]</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"stack[%d] = input[%d]"</span>%(t1,t2)</span><br><span class="line">        stack[t1] = ipt[t2]</span><br><span class="line">        i += <span class="number">3</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">elif</span> code[i] == <span class="number">9</span>:</span><br><span class="line">        t1 = code[i + <span class="number">1</span>]</span><br><span class="line">        t2 = code[i + <span class="number">2</span>]</span><br><span class="line">        stack[t1] ^= stack[t2]</span><br><span class="line">        i += <span class="number">3</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"stack[%d] ^= stack[%d]"</span>%(t1,t2)</span><br><span class="line">    <span class="keyword">elif</span> code[i] == <span class="number">10</span>:</span><br><span class="line">        t1 = code[i + <span class="number">1</span>]</span><br><span class="line">        t2 = code[i + <span class="number">2</span>]</span><br><span class="line">        stack[t1] |= stack[t2]</span><br><span class="line">        i += <span class="number">3</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"stack[%d] |= stack[%d]"</span>%(t1,t2)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"error"</span></span><br><span class="line">        i += <span class="number">1</span></span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>在找到规律后,发现stack的第0位是reg,stack第5位是isture的判断位,这里修改下指令,得到如下结果</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">isture ^= isture</span><br><span class="line">reg ^= reg</span><br><span class="line">stack[1] = input[0]</span><br><span class="line">stack[2] = input[1]</span><br><span class="line">stack[3] = input[2]</span><br><span class="line">stack[1] &gt;&gt;= 4</span><br><span class="line">stack[1] *= 21</span><br><span class="line">reg = stack[1]</span><br><span class="line">reg -= stack[3]</span><br><span class="line">input[3] = 0x1d7ecc6b</span><br><span class="line">stack[1] = input[3]</span><br><span class="line">reg -= stack[1]</span><br><span class="line">ipi -= 1</span><br><span class="line">isture |= reg</span><br><span class="line"></span><br><span class="line">reg ^= reg</span><br><span class="line">stack[1] = input[0]</span><br><span class="line">stack[2] = input[1]</span><br><span class="line">stack[3] = input[2]</span><br><span class="line">stack[3] &gt;&gt;= 8</span><br><span class="line">stack[3] *= 3</span><br><span class="line">reg = stack[3]</span><br><span class="line">reg += stack[2]</span><br><span class="line">input[3] = 0x6079797c</span><br><span class="line">stack[1] = input[3]</span><br><span class="line">reg -= stack[1]</span><br><span class="line">ipi -= 1</span><br><span class="line">isture |= reg</span><br><span class="line"></span><br><span class="line">reg ^= reg</span><br><span class="line">stack[1] = input[0]</span><br><span class="line">stack[2] = input[1]</span><br><span class="line">stack[3] = input[2]</span><br><span class="line">stack[1] &gt;&gt;= 8</span><br><span class="line">reg = stack[1]</span><br><span class="line">reg += stack[2]</span><br><span class="line">input[3] = 0x5fbcbdbd</span><br><span class="line">stack[1] = input[3]</span><br><span class="line">reg -= stack[1]</span><br><span class="line">ipi -= 1</span><br><span class="line">isture |= reg</span><br><span class="line">ret</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>要保证isture寄存器为0,故可以整理出三个方程,z3直接求解即可</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">x = BitVec(<span class="string">"x"</span>,<span class="number">32</span>)</span><br><span class="line">y = BitVec(<span class="string">"y"</span>,<span class="number">32</span>)</span><br><span class="line">z = BitVec(<span class="string">"z"</span>,<span class="number">32</span>)</span><br><span class="line">S = Solver()</span><br><span class="line">S.add((x &gt;&gt; <span class="number">4</span>) * <span class="number">21</span> - z == <span class="number">0x1d7ecc6b</span>)</span><br><span class="line">S.add((z &gt;&gt; <span class="number">8</span>) * <span class="number">3</span> + y == <span class="number">0x6079797c</span>)</span><br><span class="line">S.add((x &gt;&gt; <span class="number">8</span>) + y == <span class="number">0x5fbcbdbd</span>)</span><br><span class="line">S.add(x &amp; <span class="number">0xff</span> == <span class="number">94</span>)</span><br><span class="line">S.add(z &amp; <span class="number">0xff</span> == <span class="number">94</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> S.check() == sat:</span><br><span class="line">    <span class="keyword">print</span> S.model()</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>将三个数字输入程序即可获得flag</li>
 </ul>
@@ -420,18 +417,15 @@ height:50vh;
 <li>继续调试找到和flag进行运算的地方,发现只是一个异或加密.而异或的数值,在之前的运算里也可以找到</li>
 </ul>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">stack</span>[index++] += <span class="number">104</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">28</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">124</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">102</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">119</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">116</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">26</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">87</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">6</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">83</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">82</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">83</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">2</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">93</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">12</span>;</span><br><span class="line">        reg1 = index;</span><br><span class="line">        reg2 = index;</span><br><span class="line">        <span class="built_in">stack</span>[index++] += <span class="number">93</span>;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>下面是加密部分</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br><span class="line">    reg2 = ++index;</span><br><span class="line">    reg1 = index + 480;</span><br><span class="line">    stack[index] ^= stack[index + 480];</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>在这里patch内存的值都为零同样可以在程序中拿到异或所需要的key值,调试结束时可以看到程序将flagenc和一个”012345abcdefghijklmnopqrstuvwxyz”字符串数组进行逐位比较,这里可以异或求出前半段的flag值</li>
 <li>继续跟踪发现后续的操作全在switch case中,到最后可以调试到<code>stack[v18 + 16] ^= stack[v18 + 480] ^ stack[v18] ^ stack[v18 + 496]</code>,就是后16位的加密运算,直接写逆运算即可</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">table = [ord(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="string">"012345abcdefghijklmnopqrstuvwxyz"</span>]</span><br><span class="line">key = [<span class="number">104</span>, <span class="number">28</span>, <span class="number">124</span>, <span class="number">102</span>, <span class="number">119</span>, <span class="number">116</span>, <span class="number">26</span>, <span class="number">87</span>, <span class="number">6</span>, <span class="number">83</span>, <span class="number">82</span>, <span class="number">83</span>, <span class="number">2</span>, <span class="number">93</span>, <span class="number">12</span>, <span class="number">93</span>, <span class="number">4</span>, <span class="number">116</span>, <span class="number">70</span>, <span class="number">14</span>, <span class="number">73</span>, <span class="number">6</span>, <span class="number">61</span>, <span class="number">114</span>, <span class="number">115</span>, <span class="number">118</span>, <span class="number">39</span>, <span class="number">116</span>, <span class="number">37</span>, <span class="number">120</span>, <span class="number">121</span>, <span class="number">48</span>]</span><br><span class="line">flag = [<span class="number">0</span>] * <span class="number">32</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">16</span>):</span><br><span class="line">    flag[i]  = key[i] ^ table[i]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">16</span>):</span><br><span class="line">    flag[i + <span class="number">16</span>] = key[i] ^ key[i + <span class="number">16</span>] ^ table[i] ^ table[i + <span class="number">16</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">""</span>.join([chr(i) <span class="keyword">for</span> i <span class="keyword">in</span> flag])</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>得到flag<code>X-NUCA{5e775e5e775e5e775e5e775e}</code></li>
 </ul>
@@ -452,8 +446,8 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/1970/01/01/xnuca-final/" title= "X-NUCA 2018个人赛/决赛PWN">
-                    <div class="nextTitle">X-NUCA 2018个人赛/决赛PWN</div>
+                <a href= "/1970/01/01/z3/" title= "z3求解器的一些简单使用">
+                    <div class="nextTitle">z3求解器的一些简单使用</div>
                 </a>
             
         </li>
@@ -2626,9 +2620,24 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 67
+        Total : 68
         </div>
         <!-- search  -->
         
@@ -2745,17 +2754,32 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sudu/" >2017国赛re200 填数游戏</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cve-2015-7504/" >CVE-2015-7504 CVE-2015-5165QEMU虚拟机逃逸漏洞分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/docker/" >docker</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suanfa/" >算法设计</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
         </li>
     
     
@@ -2765,17 +2789,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/hexo/" >hexo配置</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL0/" >二进制手的Web路（sql注入篇</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
         </li>
     
     
@@ -2790,132 +2804,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL2/" >二进制手的Web路 （sql注入篇</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/pe-elf/" >pe-elf文件结构解析</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/函数调用约定/" >Calling Convention</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/汇编入门/" >CTF二进制总结0X03</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/深入浅出密码学读书笔记/" >深入浅出密码学读书笔记</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/逆向工程核心原理笔记/" >Reversing-engineering</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/byb/" >百越杯逆向全解wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/io_file/" >io_file学习</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/juckcode/" >上海市ctf-re200-juckcode</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
         </li>
     
     
@@ -2925,7 +2819,37 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/maze/" >cis2016-re300-maze</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL0/" >二进制手的Web路（sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/pe-elf/" >pe-elf文件结构解析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL2/" >二进制手的Web路 （sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/函数调用约定/" >Calling Convention</a>
         </li>
     
     
@@ -2935,17 +2859,47 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/level6/" >0ctf - freenote</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suanfa/" >算法设计</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc安卓逆向/" >ISCC 决赛 android 1000</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/汇编入门/" >CTF二进制总结0X03</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/深入浅出密码学读书笔记/" >深入浅出密码学读书笔记</a>
         </li>
     
     
@@ -2955,7 +2909,67 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/python_pyc/" >Python的一些底层原理</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/hexo/" >hexo配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/逆向工程核心原理笔记/" >Reversing-engineering</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/byb/" >百越杯逆向全解wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/io_file/" >io_file学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/juckcode/" >上海市ctf-re200-juckcode</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/level6/" >0ctf - freenote</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/maze/" >cis2016-re300-maze</a>
         </li>
     
     
@@ -2970,16 +2984,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/docker/" >docker</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/malloc源码精读总结/" >malloc源码精读总结</a>
         </li>
     
@@ -2990,27 +2994,37 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/python_pyc/" >Python的一些底层原理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc安卓逆向/" >ISCC 决赛 android 1000</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sudu/" >2017国赛re200 填数游戏</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
         </li>
     
     </div>
@@ -3059,7 +3073,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
     
-        <span class="sidebar-category-name" data-categories="CVE"><span class="iconfont-archer">&#xe60a;</span>CVE</span>
+        <span class="sidebar-category-name" data-categories="MISC"><span class="iconfont-archer">&#xe60a;</span>MISC</span>
+    
+        <span class="sidebar-category-name" data-categories="RW"><span class="iconfont-archer">&#xe60a;</span>RW</span>
     
         <span class="sidebar-category-name" data-categories="balabala"><span class="iconfont-archer">&#xe60a;</span>balabala</span>
     
@@ -3069,9 +3085,7 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="算法"><span class="iconfont-archer">&#xe60a;</span>算法</span>
     
-        <span class="sidebar-category-name" data-categories="RW"><span class="iconfont-archer">&#xe60a;</span>RW</span>
-    
-        <span class="sidebar-category-name" data-categories="MISC"><span class="iconfont-archer">&#xe60a;</span>MISC</span>
+        <span class="sidebar-category-name" data-categories="CVE"><span class="iconfont-archer">&#xe60a;</span>CVE</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

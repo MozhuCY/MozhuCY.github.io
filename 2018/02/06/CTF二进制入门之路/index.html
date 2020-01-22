@@ -266,7 +266,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">745</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">793</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -395,33 +395,30 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p><strong>在大黄狗的建议之下，开通了自己的博客๑乛◡乛๑，我会在这里记录自己在CTF里的点点滴滴。欢迎大家来捧场啊( •̀ .̫ •́ )✧</strong><br>(偶的CSDN:<a href="http://blog.csdn.net/mozhucy" target="_blank" rel="noopener">http://blog.csdn.net/mozhucy</a><br><br><br><br><br><br><br><br>2.7日总结：<br></p>
+        <p><strong>在大黄狗的建议之下，开通了自己的博客๑乛◡乛๑，我会在这里记录自己在CTF里的点点滴滴。欢迎大家来捧场啊( •̀ .̫ •́ )✧</strong><br>(偶的CSDN:<a href="http://blog.csdn.net/mozhucy" target="_blank" rel="noopener">http://blog.csdn.net/mozhucy</a>&lt;/br&gt;<br>&lt;/br&gt;<br>&lt;/br&gt;<br>&lt;/br&gt;<br>2.7日总结：&lt;/br&gt;</p>
 <ul>
-<li>程序中遇到花指令时，可能会造成IDA无法正常显示伪代码，这时候就要考虑用IDC脚本或者Python来去除花指令 <strong>(坑人的IDA 7.0</strong>。<br></li>
+<li>程序中遇到花指令时，可能会造成IDA无法正常显示伪代码，这时候就要考虑用IDC脚本或者Python来去除花指令 <strong>(坑人的IDA 7.0</strong>。&lt;/br&gt;</li>
 <li>PE相对固定的文件结构在某些意想不到的时候会有妙用。</li>
-<li>是时候看一波~了。<br></li>
+<li>是时候看一波~了。&lt;/br&gt;</li>
 </ul>
-<p>2.9日总结：<br></p>
+<p>2.9日总结：&lt;/br&gt;</p>
 <ul>
 <li>在调用rand()函数时，假如没有事先声明srand()的值，那么rand()函数会产生随机数列，但是此随机数列每次生成时都是一样的。注意,随机数只有在环境相同时才会呈伪随机分布,linux和windows就不同.</li>
 <li>cs：寄存器<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> popen2</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10000</span>):</span><br><span class="line">	a=str(i).rjust(<span class="number">4</span>,<span class="string">"0"</span>)+<span class="string">'\n'</span></span><br><span class="line">	fin,fout=popen2.popen2(<span class="string">r"/root/pp"</span>)</span><br><span class="line">	fout.write(a)</span><br><span class="line">	fout.flush()</span><br><span class="line">	<span class="keyword">if</span> fin.readline()[<span class="number">21</span>:<span class="number">22</span>]==<span class="string">'c'</span>:</span><br><span class="line">		<span class="keyword">print</span> a</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
-<p>2.13日总结：<br></p>
+<p>2.13日总结：&lt;/br&gt;</p>
 <ul>
 <li>昨天打了一场比赛，moctf的新年赛。难度不是很大，不小心ak了逆向和杂项。。。这次遇到了两次，没有输入的cm，无奈函数封装太严重，而且没学过c++，索性动态调试。</li>
-<li>re.findall(“&lt;w:t&gt;(.{1,2})“,l)这时返回列表的只有()中的值。</li>
+<li>re.findall(“<w:t>(.{1,2})&lt;/w:t&gt;”,l)这时返回列表的只有()中的值。</w:t></li>
 </ul>
-<p>2.16日总结:<br></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> angr</span><br><span class="line"> eWARNING | <span class="number">2018</span><span class="number">-02</span><span class="number">-16</span> <span class="number">12</span>:<span class="number">42</span>:<span class="number">10</span>,<span class="number">337</span> | angr.analyses.disassembly_utils | Your verison of capstone does <span class="keyword">not</span> support MIPS instruction groups.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>proj=angr.Project(<span class="string">'./r100'</span>,auto_load_libs=<span class="literal">False</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>state=proj.faactory.entry_state()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>simgr=proj.factory.simgr(state)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>simgr.explore(find=<span class="number">0x400844</span>,avoid=<span class="number">0x400855</span>)</span><br><span class="line">&lt;SimulationManager <span class="keyword">with</span> <span class="number">2</span> active, <span class="number">1</span> found, <span class="number">12</span> avoid&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>simgr.found[<span class="number">0</span>].posix.dumps(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-
-<p>2.20日总结：<br><br>IDA自带patch很强大，下次再也不用radare2找机器码了</p>
-<p>2.25日总结:<br>安恒杯月赛:<br>写脚本时先去除干扰的指令,特别隐蔽的那种,在遇到取余运算时,爆破可能存在多解,此时应注意范围.<br><br>寄存器之间的加法也可能是减法的另一种方式,只要溢出即为零.<br>首选010修复文件,前提熟悉文件结构</p>
-<p>3.6日总结<br><br>python中read()函数返回的是一个字符串,如果想以二进制的形式查看某一处,需要加ord().</p>
-<p>4.16日总结<br><br>这几天打了几个简单的pwn题,了解到了一点骚操作</p>
+<p>2.16日总结:&lt;/br&gt;<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> angr</span><br><span class="line"> eWARNING | <span class="number">2018</span><span class="number">-02</span><span class="number">-16</span> <span class="number">12</span>:<span class="number">42</span>:<span class="number">10</span>,<span class="number">337</span> | angr.analyses.disassembly_utils | Your verison of capstone does <span class="keyword">not</span> support MIPS instruction groups.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>proj=angr.Project(<span class="string">'./r100'</span>,auto_load_libs=<span class="literal">False</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>state=proj.faactory.entry_state()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>simgr=proj.factory.simgr(state)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>simgr.explore(find=<span class="number">0x400844</span>,avoid=<span class="number">0x400855</span>)</span><br><span class="line">&lt;SimulationManager <span class="keyword">with</span> <span class="number">2</span> active, <span class="number">1</span> found, <span class="number">12</span> avoid&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>simgr.found[<span class="number">0</span>].posix.dumps(<span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
+<p>2.20日总结：&lt;/br&gt;<br>IDA自带patch很强大，下次再也不用radare2找机器码了</p>
+<p>2.25日总结:&lt;/br&gt;安恒杯月赛:<br>写脚本时先去除干扰的指令,特别隐蔽的那种,在遇到取余运算时,爆破可能存在多解,此时应注意范围.&lt;/br&gt;<br>寄存器之间的加法也可能是减法的另一种方式,只要溢出即为零.<br>首选010修复文件,前提熟悉文件结构</p>
+<p>3.6日总结&lt;/br&gt;<br>python中read()函数返回的是一个字符串,如果想以二进制的形式查看某一处,需要加ord().</p>
+<p>4.16日总结&lt;/br&gt;<br>这几天打了几个简单的pwn题,了解到了一点骚操作</p>
 <blockquote>
-<p>[root@emmmmmmm MozhuCY]# cyclic 1000<br>aaaabaaacaaada……aaj<br>[root@emmmmmmm MozhuCY]# gdb level4<br>gdb-peda$ r<br>Starting program: /MozhuCY/level4<br>aaaabaaacaaadaaaea……aaj<br>Program received signal SIGSEGV, Segmentation fault.[———————————-registers———————————–]<br>EAX: 0x100<br>EBX: 0xf7fcb000 –&gt; 0x1bbd9c<br>ECX: 0xffffd5b0 (“aaaabaaacaaadaaaeaaafaaagaaahaa….aabvaabwaabxaabyaab”…)<br>EDX: 0x100<br>ESI: 0x0<br>EDI: 0x0<br>EBP: 0x6261616a (‘jaab’)<br>ESP: 0xffffd640 (“laabmaabnaaboaabpaab….acmaacnaac”)<br>EIP: 0x6261616b (‘kaab’)<br>EFLAGS: 0x10282 (carry parity adjust zero SIGN trap INTERRUPT direction overflow)<br>[————————————-code————————————-]<br>Invalid $PC address: 0x6261616b<br>[————————————stack————————————-]<br>0000| 0xffffd640 (“laabmaabnaaboaabpaabqaabraa….acmaacnaac”)<br>0004| 0xffffd644 (“maabnaaboaabpaabqaabraab….acmaacnaac”)<br>0008| 0xffffd648 (“naaboaabpaabqaabraabsaab….acnaac”)<br>0012| 0xffffd64c (“oaabpaabqaabraabsaa…aacnaac”)<br>0016| 0xffffd650 (“paabqaabraabsaabta….naac”)<br>0020| 0xffffd654 (“qaabraabsaabtaa….naac”)<br>0024| 0xffffd658 (“raabsaabtaa….naac”)<br>0028| 0xffffd65c (“saabtaa….aac”)<br>[——————————————————————————]<br>Legend: code, data, rodata, value<br>Stopped reason: SIGSEGV<br>0x6261616b in ?? ()<br>Missing separate debuginfos, use: debuginfo-install glibc-2.17-196.el7_4.2.i686<br>gdb-peda$ ^Z<br>[6]+  已停止               gdb level4<br>[root@emmmmmmm MozhuCY]# cyclic -l 0x62616164<br>112<br>注:省略号处省略掉了大量无用字符</p>
+<p>[root@emmmmmmm MozhuCY]# cyclic 1000<br>aaaabaaacaaada……aaj<br>[root@emmmmmmm MozhuCY]# gdb level4<br>gdb-peda$ r<br>Starting program: /MozhuCY/level4<br>aaaabaaacaaadaaaea……aaj<br>Program received signal SIGSEGV, Segmentation fault.[—————————————————registers—————————————————-]<br>EAX: 0x100<br>EBX: 0xf7fcb000 —&gt; 0x1bbd9c<br>ECX: 0xffffd5b0 (“aaaabaaacaaadaaaeaaafaaagaaahaa….aabvaabwaabxaabyaab”…)<br>EDX: 0x100<br>ESI: 0x0<br>EDI: 0x0<br>EBP: 0x6261616a (‘jaab’)<br>ESP: 0xffffd640 (“laabmaabnaaboaabpaab….acmaacnaac”)<br>EIP: 0x6261616b (‘kaab’)<br>EFLAGS: 0x10282 (carry parity adjust zero SIGN trap INTERRUPT direction overflow)<br>[——————————————————-code——————————————————-]<br>Invalid $PC address: 0x6261616b<br>[——————————————————stack——————————————————-]<br>0000| 0xffffd640 (“laabmaabnaaboaabpaabqaabraa….acmaacnaac”)<br>0004| 0xffffd644 (“maabnaaboaabpaabqaabraab….acmaacnaac”)<br>0008| 0xffffd648 (“naaboaabpaabqaabraabsaab….acnaac”)<br>0012| 0xffffd64c (“oaabpaabqaabraabsaa…aacnaac”)<br>0016| 0xffffd650 (“paabqaabraabsaabta….naac”)<br>0020| 0xffffd654 (“qaabraabsaabtaa….naac”)<br>0024| 0xffffd658 (“raabsaabtaa….naac”)<br>0028| 0xffffd65c (“saabtaa….aac”)<br>[———————————————————————————————————————]<br>Legend: code, data, rodata, value<br>Stopped reason: SIGSEGV<br>0x6261616b in ?? ()<br>Missing separate debuginfos, use: debuginfo-install glibc-2.17-196.el7_4.2.i686<br>gdb-peda$ ^Z<br>[6]+  已停止               gdb level4<br>[root@emmmmmmm MozhuCY]# cyclic -l 0x62616164<br>112<br>注:省略号处省略掉了大量无用字符</p>
 </blockquote>
 
     </article>
@@ -448,8 +445,8 @@ height:50vh;
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/1970/01/01/RE/" title= "2018国赛逆向">
-                    <div class="prevTitle">2018国赛逆向</div>
+                <a href= "/1970/01/01/cff2016/" title= "jarvisoj-文件数据恢复">
+                    <div class="prevTitle">jarvisoj-文件数据恢复</div>
                 </a>
             
         </li>
@@ -2614,9 +2611,24 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 67
+        Total : 68
         </div>
         <!-- search  -->
         
@@ -2733,17 +2745,32 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sudu/" >2017国赛re200 填数游戏</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cve-2015-7504/" >CVE-2015-7504 CVE-2015-5165QEMU虚拟机逃逸漏洞分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/docker/" >docker</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suanfa/" >算法设计</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
         </li>
     
     
@@ -2753,17 +2780,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/hexo/" >hexo配置</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL0/" >二进制手的Web路（sql注入篇</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
         </li>
     
     
@@ -2778,132 +2795,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL2/" >二进制手的Web路 （sql注入篇</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/pe-elf/" >pe-elf文件结构解析</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/函数调用约定/" >Calling Convention</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/汇编入门/" >CTF二进制总结0X03</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/深入浅出密码学读书笔记/" >深入浅出密码学读书笔记</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/逆向工程核心原理笔记/" >Reversing-engineering</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/byb/" >百越杯逆向全解wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/io_file/" >io_file学习</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/juckcode/" >上海市ctf-re200-juckcode</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
         </li>
     
     
@@ -2913,7 +2810,37 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/maze/" >cis2016-re300-maze</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL0/" >二进制手的Web路（sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/pe-elf/" >pe-elf文件结构解析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL2/" >二进制手的Web路 （sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/函数调用约定/" >Calling Convention</a>
         </li>
     
     
@@ -2923,17 +2850,47 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/level6/" >0ctf - freenote</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suanfa/" >算法设计</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc安卓逆向/" >ISCC 决赛 android 1000</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/汇编入门/" >CTF二进制总结0X03</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/深入浅出密码学读书笔记/" >深入浅出密码学读书笔记</a>
         </li>
     
     
@@ -2943,7 +2900,67 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/python_pyc/" >Python的一些底层原理</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/hexo/" >hexo配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/逆向工程核心原理笔记/" >Reversing-engineering</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/byb/" >百越杯逆向全解wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/io_file/" >io_file学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/juckcode/" >上海市ctf-re200-juckcode</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/level6/" >0ctf - freenote</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/maze/" >cis2016-re300-maze</a>
         </li>
     
     
@@ -2958,16 +2975,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/docker/" >docker</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/malloc源码精读总结/" >malloc源码精读总结</a>
         </li>
     
@@ -2978,27 +2985,37 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/python_pyc/" >Python的一些底层原理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc安卓逆向/" >ISCC 决赛 android 1000</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sudu/" >2017国赛re200 填数游戏</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
         </li>
     
     </div>
@@ -3047,7 +3064,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
     
-        <span class="sidebar-category-name" data-categories="CVE"><span class="iconfont-archer">&#xe60a;</span>CVE</span>
+        <span class="sidebar-category-name" data-categories="MISC"><span class="iconfont-archer">&#xe60a;</span>MISC</span>
+    
+        <span class="sidebar-category-name" data-categories="RW"><span class="iconfont-archer">&#xe60a;</span>RW</span>
     
         <span class="sidebar-category-name" data-categories="balabala"><span class="iconfont-archer">&#xe60a;</span>balabala</span>
     
@@ -3057,9 +3076,7 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="算法"><span class="iconfont-archer">&#xe60a;</span>算法</span>
     
-        <span class="sidebar-category-name" data-categories="RW"><span class="iconfont-archer">&#xe60a;</span>RW</span>
-    
-        <span class="sidebar-category-name" data-categories="MISC"><span class="iconfont-archer">&#xe60a;</span>MISC</span>
+        <span class="sidebar-category-name" data-categories="CVE"><span class="iconfont-archer">&#xe60a;</span>CVE</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

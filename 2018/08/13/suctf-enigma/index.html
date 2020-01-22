@@ -412,7 +412,6 @@ height:50vh;
 <li>随后是一个大的for循环,循环次数为flag的长度36,里面有三个几乎一样的三个小循环,每次8轮,出题人很坏的写了好多简单函数为了实现赋值的操作…此函数化简后如下</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">kkey = [<span class="number">0x31</span> ,<span class="number">0x62</span> ,<span class="number">0x93</span> ,<span class="number">0xC4</span> ,<span class="number">0x21</span> ,<span class="number">0x42</span> ,<span class="number">0x63</span> ,<span class="number">0x84</span> ,<span class="number">0x3D</span> ,<span class="number">0x7A</span> ,<span class="number">0xB7</span> ,<span class="number">0xF4</span>]</span><br><span class="line">flag = [ord(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="string">"int flag 143"</span>]</span><br><span class="line">r1 = <span class="number">0</span></span><br><span class="line">r2 = <span class="number">0</span></span><br><span class="line">r3 = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(flag)):</span><br><span class="line">    <span class="comment">#flag[i] = i</span></span><br><span class="line">    v1 = <span class="number">0</span></span><br><span class="line">    v2 = <span class="number">0</span></span><br><span class="line">    v3 = <span class="number">0</span></span><br><span class="line">    <span class="comment"># v16 = flag[i]</span></span><br><span class="line">    <span class="comment"># v15 = key[0 + r1]</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">8</span>):</span><br><span class="line">        vx = v3</span><br><span class="line">        v4 = (key[<span class="number">0</span> + r1] &amp; <span class="number">1</span> &lt;&lt; x)!=<span class="number">0</span></span><br><span class="line">        v5 = (flag[i] &amp; <span class="number">1</span> &lt;&lt; x)!=<span class="number">0</span></span><br><span class="line">        v2 = vx ^ v4 ^ v5</span><br><span class="line">        v3 = v4 &amp; vx | v5 &amp; (vx | v4)</span><br><span class="line">        <span class="keyword">if</span>(v2 != <span class="number">0</span>):</span><br><span class="line">            flag[i] |= (<span class="number">1</span>&lt;&lt;x)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            flag[i] &amp;= ~(<span class="number">1</span>&lt;&lt;x)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># v17 = key[4 + r2]</span></span><br><span class="line">    <span class="keyword">for</span> y <span class="keyword">in</span> range(<span class="number">8</span>):</span><br><span class="line">        vx = v3</span><br><span class="line">        v4 = (key[<span class="number">4</span> + r2] &amp; <span class="number">1</span> &lt;&lt; y)!=<span class="number">0</span></span><br><span class="line">        v5 = (flag[i] &amp; <span class="number">1</span> &lt;&lt; y)!=<span class="number">0</span></span><br><span class="line">        v2 = vx ^ v4 ^ v5</span><br><span class="line">        v3 = v4 &amp; vx | v5 &amp; (vx | v4)</span><br><span class="line">        <span class="keyword">if</span>(v2 != <span class="number">0</span>):</span><br><span class="line">            flag[i] |= (<span class="number">1</span>&lt;&lt;y)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            flag[i] &amp;= ~(<span class="number">1</span>&lt;&lt;y)</span><br><span class="line">    <span class="comment"># v18 = key[8 + r3]</span></span><br><span class="line">    <span class="keyword">for</span> z <span class="keyword">in</span> range(<span class="number">8</span>):</span><br><span class="line">        vx = v3</span><br><span class="line">        v4 = (key[<span class="number">8</span> + r3] &amp; <span class="number">1</span> &lt;&lt; z)!=<span class="number">0</span></span><br><span class="line">        v5 = (flag[i] &amp; <span class="number">1</span> &lt;&lt; z)!=<span class="number">0</span></span><br><span class="line">        v2 = vx ^ v4 ^ v5</span><br><span class="line">        v3 = v4 &amp; vx | v5 &amp; (vx | v4)</span><br><span class="line">        <span class="keyword">if</span>(v2 != <span class="number">0</span>):</span><br><span class="line">            flag[i] |= (<span class="number">1</span>&lt;&lt;z)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            flag[i] &amp;= ~(<span class="number">1</span>&lt;&lt;z)</span><br><span class="line">    out = flag[i]</span><br><span class="line">    r1 += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span>(r1 == <span class="number">4</span>):</span><br><span class="line">        r1 = <span class="number">0</span></span><br><span class="line">        r2 += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span>(r2 == <span class="number">4</span>):</span><br><span class="line">        r2 = <span class="number">0</span></span><br><span class="line">        r3 += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span>(r3 == <span class="number">0</span>):</span><br><span class="line">        r3 = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>在我化简的过程中,我发现了一些提取二进制位的操作,随后我尝试着运行了这段代码,字母加密的结果只和所在位置有关,感觉可以爆破一波</li>
 </ul>
@@ -421,7 +420,6 @@ height:50vh;
 <li>整理函数如下</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">36</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">        v0 = (flag[i] &amp; (<span class="number">1</span> &lt;&lt; j) != <span class="number">0</span>)</span><br><span class="line">        v1 = (flag[i] &amp; (<span class="number">1</span> &lt;&lt; (<span class="number">7</span>-j)) != <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">if</span> v0 != v1:</span><br><span class="line">            flag[i] |= (<span class="number">1</span>&lt;&lt;j)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            flag[i] &amp;= ~(<span class="number">1</span>&lt;&lt;j)</span><br><span class="line"></span><br><span class="line">        v0 = (flag[i] &amp; (<span class="number">1</span> &lt;&lt; j) != <span class="number">0</span>)</span><br><span class="line">        v1 = (flag[i] &amp; (<span class="number">1</span> &lt;&lt; (<span class="number">7</span>-j)) != <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">if</span> v0 != v1:</span><br><span class="line">            flag[i] |= (<span class="number">1</span>&lt;&lt;(<span class="number">7</span>-j))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            flag[i] &amp;= ~(<span class="number">1</span>&lt;&lt;(<span class="number">7</span>-j))</span><br><span class="line"></span><br><span class="line">        v0 = (flag[i] &amp; (<span class="number">1</span> &lt;&lt; j) != <span class="number">0</span>)</span><br><span class="line">        v1 = (flag[i] &amp; (<span class="number">1</span> &lt;&lt; (<span class="number">7</span>-j)) != <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">if</span> v0 != v1:</span><br><span class="line">            flag[i] |= (<span class="number">1</span>&lt;&lt;j)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            flag[i] &amp;= ~(<span class="number">1</span>&lt;&lt;j)</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>大概是一个flag自身的每位高低位之间的一些加密过程</li>
 </ul>
@@ -430,13 +428,11 @@ height:50vh;
 <li>emmm好吧当我没说,又扫了一眼代码,发现生成key的值还是在变的,每次生成一个值后,四字节key会变一下,继续整理分析代码吧</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">9</span>):</span><br><span class="line">    seed = <span class="number">0x5F3759DF</span></span><br><span class="line">    <span class="keyword">if</span> seed &amp; (<span class="number">1</span>&lt;&lt;<span class="number">31</span>)!=<span class="number">0</span> <span class="keyword">and</span> seed &amp; (<span class="number">1</span>&lt;&lt;<span class="number">7</span>)!=<span class="number">0</span> <span class="keyword">and</span> seed &amp; (<span class="number">1</span>&lt;&lt;<span class="number">5</span>)!=<span class="number">0</span> <span class="keyword">and</span> seed &amp; (<span class="number">1</span>&lt;&lt;<span class="number">3</span>)!=<span class="number">0</span> <span class="keyword">and</span> seed &amp; (<span class="number">1</span>&lt;&lt;<span class="number">2</span>)!=<span class="number">0</span> <span class="keyword">and</span> seed &amp; (<span class="number">1</span>&lt;&lt;<span class="number">0</span>)!=<span class="number">0</span> :</span><br><span class="line">        seed &gt;&gt;= <span class="number">1</span></span><br><span class="line">        seed |= <span class="number">1</span>&lt;&lt;<span class="number">31</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        seed &gt;&gt;= <span class="number">1</span></span><br><span class="line">        seed &amp;= ~(<span class="number">1</span>&lt;&lt;<span class="number">31</span>)</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>大概梳理了一下,每次循环过后,都会执行seed &gt;&gt;= 1</li>
 <li>最后决定,恢复input然后逐位爆破flag</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">key = [<span class="number">0x31</span> ,<span class="number">0x62</span> ,<span class="number">0x93</span> ,<span class="number">0xC4</span> ,<span class="number">0x21</span> ,<span class="number">0x42</span> ,<span class="number">0x63</span> ,<span class="number">0x84</span> ,<span class="number">0x3D</span> ,<span class="number">0x7A</span> ,<span class="number">0xB7</span> ,<span class="number">0xF4</span>]</span><br><span class="line">flagenc = [<span class="number">0xA8</span>, <span class="number">0x1C</span>, <span class="number">0xAF</span>, <span class="number">0xD9</span>, <span class="number">0x00</span>, <span class="number">0x6C</span>, <span class="number">0xAC</span>, <span class="number">0x02</span>, <span class="number">0x9B</span>, <span class="number">0x05</span>, </span><br><span class="line">  <span class="number">0xE3</span>, <span class="number">0x68</span>, <span class="number">0x2F</span>, <span class="number">0xC7</span>, <span class="number">0x78</span>, <span class="number">0x3A</span>, <span class="number">0x02</span>, <span class="number">0xBC</span>, <span class="number">0xBF</span>, <span class="number">0xB9</span>, </span><br><span class="line">  <span class="number">0x4D</span>, <span class="number">0x1C</span>, <span class="number">0x7D</span>, <span class="number">0x6E</span>, <span class="number">0x31</span>, <span class="number">0x1B</span>, <span class="number">0x9B</span>, <span class="number">0x84</span>, <span class="number">0xD4</span>, <span class="number">0x84</span>, </span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x76</span>, <span class="number">0x5A</span>, <span class="number">0x4D</span>, <span class="number">0x06</span>, <span class="number">0x75</span>]</span><br><span class="line">key1 = <span class="string">""</span></span><br><span class="line">out1 = <span class="string">""</span></span><br><span class="line">seed = <span class="number">0x5F3759DF</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">9</span>):</span><br><span class="line">    <span class="keyword">if</span> ((seed &amp; (<span class="number">1</span>&lt;&lt;<span class="number">31</span>)!=<span class="number">0</span>) ^ (seed &amp; (<span class="number">1</span>&lt;&lt;<span class="number">7</span>)!=<span class="number">0</span>) ^ (seed &amp; (<span class="number">1</span>&lt;&lt;<span class="number">5</span>)!=<span class="number">0</span>) ^ (seed &amp; (<span class="number">1</span>&lt;&lt;<span class="number">3</span>)!=<span class="number">0</span>) ^ (seed &amp; (<span class="number">1</span>&lt;&lt;<span class="number">2</span>)!=<span class="number">0</span>) ^ (seed &amp; (<span class="number">1</span>&lt;&lt;<span class="number">0</span>)!=<span class="number">0</span>))!=<span class="number">0</span>:</span><br><span class="line">        seed &gt;&gt;= <span class="number">1</span></span><br><span class="line">        seed |= <span class="number">1</span>&lt;&lt;<span class="number">31</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        seed &gt;&gt;= <span class="number">1</span></span><br><span class="line">        seed &amp;= ~(<span class="number">1</span>&lt;&lt;<span class="number">31</span>) </span><br><span class="line">    key1 += p32(seed)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">36</span>):</span><br><span class="line">    flagenc[i] ^= ord(key1[i])</span><br><span class="line"><span class="comment">#print flagenc</span></span><br><span class="line">flag = []</span><br><span class="line"><span class="keyword">for</span> ma <span class="keyword">in</span> range(<span class="number">36</span>):</span><br><span class="line">    flag.append(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">for</span> ca <span class="keyword">in</span> range(<span class="number">33</span>,<span class="number">127</span>):</span><br><span class="line">        flag[ma] = ca</span><br><span class="line">        r1 = <span class="number">0</span></span><br><span class="line">        r2 = <span class="number">0</span></span><br><span class="line">        r3 = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(flag)):</span><br><span class="line">            a1 = flag[i]</span><br><span class="line">            <span class="comment">#flag[i] = i</span></span><br><span class="line">            v1 = <span class="number">0</span></span><br><span class="line">            v2 = <span class="number">0</span></span><br><span class="line">            v3 = <span class="number">0</span></span><br><span class="line">            <span class="comment"># v16 = flag[i]</span></span><br><span class="line">            <span class="comment"># v15 = key[0 + r1]</span></span><br><span class="line">            <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">8</span>):</span><br><span class="line">                vx = v3</span><br><span class="line">                v4 = (key[<span class="number">0</span> + r1] &amp; <span class="number">1</span> &lt;&lt; x)!=<span class="number">0</span></span><br><span class="line">                v5 = (flag[i] &amp; <span class="number">1</span> &lt;&lt; x)!=<span class="number">0</span></span><br><span class="line">                v2 = vx ^ v4 ^ v5</span><br><span class="line">                v3 = v4 &amp; vx | v5 &amp; (vx | v4)</span><br><span class="line">                <span class="keyword">if</span>(v2 != <span class="number">0</span>):</span><br><span class="line">                    flag[i] |= (<span class="number">1</span>&lt;&lt;x)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    flag[i] &amp;= ~(<span class="number">1</span>&lt;&lt;x)</span><br><span class="line">            <span class="comment"># v17 = key[4 + r2]</span></span><br><span class="line">            <span class="keyword">for</span> y <span class="keyword">in</span> range(<span class="number">8</span>):</span><br><span class="line">                vx = v3</span><br><span class="line">                v4 = (key[<span class="number">4</span> + r2] &amp; <span class="number">1</span> &lt;&lt; y)!=<span class="number">0</span></span><br><span class="line">                v5 = (flag[i] &amp; <span class="number">1</span> &lt;&lt; y)!=<span class="number">0</span></span><br><span class="line">                v2 = vx ^ v4 ^ v5</span><br><span class="line">                v3 = v4 &amp; vx | v5 &amp; (vx | v4)</span><br><span class="line">                <span class="keyword">if</span>(v2 != <span class="number">0</span>):</span><br><span class="line">                    flag[i] |= (<span class="number">1</span>&lt;&lt;y)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    flag[i] &amp;= ~(<span class="number">1</span>&lt;&lt;y)</span><br><span class="line">            <span class="comment"># v18 = key[8 + r3]</span></span><br><span class="line">            <span class="keyword">for</span> z <span class="keyword">in</span> range(<span class="number">8</span>):</span><br><span class="line">                vx = v3</span><br><span class="line">                v4 = (key[<span class="number">8</span> + r3] &amp; <span class="number">1</span> &lt;&lt; z)!=<span class="number">0</span></span><br><span class="line">                v5 = (flag[i] &amp; <span class="number">1</span> &lt;&lt; z)!=<span class="number">0</span></span><br><span class="line">                v2 = vx ^ v4 ^ v5</span><br><span class="line">                v3 = v4 &amp; vx | v5 &amp; (vx | v4)</span><br><span class="line">                <span class="keyword">if</span>(v2 != <span class="number">0</span>):</span><br><span class="line">                    flag[i] |= (<span class="number">1</span>&lt;&lt;z)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    flag[i] &amp;= ~(<span class="number">1</span>&lt;&lt;z)</span><br><span class="line">            out = flag[i]</span><br><span class="line">            r1 += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span>(r1 == <span class="number">4</span>):</span><br><span class="line">                r1 = <span class="number">0</span></span><br><span class="line">                r2 += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span>(r2 == <span class="number">4</span>):</span><br><span class="line">                r2 = <span class="number">0</span></span><br><span class="line">                r3 += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span>(r3 == <span class="number">0</span>):</span><br><span class="line">                r3 = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(flag)):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">                v0 = (flag[i] &amp; (<span class="number">1</span> &lt;&lt; j) != <span class="number">0</span>)</span><br><span class="line">                v1 = (flag[i] &amp; (<span class="number">1</span> &lt;&lt; (<span class="number">7</span>-j)) != <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">if</span> v0 != v1:</span><br><span class="line">                    flag[i] |= (<span class="number">1</span>&lt;&lt;j)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    flag[i] &amp;= ~(<span class="number">1</span>&lt;&lt;j)</span><br><span class="line"></span><br><span class="line">                v0 = (flag[i] &amp; (<span class="number">1</span> &lt;&lt; j) != <span class="number">0</span>)</span><br><span class="line">                v1 = (flag[i] &amp; (<span class="number">1</span> &lt;&lt; (<span class="number">7</span>-j)) != <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">if</span> v0 != v1:</span><br><span class="line">                    flag[i] |= (<span class="number">1</span>&lt;&lt;(<span class="number">7</span>-j))</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    flag[i] &amp;= ~(<span class="number">1</span>&lt;&lt;(<span class="number">7</span>-j))</span><br><span class="line"></span><br><span class="line">                v0 = (flag[i] &amp; (<span class="number">1</span> &lt;&lt; j) != <span class="number">0</span>)</span><br><span class="line">                v1 = (flag[i] &amp; (<span class="number">1</span> &lt;&lt; (<span class="number">7</span>-j)) != <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">if</span> v0 != v1:</span><br><span class="line">                    flag[i] |= (<span class="number">1</span>&lt;&lt;j)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    flag[i] &amp;= ~(<span class="number">1</span>&lt;&lt;j)</span><br><span class="line">        <span class="keyword">if</span> flag[ma]==flagenc[ma]:</span><br><span class="line">            out1 += chr(ca)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> ca == <span class="number">126</span>:</span><br><span class="line">        out1 += <span class="string">"#"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> out1</span><br><span class="line"><span class="comment">#SUCTF&#123;sm4ll_b1ts_c4n_d0_3v3rythin9!&#125;</span></span><br></pre></td></tr></table></figure>
-
 <h1 id="SUCTF-sm4ll-b1ts-c4n-d0-3v3rythin9"><a href="#SUCTF-sm4ll-b1ts-c4n-d0-3v3rythin9" class="headerlink" title="SUCTF{sm4ll_b1ts_c4n_d0_3v3rythin9!}"></a>SUCTF{sm4ll_b1ts_c4n_d0_3v3rythin9!}</h1><ul>
 <li>看了源码,感觉设计的挺巧妙的,大概的操作是一个对于bit位的加法器,一个bit之间的异或,c++源码很简单,但是编译以后就会变得很复杂,可以学习一下.</li>
 <li>加法器的实现就是有一个进位与否的寄存器,然后进行位运算的操作,问了出题人,说是数电的一些知识,开学了好好学数电吧orz</li>
@@ -2632,9 +2628,24 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 67
+        Total : 68
         </div>
         <!-- search  -->
         
@@ -2751,17 +2762,32 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sudu/" >2017国赛re200 填数游戏</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cve-2015-7504/" >CVE-2015-7504 CVE-2015-5165QEMU虚拟机逃逸漏洞分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/docker/" >docker</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suanfa/" >算法设计</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
         </li>
     
     
@@ -2771,17 +2797,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/hexo/" >hexo配置</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL0/" >二进制手的Web路（sql注入篇</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
         </li>
     
     
@@ -2796,132 +2812,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL2/" >二进制手的Web路 （sql注入篇</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/pe-elf/" >pe-elf文件结构解析</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/函数调用约定/" >Calling Convention</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/汇编入门/" >CTF二进制总结0X03</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/深入浅出密码学读书笔记/" >深入浅出密码学读书笔记</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/逆向工程核心原理笔记/" >Reversing-engineering</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/byb/" >百越杯逆向全解wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/io_file/" >io_file学习</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/juckcode/" >上海市ctf-re200-juckcode</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
         </li>
     
     
@@ -2931,7 +2827,37 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/maze/" >cis2016-re300-maze</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL0/" >二进制手的Web路（sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/pe-elf/" >pe-elf文件结构解析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL2/" >二进制手的Web路 （sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/函数调用约定/" >Calling Convention</a>
         </li>
     
     
@@ -2941,17 +2867,47 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/level6/" >0ctf - freenote</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suanfa/" >算法设计</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc安卓逆向/" >ISCC 决赛 android 1000</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/汇编入门/" >CTF二进制总结0X03</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/深入浅出密码学读书笔记/" >深入浅出密码学读书笔记</a>
         </li>
     
     
@@ -2961,7 +2917,67 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/python_pyc/" >Python的一些底层原理</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/hexo/" >hexo配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/逆向工程核心原理笔记/" >Reversing-engineering</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/byb/" >百越杯逆向全解wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/io_file/" >io_file学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/juckcode/" >上海市ctf-re200-juckcode</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/level6/" >0ctf - freenote</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/maze/" >cis2016-re300-maze</a>
         </li>
     
     
@@ -2976,16 +2992,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/docker/" >docker</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/malloc源码精读总结/" >malloc源码精读总结</a>
         </li>
     
@@ -2996,27 +3002,37 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/python_pyc/" >Python的一些底层原理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc安卓逆向/" >ISCC 决赛 android 1000</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sudu/" >2017国赛re200 填数游戏</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
         </li>
     
     </div>
@@ -3065,7 +3081,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
     
-        <span class="sidebar-category-name" data-categories="CVE"><span class="iconfont-archer">&#xe60a;</span>CVE</span>
+        <span class="sidebar-category-name" data-categories="MISC"><span class="iconfont-archer">&#xe60a;</span>MISC</span>
+    
+        <span class="sidebar-category-name" data-categories="RW"><span class="iconfont-archer">&#xe60a;</span>RW</span>
     
         <span class="sidebar-category-name" data-categories="balabala"><span class="iconfont-archer">&#xe60a;</span>balabala</span>
     
@@ -3075,9 +3093,7 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="算法"><span class="iconfont-archer">&#xe60a;</span>算法</span>
     
-        <span class="sidebar-category-name" data-categories="RW"><span class="iconfont-archer">&#xe60a;</span>RW</span>
-    
-        <span class="sidebar-category-name" data-categories="MISC"><span class="iconfont-archer">&#xe60a;</span>MISC</span>
+        <span class="sidebar-category-name" data-categories="CVE"><span class="iconfont-archer">&#xe60a;</span>CVE</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
