@@ -81,4 +81,4 @@ p.execute(s)
 
 - 相关api还有`is_hooked(addr)`,`hooked_by(addr)`,`unlook(addr)`,`hook_symbol(symbol_name, simproc, kwargs=None, replace=None)`一般用于有符号表的情况,`is_symbol_hooked(symbol_name)`,`unhook_symbol(symbol_name)`,`rehook_symbol(new_address, symbol_name)`
 
-- `execute()`,符号执行的一种，不写参数的话默认为oep的位置启动执行，加上state参数，可以从指定位置启动开始符号执行
+- `execute()`,符号执行的一种，不写参数的话默认为OEP的位置启动执行，加上state参数，可以从指定位置启动开始符号执行
