@@ -346,16 +346,22 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/RingZer0 Authenticator/" >
+        <a class="abstract-title" href = "/1970/01/01/babyheap/" >
             
-                <span>RingZer0 Authenticator</span>
+                <span>babyheap</span>
         </a>
         <div class="abstract-content">
-            
-OD跟了一波,只发现username必为RingZer0,随后IDA分析主函数,发现关键函数sub_4014A0,此时程序将username和password传入.
-函数得到返回值为1即可,函数里先判定username,随后判定password是否为纯数字.
-在函数尾,username和password分别传入两个函数,返回两个数组,然后对比其值
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354int __cdecl sub_4014A0...
+            网鼎杯第一场
+程序功能:新建,编辑,打印,free
+free处没有置空指针,导致可以uaf
+malloc每次都是0x20的fastbin,编辑功能可以使用3次
+自写了readn函数,没有溢出点
+edit可以修改free后堆块的bk,fd
+
+12345Arch:     amd64-64-littleRELRO:    Full RELROStack:    Canary foundNX:       NX enabledPIE:      No PIE (0x400000)
+
+Full RELRO导致got表不可写,所以只能劫持malloc_hook或者freehook来劫持程序的流程
+...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -398,16 +404,16 @@ for循环一般都是jmp到最底端，然后再跳回来，switch case语句一
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/看雪ctf4/" >
+        <a class="abstract-title" href = "/1970/01/01/深入浅出密码学读书笔记/" >
             
-                <span>2018看雪ctf第四题-密界寻踪</span>
+                <span>深入浅出密码学读书笔记</span>
         </a>
         <div class="abstract-content">
-            密界寻踪恢复函数
-ida打开后随便定位了一个字符串,随后定位到一个函数,但是不知道是做什么的,乖乖找main函数
-找到_main和_main_0函数,点进去发现_main_0跳到了程序的另一个地方,也就是_main_0_0函数,这里有巨多的花指令,jnz/jz/jno/jo/e8/什么的全用上了QAQ
-去花后发现这一段函数其实只有几步,push ebp/mov ebp,esp/sub esp,7Ch,然后一个大跳跳到函数主体,注意这个sub esp,7ch….被这个坑了好久
-跟着跳转过去后,刚准备f5,堆栈不平衡了.到函数尾后,发现函数自从add esp,7Ch后就非常不正常,当时想了好...
+            替换密码 (11.16)
+这个在古典密码中比较常见,属于对称加密,那么攻击替换密码时有两种方式,一种是穷举,这个在秘钥可能性比较少的时候可以使用.还有一种攻击方式就是词频分析,替换密码映射的规律导致了明文的统计规律能被很好的保存在密文中,如果我们有足够多的密文,那么就可以利用词频统计来进行替换密码的攻击,词频分析时,还可以遵循一些常见的特性.如E是出现频率最高的字母,英语中U总是跟在Q后面,或者一些高频符号” “以及高频短单词THE AND等.
+
+现代密码重要的一项运算-模运算
+模运算: a,r,m属于Z,且m &gt; 0.如果m 除 a-r可以记做a === r mod m,m称作模...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -425,16 +431,16 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/深入浅出密码学读书笔记/" >
+        <a class="abstract-title" href = "/1970/01/01/看雪ctf4/" >
             
-                <span>深入浅出密码学读书笔记</span>
+                <span>2018看雪ctf第四题-密界寻踪</span>
         </a>
         <div class="abstract-content">
-            替换密码 (11.16)
-这个在古典密码中比较常见,属于对称加密,那么攻击替换密码时有两种方式,一种是穷举,这个在秘钥可能性比较少的时候可以使用.还有一种攻击方式就是词频分析,替换密码映射的规律导致了明文的统计规律能被很好的保存在密文中,如果我们有足够多的密文,那么就可以利用词频统计来进行替换密码的攻击,词频分析时,还可以遵循一些常见的特性.如E是出现频率最高的字母,英语中U总是跟在Q后面,或者一些高频符号” “以及高频短单词THE AND等.
-
-现代密码重要的一项运算-模运算
-模运算: a,r,m属于Z,且m &gt; 0.如果m 除 a-r可以记做a === r mod m,m称作模...
+            密界寻踪恢复函数
+ida打开后随便定位了一个字符串,随后定位到一个函数,但是不知道是做什么的,乖乖找main函数
+找到_main和_main_0函数,点进去发现_main_0跳到了程序的另一个地方,也就是_main_0_0函数,这里有巨多的花指令,jnz/jz/jno/jo/e8/什么的全用上了QAQ
+去花后发现这一段函数其实只有几步,push ebp/mov ebp,esp/sub esp,7Ch,然后一个大跳跳到函数主体,注意这个sub esp,7ch….被这个坑了好久
+跟着跳转过去后,刚准备f5,堆栈不平衡了.到函数尾后,发现函数自从add esp,7Ch后就非常不正常,当时想了好...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2765,8 +2771,6 @@ IDA打开,查看主函数,很简短
     
     
     
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 68
@@ -2891,7 +2895,7 @@ IDA打开,查看主函数,很简短
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
         </li>
     
     
@@ -2901,7 +2905,7 @@ IDA打开,查看主函数,很简短
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
         </li>
     
     
@@ -2911,7 +2915,7 @@ IDA打开,查看主函数,很简短
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
         </li>
     
     
@@ -2931,7 +2935,7 @@ IDA打开,查看主函数,很简短
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/z3/" >z3求解器的一些简单使用</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
         </li>
     
     
@@ -2941,7 +2945,7 @@ IDA打开,查看主函数,很简短
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/z3/" >z3求解器的一些简单使用</a>
         </li>
     
     
@@ -2951,7 +2955,7 @@ IDA打开,查看主函数,很简短
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL0/" >二进制手的Web路（sql注入篇</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
         </li>
     
     
@@ -2961,7 +2965,17 @@ IDA打开,查看主函数,很简短
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL0/" >二进制手的Web路（sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
         </li>
     
     
@@ -2976,17 +2990,7 @@ IDA打开,查看主函数,很简短
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/redhat/" >redhat-re1</a>
         </li>
     
     
@@ -2996,17 +3000,12 @@ IDA打开,查看主函数,很简短
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/redhat/" >redhat-re1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
         </li>
     
     
@@ -3016,7 +3015,12 @@ IDA打开,查看主函数,很简短
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/MYSQL/" >网站开发入门-MYSQL数据库的基础使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
         </li>
     
     
@@ -3031,17 +3035,17 @@ IDA打开,查看主函数,很简短
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/深入浅出密码学读书笔记/" >深入浅出密码学读书笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
         </li>
     
     
@@ -3066,7 +3070,7 @@ IDA打开,查看主函数,很简短
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
         </li>
     
     
@@ -3086,7 +3090,7 @@ IDA打开,查看主函数,很简短
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suanfa/" >算法设计</a>
         </li>
     
     
@@ -3121,7 +3125,7 @@ IDA打开,查看主函数,很简短
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/MYSQL/" >网站开发入门-MYSQL数据库的基础使用</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
         </li>
     
     
@@ -3136,7 +3140,7 @@ IDA打开,查看主函数,很简短
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
         </li>
     
     
@@ -3146,17 +3150,17 @@ IDA打开,查看主函数,很简短
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suanfa/" >算法设计</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
         </li>
     
     </div>
@@ -3252,7 +3256,22 @@ jsonContent:
     </div>
     <!-- async load share.js -->
      
-    </body>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
 </html>
 
 

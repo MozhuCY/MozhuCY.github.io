@@ -346,18 +346,13 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >
+        <a class="abstract-title" href = "/1970/01/01/二进制手的Web路SQL2/" >
             
-                <span>二进制手的WEB路（WhaleCTF web部分writeup</span>
+                <span>二进制手的Web路 （sql注入篇</span>
         </a>
         <div class="abstract-content">
-            WhaleCTF Web部分writeup二进制小白兼web盲来记录下今天做的几道题。。。0x00
+            sql注入0x02:&lt;/br&gt;接着昨天的宽字符注入：&lt;/br&gt;&ensp;&ensp;今天再又尝试了一下宽字节注入，题目为BUGKU的一道题，题目要求查询key表，id=1的string值。拿到题目，查看源代码，看到了gbk的字样，尝试一波宽字节注入hhhhh，id=1没发生任何事情，随后我把id改成了id=1’，还是没法生啥，好的，这次直接id=1%df’,报错了 (美滋滋 。确定为宽字节注入，暴库查询一气呵成，拿到flag。虽然了解了原理，但是发现自己对sql语句掌握的非常不熟练，结合着手注学一波sql语句吧。&lt;/br&gt;
 
-签到题直接f12查看源码即可
-
-0x01 http呀
-
-这里提供两种思路做web肯定少不了burpsuit啦，网页中给了提示，Do you know what happend just now?！ ( •̀∀•́ )突然想起南邮CTF平台上的两道题，考虑是不是flag在中间页面里，在点击时来了一次非常快的跳转呢？抓了一次包发现啥都没有…后来尝试了几次发现，打开index.php的页面时，会跳到index.html。这就好办了，抓包拿flag，同时，同为二进制手的Cossack9989因为...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -386,6 +381,33 @@ cdexl主要在C语言中使用的方式,调用者负责处理堆栈.
 
 1234567#include&lt;stdio.h&gt;int add(int a,int b)&#123;    return (a + b);&#125;int main(int argc,char * argv[])&#123;    return add(1,2);&#125;
 1234567891011121314151617181920PUSH EBPMOV EAX,ESPMOV EAX,D...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/1970/01/01/WHCTF2017 逆向签到题/" >
+            
+                <span>CTF二进制总结0x01</span>
+        </a>
+        <div class="abstract-content">
+            发现了一道大赛的签到题，来试一试下水&lt;/br&gt;大赛签到题次，ELF文件，扔进IDA，主函数逻辑很清晰，主要就是两个判断，一个是输入值的长度为14，二是将input传入一个judge函数，做判断。需要满足两个条件，由IDA反编译的结果来看，judge函数分析失败。这就很难受了，用gdb调试一波试试，顺便复习一下gdb操作。&lt;/br&gt;
+
+file BabyRE&lt;/br&gt;set disassembly-flavor intel&lt;/br&gt;b *0x400660&lt;/br&gt;r&lt;/br&gt;disassem /m
+
+得到如下结果123...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -436,33 +458,6 @@ Full RELRO导致got表不可写,所以只能劫持malloc_hook或者freehook来�
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/RingZer0 Authenticator/" >
-            
-                <span>RingZer0 Authenticator</span>
-        </a>
-        <div class="abstract-content">
-            
-OD跟了一波,只发现username必为RingZer0,随后IDA分析主函数,发现关键函数sub_4014A0,此时程序将username和password传入.
-函数得到返回值为1即可,函数里先判定username,随后判定password是否为纯数字.
-在函数尾,username和password分别传入两个函数,返回两个数组,然后对比其值
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354int __cdecl sub_4014A0...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href = "/1970/01/01/汇编入门/" >
             
                 <span>CTF二进制总结0X03</span>
@@ -471,33 +466,6 @@ OD跟了一波,只发现username必为RingZer0,随后IDA分析主函数,发现�
             123456789#include&lt;stdio.h&gt;int a = 0;                  //.dataint b;                      //.bssconst double PI=3.14159f;   //.rodataint main()&#123;    int c;                  //stack    char *d = malloc(16)    //heap    return 0;&#125;
 for循环一般都是jmp到最底端，然后再跳回来，switch case语句一般都是连续好几个的cmp jmp。
 
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/看雪ctf4/" >
-            
-                <span>2018看雪ctf第四题-密界寻踪</span>
-        </a>
-        <div class="abstract-content">
-            密界寻踪恢复函数
-ida打开后随便定位了一个字符串,随后定位到一个函数,但是不知道是做什么的,乖乖找main函数
-找到_main和_main_0函数,点进去发现_main_0跳到了程序的另一个地方,也就是_main_0_0函数,这里有巨多的花指令,jnz/jz/jno/jo/e8/什么的全用上了QAQ
-去花后发现这一段函数其实只有几步,push ebp/mov ebp,esp/sub esp,7Ch,然后一个大跳跳到函数主体,注意这个sub esp,7ch….被这个坑了好久
-跟着跳转过去后,刚准备f5,堆栈不平衡了.到函数尾后,发现函数自从add esp,7Ch后就非常不正常,当时想了好...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -525,6 +493,33 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
 
 现代密码重要的一项运算-模运算
 模运算: a,r,m属于Z,且m &gt; 0.如果m 除 a-r可以记做a === r mod m,m称作模...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/1970/01/01/看雪ctf4/" >
+            
+                <span>2018看雪ctf第四题-密界寻踪</span>
+        </a>
+        <div class="abstract-content">
+            密界寻踪恢复函数
+ida打开后随便定位了一个字符串,随后定位到一个函数,但是不知道是做什么的,乖乖找main函数
+找到_main和_main_0函数,点进去发现_main_0跳到了程序的另一个地方,也就是_main_0_0函数,这里有巨多的花指令,jnz/jz/jno/jo/e8/什么的全用上了QAQ
+去花后发现这一段函数其实只有几步,push ebp/mov ebp,esp/sub esp,7Ch,然后一个大跳跳到函数主体,注意这个sub esp,7ch….被这个坑了好久
+跟着跳转过去后,刚准备f5,堆栈不平衡了.到函数尾后,发现函数自从add esp,7Ch后就非常不正常,当时想了好...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2776,8 +2771,6 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
     
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 68
@@ -2902,7 +2895,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
         </li>
     
     
@@ -2912,7 +2905,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
         </li>
     
     
@@ -2922,7 +2915,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
         </li>
     
     
@@ -2942,7 +2935,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/z3/" >z3求解器的一些简单使用</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
         </li>
     
     
@@ -2952,7 +2945,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/z3/" >z3求解器的一些简单使用</a>
         </li>
     
     
@@ -2962,7 +2955,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL0/" >二进制手的Web路（sql注入篇</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
         </li>
     
     
@@ -2972,7 +2965,17 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL0/" >二进制手的Web路（sql注入篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
         </li>
     
     
@@ -2987,17 +2990,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/redhat/" >redhat-re1</a>
         </li>
     
     
@@ -3007,17 +3000,12 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/redhat/" >redhat-re1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
         </li>
     
     
@@ -3027,7 +3015,12 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/MYSQL/" >网站开发入门-MYSQL数据库的基础使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
         </li>
     
     
@@ -3042,17 +3035,17 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/深入浅出密码学读书笔记/" >深入浅出密码学读书笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
         </li>
     
     
@@ -3077,7 +3070,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
         </li>
     
     
@@ -3097,7 +3090,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suanfa/" >算法设计</a>
         </li>
     
     
@@ -3132,7 +3125,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/MYSQL/" >网站开发入门-MYSQL数据库的基础使用</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
         </li>
     
     
@@ -3147,7 +3140,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
         </li>
     
     
@@ -3157,17 +3150,17 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suanfa/" >算法设计</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
         </li>
     
     </div>
@@ -3263,7 +3256,22 @@ jsonContent:
     </div>
     <!-- async load share.js -->
      
-    </body>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
 </html>
 
 
