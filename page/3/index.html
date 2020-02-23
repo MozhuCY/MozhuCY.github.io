@@ -359,6 +359,29 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/1970/01/01/javascript0x1/" >
+            
+                <span>javascript 0x00</span>
+        </a>
+        <div class="abstract-content">
+            实例代码:12345678910111213141516171819202122&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;body&gt;&lt;h1&gt;JavaScript练习&lt;/h1&gt;&lt;p id="d"&gt;JavaScript&lt;/p&gt;&lt;script&gt;function myn()&#123;x=document.getElementById("d");  // 找到元素x.innerHTML="Hello JavaScript!";    // 改变内容&#125;&lt;/script&gt;&lt;b...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/1970/01/01/kctf2019-q1/" >
             
                 <span>kctf2019-晋级赛Q1</span>
@@ -385,12 +408,22 @@ height:50vh;
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/javascript0x1/" >
+        <a class="abstract-title" href = "/1970/01/01/babyheap/" >
             
-                <span>javascript 0x00</span>
+                <span>babyheap</span>
         </a>
         <div class="abstract-content">
-            实例代码:12345678910111213141516171819202122&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;body&gt;&lt;h1&gt;JavaScript练习&lt;/h1&gt;&lt;p id="d"&gt;JavaScript&lt;/p&gt;&lt;script&gt;function myn()&#123;x=document.getElementById("d");  // 找到元素x.innerHTML="Hello JavaScript!";    // 改变内容&#125;&lt;/script&gt;&lt;b...
+            网鼎杯第一场
+程序功能:新建,编辑,打印,free
+free处没有置空指针,导致可以uaf
+malloc每次都是0x20的fastbin,编辑功能可以使用3次
+自写了readn函数,没有溢出点
+edit可以修改free后堆块的bk,fd
+
+12345Arch:     amd64-64-littleRELRO:    Full RELROStack:    Canary foundNX:       NX enabledPIE:      No PIE (0x400000)
+
+Full RELRO导致got表不可写,所以只能劫持malloc_hook或者freehook来劫持程序的流程
+...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -408,20 +441,21 @@ height:50vh;
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/MYSQL/" >
+        <a class="abstract-title" href = "/1970/01/01/ollvm/" >
             
-                <span>网站开发入门-MYSQL数据库的基础使用</span>
+                <span>anti-ollvm</span>
         </a>
         <div class="abstract-content">
-            MYSQL直接进入主题MYSQL数据库的结构大概就是 库—&gt;表单—&gt;行列等等,那么管理使用数据库,就需要一门结构化查询语言(Structured Query Language)简称SQL.从0开始,若想使用数据库,首先要建立一个库,于是有了
+            anti-ollvm控制流平坦化
+为了防止静态分析，将代码块变成另外的一种结构，这样可以很好地打乱程序的上下文逻辑，从而对分析代码产生影响
 
-CREATE DATABASE test DROP DATABASE test
+代码结构
+被混淆后，程序的流程图会显得非常的整齐，可以分为开头的序言部分，也就是保存上一个函数状态的部分，一些内存初始化的指令
+后续就是很多的分发器，分别对应着不同的basic blocks，后面就是程序必须存在的运算指令区，所以最后我们需要留下来的就是指令区和序言部分
+根据程序的上下逻辑可以确定出一些流程。
 
-然后是新建表单.表(Table)由行集合构成,一行是列的序列(集合)，每列与行对应一个数据项.
-
-CREATE TABLE 表名称(    列名称1 数据类型,    列名称2 数据类型,    列名称3 数据类型,    ….)
-
-sql里的数据类型,和...
+符号执行
+将内存和寄存器的值，表示为符号和常量的形式，主要分为静态符号执行和动态符号执行两种方式，这里我选择我比较熟悉的angr符号执行框...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -496,21 +530,17 @@ Elf32_Word
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/PE文件头/" >
+        <a class="abstract-title" href = "/1970/01/01/angr/" >
             
-                <span>PE文件格式</span>
+                <span>符号执行</span>
         </a>
         <div class="abstract-content">
-            PE文件格式PE文件格式其实就是PE头中的结构体.用010Editor可以很好地解析文件头.具体分为DOS头,DOS存根,NT头,字区头 .text .data .rsrc,然后是NULL padding
-RVA to RAWPE文件从磁盘到内存映射的内容.PE文件加载到内存时,每个节区都要完成内存地址于文件偏移之间的映射
-
-查找RVA所在节区
-使用简单的公式计算文件偏移RAW
-
-IAT(import address table,导入地址表)DLL:(Dynamic Link Libray,动态链接库)&lt;/br&gt;为了提高内存运用效率,引入了DLL的概念.
-
-多进程共享
-更新库...
+            angr
+首先导入from angr import *
+将程序加载进来p = Process(“filename”,auto_load_libs=False)
+可以理解将程序变成一个特殊的状态,这样默认函数默认入口点,如果在()内加入addr=0xxxxxx,会指定另一个入口点s = p.factory.entry_state()
+就有一些类似我们的打log时复现代码那一环,设定一个模拟器 smt = sm=p.factory.simulation_manager(s)
+sm就是之前载入文件,设定入口点,建立模拟对象,现在就可以explore来开始符号执行,后面是约束条件r = sm.e...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -528,21 +558,16 @@ IAT(import address table,导入地址表)DLL:(Dynamic Link Libray,动态链接�
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/ollvm/" >
+        <a class="abstract-title" href = "/1970/01/01/WHCTF2017 逆向签到题/" >
             
-                <span>anti-ollvm</span>
+                <span>CTF二进制总结0x01</span>
         </a>
         <div class="abstract-content">
-            anti-ollvm控制流平坦化
-为了防止静态分析，将代码块变成另外的一种结构，这样可以很好地打乱程序的上下文逻辑，从而对分析代码产生影响
+            发现了一道大赛的签到题，来试一试下水&lt;/br&gt;大赛签到题次，ELF文件，扔进IDA，主函数逻辑很清晰，主要就是两个判断，一个是输入值的长度为14，二是将input传入一个judge函数，做判断。需要满足两个条件，由IDA反编译的结果来看，judge函数分析失败。这就很难受了，用gdb调试一波试试，顺便复习一下gdb操作。&lt;/br&gt;
 
-代码结构
-被混淆后，程序的流程图会显得非常的整齐，可以分为开头的序言部分，也就是保存上一个函数状态的部分，一些内存初始化的指令
-后续就是很多的分发器，分别对应着不同的basic blocks，后面就是程序必须存在的运算指令区，所以最后我们需要留下来的就是指令区和序言部分
-根据程序的上下逻辑可以确定出一些流程。
+file BabyRE&lt;/br&gt;set disassembly-flavor intel&lt;/br&gt;b *0x400660&lt;/br&gt;r&lt;/br&gt;disassem /m
 
-符号执行
-将内存和寄存器的值，表示为符号和常量的形式，主要分为静态符号执行和动态符号执行两种方式，这里我选择我比较熟悉的angr符号执行框...
+得到如下结果123...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -588,6 +613,33 @@ IAT(import address table,导入地址表)DLL:(Dynamic Link Libray,动态链接�
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/1970/01/01/RingZer0 Authenticator/" >
+            
+                <span>RingZer0 Authenticator</span>
+        </a>
+        <div class="abstract-content">
+            
+OD跟了一波,只发现username必为RingZer0,随后IDA分析主函数,发现关键函数sub_4014A0,此时程序将username和password传入.
+函数得到返回值为1即可,函数里先判定username,随后判定password是否为纯数字.
+在函数尾,username和password分别传入两个函数,返回两个数组,然后对比其值
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354int __cdecl sub_4014A0...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/1970/01/01/radare2/" >
             
                 <span>CTF二进制总结0x02</span>
@@ -600,71 +652,6 @@ r2 ./hello&lt;/br&gt;[0x00000530]&gt;
 变成了这个样子，这时输入ie，你会得到
 
 [Entrypoints]vaddr=0x0...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/NUST/" >
-            
-                <span>南理校赛二进制wp</span>
-        </a>
-        <div class="abstract-content">
-            NUST面向大一的比赛总体来说不是很难,大师傅们难度控制的也很好,有难有易.
-
-大体上考察了逆向的基础,还有别的知识,例如base编码,阅读简单算法,混淆与patch.
-pwn的话,一个写入shellcode的栈题,还有一个babyheap…(GG)
-
-re200魔改了base64,写出对应算法和替换表即可.
-re270很简单的maze,但是要找好方向,还有多解问题,但是只有一组解才能打印出正确的答案,当时被w和s坑的不浅…
-re320一个exe和dll,全是C#写的,其中exe被加了加密壳.反编译无果,考虑dll是否有猫腻,果然有明显的数据痕迹,patch数据即可.
-pwn200get...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/redhat/" >
-            
-                <span>redhat-re1</span>
-        </a>
-        <div class="abstract-content">
-            主要逻辑
-输入一个长度为41的flag,并用221填充到48位.
-分成6组每组8字节的块,传入encode函数
-异或验证encode函数
-生成一个伪随机数key,取8bit,然后base16编码存起来,最终长度为64
-将每一个块base16编码为一串长度为16的字符串
-进入第二层encode(块)函数
-base16decode后,再次异或加密第二层encode函数
-首先传入一个base后的16字节,传入key,会输出一个enc_base16的字符串
-首先,函数将每个16字节的块,再次分块,使其成为4组4字节的块
-然后srand_key传入一个函数,函数会将其扩充为96长度的一个字符串
-将...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2879,9 +2866,68 @@ base16decode后,再次异或加密第二层encode函数
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 67
+        Total : 68
         </div>
         <!-- search  -->
         
@@ -2912,6 +2958,11 @@ base16decode后,再次异或加密第二层encode函数
     
         <li class="archive-post-item">
             <span class="archive-post-date">02/22</span><a class="archive-post-title" href= "/2020/02/22/虚拟化学习/" >虚拟化学习 QEMU-KVM</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/22</span><a class="archive-post-title" href= "/2020/02/22/strng/" >blizzardctf2017-strng</a>
         </li>
     
     
@@ -2998,22 +3049,17 @@ base16decode后,再次异或加密第二层encode函数
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sudu/" >2017国赛re200 填数游戏</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/MYSQL/" >网站开发入门-MYSQL数据库的基础使用</a>
         </li>
     
     
@@ -3023,22 +3069,12 @@ base16decode后,再次异或加密第二层encode函数
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/hexo/" >hexo配置</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/z3/" >z3求解器的一些简单使用</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/homuranote/" >Homuranote</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cff2016/" >jarvisoj-文件数据恢复</a>
         </li>
     
     
@@ -3048,17 +3084,17 @@ base16decode后,再次异或加密第二层encode函数
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/homuranote/" >Homuranote</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/z3/" >z3求解器的一些简单使用</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
         </li>
     
     
@@ -3073,97 +3109,7 @@ base16decode后,再次异或加密第二层encode函数
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL2/" >二进制手的Web路 （sql注入篇</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/汇编入门/" >CTF二进制总结0X03</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/函数调用约定/" >Calling Convention</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/深入浅出密码学读书笔记/" >深入浅出密码学读书笔记</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cff2016/" >jarvisoj-文件数据恢复</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/逆向工程核心原理笔记/" >Reversing-engineering</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/byb/" >百越杯逆向全解wp</a>
         </li>
     
     
@@ -3173,17 +3119,37 @@ base16decode后,再次异或加密第二层encode函数
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/io_file/" >io_file学习</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL2/" >二进制手的Web路 （sql注入篇</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/juckcode/" >上海市ctf-re200-juckcode</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/函数调用约定/" >Calling Convention</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
         </li>
     
     
@@ -3193,7 +3159,17 @@ base16decode后,再次异或加密第二层encode函数
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/level6/" >0ctf - freenote</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/汇编入门/" >CTF二进制总结0X03</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/深入浅出密码学读书笔记/" >深入浅出密码学读书笔记</a>
         </li>
     
     
@@ -3203,12 +3179,82 @@ base16decode后,再次异或加密第二层encode函数
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/看雪ctf4/" >2018看雪ctf第四题-密界寻踪</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/逆向工程核心原理笔记/" >Reversing-engineering</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/byb/" >百越杯逆向全解wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/hexo/" >hexo配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/io_file/" >io_file学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/juckcode/" >上海市ctf-re200-juckcode</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/level6/" >0ctf - freenote</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/maze/" >cis2016-re300-maze</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sudu/" >2017国赛re200 填数游戏</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
         </li>
     
     
@@ -3218,12 +3264,12 @@ base16decode后,再次异或加密第二层encode函数
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/frida/" >Hook学习</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/redhat/" >redhat-re1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/ollvm/" >anti-ollvm</a>
         </li>
     
     
@@ -3238,7 +3284,7 @@ base16decode后,再次异或加密第二层encode函数
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/MYSQL/" >网站开发入门-MYSQL数据库的基础使用</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
         </li>
     
     
@@ -3248,22 +3294,27 @@ base16decode后,再次异或加密第二层encode函数
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/ollvm/" >anti-ollvm</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/frida/" >Hook学习</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/redhat/" >redhat-re1</a>
         </li>
     
     </div>
@@ -3304,9 +3355,9 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="RE"><span class="iconfont-archer">&#xe60a;</span>RE</span>
-    
         <span class="sidebar-category-name" data-categories="二进制"><span class="iconfont-archer">&#xe60a;</span>二进制</span>
+    
+        <span class="sidebar-category-name" data-categories="RE"><span class="iconfont-archer">&#xe60a;</span>RE</span>
     
         <span class="sidebar-category-name" data-categories="WEB"><span class="iconfont-archer">&#xe60a;</span>WEB</span>
     
@@ -3319,8 +3370,6 @@ jsonContent:
         <span class="sidebar-category-name" data-categories="balabala"><span class="iconfont-archer">&#xe60a;</span>balabala</span>
     
         <span class="sidebar-category-name" data-categories="FE"><span class="iconfont-archer">&#xe60a;</span>FE</span>
-    
-        <span class="sidebar-category-name" data-categories="算法"><span class="iconfont-archer">&#xe60a;</span>算法</span>
     
         <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
     
