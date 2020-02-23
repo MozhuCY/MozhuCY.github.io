@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>MozhuCY&#39;s blog</title>
+    <title>虚拟化学习 QEMU-KVM · MozhuCY&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/" >MozhuCY&#39;s blog.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name"></a>
+                <a href="#" class="post-name">虚拟化学习 QEMU-KVM</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            [Untitled Post]
+            虚拟化学习 QEMU-KVM
             <!-- 404 -->
             
         </h1>
@@ -266,12 +266,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">905</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">2.3k</span>阅读时长: <span class="post-count reading-time">10 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2020/01/01</span>
+                    <span class="post-intro-time">2020/02/22</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -395,42 +395,37 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><p>概念:为了方便用户管理控制计算机硬件资源的系统软件</p>
-<p>分类:</p>
-<ul>
-<li>批处理操作系统</li>
-<li>分时操作系统 : 独占性,及时性,交互性,多路性</li>
-<li>实时操作系统 : 独占性,及时性,交互性,可靠性</li>
-<li>网络操作系统</li>
-<li>分布式操作系统</li>
-</ul>
-<p>特征:并发性,共享性,虚拟性,异步性</p>
-<h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><p>定义:一个具有独立功能的程序对某个数据集在处理机上的执行过程,和分配资源的基本单位</p>
-<p>与程序不同的地方:1.进程是动态的,程序是静态的. 2.进程具有并行特征,程序没有 3.进程是竞争资源的基本单位 4.进程可包含多个程序,而程序可以被多个进程调用</p>
-<p>死锁的必要条件:</p>
-<p>1.互斥:一段时间内某资源仅为一个进程所占有(解决时不可破坏)</p>
-<p>2.不可剥夺:进程所获得的资源在未使用完毕之前，不能被其他进程强行夺走</p>
-<p>3.请求与保持:进程已经保持了至少一个资源，但又提出了新的资源请求，而该资源已被其他进程占有，此时请求进程被阻塞，但对自己已获得的资源保持不放。</p>
-<p>4.循环等待</p>
-<p>破坏“占有并等待”条件:<br>破坏“占有并等待”条件，就是在系统中不允许进程在已获得某种资源的情况下，申请其他资源。即要想出一个办法，阻止进程在持有资源的同时申请其他资源。<br>方法一：创建进程时，要求它申请所需的全部资源，系统或满足其所有要求，或什么也不给它。这是所谓的 “ 一次性分配”方案。<br>方法二：要求每个进程提出新的资源申请前，释放它所占有的资源。这样，一个进程在需要资源S时，须先把它先前占有的资源R释放掉，然后才能提出对S的申请，即使它可能很快又要用到资源R。</p>
-<p>破坏“不可抢占”条件：<br>破坏“不可抢占”条件就是允许对资源实行抢夺。<br>方法一：如果占有某些资源的一个进程进行进一步资源请求被拒绝，则该进程必须释放它最初占有的资源，如果有必要，可再次请求这些资源和另外的资源。<br>方法二：如果一个进程请求当前被另一个进程占有的一个资源，则操作系统可以抢占另一个进程，要求它释放资源。只有在任意两个进程的优先级都不相同的条件下，方法二才能预防死锁。</p>
-<p>破坏“循环等待”条件：<br>破坏“循环等待”条件的一种方法，是将系统中的所有资源统一编号，进程可在任何时刻提出资源申请，但所有申请必须按照资源的编号顺序（升序）提出。这样做就能保证系统不出现死锁。</p>
-<p>银行家算法:</p>
-<p>避免死锁</p>
-<p>存在几个数组,分别是系统剩余资源,已经占用的资源,占用的最大资源,需求资源数量</p>
-<p>Available[ ]矩阵数组表示某类资源的可用量</p>
-<p><code>Claim[ i ][ j ]</code>表示进程Pi最大需要<code>Rj</code>类资源的数量</p>
-<p><code>Allocation[ i ][ j ]</code>表示Pi已占有的<code>Rj</code>类资源数量</p>
-<p><code>Need[ i ][ j ]</code>表示Pi尚需<code>Rj</code>类资源的数量</p>
+        <h1 id="QEMU"><a href="#QEMU" class="headerlink" title="QEMU"></a>QEMU</h1><p>QEMU即Quick Emulator,是一个处理器模拟软件,而且他还是一个由纯软件实现的处理器模拟软件,在平时,他大概有两个用处,第一个是用户模式,利用动态翻译技术,运行跨架构的程序.第二个是系统模式,可以运行一个完整的系统,并且提供对于所有外设的软件模拟(硬件虚拟化).</p>
+<h1 id="KVM"><a href="#KVM" class="headerlink" title="KVM"></a>KVM</h1><p>KVM是一个Linux中自带的内核模块,是为了虚拟化而产生的,依赖于intel-VT或者AMD-V技术,是一种硬件辅助全虚拟化的接口,一般负责CPU和内存的模拟,KVM一般是以一个内核模块为主,在用户模式下,可以使用ioctl与/dev/kvm进行交互.</p>
+<h1 id="QEMU-KVM"><a href="#QEMU-KVM" class="headerlink" title="QEMU-KVM"></a>QEMU-KVM</h1><p>由于QEMU为纯软件实现,所以QEMU的模拟效率十分的低下,而与KVM的结合,使得QEMU为KVM提供硬件的虚拟化,而KVM为QEMU提供了QEMU极度匮乏的CPU内存模拟</p>
+<p>在正常的系统执行过程中,对于普通指令,在运行的过程中其实是没有差别的,只有遇到特权指令的时候,才会产生不同,这里不得不介绍几种虚拟化的解决方案</p>
+<h2 id="基于指令翻译的全虚拟化"><a href="#基于指令翻译的全虚拟化" class="headerlink" title="基于指令翻译的全虚拟化"></a>基于指令翻译的全虚拟化</h2><p>把GUEST OS运行在ring 1上,当运行时遇到特权指令的时候,CPU会抛出异常,然后转到VMM中,由VMM对于特权指令进行模拟,但是这种捕获-&gt;翻译-&gt;模拟的操作,效率非常的低.这也就是为什么QEMU在单独存在的时候,效率十分低下的原因.</p>
+<h2 id="半虚拟化-操作系统辅助虚拟化"><a href="#半虚拟化-操作系统辅助虚拟化" class="headerlink" title="半虚拟化/操作系统辅助虚拟化"></a>半虚拟化/操作系统辅助虚拟化</h2><p>这种是将操作系统内核进行改动,把特权指令进行改动,然后使用hypercall和底层进行通信,XEN便是采用的这种策略,但是这需要对代码进行改动,所以windows就不可以被模拟了//hypercall目前还没搞懂,不过感觉很复杂</p>
+<h2 id="硬件辅助的全虚拟化"><a href="#硬件辅助的全虚拟化" class="headerlink" title="硬件辅助的全虚拟化"></a>硬件辅助的全虚拟化</h2><p>这种便是Intel VT和AMD V所做出的贡献了,他们在CPU中实现了一个叫做non-root的模式,运行于non-root模式中的系统,在运行时系统不会察觉到任何异样,VMON开始后,启动VMM,然后VM ENTRY,在遇到特权指令的时候,执行VM EXIT,然后交付给VMM进行模拟,然后再次ENTRY,最后VMOFF.</p>
+<p>感觉和翻译的全虚拟化,这种虚拟化方案由CPU减少了中断的步骤,所以效率可能会更高一点.(原理模式都是差不多的)</p>
+<p>这个便是KVM/VMware ESXI常用的虚拟化策略.也是目前最常用的虚拟化策略.</p>
+<h1 id="KVM的虚拟机的创建"><a href="#KVM的虚拟机的创建" class="headerlink" title="KVM的虚拟机的创建"></a>KVM的虚拟机的创建</h1><p>在虚拟机的创建过程中,会有三个描述符,分别是kvm/vm/vcpu所对应的描述符</p>
+<pre><code> open(&quot;/dev/kvm&quot;)
+ ioctl(CREATE_VM)
+ ioctl(CREATE_VCPU)
+</code></pre><p>这里贴一个<a href="https://www.cnblogs.com/Bozh/p/5753379.html" title="DEMO" target="_blank" rel="noopener">DEMO</a></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;err.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/kvm.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdint.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/ioctl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> kvm, vmfd, vcpufd, ret;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">uint8_t</span> code[] = &#123;</span><br><span class="line">        <span class="number">0xba</span>, <span class="number">0xf8</span>, <span class="number">0x03</span>, <span class="comment">/* mov $0x3f8, %dx */</span></span><br><span class="line">        <span class="number">0x00</span>, <span class="number">0xd8</span>,       <span class="comment">/* add %bl, %al */</span></span><br><span class="line">        <span class="number">0x04</span>, <span class="string">'0'</span>,        <span class="comment">/* add $'0', %al */</span></span><br><span class="line">        <span class="number">0xee</span>,             <span class="comment">/* out %al, (%dx) */</span></span><br><span class="line">        <span class="number">0xb0</span>, <span class="string">'\n'</span>,       <span class="comment">/* mov $'\n', %al */</span></span><br><span class="line">        <span class="number">0xee</span>,             <span class="comment">/* out %al, (%dx) */</span></span><br><span class="line">        <span class="number">0xf4</span>,             <span class="comment">/* hlt */</span></span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">uint8_t</span> *mem;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">kvm_sregs</span> <span class="title">sregs</span>;</span></span><br><span class="line">    <span class="keyword">size_t</span> mmap_size;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">kvm_run</span> *<span class="title">run</span>;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 获取 kvm 句柄</span></span><br><span class="line">    kvm = open(<span class="string">"/dev/kvm"</span>, O_RDWR | O_CLOEXEC);</span><br><span class="line">    <span class="keyword">if</span> (kvm == <span class="number">-1</span>)</span><br><span class="line">        err(<span class="number">1</span>, <span class="string">"/dev/kvm"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 确保是正确的 API 版本</span></span><br><span class="line">    ret = ioctl(kvm, KVM_GET_API_VERSION, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">if</span> (ret == <span class="number">-1</span>)</span><br><span class="line">        err(<span class="number">1</span>, <span class="string">"KVM_GET_API_VERSION"</span>);</span><br><span class="line">    <span class="keyword">if</span> (ret != <span class="number">12</span>)</span><br><span class="line">        errx(<span class="number">1</span>, <span class="string">"KVM_GET_API_VERSION %d, expected 12"</span>, ret);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 创建一虚拟机</span></span><br><span class="line">    vmfd = ioctl(kvm, KVM_CREATE_VM, (<span class="keyword">unsigned</span> <span class="keyword">long</span>)<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (vmfd == <span class="number">-1</span>)</span><br><span class="line">        err(<span class="number">1</span>, <span class="string">"KVM_CREATE_VM"</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 为这个虚拟机申请内存，并将代码（镜像）加载到虚拟机内存中</span></span><br><span class="line">    mem = mmap(<span class="literal">NULL</span>, <span class="number">0x1000</span>, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, <span class="number">-1</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (!mem)</span><br><span class="line">        err(<span class="number">1</span>, <span class="string">"allocating guest memory"</span>);</span><br><span class="line">    <span class="built_in">memcpy</span>(mem, code, <span class="keyword">sizeof</span>(code));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 为什么从 0x1000 开始呢，因为页表空间的前4K是留给页表目录</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">kvm_userspace_memory_region</span> <span class="title">region</span> = &#123;</span></span><br><span class="line">        .slot = <span class="number">0</span>,</span><br><span class="line">        .guest_phys_addr = <span class="number">0x1000</span>,</span><br><span class="line">        .memory_size = <span class="number">0x1000</span>,</span><br><span class="line">        .userspace_addr = (<span class="keyword">uint64_t</span>)mem,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// 设置 KVM 的内存区域</span></span><br><span class="line">    ret = ioctl(vmfd, KVM_SET_USER_MEMORY_REGION, &amp;region);</span><br><span class="line">    <span class="keyword">if</span> (ret == <span class="number">-1</span>)</span><br><span class="line">        err(<span class="number">1</span>, <span class="string">"KVM_SET_USER_MEMORY_REGION"</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 创建虚拟CPU</span></span><br><span class="line">    vcpufd = ioctl(vmfd, KVM_CREATE_VCPU, (<span class="keyword">unsigned</span> <span class="keyword">long</span>)<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (vcpufd == <span class="number">-1</span>)</span><br><span class="line">        err(<span class="number">1</span>, <span class="string">"KVM_CREATE_VCPU"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取 KVM 运行时结构的大小</span></span><br><span class="line">    ret = ioctl(kvm, KVM_GET_VCPU_MMAP_SIZE, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">if</span> (ret == <span class="number">-1</span>)</span><br><span class="line">        err(<span class="number">1</span>, <span class="string">"KVM_GET_VCPU_MMAP_SIZE"</span>);</span><br><span class="line">    mmap_size = ret;</span><br><span class="line">    <span class="keyword">if</span> (mmap_size &lt; <span class="keyword">sizeof</span>(*run))</span><br><span class="line">        errx(<span class="number">1</span>, <span class="string">"KVM_GET_VCPU_MMAP_SIZE unexpectedly small"</span>);</span><br><span class="line">    <span class="comment">// 将 kvm run 与 vcpu 做关联，这样能够获取到kvm的运行时信息</span></span><br><span class="line">    run = mmap(<span class="literal">NULL</span>, mmap_size, PROT_READ | PROT_WRITE, MAP_SHARED, vcpufd, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (!run)</span><br><span class="line">        err(<span class="number">1</span>, <span class="string">"mmap vcpu"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取特殊寄存器</span></span><br><span class="line">    ret = ioctl(vcpufd, KVM_GET_SREGS, &amp;sregs);</span><br><span class="line">    <span class="keyword">if</span> (ret == <span class="number">-1</span>)</span><br><span class="line">        err(<span class="number">1</span>, <span class="string">"KVM_GET_SREGS"</span>);</span><br><span class="line">    <span class="comment">// 设置代码段为从地址0处开始，我们的代码被加载到了0x0000的起始位置</span></span><br><span class="line">    sregs.cs.base = <span class="number">0</span>;</span><br><span class="line">    sregs.cs.selector = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// KVM_SET_SREGS 设置特殊寄存器</span></span><br><span class="line">    ret = ioctl(vcpufd, KVM_SET_SREGS, &amp;sregs);</span><br><span class="line">    <span class="keyword">if</span> (ret == <span class="number">-1</span>)</span><br><span class="line">        err(<span class="number">1</span>, <span class="string">"KVM_SET_SREGS"</span>);</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 设置代码的入口地址，相当于32位main函数的地址，这里16位汇编都是由0x1000处开始。</span></span><br><span class="line">    <span class="comment">// 如果是正式的镜像，那么rip的值应该是类似引导扇区加载进来的指令</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">kvm_regs</span> <span class="title">regs</span> = &#123;</span></span><br><span class="line">        .rip = <span class="number">0x1000</span>,</span><br><span class="line">        .rax = <span class="number">2</span>,    <span class="comment">// 设置 ax 寄存器初始值为 2</span></span><br><span class="line">        .rbx = <span class="number">2</span>,    <span class="comment">// 同理</span></span><br><span class="line">        .rflags = <span class="number">0x2</span>,   <span class="comment">// 初始化flags寄存器，x86架构下需要设置，否则会粗错</span></span><br><span class="line">    &#125;;</span><br><span class="line">    ret = ioctl(vcpufd, KVM_SET_REGS, &amp;regs);</span><br><span class="line">    <span class="keyword">if</span> (ret == <span class="number">-1</span>)</span><br><span class="line">        err(<span class="number">1</span>, <span class="string">"KVM_SET_REGS"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 开始运行虚拟机，如果是qemu-kvm，会用一个线程来执行这个vCPU，并加载指令</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// 开始运行虚拟机</span></span><br><span class="line">        ret = ioctl(vcpufd, KVM_RUN, <span class="literal">NULL</span>);</span><br><span class="line">        <span class="keyword">if</span> (ret == <span class="number">-1</span>)</span><br><span class="line">            err(<span class="number">1</span>, <span class="string">"KVM_RUN"</span>);</span><br><span class="line">        <span class="comment">// 获取虚拟机退出原因</span></span><br><span class="line">        <span class="keyword">switch</span> (run-&gt;exit_reason) &#123;</span><br><span class="line">        <span class="keyword">case</span> KVM_EXIT_HLT:</span><br><span class="line">            <span class="built_in">puts</span>(<span class="string">"KVM_EXIT_HLT"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 汇编调用了 out 指令，vmx 模式下不允许执行这个操作，所以</span></span><br><span class="line">        <span class="comment">// 将操作权切换到了宿主机，切换的时候会将上下文保存到VMCS寄存器</span></span><br><span class="line">        <span class="comment">// 后面CPU虚拟化会讲到这部分</span></span><br><span class="line">        <span class="comment">// 因为虚拟机的内存宿主机能够直接读取到，所以直接在宿主机上获取到</span></span><br><span class="line">        <span class="comment">// 虚拟机的输出（out指令），这也是后面PCI设备虚拟化的一个基础，DMA模式的PCI设备</span></span><br><span class="line">        <span class="keyword">case</span> KVM_EXIT_IO:</span><br><span class="line">            <span class="keyword">if</span> (run-&gt;io.direction == KVM_EXIT_IO_OUT &amp;&amp; run-&gt;io.size == <span class="number">1</span> &amp;&amp; run-&gt;io.port == <span class="number">0x3f8</span> &amp;&amp; run-&gt;io.count == <span class="number">1</span>)</span><br><span class="line">                <span class="built_in">putchar</span>(*(((<span class="keyword">char</span> *)run) + run-&gt;io.data_offset));</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                errx(<span class="number">1</span>, <span class="string">"unhandled KVM_EXIT_IO"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> KVM_EXIT_FAIL_ENTRY:</span><br><span class="line">            errx(<span class="number">1</span>, <span class="string">"KVM_EXIT_FAIL_ENTRY: hardware_entry_failure_reason = 0x%llx"</span>,</span><br><span class="line">                 (<span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span>)run-&gt;fail_entry.hardware_entry_failure_reason);</span><br><span class="line">        <span class="keyword">case</span> KVM_EXIT_INTERNAL_ERROR:</span><br><span class="line">            errx(<span class="number">1</span>, <span class="string">"KVM_EXIT_INTERNAL_ERROR: suberror = 0x%x"</span>, run-&gt;internal.suberror);</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            errx(<span class="number">1</span>, <span class="string">"exit_reason = 0x%x"</span>, run-&gt;exit_reason);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><p>mmio/pmio:两种io的模式,一个是独立寻址,一个是统一寻址,其中在用户态下mmio是使用mmap映射内存然后对内存进行读写,pmio则是使用in*() out*()对端口进行读写,其中在/proc/ioports和/proc/iomem存在着此时系统中映射的物理内存/端口地址</p>
+<p>/proc/self/pagemap,linux提供的一个接口,提供了一个查询虚拟地址对应的物理地址的接口,通过一个转换函数便可以查询</p>
+<p>lspci:列出pci设备,格式为 总线:设备:功能,同样在/sys/devices/pci0000\:00/0000\:00\:03.0/config可以查看到配置<br>同样可以使用lspci -v -s 00:03.0查看PMIO和MMIO对应的地址和大小</p>
+<p>PMIO和MMIO对应常见的处理函数为xxx_mmio_read/write,xxx_pmio_read/write<br>对应的处理回调函数原型为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">XXX_pmio_read(XXXState *opaque, hwaddr addr, unsigned int size)</span><br><span class="line">XXX_pmio_write(XXXState *opaque, hwaddr addr, uint64_t val, unsigned int size)</span><br><span class="line">XXX_mmio_read(XXXState *opaque, hwaddr addr, unsigned int size)</span><br><span class="line">XXX_mmio_write(XXXState *opaque, hwaddr addr, uint64_t val, unsigned int size)</span><br></pre></td></tr></table></figure></p>
+<p>其中opaque是状态结构体,addr是一个地址,size是访问的数据的格式,val是在写入状态时的要写入的值.<br>例如某个设备的io端口为0xc050,size为8,假如执行了inb(0xc050 + 1),那么在XXX_pmio_read的参数是这个样子的(指针,1,1)</p>
+<p>这里可以看到函数堆栈(这里执行的是inw(0xc050 + 0)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; backtrace </span><br><span class="line">#0  strng_pmio_read (opaque=0x5555566cc5d0, addr=0, size=2) at /home/rcvalle/qemu/hw/misc/strng.c:68</span><br><span class="line">#1  0x00005555557b251d in memory_region_read_accessor (mr=0x5555566ccfc0, addr=0, value=0x7fffef512a10, size=2, shift=0, mask=65535, attrs=...) at /home/rcvalle/qemu/memory.c:435</span><br><span class="line">#2  0x00005555557b031b in access_with_adjusted_size (addr=addr@entry=0, value=value@entry=0x7fffef512a10, size=size@entry=2, access_size_min=&lt;optimized out&gt;, access_size_max=&lt;optimized out&gt;, access=access@entry=0x5555557b24e0 &lt;memory_region_read_accessor&gt;, mr=mr@entry=0x5555566ccfc0, attrs=attrs@entry=...) at /home/rcvalle/qemu/memory.c:592</span><br><span class="line">#3  0x00005555557b431e in memory_region_dispatch_read1 (attrs=..., size=2, pval=0x7fffef512a10, addr=0, mr=0x5555566ccfc0) at /home/rcvalle/qemu/memory.c:1242</span><br><span class="line">#4  memory_region_dispatch_read (mr=mr@entry=0x5555566ccfc0, addr=addr@entry=0, pval=pval@entry=0x7fffef512a10, size=size@entry=2, attrs=attrs@entry=...) at /home/rcvalle/qemu/memory.c:1273</span><br><span class="line">#5  0x00005555557639aa in address_space_read_continue (as=as@entry=0x55555610a340 &lt;address_space_io&gt;, addr=addr@entry=49232, attrs=..., attrs@entry=..., buf=buf@entry=0x7ffff7ff1000 &quot;&quot;, len=len@entry=2, addr1=0, l=2, mr=0x5555566ccfc0) at /home/rcvalle/qemu/exec.c:2692</span><br><span class="line">#6  0x0000555555763a67 in address_space_read_full (as=0x55555610a340 &lt;address_space_io&gt;, addr=49232, addr@entry=93824994897866, attrs=..., buf=0x7ffff7ff1000 &quot;&quot;, len=2, len@entry=0) at /home/rcvalle/qemu/exec.c:2743</span><br><span class="line">#7  0x0000555555763bde in address_space_read (len=0, buf=&lt;optimized out&gt;, attrs=..., addr=93824994897866, as=&lt;optimized out&gt;) at /home/rcvalle/qemu/include/exec/memory.h:1527</span><br><span class="line">#8  address_space_rw (as=&lt;optimized out&gt;, addr=addr@entry=49232, attrs=..., attrs@entry=..., buf=&lt;optimized out&gt;, len=len@entry=2, is_write=is_write@entry=false) at /home/rcvalle/qemu/exec.c:2757</span><br><span class="line">#9  0x00005555557af0f5 in kvm_handle_io (count=1, size=2, direction=&lt;optimized out&gt;, data=&lt;optimized out&gt;, attrs=..., port=49232) at /home/rcvalle/qemu/kvm-all.c:1800</span><br><span class="line">#10 kvm_cpu_exec (cpu=cpu@entry=0x555556691f70) at /home/rcvalle/qemu/kvm-all.c:1958</span><br><span class="line">#11 0x000055555579a71a in qemu_kvm_cpu_thread_fn (arg=0x555556691f70) at /home/rcvalle/qemu/cpus.c:998</span><br><span class="line">#12 0x00007ffff681a6db in start_thread (arg=0x7fffef513700) at pthread_create.c:463</span><br><span class="line">#13 0x00007ffff654388f in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95</span><br></pre></td></tr></table></figure></p>
+<p>有时间了再分析这个调用过程,先去陪小周了(=3=)</p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="http://mozhucy.com">MozhuCY</a>
-            <p>原文链接：<a href="http://mozhucy.com/2020/01/01/操作系统/">http://mozhucy.com/2020/01/01/操作系统/</a>
-            <p>发表日期：<a href="http://mozhucy.com/2020/01/01/操作系统/">January 1st 2020, 12:44:52 pm</a>
-            <p>更新日期：<a href="http://mozhucy.com/2020/01/01/操作系统/">January 3rd 2020, 2:02:51 pm</a>
+            <p>原文链接：<a href="http://mozhucy.com/2020/02/22/虚拟化学习/">http://mozhucy.com/2020/02/22/虚拟化学习/</a>
+            <p>发表日期：<a href="http://mozhucy.com/2020/02/22/虚拟化学习/">February 22nd 2020, 12:00:00 am</a>
+            <p>更新日期：<a href="http://mozhucy.com/2020/02/22/虚拟化学习/">February 23rd 2020, 11:51:05 am</a>
             <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -567,7 +562,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#操作系统"><span class="toc-number">1.</span> <span class="toc-text">操作系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进程"><span class="toc-number">2.</span> <span class="toc-text">进程</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#QEMU"><span class="toc-number">1.</span> <span class="toc-text">QEMU</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#KVM"><span class="toc-number">2.</span> <span class="toc-text">KVM</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#QEMU-KVM"><span class="toc-number">3.</span> <span class="toc-text">QEMU-KVM</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基于指令翻译的全虚拟化"><span class="toc-number">3.1.</span> <span class="toc-text">基于指令翻译的全虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#半虚拟化-操作系统辅助虚拟化"><span class="toc-number">3.2.</span> <span class="toc-text">半虚拟化/操作系统辅助虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#硬件辅助的全虚拟化"><span class="toc-number">3.3.</span> <span class="toc-text">硬件辅助的全虚拟化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#KVM的虚拟机的创建"><span class="toc-number">4.</span> <span class="toc-text">KVM的虚拟机的创建</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MISC"><span class="toc-number">5.</span> <span class="toc-text">MISC</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -2574,9 +2569,20 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 68
+        Total : 67
         </div>
         <!-- search  -->
         
@@ -2606,7 +2612,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/2020/01/01/操作系统/" >[Untitled Post]</a>
+            <span class="archive-post-date">02/22</span><a class="archive-post-title" href= "/2020/02/22/虚拟化学习/" >虚拟化学习 QEMU-KVM</a>
         </li>
     
     
@@ -2698,11 +2704,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cve-2015-7504/" >CVE-2015-7504 CVE-2015-5165QEMU虚拟机逃逸漏洞分析</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
         </li>
     
@@ -2723,12 +2724,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/frida/" >Hook学习</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/hexo/" >hexo配置</a>
         </li>
     
     
@@ -2738,7 +2739,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/homuranote/" >Homuranote</a>
         </li>
     
     
@@ -2748,7 +2749,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
         </li>
     
     
@@ -2758,7 +2759,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/pe-elf/" >pe-elf文件结构解析</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
         </li>
     
     
@@ -2768,7 +2769,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/ollvm/" >anti-ollvm</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
         </li>
     
     
@@ -2778,7 +2779,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
         </li>
     
     
@@ -2788,7 +2789,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/redhat/" >redhat-re1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
         </li>
     
     
@@ -2798,17 +2799,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suanfa/" >算法设计</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
         </li>
     
     
@@ -2848,17 +2849,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/hexo/" >hexo配置</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cff2016/" >jarvisoj-文件数据恢复</a>
         </li>
     
     
@@ -2868,7 +2859,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
         </li>
     
     
@@ -2878,7 +2869,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/pe-elf/" >pe-elf文件结构解析</a>
         </li>
     
     
@@ -2888,7 +2879,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
         </li>
     
     
@@ -2898,7 +2889,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
         </li>
     
     
@@ -2908,7 +2899,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
         </li>
     
     
@@ -2918,12 +2909,27 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cff2016/" >jarvisoj-文件数据恢复</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc安卓逆向/" >ISCC 决赛 android 1000</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/redhat/" >redhat-re1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cve-2015-7504/" >CVE-2015-7504 CVE-2015-5165QEMU虚拟机逃逸漏洞分析</a>
         </li>
     
     
@@ -2943,22 +2949,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc安卓逆向/" >ISCC 决赛 android 1000</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/ollvm/" >anti-ollvm</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/homuranote/" >Homuranote</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/frida/" >Hook学习</a>
         </li>
     
     
@@ -3061,7 +3062,22 @@ jsonContent:
     
         <script src="/scripts/share.js" async></script>    
      
-    </body>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
 </html>
 
 
