@@ -47,7 +47,7 @@ root@ubuntu:~# lspci -v -s 00:03.0
 
 
 
-![s](strng/strng1.png)
+![s](/IMAGE/leak.png)
 
 我们要关注的是strng_mmio_read/write和strng_pmio_read/write
 
