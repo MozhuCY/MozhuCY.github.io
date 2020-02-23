@@ -45,7 +45,23 @@ root@ubuntu:~# lspci -v -s 00:03.0
 可以看到存在一个mmio和pmio,mmio地址是febf1000,大小是0xff,pmio的地址是c050,大小是8.
 打开ida,在函数窗口搜索strng,可以看到如下
 
-![s](strng/strng1.png)
+![函数列表](strng/strng1.png)
 
 我们要关注的是strng_mmio_read/write和strng_pmio_read/write.
+
+shift+F1调出已经存在的结构体,可以看到STRNGState
+
+```C
+struct __attribute__((aligned(16))) STRNGState
+{
+  PCIDevice_0 pdev;
+  MemoryRegion_0 mmio;
+  MemoryRegion_0 pmio;
+  uint32_t addr;
+  uint32_t regs[64];
+  void (__cdecl *srand)(unsigned int);
+  int (*rand)(void);
+  int (__cdecl *rand_r)(unsigned int *);
+};
+```
 
