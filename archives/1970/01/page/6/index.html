@@ -404,17 +404,15 @@ python常常被当做是一门解释型语言,但是实际上,Python的底层和
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/angr/" >
+        <a class="abstract-title" href = "/1970/01/01/cff2016/" >
             
-                <span>符号执行</span>
+                <span>jarvisoj-文件数据恢复</span>
         </a>
         <div class="abstract-content">
-            angr
-首先导入from angr import *
-将程序加载进来p = Process(“filename”,auto_load_libs=False)
-可以理解将程序变成一个特殊的状态,这样默认函数默认入口点,如果在()内加入addr=0xxxxxx,会指定另一个入口点s = p.factory.entry_state()
-就有一些类似我们的打log时复现代码那一环,设定一个模拟器 smt = sm=p.factory.simulation_manager(s)
-sm就是之前载入文件,设定入口点,建立模拟对象,现在就可以explore来开始符号执行,后面是约束条件r = sm.e...
+            新年第一篇hhhhhh
+mfc好像已经是过气了的东西了…不过这个题可以看出来是一个类似于文件解析的算法,可以拿来做做看
+resourcehacker确定对话框的id,配合xspy定位函数位置,找到函数sub_402570,CWnd::GetDlgItemTextW(v1, 1002, &amp;FileName, 256)获取的是第一个对话框的路径,然后进行对此文件路径下文件的读取
+下面CWnd::GetDlgItemTextW(v1, 1003, &amp;pwd, 256);是对于pwd的读取,在这两行读取文件的代码之间,存在许多读取4字节并且进行验证的操作,怀疑是ctf文件头的验证...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -459,17 +457,20 @@ malloc执行的开始
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/sudu/" >
+        <a class="abstract-title" href = "/1970/01/01/cve-2015-7504/" >
             
-                <span>2017国赛re200 填数游戏</span>
+                <span>CVE-2015-7504 CVE-2015-5165QEMU虚拟机逃逸漏洞分析</span>
         </a>
         <div class="abstract-content">
-            一个数独游戏
-这题去年我们的新生赛的re300,简直是一样了,不过这是用C++写的,对于我这个没怎么学过的C++的还是有些难受的…
-sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申请324字节长度的空间,当时还在想…数独还有18*18的吗… 后来分析一下得知woc,原来是4*9*9,因为int型在32位是4个字节的原因.
-接下来的函数如下
+            QEMU
+QEMU是一套模拟处理器,在Linux平台上使用广泛,一般虚拟机的漏洞分为两大类,DoS和逃逸,其中逃逸的漏洞威胁最大,但是挖掘难度也很大.
+漏洞多出现于IO部分的模拟,因为交互需要许多长度未定的数据,所以在数据处理的代码中,往往会出现一些类似于溢出的漏洞,一般通过这些溢出,就能达到使虚拟机crash的目的
 
-12345678910111213141516int __userpurge Sudu::set_data@&lt;eax&gt;(int a1@&lt;ecx&gt;, Sudu *this, int (*a3)[9...
+分析目的
+这里想要通过已经给出POC的漏洞,以及qemu开源的优势来熟悉虚拟机漏洞的成因以及原理,方便以后对于不同种类虚拟机的漏洞挖掘
+
+环境搭建
+卡在这里好久,一直是VNC server running on 127.0.0.1:5900,缺少SDL库,一开始按照网上的...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -582,60 +583,6 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -2754,11 +2701,6 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cve-2015-7504/" >CVE-2015-7504 CVE-2015-5165QEMU虚拟机逃逸漏洞分析</a>
         </li>
     
@@ -2769,37 +2711,27 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/docker/" >docker</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/hexo/" >hexo配置</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/homuranote/" >Homuranote</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/frida/" >Hook学习</a>
         </li>
     
     
@@ -2809,12 +2741,22 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
         </li>
     
     
@@ -2829,17 +2771,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/ollvm/" >anti-ollvm</a>
         </li>
     
     
@@ -2849,22 +2781,27 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/redhat/" >redhat-re1</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/函数调用约定/" >Calling Convention</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suanfa/" >算法设计</a>
         </li>
     
     
@@ -2874,12 +2811,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/MYSQL/" >网站开发入门-MYSQL数据库的基础使用</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
         </li>
     
     
@@ -2889,7 +2821,17 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/函数调用约定/" >Calling Convention</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
         </li>
     
     
@@ -2899,7 +2841,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
         </li>
     
     
@@ -2909,7 +2851,17 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cff2016/" >jarvisoj-文件数据恢复</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/hexo/" >hexo配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
         </li>
     
     
@@ -2919,7 +2871,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
         </li>
     
     
@@ -2939,7 +2891,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
         </li>
     
     
@@ -2949,7 +2901,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suanfa/" >算法设计</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
         </li>
     
     
@@ -2959,7 +2911,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
         </li>
     
     
@@ -2969,12 +2921,12 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/frida/" >Hook学习</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cff2016/" >jarvisoj-文件数据恢复</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/ollvm/" >anti-ollvm</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
         </li>
     
     
@@ -2984,7 +2936,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/MYSQL/" >网站开发入门-MYSQL数据库的基础使用</a>
         </li>
     
     
@@ -2999,27 +2951,22 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/homuranote/" >Homuranote</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
         </li>
     
     </div>
@@ -3060,9 +3007,9 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="二进制"><span class="iconfont-archer">&#xe60a;</span>二进制</span>
-    
         <span class="sidebar-category-name" data-categories="RE"><span class="iconfont-archer">&#xe60a;</span>RE</span>
+    
+        <span class="sidebar-category-name" data-categories="二进制"><span class="iconfont-archer">&#xe60a;</span>二进制</span>
     
         <span class="sidebar-category-name" data-categories="WEB"><span class="iconfont-archer">&#xe60a;</span>WEB</span>
     
@@ -3070,15 +3017,15 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="MISC"><span class="iconfont-archer">&#xe60a;</span>MISC</span>
     
-        <span class="sidebar-category-name" data-categories="balabala"><span class="iconfont-archer">&#xe60a;</span>balabala</span>
-    
         <span class="sidebar-category-name" data-categories="RW"><span class="iconfont-archer">&#xe60a;</span>RW</span>
+    
+        <span class="sidebar-category-name" data-categories="balabala"><span class="iconfont-archer">&#xe60a;</span>balabala</span>
     
         <span class="sidebar-category-name" data-categories="FE"><span class="iconfont-archer">&#xe60a;</span>FE</span>
     
-        <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
-    
         <span class="sidebar-category-name" data-categories="算法"><span class="iconfont-archer">&#xe60a;</span>算法</span>
+    
+        <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
     
         <span class="sidebar-category-name" data-categories="CVE"><span class="iconfont-archer">&#xe60a;</span>CVE</span>
     
@@ -3115,22 +3062,7 @@ jsonContent:
     </div>
     <!-- async load share.js -->
      
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-</body>
+    </body>
 </html>
 
 

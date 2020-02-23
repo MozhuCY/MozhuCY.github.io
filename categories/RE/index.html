@@ -489,16 +489,20 @@ key = [0x31 ,0x62 ,0x93 ,0xC4 ,0x21 ,0x42 ,0x63 ,0x84 ,0x3D ...
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/Reversing.kr--replace/" >
+        <a class="abstract-title" href = "/1970/01/01/Reversing.kr--position&hateintel/" >
             
-                <span>初试程序自修改</span>
+                <span>Position&amp;hateintel&amp;Wrong byte!</span>
         </a>
         <div class="abstract-content">
-            
-第一次遇到程序自修改的题目.
-程序主页面是一个窗口,输入后点确定,程序会崩溃,拖入OD查看逻辑,首先是一个跳转,到达程序下部,查看汇编后,发现程序有好多次类似于mov [eax],0x??????的操作.
-调试后发现,eax对应的值就是程序的代码段,eax的值,是由输入和imagebase决定,程序的eax被放入的初值为0x601605CB,所以当输入较小时,程序在运行过程中,会将0x90,也就是nop修改自身代码,这时,程序会因为非法修改内存而报错.
-这时考虑溢出eax来修改目的代码,在下跳语句的后一句,有一句跳转,绕过了”correct!”,而且机器码长度为2字节,观察下部代码,发...
+            爆破了一天题目.
+Position
+
+分析算法,直接爆破.
+1四个循环,一个校验.
+
+hateintel
+
+分析算法,直接爆破.12345678910111213141516171819l=[0x44, 0xF6, 0xF5, 0x57, 0xF5, 0xC6, 0x96, 0xB6, 0x56, 0xF5,0x14, 0x25, 0xD4, 0xF5, 0x96, 0xE6, 0x37, 0x47, 0x27, 0x57,0x36, 0x47, 0x96, 0x03, 0xE6, 0xF3, 0xA3, 0x92]def f(a):    a*=2    if(a&amp;0x100)...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2714,60 +2718,6 @@ frida是一款基于python和JavaScript的框架,...
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 68
@@ -2892,11 +2842,6 @@ frida是一款基于python和JavaScript的框架,...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cve-2015-7504/" >CVE-2015-7504 CVE-2015-5165QEMU虚拟机逃逸漏洞分析</a>
         </li>
     
@@ -2907,37 +2852,27 @@ frida是一款基于python和JavaScript的框架,...
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/docker/" >docker</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/hexo/" >hexo配置</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/homuranote/" >Homuranote</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/frida/" >Hook学习</a>
         </li>
     
     
@@ -2947,12 +2882,22 @@ frida是一款基于python和JavaScript的框架,...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
         </li>
     
     
@@ -2967,17 +2912,7 @@ frida是一款基于python和JavaScript的框架,...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/ollvm/" >anti-ollvm</a>
         </li>
     
     
@@ -2987,22 +2922,27 @@ frida是一款基于python和JavaScript的框架,...
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制选手的Web路(WhaleCTF web部分writepu/" >二进制手的WEB路（WhaleCTF web部分writeup</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/redhat/" >redhat-re1</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/函数调用约定/" >Calling Convention</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/二进制手的Web路SQL1/" >二进制手的Web路（sql注入篇</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suanfa/" >算法设计</a>
         </li>
     
     
@@ -3012,12 +2952,7 @@ frida是一款基于python和JavaScript的框架,...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/MYSQL/" >网站开发入门-MYSQL数据库的基础使用</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
         </li>
     
     
@@ -3027,7 +2962,17 @@ frida是一款基于python和JavaScript的框架,...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/函数调用约定/" >Calling Convention</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
         </li>
     
     
@@ -3037,7 +2982,7 @@ frida是一款基于python和JavaScript的框架,...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
         </li>
     
     
@@ -3047,7 +2992,17 @@ frida是一款基于python和JavaScript的框架,...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cff2016/" >jarvisoj-文件数据恢复</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/hexo/" >hexo配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
         </li>
     
     
@@ -3057,7 +3012,7 @@ frida是一款基于python和JavaScript的框架,...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
         </li>
     
     
@@ -3077,7 +3032,7 @@ frida是一款基于python和JavaScript的框架,...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/radare2/" >CTF二进制总结0x02</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
         </li>
     
     
@@ -3087,7 +3042,7 @@ frida是一款基于python和JavaScript的框架,...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suanfa/" >算法设计</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
         </li>
     
     
@@ -3097,7 +3052,7 @@ frida是一款基于python和JavaScript的框架,...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
         </li>
     
     
@@ -3107,12 +3062,12 @@ frida是一款基于python和JavaScript的框架,...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/frida/" >Hook学习</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cff2016/" >jarvisoj-文件数据恢复</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/ollvm/" >anti-ollvm</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
         </li>
     
     
@@ -3122,7 +3077,7 @@ frida是一款基于python和JavaScript的框架,...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/MYSQL/" >网站开发入门-MYSQL数据库的基础使用</a>
         </li>
     
     
@@ -3137,27 +3092,22 @@ frida是一款基于python和JavaScript的框架,...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/HomuraVM/" >HomuraVM</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/homuranote/" >Homuranote</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
         </li>
     
     </div>
@@ -3198,9 +3148,9 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="二进制"><span class="iconfont-archer">&#xe60a;</span>二进制</span>
-    
         <span class="sidebar-category-name" data-categories="RE"><span class="iconfont-archer">&#xe60a;</span>RE</span>
+    
+        <span class="sidebar-category-name" data-categories="二进制"><span class="iconfont-archer">&#xe60a;</span>二进制</span>
     
         <span class="sidebar-category-name" data-categories="WEB"><span class="iconfont-archer">&#xe60a;</span>WEB</span>
     
@@ -3208,15 +3158,15 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="MISC"><span class="iconfont-archer">&#xe60a;</span>MISC</span>
     
-        <span class="sidebar-category-name" data-categories="balabala"><span class="iconfont-archer">&#xe60a;</span>balabala</span>
-    
         <span class="sidebar-category-name" data-categories="RW"><span class="iconfont-archer">&#xe60a;</span>RW</span>
+    
+        <span class="sidebar-category-name" data-categories="balabala"><span class="iconfont-archer">&#xe60a;</span>balabala</span>
     
         <span class="sidebar-category-name" data-categories="FE"><span class="iconfont-archer">&#xe60a;</span>FE</span>
     
-        <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
-    
         <span class="sidebar-category-name" data-categories="算法"><span class="iconfont-archer">&#xe60a;</span>算法</span>
+    
+        <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
     
         <span class="sidebar-category-name" data-categories="CVE"><span class="iconfont-archer">&#xe60a;</span>CVE</span>
     
@@ -3253,22 +3203,7 @@ jsonContent:
     </div>
     <!-- async load share.js -->
      
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-</body>
+    </body>
 </html>
 
 
