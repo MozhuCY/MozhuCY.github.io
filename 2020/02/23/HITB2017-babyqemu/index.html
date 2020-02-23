@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">10</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">150</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -401,7 +401,13 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>又是一道qemu逃逸的题目</p>
+        <h1 id="初步分析"><a href="#初步分析" class="headerlink" title="初步分析"></a>初步分析</h1><p>又是一道qemu逃逸的题目</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/sh</span><br><span class="line">./qemu-system-x86_64 \</span><br><span class="line">-initrd ./rootfs.cpio \</span><br><span class="line">-kernel ./vmlinuz<span class="number">-4.8</span><span class="number">.0</span><span class="number">-52</span>-generic \</span><br><span class="line">-append 'console=ttyS0 root=/dev/ram oops=panic panic=1' \</span><br><span class="line">-enable-kvm \</span><br><span class="line">-monitor /dev/null \</span><br><span class="line">-m <span class="number">64</span>M --nographic  -L ./dependency/usr/local/share/qemu \</span><br><span class="line">-L pc-bios \</span><br><span class="line">-device hitb,id=vda</span><br></pre></td></tr></table></figure>
+<p>-device hitb,应该是编写了一个叫做hitb的设备</p>
+<p>root空密码登入</p>
+<p>一堆设备,但是没有名字,这个lspci好像很蔡.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># lspci -k</span><br><span class="line">00:00.0 Class 0600: 8086:1237</span><br><span class="line">00:01.3 Class 0680: 8086:7113</span><br><span class="line">00:03.0 Class 0200: 8086:100e e1000</span><br><span class="line">00:01.1 Class 0101: 8086:7010 ata_piix</span><br><span class="line">00:02.0 Class 0300: 1234:1111</span><br><span class="line">00:01.0 Class 0601: 8086:7000</span><br><span class="line">00:04.0 Class 00ff: 1234:2333</span><br></pre></td></tr></table></figure>
+<p>收工先</p>
 
     </article>
     <!-- license  -->
@@ -410,7 +416,7 @@ height:50vh;
             <p>原文作者：<a href="http://mozhucy.cn">MozhuCY</a>
             <p>原文链接：<a href="http://mozhucy.cn/2020/02/23/HITB2017-babyqemu/">http://mozhucy.cn/2020/02/23/HITB2017-babyqemu/</a>
             <p>发表日期：<a href="http://mozhucy.cn/2020/02/23/HITB2017-babyqemu/">February 23rd 2020, 10:05:40 pm</a>
-            <p>更新日期：<a href="http://mozhucy.cn/2020/02/23/HITB2017-babyqemu/">February 23rd 2020, 10:07:23 pm</a>
+            <p>更新日期：<a href="http://mozhucy.cn/2020/02/23/HITB2017-babyqemu/">February 23rd 2020, 10:48:32 pm</a>
             <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -547,7 +553,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#初步分析"><span class="toc-number">1.</span> <span class="toc-text">初步分析</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
