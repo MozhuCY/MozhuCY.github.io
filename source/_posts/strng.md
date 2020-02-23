@@ -1,4 +1,4 @@
-title:blizzardctf2017-strng
+title: blizzardctf2017-strng
 date: 2020-2-22
 categories:
 - PWN
