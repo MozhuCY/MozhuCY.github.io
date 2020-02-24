@@ -351,7 +351,9 @@
                 <span>DefconQuals-2018-EC3</span>
         </a>
         <div class="abstract-content">
-            
+            初步分析qemu逃逸,拿到题目查看run.sh
+123mozhucy@ubuntu:~/Desktop/ctf/defconec3/EC3$ cat run.sh#!/bin/sh./qemu-system-x86_64 -initrd ./initramfs-busybox-x86_64.cpio.gz -nographic -kernel ./vmlinuz-4.4.0-119-generic -append &quot;priority=low console=ttyS0&quot; -device ooo
+发现这个ooo设备,拖入ida分析,居然删了符号.记得在classinit...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
