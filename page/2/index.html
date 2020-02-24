@@ -359,6 +359,33 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2018/09/20/wdctfpwn2/" >
+            
+                <span>网鼎杯半决赛pwn3</span>
+        </a>
+        <div class="abstract-content">
+            主menu的chara结构体1234500000000 chara           struc ; (sizeof=0x18, align=0x8, mappedto_7)00000000 inuse           dq ?00000008 name_ptr        dq ?00000010 type            dq ?00000018 chara           ends
+
+其中inuse限制了不能edit和double free,程序中没有溢出点
+虽然inuse可以不能直接读取内存,但是可以利用堆块包含来进行堆块内容的读取
+可控堆块size的堆,只有n...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/20</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2018/09/09/sus/" >
             
                 <span>东南大学练习平台二进制全题解</span>
@@ -517,15 +544,20 @@ PE相对固定的文件结构在某些意想不到的时候会有妙用。
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/docker/" >
+        <a class="abstract-title" href = "/1970/01/01/cve-2015-7504/" >
             
-                <span>docker</span>
+                <span>CVE-2015-7504 CVE-2015-5165QEMU虚拟机逃逸漏洞分析</span>
         </a>
         <div class="abstract-content">
-            写好dockerfile,xinetd启动docker:docker build -t name .docker run -d -p port:port -h “name” —name=”name” name
-docker ps,列出所有正在运行的实例docker images,列出所有镜像
-docker rm -f name 删除实例docker rmi iddocker exec -it id commanddocker cp id:/ /
+            QEMU
+QEMU是一套模拟处理器,在Linux平台上使用广泛,一般虚拟机的漏洞分为两大类,DoS和逃逸,其中逃逸的漏洞威胁最大,但是挖掘难度也很大.
+漏洞多出现于IO部分的模拟,因为交互需要许多长度未定的数据,所以在数据处理的代码中,往往会出现一些类似于溢出的漏洞,一般通过这些溢出,就能达到使虚拟机crash的目的
 
+分析目的
+这里想要通过已经给出POC的漏洞,以及qemu开源的优势来熟悉虚拟机漏洞的成因以及原理,方便以后对于不同种类虚拟机的漏洞挖掘
+
+环境搭建
+卡在这里好久,一直是VNC server running on 127.0.0.1:5900,缺少SDL库,一开始按照网上的...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -571,20 +603,27 @@ frida是一款基于python和JavaScript的框架,...
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/cve-2015-7504/" >
+        <a class="abstract-title" href = "/1970/01/01/homuranote/" >
             
-                <span>CVE-2015-7504 CVE-2015-5165QEMU虚拟机逃逸漏洞分析</span>
+                <span>Homuranote</span>
         </a>
         <div class="abstract-content">
-            QEMU
-QEMU是一套模拟处理器,在Linux平台上使用广泛,一般虚拟机的漏洞分为两大类,DoS和逃逸,其中逃逸的漏洞威胁最大,但是挖掘难度也很大.
-漏洞多出现于IO部分的模拟,因为交互需要许多长度未定的数据,所以在数据处理的代码中,往往会出现一些类似于溢出的漏洞,一般通过这些溢出,就能达到使虚拟机crash的目的
+            cgctf pwn300大概审查思路
+据说这题是入门堆题,又是校队考核题目,入门一发堆吧
+很经典的note结构,menu getnum switch-case选择功能
+checksec 查一下,能开的都开了.
+IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,退出
+新建堆处很正常
+删除堆,也就是free处,存在UAF
+编辑处可以修改堆内的值
 
-分析目的
-这里想要通过已经给出POC的漏洞,以及qemu开源的优势来熟悉虚拟机漏洞的成因以及原理,方便以后对于不同种类虚拟机的漏洞挖掘
+具体攻击思路
+fastbin attack劫持 _mallochook
+unsorted bin leak 程序基址
+配合给好的libc文件进行攻击
 
-环境搭建
-卡在这里好久,一直是VNC server running on 127.0.0.1:5900,缺少SDL库,一开始按照网上的...
+具体攻击原理fastbin atacck
+一般利用double...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -614,44 +653,6 @@ github配置新建blog,增加分支npm install hexo-deployer-git —save,安装�
 git initgit status
 git add 123.txtgit commit -m “fix bug”
 git diff 1...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/homuranote/" >
-            
-                <span>Homuranote</span>
-        </a>
-        <div class="abstract-content">
-            cgctf pwn300大概审查思路
-据说这题是入门堆题,又是校队考核题目,入门一发堆吧
-很经典的note结构,menu getnum switch-case选择功能
-checksec 查一下,能开的都开了.
-IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,退出
-新建堆处很正常
-删除堆,也就是free处,存在UAF
-编辑处可以修改堆内的值
-
-具体攻击思路
-fastbin attack劫持 _mallochook
-unsorted bin leak 程序基址
-配合给好的libc文件进行攻击
-
-具体攻击原理fastbin atacck
-一般利用double...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2900,9 +2901,16 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 69
+        Total : 70
         </div>
         <!-- search  -->
         
@@ -2929,6 +2937,11 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href= "/2020/02/24/DefconQuals-2018-EC3/" >DefconQuals-2018-EC3</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -3029,12 +3042,12 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sudu/" >2017国赛re200 填数游戏</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
         </li>
     
     
@@ -3044,7 +3057,7 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
         </li>
     
     
@@ -3054,7 +3067,7 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
         </li>
     
     
@@ -3069,17 +3082,7 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
         </li>
     
     
@@ -3089,7 +3092,7 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/ollvm/" >anti-ollvm</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/docker/" >docker</a>
         </li>
     
     
@@ -3099,7 +3102,7 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/ollvm/" >anti-ollvm</a>
         </li>
     
     
@@ -3109,7 +3112,7 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
         </li>
     
     
@@ -3119,7 +3122,7 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
         </li>
     
     
@@ -3129,17 +3132,7 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/redhat/" >redhat-re1</a>
         </li>
     
     
@@ -3149,7 +3142,17 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
         </li>
     
     
@@ -3159,7 +3162,7 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
         </li>
     
     
@@ -3169,7 +3172,7 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
         </li>
     
     
@@ -3179,7 +3182,17 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/docker/" >docker</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/homuranote/" >Homuranote</a>
         </li>
     
     
@@ -3189,7 +3202,7 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
         </li>
     
     
@@ -3199,7 +3212,7 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/pe-elf/" >pe-elf文件结构解析</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cff2016/" >jarvisoj-文件数据恢复</a>
         </li>
     
     
@@ -3219,7 +3232,7 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sudu/" >2017国赛re200 填数游戏</a>
         </li>
     
     
@@ -3229,17 +3242,7 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
         </li>
     
     
@@ -3249,12 +3252,22 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cff2016/" >jarvisoj-文件数据恢复</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/redhat/" >redhat-re1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/pe-elf/" >pe-elf文件结构解析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
         </li>
     
     
@@ -3279,22 +3292,22 @@ IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/homuranote/" >Homuranote</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
         </li>
     
     </div>
@@ -3337,11 +3350,11 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="RE"><span class="iconfont-archer">&#xe60a;</span>RE</span>
-    
         <span class="sidebar-category-name" data-categories="二进制"><span class="iconfont-archer">&#xe60a;</span>二进制</span>
     
         <span class="sidebar-category-name" data-categories="WEB"><span class="iconfont-archer">&#xe60a;</span>WEB</span>
+    
+        <span class="sidebar-category-name" data-categories="RE"><span class="iconfont-archer">&#xe60a;</span>RE</span>
     
         <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
     

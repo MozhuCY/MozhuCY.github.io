@@ -346,6 +346,29 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/1970/01/01/juckcode/" >
+            
+                <span>上海市ctf-re200-juckcode</span>
+        </a>
+        <div class="abstract-content">
+            正向解析juckcode 一个二进制文件和一份加密后的flag,显然逆算法,扔进IDA,各种分析不出函数…怎么回事呢用OD打开查看下,有好多段可疑的汇编指令大概是pushad jmp 大量无用代码 popad 花指令get,写脚本全部nop掉,用IDA打开处理好的文件,发现,居然还是不能F5,又发现了一段异常代码,两个jmp一个E8,nop掉E8居然就可以了,OD启动,提取目标的一段字节码. 123456789101112131415 b = '\x60\xE9\x31\x00\x00\x00\x8B\xEC\x6A\xFF\x68\x33\x22\x11\x00\x68\x11\x22...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/1970/01/01/level6/" >
             
                 <span>0ctf - freenote</span>
@@ -402,16 +425,22 @@ IDA打开,查看主函数,很简短
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/WHCTF2017 逆向签到题/" >
+        <a class="abstract-title" href = "/1970/01/01/babyheap/" >
             
-                <span>CTF二进制总结0x01</span>
+                <span>babyheap</span>
         </a>
         <div class="abstract-content">
-            发现了一道大赛的签到题，来试一试下水&lt;/br&gt;大赛签到题次，ELF文件，扔进IDA，主函数逻辑很清晰，主要就是两个判断，一个是输入值的长度为14，二是将input传入一个judge函数，做判断。需要满足两个条件，由IDA反编译的结果来看，judge函数分析失败。这就很难受了，用gdb调试一波试试，顺便复习一下gdb操作。&lt;/br&gt;
+            网鼎杯第一场
+程序功能:新建,编辑,打印,free
+free处没有置空指针,导致可以uaf
+malloc每次都是0x20的fastbin,编辑功能可以使用3次
+自写了readn函数,没有溢出点
+edit可以修改free后堆块的bk,fd
 
-file BabyRE&lt;/br&gt;set disassembly-flavor intel&lt;/br&gt;b *0x400660&lt;/br&gt;r&lt;/br&gt;disassem /m
+12345Arch:     amd64-64-littleRELRO:    Full RELROStack:    Canary foundNX:       NX enabledPIE:      No PIE (0x400000)
 
-得到如下结果123...
+Full RELRO导致got表不可写,所以只能劫持malloc_hook或者freehook来劫持程序的流程
+...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -429,22 +458,15 @@ file BabyRE&lt;/br&gt;set disassembly-flavor intel&lt;/br&gt;b *0x400660&lt;/br&
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/babyheap/" >
+        <a class="abstract-title" href = "/1970/01/01/cff2016/" >
             
-                <span>babyheap</span>
+                <span>jarvisoj-文件数据恢复</span>
         </a>
         <div class="abstract-content">
-            网鼎杯第一场
-程序功能:新建,编辑,打印,free
-free处没有置空指针,导致可以uaf
-malloc每次都是0x20的fastbin,编辑功能可以使用3次
-自写了readn函数,没有溢出点
-edit可以修改free后堆块的bk,fd
-
-12345Arch:     amd64-64-littleRELRO:    Full RELROStack:    Canary foundNX:       NX enabledPIE:      No PIE (0x400000)
-
-Full RELRO导致got表不可写,所以只能劫持malloc_hook或者freehook来劫持程序的流程
-...
+            新年第一篇hhhhhh
+mfc好像已经是过气了的东西了…不过这个题可以看出来是一个类似于文件解析的算法,可以拿来做做看
+resourcehacker确定对话框的id,配合xspy定位函数位置,找到函数sub_402570,CWnd::GetDlgItemTextW(v1, 1002, &amp;FileName, 256)获取的是第一个对话框的路径,然后进行对此文件路径下文件的读取
+下面CWnd::GetDlgItemTextW(v1, 1003, &amp;pwd, 256);是对于pwd的读取,在这两行读取文件的代码之间,存在许多读取4字节并且进行验证的操作,怀疑是ctf文件头的验证...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -520,15 +542,15 @@ python常常被当做是一门解释型语言,但是实际上,Python的底层和
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/cff2016/" >
+        <a class="abstract-title" href = "/1970/01/01/docker/" >
             
-                <span>jarvisoj-文件数据恢复</span>
+                <span>docker</span>
         </a>
         <div class="abstract-content">
-            新年第一篇hhhhhh
-mfc好像已经是过气了的东西了…不过这个题可以看出来是一个类似于文件解析的算法,可以拿来做做看
-resourcehacker确定对话框的id,配合xspy定位函数位置,找到函数sub_402570,CWnd::GetDlgItemTextW(v1, 1002, &amp;FileName, 256)获取的是第一个对话框的路径,然后进行对此文件路径下文件的读取
-下面CWnd::GetDlgItemTextW(v1, 1003, &amp;pwd, 256);是对于pwd的读取,在这两行读取文件的代码之间,存在许多读取4字节并且进行验证的操作,怀疑是ctf文件头的验证...
+            写好dockerfile,xinetd启动docker:docker build -t name .docker run -d -p port:port -h “name” —name=”name” name
+docker ps,列出所有正在运行的实例docker images,列出所有镜像
+docker rm -f name 删除实例docker rmi iddocker exec -it id commanddocker cp id:/ /
+
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -573,17 +595,20 @@ malloc执行的开始
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/sudu/" >
+        <a class="abstract-title" href = "/1970/01/01/suyuan/" >
             
-                <span>2017国赛re200 填数游戏</span>
+                <span>2017国赛-re200-溯源</span>
         </a>
         <div class="abstract-content">
-            一个数独游戏
-这题去年我们的新生赛的re300,简直是一样了,不过这是用C++写的,对于我这个没怎么学过的C++的还是有些难受的…
-sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申请324字节长度的空间,当时还在想…数独还有18*18的吗… 后来分析一下得知woc,原来是4*9*9,因为int型在32位是4个字节的原因.
-接下来的函数如下
+            初探溯源
+查壳, 未发现壳, 拖入IDA分析, 定位主函数, 查看大体逻辑, do-while循环套了一个小的do-while循环.
+然后是验证函数, 函数要求一个数组内从0-100递增,而对于此数组赋值过程在do-while循环中.
+然后是打印success/fail的函数,但是此处IDA分析错误,差看汇编可知,其实是在验证函数中,不符合条件直接jnz到fail的赋值,随后调回打印函数
 
-12345678910111213141516int __userpurge Sudu::set_data@&lt;eax&gt;(int a1@&lt;ecx&gt;, Sudu *this, int (*a3)[9...
+赋值函数分析
+首先是输入函数,读取字符串,随后将字符串和另一个指针传入一个函数.
+
+
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2735,9 +2760,16 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 69
+        Total : 70
         </div>
         <!-- search  -->
         
@@ -2764,6 +2796,11 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href= "/2020/02/24/DefconQuals-2018-EC3/" >DefconQuals-2018-EC3</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2864,12 +2901,12 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sudu/" >2017国赛re200 填数游戏</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
         </li>
     
     
@@ -2879,7 +2916,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
         </li>
     
     
@@ -2889,7 +2926,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
         </li>
     
     
@@ -2904,17 +2941,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
         </li>
     
     
@@ -2924,7 +2951,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/ollvm/" >anti-ollvm</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/docker/" >docker</a>
         </li>
     
     
@@ -2934,7 +2961,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/ollvm/" >anti-ollvm</a>
         </li>
     
     
@@ -2944,7 +2971,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
         </li>
     
     
@@ -2954,7 +2981,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
         </li>
     
     
@@ -2964,17 +2991,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/redhat/" >redhat-re1</a>
         </li>
     
     
@@ -2984,7 +3001,17 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
         </li>
     
     
@@ -2994,7 +3021,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
         </li>
     
     
@@ -3004,7 +3031,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
         </li>
     
     
@@ -3014,7 +3041,17 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/docker/" >docker</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/homuranote/" >Homuranote</a>
         </li>
     
     
@@ -3024,7 +3061,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
         </li>
     
     
@@ -3034,7 +3071,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/pe-elf/" >pe-elf文件结构解析</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cff2016/" >jarvisoj-文件数据恢复</a>
         </li>
     
     
@@ -3054,7 +3091,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sudu/" >2017国赛re200 填数游戏</a>
         </li>
     
     
@@ -3064,17 +3101,7 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
         </li>
     
     
@@ -3084,12 +3111,22 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cff2016/" >jarvisoj-文件数据恢复</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/redhat/" >redhat-re1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/pe-elf/" >pe-elf文件结构解析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
         </li>
     
     
@@ -3114,22 +3151,22 @@ sudu类里定义了一些函数,依次调用的是memset(a,0,324),也就是申�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/homuranote/" >Homuranote</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
         </li>
     
     </div>
@@ -3172,11 +3209,11 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="RE"><span class="iconfont-archer">&#xe60a;</span>RE</span>
-    
         <span class="sidebar-category-name" data-categories="二进制"><span class="iconfont-archer">&#xe60a;</span>二进制</span>
     
         <span class="sidebar-category-name" data-categories="WEB"><span class="iconfont-archer">&#xe60a;</span>WEB</span>
+    
+        <span class="sidebar-category-name" data-categories="RE"><span class="iconfont-archer">&#xe60a;</span>RE</span>
     
         <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
     

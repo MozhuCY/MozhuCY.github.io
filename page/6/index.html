@@ -416,17 +416,14 @@ cdexl主要在C语言中使用的方式,调用者负责处理堆栈.
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/angr/" >
+        <a class="abstract-title" href = "/1970/01/01/汇编入门/" >
             
-                <span>符号执行</span>
+                <span>CTF二进制总结0X03</span>
         </a>
         <div class="abstract-content">
-            angr
-首先导入from angr import *
-将程序加载进来p = Process(“filename”,auto_load_libs=False)
-可以理解将程序变成一个特殊的状态,这样默认函数默认入口点,如果在()内加入addr=0xxxxxx,会指定另一个入口点s = p.factory.entry_state()
-就有一些类似我们的打log时复现代码那一环,设定一个模拟器 smt = sm=p.factory.simulation_manager(s)
-sm就是之前载入文件,设定入口点,建立模拟对象,现在就可以explore来开始符号执行,后面是约束条件r = sm.e...
+            123456789#include&lt;stdio.h&gt;int a = 0;                  //.dataint b;                      //.bssconst double PI=3.14159f;   //.rodataint main()&#123;    int c;                  //stack    char *d = malloc(16)    //heap    return 0;&#125;
+for循环一般都是jmp到最底端，然后再跳回来，switch case语句一般都是连续好几个的cmp jmp。
+
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -444,14 +441,17 @@ sm就是之前载入文件,设定入口点,建立模拟对象,现在就可以exp
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/汇编入门/" >
+        <a class="abstract-title" href = "/1970/01/01/angr/" >
             
-                <span>CTF二进制总结0X03</span>
+                <span>符号执行</span>
         </a>
         <div class="abstract-content">
-            123456789#include&lt;stdio.h&gt;int a = 0;                  //.dataint b;                      //.bssconst double PI=3.14159f;   //.rodataint main()&#123;    int c;                  //stack    char *d = malloc(16)    //heap    return 0;&#125;
-for循环一般都是jmp到最底端，然后再跳回来，switch case语句一般都是连续好几个的cmp jmp。
-
+            angr
+首先导入from angr import *
+将程序加载进来p = Process(“filename”,auto_load_libs=False)
+可以理解将程序变成一个特殊的状态,这样默认函数默认入口点,如果在()内加入addr=0xxxxxx,会指定另一个入口点s = p.factory.entry_state()
+就有一些类似我们的打log时复现代码那一环,设定一个模拟器 smt = sm=p.factory.simulation_manager(s)
+sm就是之前载入文件,设定入口点,建立模拟对象,现在就可以explore来开始符号执行,后面是约束条件r = sm.e...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -561,6 +561,33 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/1970/01/01/WHCTF2017 逆向签到题/" >
+            
+                <span>CTF二进制总结0x01</span>
+        </a>
+        <div class="abstract-content">
+            发现了一道大赛的签到题，来试一试下水&lt;/br&gt;大赛签到题次，ELF文件，扔进IDA，主函数逻辑很清晰，主要就是两个判断，一个是输入值的长度为14，二是将input传入一个judge函数，做判断。需要满足两个条件，由IDA反编译的结果来看，judge函数分析失败。这就很难受了，用gdb调试一波试试，顺便复习一下gdb操作。&lt;/br&gt;
+
+file BabyRE&lt;/br&gt;set disassembly-flavor intel&lt;/br&gt;b *0x400660&lt;/br&gt;r&lt;/br&gt;disassem /m
+
+得到如下结果123...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/1970/01/01/byb/" >
             
                 <span>百越杯逆向全解wp</span>
@@ -597,29 +624,6 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
 首先从house of orange说起，这一般是接触io_file最早的时候，一般hoo的题目中都是没有free的，所以只能一头malloc下去
 这个时候只需要一个堆溢出就够了，覆盖topchunk的size，简单都是只留第24bit位，剩余高位变成0，当然这样也直接绕过了关于top_chunk的一些检测，如内存页对齐，即加起来必须是0x1000的整数倍，size大于MINSIZE，prev_inuse必须为1
 绕过这些检测以后，因为topchunk的size小于所申请的size，就可以触发sysmalloc中的_init_fr...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/juckcode/" >
-            
-                <span>上海市ctf-re200-juckcode</span>
-        </a>
-        <div class="abstract-content">
-            正向解析juckcode 一个二进制文件和一份加密后的flag,显然逆算法,扔进IDA,各种分析不出函数…怎么回事呢用OD打开查看下,有好多段可疑的汇编指令大概是pushad jmp 大量无用代码 popad 花指令get,写脚本全部nop掉,用IDA打开处理好的文件,发现,居然还是不能F5,又发现了一段异常代码,两个jmp一个E8,nop掉E8居然就可以了,OD启动,提取目标的一段字节码. 123456789101112131415 b = '\x60\xE9\x31\x00\x00\x00\x8B\xEC\x6A\xFF\x68\x33\x22\x11\x00\x68\x11\x22...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2868,9 +2872,16 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 69
+        Total : 70
         </div>
         <!-- search  -->
         
@@ -2897,6 +2908,11 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href= "/2020/02/24/DefconQuals-2018-EC3/" >DefconQuals-2018-EC3</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2997,12 +3013,12 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sudu/" >2017国赛re200 填数游戏</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
         </li>
     
     
@@ -3012,7 +3028,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
         </li>
     
     
@@ -3022,7 +3038,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca-final/" >X-NUCA 2018个人赛/决赛PWN</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
         </li>
     
     
@@ -3037,17 +3053,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/xnuca/" >X-NUCA逆向部分题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
         </li>
     
     
@@ -3057,7 +3063,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/ollvm/" >anti-ollvm</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/docker/" >docker</a>
         </li>
     
     
@@ -3067,7 +3073,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/ollvm/" >anti-ollvm</a>
         </li>
     
     
@@ -3077,7 +3083,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/babyheap/" >babyheap</a>
         </li>
     
     
@@ -3087,7 +3093,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
         </li>
     
     
@@ -3097,17 +3103,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RE/" >2018国赛逆向</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/redhat/" >redhat-re1</a>
         </li>
     
     
@@ -3117,7 +3113,17 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/RingZer0 Authenticator/" >RingZer0 Authenticator</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
         </li>
     
     
@@ -3127,7 +3133,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
         </li>
     
     
@@ -3137,7 +3143,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
         </li>
     
     
@@ -3147,7 +3153,17 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/docker/" >docker</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/PE文件头/" >PE文件格式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/homuranote/" >Homuranote</a>
         </li>
     
     
@@ -3157,7 +3173,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/javascript0x1/" >javascript 0x00</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/kctf2019-q1/" >kctf2019-晋级赛Q1</a>
         </li>
     
     
@@ -3167,7 +3183,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/pe-elf/" >pe-elf文件结构解析</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cff2016/" >jarvisoj-文件数据恢复</a>
         </li>
     
     
@@ -3187,7 +3203,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--replace/" >初试程序自修改</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sudu/" >2017国赛re200 填数游戏</a>
         </li>
     
     
@@ -3197,17 +3213,7 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/tls/" >hctf2018-部分逆向wp(Spiral是真的做不来)</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/NUST/" >南理校赛二进制wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows-c++/" >windows</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wcyvm/" >WcyVM</a>
         </li>
     
     
@@ -3217,12 +3223,22 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/cff2016/" >jarvisoj-文件数据恢复</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/windows/" >windows反调试总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/redhat/" >redhat-re1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/DLL注入0x1/" >初试windows消息钩取</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/pe-elf/" >pe-elf文件结构解析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/angr/" >符号执行</a>
         </li>
     
     
@@ -3247,22 +3263,22 @@ ida打开后随便定位了一个字符串,随后定位到一个函数,但是不
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/suyuan/" >2017国赛-re200-溯源</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/sxqvm/" >SxqVM v0.0.1</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/WHCTF2017 逆向签到题/" >CTF二进制总结0x01</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/qctf-mips/" >qctf-mips</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/homuranote/" >Homuranote</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/iscc/" >ISCC逆向wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/wdctfpwn0/" >网鼎杯半决赛pwn1</a>
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/1970/01/01/Reversing.kr--position&hateintel/" >Position&hateintel&Wrong byte!</a>
         </li>
     
     </div>
@@ -3305,11 +3321,11 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="RE"><span class="iconfont-archer">&#xe60a;</span>RE</span>
-    
         <span class="sidebar-category-name" data-categories="二进制"><span class="iconfont-archer">&#xe60a;</span>二进制</span>
     
         <span class="sidebar-category-name" data-categories="WEB"><span class="iconfont-archer">&#xe60a;</span>WEB</span>
+    
+        <span class="sidebar-category-name" data-categories="RE"><span class="iconfont-archer">&#xe60a;</span>RE</span>
     
         <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
     
