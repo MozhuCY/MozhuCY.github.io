@@ -104,5 +104,236 @@ struct __attribute__((aligned(16))) HitbState
   void (*enc)(char *, unsigned int);
   uint64_t dma_mask;
 };
+
+struct dma_state
+{
+  dma_addr_t src;
+  dma_addr_t dst;
+  dma_addr_t cnt;
+  dma_addr_t cmd;
+};
+
 ```
+
+```C
+uint64_t __fastcall hitb_mmio_read(HitbState *opaque, hwaddr addr, unsigned int size)
+{
+  uint64_t result; // rax
+  uint64_t val; // ST08_8
+
+  result = -1LL;
+  if ( size == 4 )
+  {
+    if ( addr == 128 )
+      return opaque->dma.src;
+    if ( addr > 0x80 )
+    {
+      if ( addr == 140 )
+        return *(&opaque->dma.dst + 4);
+      if ( addr <= 0x8C )
+      {
+        if ( addr == 132 )
+          return *(&opaque->dma.src + 4);
+        if ( addr == 136 )
+          return opaque->dma.dst;
+      }
+      else
+      {
+        if ( addr == 144 )
+          return opaque->dma.cnt;
+        if ( addr == 152 )
+          return opaque->dma.cmd;
+      }
+    }
+    else
+    {
+      if ( addr == 8 )
+      {
+        qemu_mutex_lock(&opaque->thr_mutex);
+        val = opaque->fact;
+        qemu_mutex_unlock(&opaque->thr_mutex);
+        return val;
+      }
+      if ( addr <= 8 )
+      {
+        result = 0x10000EDLL;
+        if ( !addr )
+          return result;
+        if ( addr == 4 )
+          return opaque->addr4;
+      }
+      else
+      {
+        if ( addr == 32 )
+          return opaque->status;
+        if ( addr == 36 )
+          return opaque->irq_status;
+      }
+    }
+    result = -1LL;
+  }
+  return result;
+}
+```
+
+从hitb_mmio_read中可以看到提供了许多功能,分别是读取dma.src,dma.dst,dma.cnt,dma.cmd,fact,addr4,status,irq_status,没有什么可以控制的参数,先跳过
+
+```C
+void __fastcall hitb_mmio_write(HitbState *opaque, hwaddr addr, uint64_t val, unsigned int size)
+{
+  uint32_t v4; // er13
+  int v5; // edx
+  bool v6; // zf
+  int64_t v7; // rax
+
+  if ( (addr > 0x7F || size == 4) && (!((size - 4) & 0xFFFFFFFB) || addr <= 0x7F) )
+  {
+    if ( addr == 128 )
+    {
+      if ( !(opaque->dma.cmd & 1) )
+        opaque->dma.src = val;
+    }
+    else
+    {
+      v4 = val;
+      if ( addr > 0x80 )
+      {
+        if ( addr == 140 )
+        {
+          if ( !(opaque->dma.cmd & 1) )
+            *(&opaque->dma.dst + 4) = val;
+        }
+        else if ( addr > 0x8C )
+        {
+          if ( addr == 144 )
+          {
+            if ( !(opaque->dma.cmd & 1) )
+              opaque->dma.cnt = val;
+          }
+          else if ( addr == 152 && val & 1 && !(opaque->dma.cmd & 1) )
+          {
+            opaque->dma.cmd = val;
+            v7 = qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL_0);
+            timer_mod(&opaque->dma_timer, (((0x431BDE82D7B634DBLL * v7) >> 64) >> 18) - (v7 >> 63) + 100);
+          }
+        }
+        else if ( addr == 132 )
+        {
+          if ( !(opaque->dma.cmd & 1) )
+            *(&opaque->dma.src + 4) = val;
+        }
+        else if ( addr == 136 && !(opaque->dma.cmd & 1) )
+        {
+          opaque->dma.dst = val;
+        }
+      }
+      else if ( addr == 32 )
+      {
+        if ( val & 0x80 )
+          _InterlockedOr(&opaque->status, 0x80u);
+        else
+          _InterlockedAnd(&opaque->status, 0xFFFFFF7F);
+      }
+      else if ( addr > 0x20 )
+      {
+        if ( addr == 96 )
+        {
+          v6 = (val | opaque->irq_status) == 0;
+          opaque->irq_status |= val;
+          if ( !v6 )
+            hitb_raise_irq(opaque, 0x60u);
+        }
+        else if ( addr == 100 )
+        {
+          v5 = ~val;
+          v6 = (v5 & opaque->irq_status) == 0;
+          opaque->irq_status &= v5;
+          if ( v6 && !msi_enabled(&opaque->pdev) )
+            pci_set_irq(&opaque->pdev, 0);
+        }
+      }
+      else if ( addr == 4 )
+      {
+        opaque->addr4 = ~val;
+      }
+      else if ( addr == 8 && !(opaque->status & 1) )
+      {
+        qemu_mutex_lock(&opaque->thr_mutex);
+        opaque->fact = v4;
+        _InterlockedOr(&opaque->status, 1u);
+        qemu_cond_signal(&opaque->thr_cond);
+        qemu_mutex_unlock(&opaque->thr_mutex);
+      }
+    }
+  }
+}
+```
+
+hitb_mmio_write是写入函数,这里的东西有点多.前面约束了size只能为4.后面的一些东西也是没有漏洞的
+
+```C
+void __fastcall hitb_dma_timer(HitbState *opaque)
+{
+  dma_addr_t v1; // rax
+  __int64 v2; // rdx
+  uint8_t *v3; // rsi
+  dma_addr_t v4; // rax
+  dma_addr_t v5; // rdx
+  uint8_t *v6; // rbp
+  uint8_t *v7; // rbp
+
+  v1 = opaque->dma.cmd;
+  if ( v1 & 1 )
+  {
+    if ( v1 & 2 )
+    {
+      v2 = (LODWORD(opaque->dma.src) - 0x40000);
+      if ( v1 & 4 )
+      {
+        v7 = &opaque->dma_buf[v2];
+        (opaque->enc)(v7, LODWORD(opaque->dma.cnt));
+        v3 = v7;
+      }
+      else
+      {
+        v3 = &opaque->dma_buf[v2];
+      }
+      cpu_physical_memory_rw(opaque->dma.dst, v3, opaque->dma.cnt, 1);
+      v4 = opaque->dma.cmd;
+      v5 = opaque->dma.cmd & 4;
+    }
+    else
+    {
+      v6 = &opaque[-36] + opaque->dma.dst - 2824;
+      LODWORD(v3) = opaque + opaque->dma.dst - 0x40000 + 3000;
+      cpu_physical_memory_rw(opaque->dma.src, v6, opaque->dma.cnt, 0);
+      v4 = opaque->dma.cmd;
+      v5 = opaque->dma.cmd & 4;
+      if ( opaque->dma.cmd & 4 )
+      {
+        v3 = LODWORD(opaque->dma.cnt);
+        (opaque->enc)(v6, v3, v5);
+        v4 = opaque->dma.cmd;
+        v5 = opaque->dma.cmd & 4;
+      }
+    }
+    opaque->dma.cmd = v4 & 0xFFFFFFFFFFFFFFFELL;
+    if ( v5 )
+    {
+      opaque->irq_status |= 0x100u;
+      hitb_raise_irq(opaque, v3);
+    }
+  }
+}
+```
+
+hitb_dma_timer函数中,有一处还是很明显的,前面在计算v2 = (LODWORD(opaque->dma.src) - 0x40000);,要注意这个dma.src是可以由我们控制的
+
+在cmd=0b011的时候,会调用cpu_physical_memory_rw,将v3,也就是opaque->dma.src - 0x40000处的cnt个数据写到dst处.这时应该就可以造成一个越界读了,可以用来leak.只需要提前设置好src,dst,cnt的值.就可以越界读buf了
+
+下面的同理,可以控制进行任意地址写.可以改写enc函数的函数指针,在buf事先放好cmd,然后最后进行一个劫持控制流.
+
+
+
+# 调试及exp编写
 
