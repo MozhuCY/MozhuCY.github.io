@@ -199,7 +199,7 @@ void new(int index,int size)
 
 void del(int index)
 {
-    mmio_write((1 << 20)|(index << 16),size);
+    mmio_write((1 << 20)|(index << 16),0);
 }
 
 void w(int index,int offset,int val)
