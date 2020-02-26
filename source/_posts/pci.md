@@ -1,12 +1,12 @@
 ---
-title: pci
+title: PCI设备
 date: 2020-02-25 18:40:34
 tags:
 ---
 
 # PCI设备
 
-PCI是Peripheral Component Interconnect(外设部件互连标准)的缩写，它是目前个人电脑中使用最为广泛的接口，几乎所有的主板产品上都带有这种插槽。一般来说像网卡等设备都属于pci设备,在各种虚拟化平台中,对于PCI设备的模拟也是必不可少的.http://oenhan.com/kvm-src-1
+PCI是Peripheral Component Interconnect(外设部件互连标准)的缩写，它是目前个人电脑中使用最为广泛的接口，几乎所有的主板产品上都带有这种插槽。一般来说像网卡等设备都属于pci设备,在各种虚拟化平台中,对于PCI设备的模拟也是必不可少的.
 
 # QEMU中的pci设备
 
