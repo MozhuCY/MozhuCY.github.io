@@ -385,12 +385,12 @@ anti ollvm
     <article class="index-post">
         <a class="abstract-title" href = "/2020/02/25/pci/" >
             
-                <span>pci</span>
+                <span>PCI设备</span>
         </a>
         <div class="abstract-content">
-            PCI设备PCI是Peripheral Component Interconnect(外设部件互连标准)的缩写，它是目前个人电脑中使用最为广泛的接口，几乎所有的主板产品上都带有这种插槽。一般来说像网卡等设备都属于pci设备,在各种虚拟化平台中,对于PCI设备的模拟也是必不可少的.http://oenhan.com/kvm-src-1
+            PCI设备PCI是Peripheral Component Interconnect(外设部件互连标准)的缩写，它是目前个人电脑中使用最为广泛的接口，几乎所有的主板产品上都带有这种插槽。一般来说像网卡等设备都属于pci设备,在各种虚拟化平台中,对于PCI设备的模拟也是必不可少的.
 QEMU中的pci设备就拿rtl8139网卡举例,来分析pci设备的申请和初始化.QOM
-123456789101112131415161718192021222324252627282930313233343536373839404142434445sta...
+123456789101112131415161718192021222324252627282930313233343536373839404142434445static void rtl8139_instance_i...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2855,7 +2855,7 @@ House ...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/25</span><a class="archive-post-title" href= "/2020/02/25/pci/" >pci</a>
+            <span class="archive-post-date">02/25</span><a class="archive-post-title" href= "/2020/02/25/pci/" >PCI设备</a>
         </li>
     
     
@@ -3328,7 +3328,22 @@ jsonContent:
     </div>
     <!-- async load share.js -->
      
-    </body>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
 </html>
 
 

@@ -432,8 +432,8 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2020/02/25/pci/" title= "pci">
-                    <div class="nextTitle">pci</div>
+                <a href= "/2020/02/25/pci/" title= "PCI设备">
+                    <div class="nextTitle">PCI设备</div>
                 </a>
             
         </li>
@@ -2685,7 +2685,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/25</span><a class="archive-post-title" href= "/2020/02/25/pci/" >pci</a>
+            <span class="archive-post-date">02/25</span><a class="archive-post-title" href= "/2020/02/25/pci/" >PCI设备</a>
         </li>
     
     
@@ -3160,7 +3160,22 @@ jsonContent:
     
         <script src="/scripts/share.js" async></script>    
      
-    </body>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
 </html>
 
 
