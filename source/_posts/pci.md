@@ -634,3 +634,37 @@ static void pci_qdev_realize(DeviceState *qdev, Error **errp)
 ![](pci/4.png)
 
 到了这里执行pci_rtl8139_realize,在执行realize之前,还有一个pci_dev的do_pci_register_device,应该是把设备注册(插)到bus总线上,这个函数后续有时间还是需要分析一下.函数内部涉及到了大量的内存操作函数.
+
+
+
+总体流程
+
+![](pci/5.png)
+
+前面主要还是参数解析的过程,其实最主要的部分应该是在pci_qdev_realize函数里面.
+
+
+
+```C
+static void pci_qdev_realize(DeviceState *qdev, Error **errp)
+{
+    PCIDevice *pci_dev = (PCIDevice *)qdev;
+    PCIDeviceClass *pc = PCI_DEVICE_GET_CLASS(pci_dev);
+    Error *local_err = NULL;
+    PCIBus *bus;
+    bool is_default_rom;
+	...
+    bus = PCI_BUS(qdev_get_parent_bus(qdev));
+    pci_dev = do_pci_register_device(pci_dev, bus,
+                                     object_get_typename(OBJECT(qdev)),
+                                     pci_dev->devfn, errp);
+    if (pci_dev == NULL)
+        return;
+
+    if (pc->realize) {
+        pc->realize(pci_dev, &local_err);
+   	...
+}
+```
+
+在这里可以看到操作了总线,在do_pci_register_device中,将设备加入到了PCIbus中的一个设备数组中,完成注册
