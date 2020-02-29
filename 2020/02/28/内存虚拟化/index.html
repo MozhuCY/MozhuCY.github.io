@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.7k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">2.5k</span>阅读时长: <span class="post-count reading-time">8 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -428,7 +428,8 @@ height:50vh;
 <p><img src="/2020/02/28/内存虚拟化/5.png" alt></p>
 <p>涉及到的寄存器有GDTR,CR3,CR0,LDTR.</p>
 <p>对于GDT和LDT的不同之处,可以理解为LDT其实就是一个二级Description Table,LDTR其实存着的东西和GDT不同,类似段寄存器,LDTR的目的是选择出GDT中的LDT的段描述符,然后计算LDT的地址,再由段寄存器计算</p>
-<p><img src="/2020/02/28/内存虚拟化/6.png" alt></p>
+<p><img src="/2020/02/28/内存虚拟化/6.png" style="zoom:50%;"></p>
+<p>说完分段机制的实现,再来说一下分页机制的实现,分页机制是在线性地址转换到物理地址时所使用的,这里涉及到了一个CPU中的单元MMU(内存管理单元),MMU由两部分组成,分别是TLB和table walk unit,TLB是一个缓存区,为了使得内存转换的效率更高,在地址转换的时候,需要先访问这个缓存区,由于TLB处在CPU中,所以查TLB的速度是非常的快的,这时如果命中内存,则会检查权限,决定是否报出异常,或者返回物理地址,如果未命中,则会启动table walk uint来便利页表,找到后更新TLB,并且检查权限,返回.</p>
 <p>再来说一下mmap,mmap这个系统调用应该也是比较常见的,它一般被用来从文件中映射到一段内存,用户对内存的操作就等于对文件的操作,一般来说,mmap的性能是高于read/write的,因为他们的底层机制是不同的.</p>
 <p>在mmap一段内存时,系统做的仅仅是申请了一段对应大小的虚拟内存,并没有将其与物理内存相关联,当我们第一次操作内存的时候,MMU计算后会访问到物理内存,也就是物理页,由于是第一次访问,所以没有进行初始化,会发生缺页中断,然后转到内核处理,这时系统才会真的把文件内容加载到物理内存中</p>
 <p>而read/write,其实是对于文件数据进行了两次拷贝,第一次是从文件拷贝到内核的缓冲区,第二次是拷贝到用户态,比mmap多了一次,所以效率自然就慢了.</p>
@@ -440,8 +441,19 @@ height:50vh;
 <p>无backend模式就是fd参数无效,并且mod为MAP_ANONYMOUS,此时的内存是由内核所创建的,将内存映射到一个匿名文件,这种情况同样需要我们手动去释放,不然也会触发OOM Killer.</p>
 <h1 id="QEMU的内存虚拟化"><a href="#QEMU的内存虚拟化" class="headerlink" title="QEMU的内存虚拟化"></a>QEMU的内存虚拟化</h1><p>在QEMU中,我们涉及到了许多个层面的地址</p>
 <p>虚拟机虚拟地址-&gt;虚拟机线性地址-&gt;虚拟机物理地址-&gt;宿主机虚拟地址-&gt;宿主机线性地址-&gt;宿主机物理地址</p>
-<p>或者说是<code>GVA-&gt;GPA-&gt;HVA-&gt;HPA</code>.可以看到光是地址之间的转换,就涉及到了很多步计算,那么在虚拟化的过程中,每一次的读写地址,都会涉及到巨大的转换量,造成性能的损耗.所以这时必须实现高效的内存虚拟化.</p>
-<p>…..先收工</p>
+<p>或者说是<code>GVA-&gt;GPA==&gt;HVA-&gt;HPA</code>.可以看到光是地址之间的转换,就涉及到了很多步计算,那么在虚拟化的过程中,每一次的读写地址,都会涉及到巨大的转换量,造成性能的损耗.所以这时必须实现高效的内存虚拟化.</p>
+<p>在QEMU中,对于内存虚拟化来说,具有两种解决方案:软件实现的影子页表和硬件辅助虚拟化的EPT/NPT技术</p>
+<h2 id="影子页表"><a href="#影子页表" class="headerlink" title="影子页表"></a>影子页表</h2><p>在上面的描述中,我们可以看到,若要实现地址之间的转换,存在着两次查页表的过程,这样的效率是非常的低的,那么影子页表技术,实际上就是将这个两次查询转换的过程,转换成一次查询的过程.</p>
+<p>他的实现原理是在转换的过程中,执行了一次GVA-&gt;GPA-&gt;HPA的时候,将GVA-&gt;HPA这个映射存放在一个新的表中,也就是我们所说的影子页表(<strong>sPT</strong> - shadow Page Table).在Guest的每一个进程中,每一个进程都会存在一个影子页表,VMM会将其对应的物理页面设置为写保护,在每次写表时,都会产生一个<strong>异常</strong>,这个异常由VMM<strong>拦截处理</strong>,重新计算映射,并且写回.但是由于这样的<strong>内存开销</strong>过于巨大,需要为<strong>每一个</strong>Guest中的进程维护一个影子页表,并且存在<strong>大量的中断处理</strong>,所以内存开销和CPU的负担都是很重的.</p>
+<p><img src="/2020/02/28/内存虚拟化/7.png" style="zoom: 33%;"></p>
+<p>具体来说,这个映射是由许多哈希表构成的,在Guest OS切换进程的时候,客户机操作系统会把待切换进程的页表基址载入 CR3,KVM截获指令,然后把用哈希表计算的下表寻找影子页表,然后填入CR3.</p>
+<p><img src="/2020/02/28/内存虚拟化/8.png" style="zoom: 33%;"></p>
+<h2 id="EPT-NPT硬件辅助内存虚拟化技术"><a href="#EPT-NPT硬件辅助内存虚拟化技术" class="headerlink" title="EPT/NPT硬件辅助内存虚拟化技术"></a>EPT/NPT硬件辅助内存虚拟化技术</h2><p>在intel和AMD的处理器中,引入了EPT和NPT机制,类似影子页表,其实也是实现了一个映射表,此时使用的是一个扩展的MMU,它可以在不由软件的控制下,查询两个对应的表.在发生缺页中断的时候,并不是交付给kvm进行内存重新的映射以及影子页表的读写,而是直接按照正常的缺页机制处理</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-kvm-mem/index.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/linux/l-cn-kvm-mem/index.html</a>  KVM 内存虚拟化及其实现</p>
+<p><a href="https://zhuanlan.zhihu.com/p/69828213" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/69828213</a> 虚拟化技术 - 内存虚拟化（一）</p>
+<p><a href="https://zhuanlan.zhihu.com/p/65298260" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/65298260</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/65348145" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/65348145</a></p>
+<p>&lt;<linux内核0.11完全注释>&gt;</linux内核0.11完全注释></p>
 
     </article>
     <!-- license  -->
@@ -450,7 +462,7 @@ height:50vh;
             <p>原文作者：<a href="http://mozhucy.cn">MozhuCY</a>
             <p>原文链接：<a href="http://mozhucy.cn/2020/02/28/内存虚拟化/">http://mozhucy.cn/2020/02/28/内存虚拟化/</a>
             <p>发表日期：<a href="http://mozhucy.cn/2020/02/28/内存虚拟化/">February 28th 2020, 6:21:40 pm</a>
-            <p>更新日期：<a href="http://mozhucy.cn/2020/02/28/内存虚拟化/">February 29th 2020, 12:26:43 pm</a>
+            <p>更新日期：<a href="http://mozhucy.cn/2020/02/28/内存虚拟化/">February 29th 2020, 8:13:42 pm</a>
             <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -587,7 +599,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#传统的内存管理"><span class="toc-number">1.</span> <span class="toc-text">传统的内存管理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#QEMU的内存虚拟化"><span class="toc-number">2.</span> <span class="toc-text">QEMU的内存虚拟化</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#传统的内存管理"><span class="toc-number">1.</span> <span class="toc-text">传统的内存管理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#QEMU的内存虚拟化"><span class="toc-number">2.</span> <span class="toc-text">QEMU的内存虚拟化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#影子页表"><span class="toc-number">2.1.</span> <span class="toc-text">影子页表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EPT-NPT硬件辅助内存虚拟化技术"><span class="toc-number">2.2.</span> <span class="toc-text">EPT/NPT硬件辅助内存虚拟化技术</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-number">3.</span> <span class="toc-text">参考</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
