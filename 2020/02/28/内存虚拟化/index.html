@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.2k</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.7k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -429,6 +429,15 @@ height:50vh;
 <p>涉及到的寄存器有GDTR,CR3,CR0,LDTR.</p>
 <p>对于GDT和LDT的不同之处,可以理解为LDT其实就是一个二级Description Table,LDTR其实存着的东西和GDT不同,类似段寄存器,LDTR的目的是选择出GDT中的LDT的段描述符,然后计算LDT的地址,再由段寄存器计算</p>
 <p><img src="/2020/02/28/内存虚拟化/6.png" alt></p>
+<p>再来说一下mmap,mmap这个系统调用应该也是比较常见的,它一般被用来从文件中映射到一段内存,用户对内存的操作就等于对文件的操作,一般来说,mmap的性能是高于read/write的,因为他们的底层机制是不同的.</p>
+<p>在mmap一段内存时,系统做的仅仅是申请了一段对应大小的虚拟内存,并没有将其与物理内存相关联,当我们第一次操作内存的时候,MMU计算后会访问到物理内存,也就是物理页,由于是第一次访问,所以没有进行初始化,会发生缺页中断,然后转到内核处理,这时系统才会真的把文件内容加载到物理内存中</p>
+<p>而read/write,其实是对于文件数据进行了两次拷贝,第一次是从文件拷贝到内核的缓冲区,第二次是拷贝到用户态,比mmap多了一次,所以效率自然就慢了.</p>
+<p>mmap还存在两种调用方式,分别是有backend和无backend,fd参数决定了这个,当fd是一个正常的文件描述符时,mmap处于有backend模式.此时对于mod来说,又分了两种情况</p>
+<ul>
+<li><strong>MAP_SHARED</strong>:此时对于文件的操作,实际上是对于进程间可见的,因为对于同一块物理内存,实际上是相同的</li>
+<li><strong>MAP_PRIVATE</strong>:此时是一个COW机制,在对于内存读写时,实际上操作的是一个复制到缓存中的副本,而不是实际上的物理地址中的数据,如果不主动释放这个区域,会造成内存耗尽,被OOM(Out Of Memory killer)机制杀死.并且最后的数据是不会写写回文件的.</li>
+</ul>
+<p>无backend模式就是fd参数无效,并且mod为MAP_ANONYMOUS,此时的内存是由内核所创建的,将内存映射到一个匿名文件,这种情况同样需要我们手动去释放,不然也会触发OOM Killer.</p>
 <h1 id="QEMU的内存虚拟化"><a href="#QEMU的内存虚拟化" class="headerlink" title="QEMU的内存虚拟化"></a>QEMU的内存虚拟化</h1><p>在QEMU中,我们涉及到了许多个层面的地址</p>
 <p>虚拟机虚拟地址-&gt;虚拟机线性地址-&gt;虚拟机物理地址-&gt;宿主机虚拟地址-&gt;宿主机线性地址-&gt;宿主机物理地址</p>
 <p>或者说是<code>GVA-&gt;GPA-&gt;HVA-&gt;HPA</code>.可以看到光是地址之间的转换,就涉及到了很多步计算,那么在虚拟化的过程中,每一次的读写地址,都会涉及到巨大的转换量,造成性能的损耗.所以这时必须实现高效的内存虚拟化.</p>
@@ -441,7 +450,7 @@ height:50vh;
             <p>原文作者：<a href="http://mozhucy.cn">MozhuCY</a>
             <p>原文链接：<a href="http://mozhucy.cn/2020/02/28/内存虚拟化/">http://mozhucy.cn/2020/02/28/内存虚拟化/</a>
             <p>发表日期：<a href="http://mozhucy.cn/2020/02/28/内存虚拟化/">February 28th 2020, 6:21:40 pm</a>
-            <p>更新日期：<a href="http://mozhucy.cn/2020/02/28/内存虚拟化/">February 28th 2020, 10:01:56 pm</a>
+            <p>更新日期：<a href="http://mozhucy.cn/2020/02/28/内存虚拟化/">February 29th 2020, 12:26:43 pm</a>
             <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
