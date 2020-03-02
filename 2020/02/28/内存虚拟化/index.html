@@ -449,7 +449,7 @@ height:50vh;
 <p>具体来说,这个映射是由许多哈希表构成的,在Guest OS切换进程的时候,客户机操作系统会把待切换进程的页表基址载入 CR3,KVM截获指令,然后把用哈希表计算的下表寻找影子页表,然后填入CR3.</p>
 <p><img src="/2020/02/28/内存虚拟化/8.png" style="zoom: 33%;"></p>
 <h2 id="EPT-NPT硬件辅助内存虚拟化技术"><a href="#EPT-NPT硬件辅助内存虚拟化技术" class="headerlink" title="EPT/NPT硬件辅助内存虚拟化技术"></a>EPT/NPT硬件辅助内存虚拟化技术</h2><p>在intel和AMD的处理器中,引入了EPT和NPT机制,类似影子页表,其实也是实现了一个映射表,此时使用的是一个扩展的MMU,它可以在不由软件的控制下,查询两个对应的表.在发生缺页中断的时候,并不是交付给kvm进行内存重新的映射以及影子页表的读写,而是直接按照正常的缺页机制处理</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-kvm-mem/index.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/linux/l-cn-kvm-mem/index.html</a>  KVM 内存虚拟化及其实现</p>
+<h1 id="QEMU的内存虚拟化的代码实现"><a href="#QEMU的内存虚拟化的代码实现" class="headerlink" title="QEMU的内存虚拟化的代码实现"></a>QEMU的内存虚拟化的代码实现</h1><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-kvm-mem/index.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/linux/l-cn-kvm-mem/index.html</a>  KVM 内存虚拟化及其实现</p>
 <p><a href="https://zhuanlan.zhihu.com/p/69828213" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/69828213</a> 虚拟化技术 - 内存虚拟化（一）</p>
 <p><a href="https://zhuanlan.zhihu.com/p/65298260" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/65298260</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/65348145" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/65348145</a></p>
@@ -462,7 +462,7 @@ height:50vh;
             <p>原文作者：<a href="http://mozhucy.cn">MozhuCY</a>
             <p>原文链接：<a href="http://mozhucy.cn/2020/02/28/内存虚拟化/">http://mozhucy.cn/2020/02/28/内存虚拟化/</a>
             <p>发表日期：<a href="http://mozhucy.cn/2020/02/28/内存虚拟化/">February 28th 2020, 6:21:40 pm</a>
-            <p>更新日期：<a href="http://mozhucy.cn/2020/02/28/内存虚拟化/">February 29th 2020, 8:13:42 pm</a>
+            <p>更新日期：<a href="http://mozhucy.cn/2020/02/28/内存虚拟化/">March 1st 2020, 9:13:01 pm</a>
             <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -599,7 +599,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#传统的内存管理"><span class="toc-number">1.</span> <span class="toc-text">传统的内存管理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#QEMU的内存虚拟化"><span class="toc-number">2.</span> <span class="toc-text">QEMU的内存虚拟化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#影子页表"><span class="toc-number">2.1.</span> <span class="toc-text">影子页表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EPT-NPT硬件辅助内存虚拟化技术"><span class="toc-number">2.2.</span> <span class="toc-text">EPT/NPT硬件辅助内存虚拟化技术</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-number">3.</span> <span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#传统的内存管理"><span class="toc-number">1.</span> <span class="toc-text">传统的内存管理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#QEMU的内存虚拟化"><span class="toc-number">2.</span> <span class="toc-text">QEMU的内存虚拟化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#影子页表"><span class="toc-number">2.1.</span> <span class="toc-text">影子页表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EPT-NPT硬件辅助内存虚拟化技术"><span class="toc-number">2.2.</span> <span class="toc-text">EPT/NPT硬件辅助内存虚拟化技术</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#QEMU的内存虚拟化的代码实现"><span class="toc-number">3.</span> <span class="toc-text">QEMU的内存虚拟化的代码实现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
