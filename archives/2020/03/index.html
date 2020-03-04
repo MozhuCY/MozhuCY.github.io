@@ -346,88 +346,33 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/iscc安卓逆向/" >
+        <a class="abstract-title" href = "/2020/03/03/socket/" >
             
-                <span>ISCC 决赛 android 1000</span>
+                <span>CVE-2019-6778</span>
         </a>
         <div class="abstract-content">
-            iscc决赛android 1000解题前序
-查了一下apk内部,可以拿到一个.dex,一个.jar和两个.so
-解.jar发现其实是一个加密的.dex,将dex转成jar以后发现checkflag的函数
-
-分析checkflag函数
-发现其中先定义了一个二维数组,然后将其传入一个enc函数,这个函数是反编译不出来的,应该是加了壳
-后分析libcore.so函数,发现其中有一个函数名以及函数的操作很可疑,函数首先将一串加密过的字符串还原,然后经过几个类似于取解密后字符串中的括号括起来的部分,按照函数原有逻辑顺序解一下,发现了主要check函数的名字,后面还接了地址(0x159CBC)
-根...
+            一切皆socketsocket起源于UNIX,可以看出来socket完美的贴合了UNIX一切皆文件的编程思想.我们可以对socket描述符进行ORW的操作,类似普通文件.
+在网络编程中,都是由socket实现的,在linux中,socket由上层的libc中的socket和内核中的socket两部分组成,当然为了和硬件交互,最后还需要控制网卡驱动,才是一个完整的体系.
+这里我们可以进行一个完整流程的追踪,直接断在tcp_emu上.然后查看调用栈,回溯一下
+1234567891011121314151617181920212223242526272829#0  tcp_emu (so=0x...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/03/03</span>
             </div>
             <!-- tags  -->
             
-        </div>
-    </article>
+            <div class= abstract-tags >
     
+        <a class="post-tag" href="javascript:void(0);" data-tags = "PWN">PWN</a>
     
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/python_pyc/" >
-            
-                <span>Python的一些底层原理</span>
-        </a>
-        <div class="abstract-content">
-            
-踩了太多次坑了,从前几个月的suctf开始,pyc文件逆向越来越多的出现在各种比赛中,正好借这个机会好好熟悉一下Python的底层
-Python的一些底层实现
-python常常被当做是一门解释型语言,但是实际上,Python的底层和java等语言非常相近,都是一门基于虚拟机的语言,当用户在命令行输入python test.py时,实际上进行的是一个编译的过程
-
-.pyc也就是Python编译好的文件,在一般情况下,编译出的字节码是存在于内存中的,当Python运行结束后,就会释放掉内存,或者写入.pyc文件,被我们看到,如果这个时候再次运行.py文件,python解释器会先在目录下中查...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/DLL注入0x1/" >
-            
-                <span>初试windows消息钩取</span>
-        </a>
-        <div class="abstract-content">
-            windows消息流:&lt;/br&gt;发生键盘输入事件时,WM_KEYDOWN消息添加到系统消息队列.&lt;/br&gt;系统判断哪个应用程序中发生了时间,然后从消息队列中取出消息,添加到相应应用程序的应用程序消息队列&lt;/br&gt;应用程序监视自身的[应用程序消息队列],发现新添加的WM_KEYDOWN,调用相应的事件处理程序处理.&lt;/br&gt;
-hook在OS消息队列与应用程序消息队列存在一条”钩链”,设置好键盘钩子后,钩子会比应用程序先看到程序相应消息,钩子还可以修改,拦截消息.
-SetWindowsHookEx()123456HHOOK SetWindows...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
+</div>
             
         </div>
     </article>
     
     <!-- paginator  -->
-    
-    <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/categories/RE/page/3/">&#60; PREV</a><a class="page-number" href="/categories/RE/">1</a><a class="page-number" href="/categories/RE/page/2/">2</a><a class="page-number" href="/categories/RE/page/3/">3</a><span class="page-number current">4</span>
-    </nav>
     
 </main>
             <!-- profile -->

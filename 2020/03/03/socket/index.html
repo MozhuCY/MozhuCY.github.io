@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>MozhuCY&#39;s blog</title>
+    <title>CVE-2019-6778 · MozhuCY&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >MozhuCY&#39;s blog.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">CVE-2019-6778</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>MozhuCY's blog.</a>
 </header>
@@ -220,24 +231,74 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            CVE-2019-6778
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "PWN">PWN</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">1.4k</span>阅读时长: <span class="post-count reading-time">7 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/03/03</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -338,97 +399,72 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/iscc安卓逆向/" >
-            
-                <span>ISCC 决赛 android 1000</span>
-        </a>
-        <div class="abstract-content">
-            iscc决赛android 1000解题前序
-查了一下apk内部,可以拿到一个.dex,一个.jar和两个.so
-解.jar发现其实是一个加密的.dex,将dex转成jar以后发现checkflag的函数
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="一切皆socket"><a href="#一切皆socket" class="headerlink" title="一切皆socket"></a>一切皆socket</h1><p>socket起源于UNIX,可以看出来socket完美的贴合了UNIX一切皆文件的编程思想.我们可以对socket描述符进行ORW的操作,类似普通文件.</p>
+<p>在网络编程中,都是由socket实现的,在linux中,socket由上层的libc中的socket和内核中的socket两部分组成,当然为了和硬件交互,最后还需要控制网卡驱动,才是一个完整的体系.</p>
+<p>这里我们可以进行一个完整流程的追踪,直接断在tcp_emu上.然后查看调用栈,回溯一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#0  tcp_emu (so=0x7fffe0193ed0, m=0x7fffe0180e20) at /home/mozhucy/qemu-3.0.0/slirp/tcp_subr.c:617</span><br><span class="line">#1  0x0000555555bfc697 in tcp_input (m=0x7fffe0180e20, iphlen=20, inso=0x0, af=2) at /home/mozhucy/qemu-3.0.0/slirp/tcp_input.c:572</span><br><span class="line">#2  0x0000555555bf35c7 in ip_input (m=0x7fffe0180e20) at /home/mozhucy/qemu-3.0.0/slirp/ip_input.c:206</span><br><span class="line">#3  0x0000555555bf6a4a in slirp_input (slirp=0x55555680c500, pkt=0x7fffe02f2700 &quot;RU\n&quot;, pkt_len=1334) at /home/mozhucy/qemu-3.0.0/slirp/slirp.c:874</span><br><span class="line">#4  0x0000555555bdf408 in net_slirp_receive (nc=0x55555680c350, buf=0x7fffe02f2700 &quot;RU\n&quot;, size=1334) at /home/mozhucy/qemu-3.0.0/net/slirp.c:121</span><br><span class="line">#5  0x0000555555bd5117 in nc_sendv_compat (nc=0x55555680c350, iov=0x7fffeedc3310, iovcnt=1, flags=0) at /home/mozhucy/qemu-3.0.0/net/net.c:701</span><br><span class="line">#6  0x0000555555bd51d9 in qemu_deliver_packet_iov (sender=0x5555578b7d90, flags=0, iov=0x7fffeedc3310, iovcnt=1, opaque=0x55555680c350) at /home/mozhucy/qemu-3.0.0/net/net.c:728</span><br><span class="line">#7  0x0000555555bd7b08 in qemu_net_queue_deliver (queue=0x55555680c290, sender=0x5555578b7d90, flags=0, data=0x7fffe02f2700 &quot;RU\n&quot;, size=1334) at /home/mozhucy/qemu-3.0.0/net/queue.c:164</span><br><span class="line">#8  0x0000555555bd7c24 in qemu_net_queue_send (queue=0x55555680c290, sender=0x5555578b7d90, flags=0, data=0x7fffe02f2700 &quot;RU\n&quot;, size=1334, sent_cb=0x0) at /home/mozhucy/qemu-3.0.0/net/queue.c:199</span><br><span class="line">#9  0x0000555555bd4f7e in qemu_send_packet_async_with_flags (sender=0x5555578b7d90, flags=0, buf=0x7fffe02f2700 &quot;RU\n&quot;, size=1334, sent_cb=0x0) at /home/mozhucy/qemu-3.0.0/net/net.c:655</span><br><span class="line">#10 0x0000555555bd4fb6 in qemu_send_packet_async (sender=0x5555578b7d90, buf=0x7fffe02f2700 &quot;RU\n&quot;, size=1334, sent_cb=0x0) at /home/mozhucy/qemu-3.0.0/net/net.c:662</span><br><span class="line">#11 0x0000555555bd4fe3 in qemu_send_packet (nc=0x5555578b7d90, buf=0x7fffe02f2700 &quot;RU\n&quot;, size=1334) at /home/mozhucy/qemu-3.0.0/net/net.c:668</span><br><span class="line">#12 0x0000555555aeb758 in rtl8139_transfer_frame (s=0x5555578b2d30, buf=0x7fffe02f2700 &quot;RU\n&quot;, size=1334, do_interrupt=1, dot1q_buf=0x0) at /home/mozhucy/qemu-3.0.0/hw/net/rtl8139.c:1804</span><br><span class="line">#13 0x0000555555aecb73 in rtl8139_cplus_transmit_one (s=0x5555578b2d30) at /home/mozhucy/qemu-3.0.0/hw/net/rtl8139.c:2332</span><br><span class="line">#14 0x0000555555aecc31 in rtl8139_cplus_transmit (s=0x5555578b2d30) at /home/mozhucy/qemu-3.0.0/hw/net/rtl8139.c:2359</span><br><span class="line">#15 0x0000555555aed8a2 in rtl8139_io_writeb (opaque=0x5555578b2d30, addr=217 &apos;\331&apos;, val=64) at /home/mozhucy/qemu-3.0.0/hw/net/rtl8139.c:2742</span><br><span class="line">#16 0x0000555555aee87f in rtl8139_ioport_write (opaque=0x5555578b2d30, addr=217, val=64, size=1) at /home/mozhucy/qemu-3.0.0/hw/net/rtl8139.c:3279</span><br><span class="line">#17 0x000055555585cbb6 in memory_region_write_accessor (mr=0x5555578b57c0, addr=217, value=0x7fffeedc37e8, size=1, shift=0, mask=255, attrs=...) at /home/mozhucy/qemu-3.0.0/memory.c:527</span><br><span class="line">#18 0x000055555585cdce in access_with_adjusted_size (addr=217, value=0x7fffeedc37e8, size=1, access_size_min=1, access_size_max=4, access_fn=0x55555585cacc &lt;memory_region_write_accessor&gt;, mr=0x5555578b57c0, attrs=...) at /home/mozhucy/qemu-3.0.0/memory.c:594</span><br><span class="line">#19 0x000055555585f9f6 in memory_region_dispatch_write (mr=0x5555578b57c0, addr=217, data=64, size=1, attrs=...) at /home/mozhucy/qemu-3.0.0/memory.c:1473</span><br><span class="line">#20 0x00005555557fba28 in flatview_write_continue (fv=0x7fffe017c000, addr=4273803481, attrs=..., buf=0x7ffff7ff0028 &quot;@\020&quot;, len=1, addr1=217, l=1, mr=0x5555578b57c0) at /home/mozhucy/qemu-3.0.0/exec.c:3255</span><br><span class="line">#21 0x00005555557fbb72 in flatview_write (fv=0x7fffe017c000, addr=4273803481, attrs=..., buf=0x7ffff7ff0028 &quot;@\020&quot;, len=1) at /home/mozhucy/qemu-3.0.0/exec.c:3294</span><br><span class="line">#22 0x00005555557fbe78 in address_space_write (as=0x5555566e6640 &lt;address_space_memory&gt;, addr=4273803481, attrs=..., buf=0x7ffff7ff0028 &quot;@\020&quot;, len=1) at /home/mozhucy/qemu-3.0.0/exec.c:3384</span><br><span class="line">#23 0x00005555557fbec9 in address_space_rw (as=0x5555566e6640 &lt;address_space_memory&gt;, addr=4273803481, attrs=..., buf=0x7ffff7ff0028 &quot;@\020&quot;, len=1, is_write=true) at /home/mozhucy/qemu-3.0.0/exec.c:3395</span><br><span class="line">#24 0x000055555587ac06 in kvm_cpu_exec (cpu=0x555556833070) at /home/mozhucy/qemu-3.0.0/accel/kvm/kvm-all.c:1979</span><br><span class="line">#25 0x0000555555841f35 in qemu_kvm_cpu_thread_fn (arg=0x555556833070) at /home/mozhucy/qemu-3.0.0/cpus.c:1215</span><br><span class="line">#26 0x0000555555d668d7 in qemu_thread_start (args=0x555556854b30) at /home/mozhucy/qemu-3.0.0/util/qemu-thread-posix.c:504</span><br><span class="line">#27 0x00007ffff62526ba in start_thread (arg=0x7fffeedc4700) at pthread_create.c:333</span><br><span class="line">#28 0x00007ffff5f8841d in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:109</span><br></pre></td></tr></table></figure>
+<p>可以看到还是很多的调用流程,不过大概可以梳理出一个流程,28-24属于kvm/多CPU初始化的过程,23-17属于内存的处理过程,16-12属于网卡虚拟化内部的数据流处理流程,11-0属于qemu对于数据包的底层调用,也就是qemu网络的后端实现</p>
+<p>There are two parts to networking within QEMU:</p>
+<ul>
+<li>the virtual network device that is provided to the guest (e.g. a PCI network card).</li>
+<li>the network backend that interacts with the emulated NIC (e.g. puts packets onto the host’s network).</li>
+</ul>
+<p>slirp_input函数作为入口</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> ssize_t <span class="title">net_slirp_receive</span><span class="params">(NetClientState *nc, <span class="keyword">const</span> <span class="keyword">uint8_t</span> *buf, <span class="keyword">size_t</span> size)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    SlirpState *s = DO_UPCAST(SlirpState, nc, nc);</span><br><span class="line"></span><br><span class="line">    slirp_input(s-&gt;slirp, buf, size);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> size;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里是qemu调用slirp_input的地方,可以看到,传入参数为buf,size,还有Slirp结构体,其中buf为网络包的内容size为网络包的大小</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">void slirp_input(Slirp *slirp, const uint8_t *pkt, int pkt_len)</span><br><span class="line">&#123;</span><br><span class="line">    struct mbuf *m;</span><br><span class="line">    int proto;</span><br><span class="line"></span><br><span class="line">    if (pkt_len &lt; ETH_HLEN)</span><br><span class="line">        return;</span><br><span class="line"></span><br><span class="line">    proto = ntohs(*(uint16_t *)(pkt + 12));</span><br><span class="line">    switch(proto) &#123;</span><br><span class="line">    case ETH_P_ARP:</span><br><span class="line">        arp_input(slirp, pkt, pkt_len);</span><br><span class="line">        break;</span><br><span class="line">    case ETH_P_IP:</span><br><span class="line">    case ETH_P_IPV6:</span><br><span class="line">        m = m_get(slirp);</span><br><span class="line">        if (!m)</span><br><span class="line">            return;</span><br><span class="line">        /* Note: we add 2 to align the IP header on 4 bytes,</span><br><span class="line">         * and add the margin for the tcpiphdr overhead  */</span><br><span class="line">        if (M_FREEROOM(m) &lt; pkt_len + TCPIPHDR_DELTA + 2) &#123;</span><br><span class="line">            m_inc(m, pkt_len + TCPIPHDR_DELTA + 2);</span><br><span class="line">        &#125;</span><br><span class="line">        m-&gt;m_len = pkt_len + TCPIPHDR_DELTA + 2;</span><br><span class="line">        memcpy(m-&gt;m_data + TCPIPHDR_DELTA + 2, pkt, pkt_len);</span><br><span class="line"></span><br><span class="line">        m-&gt;m_data += TCPIPHDR_DELTA + 2 + ETH_HLEN;</span><br><span class="line">        m-&gt;m_len -= TCPIPHDR_DELTA + 2 + ETH_HLEN;</span><br><span class="line"></span><br><span class="line">        if (proto == ETH_P_IP) &#123;</span><br><span class="line">            ip_input(m);</span><br><span class="line">        &#125; else if (proto == ETH_P_IPV6) &#123;</span><br><span class="line">            ip6_input(m);</span><br><span class="line">        &#125;</span><br><span class="line">        break;</span><br><span class="line"></span><br><span class="line">    case ETH_P_NCSI:</span><br><span class="line">        ncsi_input(slirp, pkt, pkt_len);</span><br><span class="line">        break;</span><br><span class="line"></span><br><span class="line">    default:</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>到达slirp_input函数后,libslirp开始解析网络包,首先验证packet_len和ETH_HLEN长度的大小,ETH_HLEN为以太帧头部的大小,两个6字节表示mac地址,两字节表示协议</p>
+<p>判断后,取出以太帧传输的协议部分.开始进行数据的分发,这里分为四个case,三个处理块,分别为ARP协议IP协议和NCSI协议</p>
+<p>在ip处理块中,计算了偏移,去除了ETH_HLEN,并且将待处理的值,放到m中</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">mbuf</span> &#123;</span></span><br><span class="line">	<span class="comment">/* XXX should union some of these! */</span></span><br><span class="line">	<span class="comment">/* header at beginning of each mbuf: */</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span>	<span class="title">mbuf</span> *<span class="title">m_next</span>;</span>		<span class="comment">/* Linked list of mbufs */</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span>	<span class="title">mbuf</span> *<span class="title">m_prev</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span>	<span class="title">mbuf</span> *<span class="title">m_nextpkt</span>;</span>	<span class="comment">/* Next packet in queue/record */</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span>	<span class="title">mbuf</span> *<span class="title">m_prevpkt</span>;</span>	<span class="comment">/* Flags aren't used in the output queue */</span></span><br><span class="line">	<span class="keyword">int</span>	m_flags;		<span class="comment">/* Misc flags */</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span>	m_size;			<span class="comment">/* Size of mbuf, from m_dat or m_ext */</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span>	<span class="title">socket</span> *<span class="title">m_so</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">caddr_t</span>	m_data;			<span class="comment">/* Current location of data */</span></span><br><span class="line">	<span class="keyword">int</span>	m_len;			<span class="comment">/* Amount of data in this mbuf, from m_data */</span></span><br><span class="line"></span><br><span class="line">	Slirp *slirp;</span><br><span class="line">	<span class="keyword">bool</span>	resolution_requested;</span><br><span class="line">	<span class="keyword">uint64_t</span> expiration_date;</span><br><span class="line">	<span class="keyword">char</span>   *m_ext;</span><br><span class="line">	<span class="comment">/* start of dynamic buffer area, must be last element */</span></span><br><span class="line">	<span class="keyword">char</span>    m_dat[];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以看到mbuf是由一个双向链表所维护的,还包括了socket结构体,data指针和长度</p>
 
-分析checkflag函数
-发现其中先定义了一个二维数组,然后将其传入一个enc函数,这个函数是反编译不出来的,应该是加了壳
-后分析libcore.so函数,发现其中有一个函数名以及函数的操作很可疑,函数首先将一串加密过的字符串还原,然后经过几个类似于取解密后字符串中的括号括起来的部分,按照函数原有逻辑顺序解一下,发现了主要check函数的名字,后面还接了地址(0x159CBC)
-根...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
     </article>
+    <!-- license  -->
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/python_pyc/" >
-            
-                <span>Python的一些底层原理</span>
-        </a>
-        <div class="abstract-content">
-            
-踩了太多次坑了,从前几个月的suctf开始,pyc文件逆向越来越多的出现在各种比赛中,正好借这个机会好好熟悉一下Python的底层
-Python的一些底层实现
-python常常被当做是一门解释型语言,但是实际上,Python的底层和java等语言非常相近,都是一门基于虚拟机的语言,当用户在命令行输入python test.py时,实际上进行的是一个编译的过程
-
-.pyc也就是Python编译好的文件,在一般情况下,编译出的字节码是存在于内存中的,当Python运行结束后,就会释放掉内存,或者写入.pyc文件,被我们看到,如果这个时候再次运行.py文件,python解释器会先在目录下中查...
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://mozhucy.cn">MozhuCY</a>
+            <p>原文链接：<a href="http://mozhucy.cn/2020/03/03/socket/">http://mozhucy.cn/2020/03/03/socket/</a>
+            <p>发表日期：<a href="http://mozhucy.cn/2020/03/03/socket/">March 3rd 2020, 8:51:01 am</a>
+            <p>更新日期：<a href="http://mozhucy.cn/2020/03/03/socket/">March 4th 2020, 11:45:42 pm</a>
+            <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/DLL注入0x1/" >
-            
-                <span>初试windows消息钩取</span>
-        </a>
-        <div class="abstract-content">
-            windows消息流:&lt;/br&gt;发生键盘输入事件时,WM_KEYDOWN消息添加到系统消息队列.&lt;/br&gt;系统判断哪个应用程序中发生了时间,然后从消息队列中取出消息,添加到相应应用程序的应用程序消息队列&lt;/br&gt;应用程序监视自身的[应用程序消息队列],发现新添加的WM_KEYDOWN,调用相应的事件处理程序处理.&lt;/br&gt;
-hook在OS消息队列与应用程序消息队列存在一条”钩链”,设置好键盘钩子后,钩子会比应用程序先看到程序相应消息,钩子还可以修改,拦截消息.
-SetWindowsHookEx()123456HHOOK SetWindows...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/9102/07/29/杂谈/" title= "写在前面">
+                    <div class="nextTitle">写在前面</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2020/02/28/内存虚拟化/" title= "内存虚拟化">
+                    <div class="prevTitle">内存虚拟化</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
-    <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/categories/RE/page/3/">&#60; PREV</a><a class="page-number" href="/categories/RE/">1</a><a class="page-number" href="/categories/RE/page/2/">2</a><a class="page-number" href="/categories/RE/page/3/">3</a><span class="page-number current">4</span>
-    </nav>
     
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -513,6 +549,24 @@ SetWindowsHookEx()123456HHOOK SetWindows...
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一切皆socket"><span class="toc-number">1.</span> <span class="toc-text">一切皆socket</span></a></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -3130,6 +3184,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
