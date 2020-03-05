@@ -266,7 +266,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.1k</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.2k</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -438,6 +438,9 @@ height:50vh;
 <h1 id="2020-3-4"><a href="#2020-3-4" class="headerlink" title="2020-3-4"></a>2020-3-4</h1><p>继续梳理slirp,学fuzz,全网搜漏洞</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;stdint.h&gt;</span><br><span class="line"></span><br><span class="line">struct ip&#123;</span><br><span class="line">        uint8_t a:1,b:1,c:1,d:1,e:1,f:1,g:1,h:1;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">		register int t asm(&quot;eax&quot;);</span><br><span class="line">        struct ip a;</span><br><span class="line">        a.a = 1;</span><br><span class="line">        a.e = 1;</span><br><span class="line">        a.h = 1;</span><br><span class="line">        printf(&quot;%02x\n&quot;,*(uint8_t *)&amp;a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>还能这样玩</p>
+<h1 id="2020-3-5"><a href="#2020-3-5" class="headerlink" title="2020-3-5"></a>2020-3-5</h1><p>看了MemoryRegion AddressSpace RAMBlock qemu内存虚拟化,一直在调试slirp上层函数.慢慢对内存虚拟化有了理解了</p>
+<p>MemoryRegion作为主体,AddressSpace连接了GPA,RAMBlock连接了HVA,他们以链表的结构管理</p>
+<p>了解了一下ip分片,明天继续调试</p>
 
     </article>
     <!-- license  -->
@@ -446,7 +449,7 @@ height:50vh;
             <p>原文作者：<a href="http://mozhucy.cn">MozhuCY</a>
             <p>原文链接：<a href="http://mozhucy.cn/9102/07/29/杂谈/">http://mozhucy.cn/9102/07/29/杂谈/</a>
             <p>发表日期：<a href="http://mozhucy.cn/9102/07/29/杂谈/">July 29th 9102, 12:00:00 am</a>
-            <p>更新日期：<a href="http://mozhucy.cn/9102/07/29/杂谈/">March 5th 2020, 12:05:05 am</a>
+            <p>更新日期：<a href="http://mozhucy.cn/9102/07/29/杂谈/">March 5th 2020, 11:42:05 pm</a>
             <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -578,7 +581,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#2019-7-28"><span class="toc-number">1.</span> <span class="toc-text">2019-7-28</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2019-7-29"><span class="toc-number">2.</span> <span class="toc-text">2019-7-29</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-2-22"><span class="toc-number">3.</span> <span class="toc-text">2020-2-22</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-2-24"><span class="toc-number">4.</span> <span class="toc-text">2020-2-24</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-2-25"><span class="toc-number">5.</span> <span class="toc-text">2020-2-25</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-2-26"><span class="toc-number">6.</span> <span class="toc-text">2020-2-26</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-2-27"><span class="toc-number">7.</span> <span class="toc-text">2020-2-27</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-2-28"><span class="toc-number">8.</span> <span class="toc-text">2020-2-28</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-2-29"><span class="toc-number">9.</span> <span class="toc-text">2020-2-29</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-3-1"><span class="toc-number">10.</span> <span class="toc-text">2020-3-1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-3-2"><span class="toc-number">11.</span> <span class="toc-text">2020-3-2</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-3-4"><span class="toc-number">12.</span> <span class="toc-text">2020-3-4</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#2019-7-28"><span class="toc-number">1.</span> <span class="toc-text">2019-7-28</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2019-7-29"><span class="toc-number">2.</span> <span class="toc-text">2019-7-29</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-2-22"><span class="toc-number">3.</span> <span class="toc-text">2020-2-22</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-2-24"><span class="toc-number">4.</span> <span class="toc-text">2020-2-24</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-2-25"><span class="toc-number">5.</span> <span class="toc-text">2020-2-25</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-2-26"><span class="toc-number">6.</span> <span class="toc-text">2020-2-26</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-2-27"><span class="toc-number">7.</span> <span class="toc-text">2020-2-27</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-2-28"><span class="toc-number">8.</span> <span class="toc-text">2020-2-28</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-2-29"><span class="toc-number">9.</span> <span class="toc-text">2020-2-29</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-3-1"><span class="toc-number">10.</span> <span class="toc-text">2020-3-1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-3-2"><span class="toc-number">11.</span> <span class="toc-text">2020-3-2</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-3-4"><span class="toc-number">12.</span> <span class="toc-text">2020-3-4</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-3-5"><span class="toc-number">13.</span> <span class="toc-text">2020-3-5</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
