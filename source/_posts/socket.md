@@ -232,7 +232,7 @@ ip_input(struct mbuf *m)
 	 *
 	 * XXX This should fail, don't fragment yet
 	 */
-	if (ip->ip_off &~ IP_DF) {
+	if (ip->ip_off &~ IP_DF) {//IP分片处理
 	  register struct ipq *fp;
       struct qlink *l;
 		/*
@@ -284,7 +284,7 @@ ip_input(struct mbuf *m)
 	/*
 	 * Switch out to protocol's input routine.
 	 */
-	switch (ip->ip_p) {
+	switch (ip->ip_p) { //选择协议模拟
 	 case IPPROTO_TCP:
 		tcp_input(m, hlen, (struct socket *)NULL, AF_INET);
 		break;
@@ -302,4 +302,6 @@ bad:
 	m_free(m);
 }
 ```
+
+可以看到这里是对数据包的检测以及分段的模拟等,随后进入到协议模拟
 
