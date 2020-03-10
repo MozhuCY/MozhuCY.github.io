@@ -401,11 +401,11 @@ anti ollvm
                 <span>公益CTF</span>
         </a>
         <div class="abstract-content">
-            这两天打了这个,做了几道pwn和逆向
+            这两天打了这个,做了几道pwn
 EasyVM一个自定义指令集的VM,逆向可以发现几个功能,分别是输入字节码,执行字节码,gift和退出
 保护全开,不能写got表.gift给了一个leak,可以直接算出地址,这里梳理出流程直接用z3解了,在字节码中,可以看到getchar和putchar没有检测下标啊,任意地址读写了
 直接读malloc的got表,然后leak libcbase,后面直接写free hook为system,然后将R0和R1寄存器写上字符串,触发free
-1234567891011121314151617181920212223242526272829303132333...
+1234567891011121314151617181920212223242526272829303132333435...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
