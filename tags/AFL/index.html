@@ -346,65 +346,35 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/babyheap/" >
+        <a class="abstract-title" href = "/2020/03/13/afl-qemu/" >
             
-                <span>babyheap</span>
+                <span>afl-qemu</span>
         </a>
         <div class="abstract-content">
-            网鼎杯第一场
-程序功能:新建,编辑,打印,free
-free处没有置空指针,导致可以uaf
-malloc每次都是0x20的fastbin,编辑功能可以使用3次
-自写了readn函数,没有溢出点
-edit可以修改free后堆块的bk,fd
-
-12345Arch:     amd64-64-littleRELRO:    Full RELROStack:    Canary foundNX:       NX enabledPIE:      No PIE (0x400000)
-
-Full RELRO导致got表不可写,所以只能劫持malloc_hook或者freehook来劫持程序的流程
-...
+            qemu user emulation先来了解一下qemu的用户模式,qemu可以单独运行一个其他架构的程序,同时也可以模拟出另一个架构的操作系统,在qemu进行模拟时,实际上存在一个指令翻译的过程,也就是TCG部分
+初始化流程:
+12345678qemu初始化,参数转储tcg初始化cpu初始化加载可执行文件syscall初始化signal初始化gdbserver初始化(可选项)cpu_loop开始模拟
+在这里qemu会分析elf结构,mmap分配内存将所需的库都读入内存,开始翻译-&gt;执行,并且在遇到中断时模拟syscall,
+cpu_loop流程:
+12345for(;;)&#1...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/03/13</span>
             </div>
             <!-- tags  -->
             
-        </div>
-    </article>
+            <div class= abstract-tags >
     
+        <a class="post-tag" href="javascript:void(0);" data-tags = "AFL">AFL</a>
     
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/malloc源码精读总结/" >
-            
-                <span>malloc源码精读总结</span>
-        </a>
-        <div class="abstract-content">
-            之前草草读过一次源码以及华庭的源码分析,最近又有一些生疏了,决定用几周的时间精读一下
-一些个人对特性的总结理解__libc_malloc
-malloc执行的开始
-
-12345678910void *__libc_malloc (size_t bytes) &#123;  mstate ar_ptr;  void *victim;  void *(*hook) (size_t, const void *)     = atomic_forced_read (__malloc_hook);  if (__builtin_expect (hook != NULL, 0))    return ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
+</div>
             
         </div>
     </article>
     
     <!-- paginator  -->
-    
-    <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/categories/PWN/">&#60; PREV</a><a class="page-number" href="/categories/PWN/">1</a><span class="page-number current">2</span>
-    </nav>
     
 </main>
             <!-- profile -->

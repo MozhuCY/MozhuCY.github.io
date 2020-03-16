@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>MozhuCY&#39;s blog</title>
+    <title>afl-qemu · MozhuCY&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >MozhuCY&#39;s blog.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">afl-qemu</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>MozhuCY's blog.</a>
 </header>
@@ -220,24 +231,74 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            afl-qemu
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "AFL">AFL</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">1.8k</span>阅读时长: <span class="post-count reading-time">10 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/03/13</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -338,74 +399,79 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/babyheap/" >
-            
-                <span>babyheap</span>
-        </a>
-        <div class="abstract-content">
-            网鼎杯第一场
-程序功能:新建,编辑,打印,free
-free处没有置空指针,导致可以uaf
-malloc每次都是0x20的fastbin,编辑功能可以使用3次
-自写了readn函数,没有溢出点
-edit可以修改free后堆块的bk,fd
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="qemu-user-emulation"><a href="#qemu-user-emulation" class="headerlink" title="qemu user emulation"></a>qemu user emulation</h1><p>先来了解一下qemu的用户模式,qemu可以单独运行一个其他架构的程序,同时也可以模拟出另一个架构的操作系统,在qemu进行模拟时,实际上存在一个指令翻译的过程,也就是TCG部分</p>
+<p>初始化流程:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">qemu初始化,参数转储</span><br><span class="line">tcg初始化</span><br><span class="line">cpu初始化</span><br><span class="line">加载可执行文件</span><br><span class="line">syscall初始化</span><br><span class="line">signal初始化</span><br><span class="line">gdbserver初始化(可选项)</span><br><span class="line">cpu_loop开始模拟</span><br></pre></td></tr></table></figure>
+<p>在这里qemu会分析elf结构,mmap分配内存将所需的库都读入内存,开始翻译-&gt;执行,并且在遇到中断时模拟syscall,</p>
+<p>cpu_loop流程:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(;;)</span><br><span class="line">&#123;</span><br><span class="line">	cpu_exec()</span><br><span class="line">	<span class="keyword">switch</span>(处理退出事件)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="afl-qemu-mode"><a href="#afl-qemu-mode" class="headerlink" title="afl qemu mode"></a>afl qemu mode</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1) Introduction</span><br><span class="line">---------------</span><br><span class="line"></span><br><span class="line">The code in this directory allows you to build a standalone feature that</span><br><span class="line">leverages the QEMU &quot;user emulation&quot; mode and allows callers to obtain</span><br><span class="line">instrumentation output for black-box, closed-source binaries. This mechanism</span><br><span class="line">can be then used by afl-fuzz to stress-test targets that couldn&apos;t be built</span><br><span class="line">with afl-gcc.</span><br><span class="line"></span><br><span class="line">The usual performance cost is 2-5x, which is considerably better than</span><br><span class="line">seen so far in experiments with tools such as DynamoRIO and PIN.</span><br><span class="line"></span><br><span class="line">The idea and much of the implementation comes from Andrew Griffiths.</span><br></pre></td></tr></table></figure>
+<p>它是基于qemu user emulation模式的,也就是qemu的作用是运行程序和实时翻译模拟syscall,而不是system模式的模拟整个系统和外围硬件.</p>
+<p>afl的qemu模式一般用于那些没有源码的文件fuzz,接下来解析一下qemu模式的原理</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line"><span class="meta">#</span><span class="bash"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Copyright 2015 Google LLC All rights reserved.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Licensed under the Apache License, Version 2.0 (the <span class="string">"License"</span>);</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> you may not use this file except <span class="keyword">in</span> compliance with the License.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> You may obtain a copy of the License at:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">   http://www.apache.org/licenses/LICENSE-2.0</span></span><br><span class="line"><span class="meta">#</span><span class="bash"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Unless required by applicable law or agreed to <span class="keyword">in</span> writing, software</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> distributed under the License is distributed on an <span class="string">"AS IS"</span> BASIS,</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> See the License <span class="keyword">for</span> the specific language governing permissions and</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> limitations under the License.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -----------------------------------------</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> american fuzzy lop - QEMU build script</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> --------------------------------------</span></span><br><span class="line"><span class="meta">#</span><span class="bash"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Written by Andrew Griffiths &lt;agriffiths@google.com&gt; and</span></span><br><span class="line"><span class="meta">#</span><span class="bash">            Michal Zalewski &lt;lcamtuf@google.com&gt;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> This script downloads, patches, and builds a version of QEMU with</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> minor tweaks to allow non-instrumented binaries to be run under</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> afl-fuzz. </span></span><br><span class="line"><span class="meta">#</span><span class="bash"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> The modifications reside <span class="keyword">in</span> patches/*. The standalone QEMU binary</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> will be written to ../afl-qemu-trace.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">VERSION="2.10.0"</span><br><span class="line">QEMU_URL="http://download.qemu-project.org/qemu-$&#123;VERSION&#125;.tar.xz"</span><br><span class="line">QEMU_SHA384="68216c935487bc8c0596ac309e1e3ee75c2c4ce898aab796faa321db5740609ced365fedda025678d072d09ac8928105"</span><br><span class="line"></span><br><span class="line">echo "================================================="</span><br><span class="line">echo "AFL binary-only instrumentation QEMU build script"</span><br><span class="line">echo "================================================="</span><br><span class="line">echo</span><br><span class="line"></span><br><span class="line">echo "[*] Performing basic sanity checks..."</span><br><span class="line"></span><br><span class="line">if [ ! "`uname -s`" = "Linux" ]; then</span><br><span class="line"></span><br><span class="line">  echo "[-] Error: QEMU instrumentation is supported only on Linux."</span><br><span class="line">  exit 1</span><br><span class="line"></span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [ ! -f "patches/afl-qemu-cpu-inl.h" -o ! -f "../config.h" ]; then</span><br><span class="line"></span><br><span class="line">  echo "[-] Error: key files not found - wrong working directory?"</span><br><span class="line">  exit 1</span><br><span class="line"></span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [ ! -f "../afl-showmap" ]; then</span><br><span class="line"></span><br><span class="line">  echo "[-] Error: ../afl-showmap not found - compile AFL first!"</span><br><span class="line">  exit 1</span><br><span class="line"></span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">for i in libtool wget python automake autoconf sha384sum bison iconv; do</span><br><span class="line"></span><br><span class="line">  T=`which "$i" 2&gt;/dev/null`</span><br><span class="line"></span><br><span class="line">  if [ "$T" = "" ]; then</span><br><span class="line"></span><br><span class="line">    echo "[-] Error: '$i' not found, please install first."</span><br><span class="line">    exit 1</span><br><span class="line"></span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">if [ ! -d "/usr/include/glib-2.0/" -a ! -d "/usr/local/include/glib-2.0/" ]; then</span><br><span class="line"></span><br><span class="line">  echo "[-] Error: devel version of 'glib2' not found, please install first."</span><br><span class="line">  exit 1</span><br><span class="line"></span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if echo "$CC" | grep -qF /afl-; then</span><br><span class="line"></span><br><span class="line">  echo "[-] Error: do not use afl-gcc or afl-clang to compile this tool."</span><br><span class="line">  exit 1</span><br><span class="line"></span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo "[+] All checks passed!"</span><br><span class="line"></span><br><span class="line">ARCHIVE="`basename -- "$QEMU_URL"`"</span><br><span class="line"></span><br><span class="line">CKSUM=`sha384sum -- "$ARCHIVE" 2&gt;/dev/null | cut -d' ' -f1`</span><br><span class="line"></span><br><span class="line">if [ ! "$CKSUM" = "$QEMU_SHA384" ]; then</span><br><span class="line"></span><br><span class="line">  echo "[*] Downloading QEMU $&#123;VERSION&#125; from the web..."</span><br><span class="line">  rm -f "$ARCHIVE"</span><br><span class="line">  wget -O "$ARCHIVE" -- "$QEMU_URL" || exit 1</span><br><span class="line"></span><br><span class="line">  CKSUM=`sha384sum -- "$ARCHIVE" 2&gt;/dev/null | cut -d' ' -f1`</span><br><span class="line"></span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [ "$CKSUM" = "$QEMU_SHA384" ]; then</span><br><span class="line"></span><br><span class="line">  echo "[+] Cryptographic signature on $ARCHIVE checks out."</span><br><span class="line"></span><br><span class="line">else</span><br><span class="line"></span><br><span class="line">  echo "[-] Error: signature mismatch on $ARCHIVE (perhaps download error?)."</span><br><span class="line">  exit 1</span><br><span class="line"></span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo "[*] Uncompressing archive (this will take a while)..."</span><br><span class="line"></span><br><span class="line">rm -rf "qemu-$&#123;VERSION&#125;" || exit 1</span><br><span class="line">tar xf "$ARCHIVE" || exit 1</span><br><span class="line"></span><br><span class="line">echo "[+] Unpacking successful."</span><br><span class="line"></span><br><span class="line">echo "[*] Configuring QEMU for $CPU_TARGET..."</span><br><span class="line"></span><br><span class="line">ORIG_CPU_TARGET="$CPU_TARGET"</span><br><span class="line"></span><br><span class="line">test "$CPU_TARGET" = "" &amp;&amp; CPU_TARGET="`uname -m`"</span><br><span class="line">test "$CPU_TARGET" = "i686" &amp;&amp; CPU_TARGET="i386"</span><br><span class="line"></span><br><span class="line">cd qemu-$VERSION || exit 1</span><br><span class="line"></span><br><span class="line">echo "[*] Applying patches..."</span><br><span class="line"></span><br><span class="line">patch -p1 &lt;../patches/elfload.diff || exit 1</span><br><span class="line">patch -p1 &lt;../patches/cpu-exec.diff || exit 1</span><br><span class="line">patch -p1 &lt;../patches/syscall.diff || exit 1</span><br><span class="line">patch -p1 &lt;../patches/configure.diff || exit 1</span><br><span class="line">patch -p1 &lt;../patches/memfd.diff || exit 1</span><br><span class="line"></span><br><span class="line">echo "[+] Patching done."</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> --<span class="built_in">enable</span>-pie seems to give a couple of <span class="built_in">exec</span><span class="string">'s a second performance</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> improvement, much to my surprise. Not sure how universal this is..</span></span><br><span class="line"></span><br><span class="line">CFLAGS="-O3 -ggdb" ./configure --disable-system \</span><br><span class="line">  --enable-linux-user --disable-gtk --disable-sdl --disable-vnc \</span><br><span class="line">  --target-list="$&#123;CPU_TARGET&#125;-linux-user" --enable-pie --enable-kvm || exit 1</span><br><span class="line"></span><br><span class="line">echo "[+] Configuration complete."</span><br><span class="line"></span><br><span class="line">echo "[*] Attempting to build QEMU (fingers crossed!)..."</span><br><span class="line"></span><br><span class="line">make || exit 1</span><br><span class="line"></span><br><span class="line">echo "[+] Build process successful!"</span><br><span class="line"></span><br><span class="line">echo "[*] Copying binary..."</span><br><span class="line"></span><br><span class="line">cp -f "$&#123;CPU_TARGET&#125;-linux-user/qemu-$&#123;CPU_TARGET&#125;" "../../afl-qemu-trace" || exit 1</span><br><span class="line"></span><br><span class="line">cd ..</span><br><span class="line">ls -l ../afl-qemu-trace || exit 1</span><br><span class="line"></span><br><span class="line">echo "[+] Successfully created '../afl-qemu-trace'."</span><br><span class="line"></span><br><span class="line">if [ "$ORIG_CPU_TARGET" = "" ]; then</span><br><span class="line"></span><br><span class="line">  echo "[*] Testing the build..."</span><br><span class="line"></span><br><span class="line">  cd ..</span><br><span class="line"></span><br><span class="line">  make &gt;/dev/null || exit 1</span><br><span class="line"></span><br><span class="line">  gcc test-instr.c -o test-instr || exit 1</span><br><span class="line"></span><br><span class="line">  unset AFL_INST_RATIO</span><br><span class="line"></span><br><span class="line"><span class="meta">  #</span><span class="bash"> We shouldn<span class="string">'t need the /dev/null hack because program isn'</span>t compiled with any</span></span><br><span class="line"><span class="meta">  #</span><span class="bash"> optimizations.</span></span><br><span class="line">  echo 0 | ./afl-showmap -m none -Q -q -o .test-instr0 ./test-instr || exit 1</span><br><span class="line">  echo 1 | ./afl-showmap -m none -Q -q -o .test-instr1 ./test-instr || exit 1</span><br><span class="line"></span><br><span class="line">  rm -f test-instr</span><br><span class="line"></span><br><span class="line">  cmp -s .test-instr0 .test-instr1</span><br><span class="line">  DR="$?"</span><br><span class="line"></span><br><span class="line">  rm -f .test-instr0 .test-instr1</span><br><span class="line"></span><br><span class="line">  if [ "$DR" = "0" ]; then</span><br><span class="line"></span><br><span class="line">    echo "[-] Error: afl-qemu-trace instrumentation doesn't seem to work!"</span><br><span class="line">    exit 1</span><br><span class="line"></span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line">  echo "[+] Instrumentation tests passed. "</span><br><span class="line">  echo "[+] All set, you can now use the -Q mode in afl-fuzz!"</span><br><span class="line"></span><br><span class="line">else</span><br><span class="line"></span><br><span class="line">  echo "[!] Note: can't test instrumentation when CPU_TARGET set."</span><br><span class="line">  echo "[+] All set, you can now (hopefully) use the -Q mode in afl-fuzz!"</span><br><span class="line"></span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+<p>可以看到前面是一些检测,包括变异检测和依赖库的检测</p>
+<p>提交patch,然后configure,编译</p>
+<p><img src="/2020/03/13/afl-qemu/1584113747499.png" alt="1584113747499"></p>
+<p>然后将这个qemu-x86_64复制出去,重命名为afl-qemu-trace,并且测试是否生效,可以看到,最主要的地方就是在diff文件中,下面来分析diff文件</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--- qemu-2.10.0-rc3-clean/linux-user/elfload.c	2017-08-15 11:39:41.000000000 -0700</span></span><br><span class="line"><span class="comment">+++ qemu-2.10.0-rc3/linux-user/elfload.c	2017-08-22 14:33:57.397127516 -0700</span></span><br><span class="line"><span class="meta">@@ -20,6 +20,8 @@</span></span><br><span class="line"> </span><br><span class="line"> #define ELF_OSABI   ELFOSABI_SYSV</span><br><span class="line"> </span><br><span class="line"><span class="addition">+extern abi_ulong afl_entry_point, afl_start_code, afl_end_code;</span></span><br><span class="line"><span class="addition">+</span></span><br><span class="line"> /* from personality.h */</span><br><span class="line"> </span><br><span class="line"> /*</span><br><span class="line"><span class="meta">@@ -2085,6 +2087,8 @@</span></span><br><span class="line">     info-&gt;brk = 0;</span><br><span class="line">     info-&gt;elf_flags = ehdr-&gt;e_flags;</span><br><span class="line"> </span><br><span class="line"><span class="addition">+    if (!afl_entry_point) afl_entry_point = info-&gt;entry;</span></span><br><span class="line"><span class="addition">+</span></span><br><span class="line">     for (i = 0; i &lt; ehdr-&gt;e_phnum; i++) &#123;</span><br><span class="line">         struct elf_phdr *eppnt = phdr + i;</span><br><span class="line">         if (eppnt-&gt;p_type == PT_LOAD) &#123;</span><br><span class="line"><span class="meta">@@ -2118,9 +2122,11 @@</span></span><br><span class="line">             if (elf_prot &amp; PROT_EXEC) &#123;</span><br><span class="line">                 if (vaddr &lt; info-&gt;start_code) &#123;</span><br><span class="line">                     info-&gt;start_code = vaddr;</span><br><span class="line"><span class="addition">+                    if (!afl_start_code) afl_start_code = vaddr;</span></span><br><span class="line">                 &#125;</span><br><span class="line">                 if (vaddr_ef &gt; info-&gt;end_code) &#123;</span><br><span class="line">                     info-&gt;end_code = vaddr_ef;</span><br><span class="line"><span class="addition">+                    if (!afl_end_code) afl_end_code = vaddr_ef;</span></span><br><span class="line">                 &#125;</span><br><span class="line">             &#125;</span><br><span class="line">             if (elf_prot &amp; PROT_WRITE) &#123;</span><br></pre></td></tr></table></figure>
+<p>elfload中,新增了三个变量,入口点和代码的start,end.并且在elf文件解析时,获取这些地址</p>
+<p>cpu-exec中</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--- qemu-2.10.0-rc3-clean/accel/tcg/cpu-exec.c	2017-08-15 11:39:41.000000000 -0700</span></span><br><span class="line"><span class="comment">+++ qemu-2.10.0-rc3/accel/tcg/cpu-exec.c	2017-08-22 14:34:55.868730680 -0700</span></span><br><span class="line"><span class="meta">@@ -36,6 +36,8 @@</span></span><br><span class="line"> #include "sysemu/cpus.h"</span><br><span class="line"> #include "sysemu/replay.h"</span><br><span class="line"> </span><br><span class="line"><span class="addition">+#include "../patches/afl-qemu-cpu-inl.h"</span></span><br><span class="line"><span class="addition">+</span></span><br><span class="line"> /* -icount align implementation. */</span><br><span class="line"> </span><br><span class="line"> typedef struct SyncClocks &#123;</span><br><span class="line"><span class="meta">@@ -144,6 +146,8 @@</span></span><br><span class="line">     int tb_exit;</span><br><span class="line">     uint8_t *tb_ptr = itb-&gt;tc_ptr;</span><br><span class="line"> </span><br><span class="line"><span class="addition">+    AFL_QEMU_CPU_SNIPPET2;</span></span><br><span class="line"><span class="addition">+</span></span><br><span class="line">     qemu_log_mask_and_addr(CPU_LOG_EXEC, itb-&gt;pc,</span><br><span class="line">                            "Trace %p [%d: " TARGET_FMT_lx "] %s\n",</span><br><span class="line">                            itb-&gt;tc_ptr, cpu-&gt;cpu_index, itb-&gt;pc,</span><br><span class="line"><span class="meta">@@ -365,6 +369,7 @@</span></span><br><span class="line">             if (!tb) &#123;</span><br><span class="line">                 /* if no translated code available, then translate it now */</span><br><span class="line">                 tb = tb_gen_code(cpu, pc, cs_base, flags, 0);</span><br><span class="line"><span class="addition">+                AFL_QEMU_CPU_SNIPPET1;</span></span><br><span class="line">             &#125;</span><br><span class="line"> </span><br><span class="line">             mmap_unlock();</span><br></pre></td></tr></table></figure>
+<p>可以看到加入了一个头文件,并且在两个位置加入了两端宏定义的东西</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* A snippet patched into tb_find_slow to inform the parent process that</span></span><br><span class="line"><span class="comment">   we have hit a new block that hasn't been translated yet, and to tell</span></span><br><span class="line"><span class="comment">   it to translate within its own context, too (this avoids translation</span></span><br><span class="line"><span class="comment">   overhead in the next forked-off copy). */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> AFL_QEMU_CPU_SNIPPET1 do &#123; \</span></span><br><span class="line">    afl_request_tsl(pc, cs_base, flags); \</span><br><span class="line">  &#125; <span class="keyword">while</span> (<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">/* This snippet kicks in when the instruction pointer is positioned at</span></span><br><span class="line"><span class="comment">   _start and does the usual forkserver stuff, not very different from</span></span><br><span class="line"><span class="comment">   regular instrumentation injected via afl-as.h. */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> AFL_QEMU_CPU_SNIPPET2 do &#123; \</span></span><br><span class="line">    <span class="keyword">if</span>(itb-&gt;pc == afl_entry_point) &#123; \</span><br><span class="line">      afl_setup(); \</span><br><span class="line">      afl_forkserver(cpu); \</span><br><span class="line">    &#125; \</span><br><span class="line">    afl_maybe_log(itb-&gt;pc); \</span><br><span class="line">  &#125; <span class="keyword">while</span> (<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>第二处patch是位于cpu_tb_exec,也就是执行TB的函数,在entry point的地方,执行afl_setup,并且fork,然后对于覆盖率的计算.</p>
+<p>afl_request_tsl则是为了实现翻译的加速</p>
+<p>syscall.diff</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--- qemu-2.10.0-rc3-clean/linux-user/syscall.c	2017-08-15 11:39:41.000000000 -0700</span></span><br><span class="line"><span class="comment">+++ qemu-2.10.0-rc3/linux-user/syscall.c	2017-08-22 14:34:03.193088186 -0700</span></span><br><span class="line"><span class="meta">@@ -116,6 +116,8 @@</span></span><br><span class="line"> </span><br><span class="line"> #include "qemu.h"</span><br><span class="line"> </span><br><span class="line"><span class="addition">+extern unsigned int afl_forksrv_pid;</span></span><br><span class="line"><span class="addition">+</span></span><br><span class="line"> #ifndef CLONE_IO</span><br><span class="line"> #define CLONE_IO                0x80000000      /* Clone io context */</span><br><span class="line"> #endif</span><br><span class="line"><span class="meta">@@ -11688,8 +11690,21 @@</span></span><br><span class="line">         break;</span><br><span class="line"> </span><br><span class="line">     case TARGET_NR_tgkill:</span><br><span class="line"><span class="deletion">-        ret = get_errno(safe_tgkill((int)arg1, (int)arg2,</span></span><br><span class="line"><span class="deletion">-                        target_to_host_signal(arg3)));</span></span><br><span class="line"><span class="addition">+</span></span><br><span class="line"><span class="addition">+        &#123;</span></span><br><span class="line"><span class="addition">+          int pid  = (int)arg1,</span></span><br><span class="line"><span class="addition">+              tgid = (int)arg2,</span></span><br><span class="line"><span class="addition">+              sig  = (int)arg3;</span></span><br><span class="line"><span class="addition">+</span></span><br><span class="line"><span class="addition">+          /* Not entirely sure if the below is correct for all architectures. */</span></span><br><span class="line"><span class="addition">+</span></span><br><span class="line"><span class="addition">+          if(afl_forksrv_pid &amp;&amp; afl_forksrv_pid == pid &amp;&amp; sig == SIGABRT)</span></span><br><span class="line"><span class="addition">+              pid = tgid = getpid();</span></span><br><span class="line"><span class="addition">+</span></span><br><span class="line"><span class="addition">+          ret = get_errno(safe_tgkill(pid, tgid, target_to_host_signal(sig)));</span></span><br><span class="line"><span class="addition">+</span></span><br><span class="line"><span class="addition">+        &#125;</span></span><br><span class="line"><span class="addition">+</span></span><br><span class="line">         break;</span><br><span class="line"> </span><br><span class="line"> #ifdef TARGET_NR_set_robust_list</span><br></pre></td></tr></table></figure>
+<p>在异常处理中,记录</p>
+<p>综上,afl在patch后的qemu的代码翻译阶段加入指令插装代码,在entry point时初始化插装,然后计算覆盖率进行计算</p>
 
-12345Arch:     amd64-64-littleRELRO:    Full RELROStack:    Canary foundNX:       NX enabledPIE:      No PIE (0x400000)
-
-Full RELRO导致got表不可写,所以只能劫持malloc_hook或者freehook来劫持程序的流程
-...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
     </article>
+    <!-- license  -->
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/1970/01/01/malloc源码精读总结/" >
-            
-                <span>malloc源码精读总结</span>
-        </a>
-        <div class="abstract-content">
-            之前草草读过一次源码以及华庭的源码分析,最近又有一些生疏了,决定用几周的时间精读一下
-一些个人对特性的总结理解__libc_malloc
-malloc执行的开始
-
-12345678910void *__libc_malloc (size_t bytes) &#123;  mstate ar_ptr;  void *victim;  void *(*hook) (size_t, const void *)     = atomic_forced_read (__malloc_hook);  if (__builtin_expect (hook != NULL, 0))    return ...
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://mozhucy.cn">MozhuCY</a>
+            <p>原文链接：<a href="http://mozhucy.cn/2020/03/13/afl-qemu/">http://mozhucy.cn/2020/03/13/afl-qemu/</a>
+            <p>发表日期：<a href="http://mozhucy.cn/2020/03/13/afl-qemu/">March 13th 2020, 11:23:59 pm</a>
+            <p>更新日期：<a href="http://mozhucy.cn/2020/03/13/afl-qemu/">March 16th 2020, 11:50:37 pm</a>
+            <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">1970/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/9102/07/29/杂谈/" title= "写在前面">
+                    <div class="nextTitle">写在前面</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2020/03/09/gongyi/" title= "公益CTF">
+                    <div class="prevTitle">公益CTF</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
-    <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/categories/PWN/">&#60; PREV</a><a class="page-number" href="/categories/PWN/">1</a><span class="page-number current">2</span>
-    </nav>
     
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -490,6 +556,24 @@ malloc执行的开始
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#qemu-user-emulation"><span class="toc-number">1.</span> <span class="toc-text">qemu user emulation</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#afl-qemu-mode"><span class="toc-number">2.</span> <span class="toc-text">afl qemu mode</span></a></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -3169,6 +3253,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
